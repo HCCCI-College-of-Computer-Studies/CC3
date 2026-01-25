@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 15-16: User Interface 02 - CC3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>CC3: Computer Programming</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#syllabus">Syllabus</a></li>
+                    <li><a href="index.html#resources">Resources</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="container">
+        <h2>Week 15-16: User Interface 02</h2>
+        <div class="week">
+            <p>Exhibit comprehensive mastery of user interface design principles in Java, including recalling, understanding, applying, analyzing, synthesizing, and evaluating concepts such as content panes, layout manager classes, and AWT event class methods to develop intuitive and responsive graphical user interfaces within software applications.</p>
+            <h3>Topics:</h3>
+            <ul>
+                <li>Content Pane</li>
+                <li>Layout Manager Classes</li>
+                <li>AWT Event Class Methods</li>
+            </ul>
+        </div>
+        
+        <div class="week">
+            <h3>Understanding Event-Driven Programming</h3>
+            <p>Event-driven programming is a paradigm where the flow of the program is determined by events—user actions like mouse clicks, key presses, or system-generated events. In Java GUI applications, you create listeners that respond to these events.</p>
+            
+            <pre><code>/*
+ * EVENT-DRIVEN PROGRAMMING IN JAVA
+ * 
+ * ┌─────────────────────────────────────────────────────────────────┐
+ * │                    EVENT HANDLING MODEL                         │
+ * ├─────────────────────────────────────────────────────────────────┤
+ * │                                                                 │
+ * │   EVENT SOURCE          EVENT OBJECT         EVENT LISTENER     │
+ * │   ═════════════         ════════════         ══════════════     │
+ * │   (Button, Mouse,       (Contains info       (Interface that    │
+ * │    Keyboard, etc.)       about the event)     handles event)    │
+ * │                                                                 │
+ * │         │                     │                     ▲           │
+ * │         │    generates        │    passed to        │           │
+ * │         └─────────────────────┼─────────────────────┘           │
+ * │                               │                                 │
+ * └───────────────────────────────┼─────────────────────────────────┘
+ *                                 ▼
+ *                    ┌─────────────────────────┐
+ *                    │  actionPerformed()      │
+ *                    │  mouseClicked()         │
+ *                    │  keyPressed()           │
+ *                    │  etc.                   │
+ *                    └─────────────────────────┘
+ *
+ * COMMON EVENT TYPES AND LISTENERS:
+ * 
+ * ┌─────────────────┬────────────────────┬──────────────────────────┐
+ * │ Event Type      │ Listener Interface │ Methods                  │
+ * ├─────────────────┼────────────────────┼──────────────────────────┤
+ * │ ActionEvent     │ ActionListener     │ actionPerformed()        │
+ * │ MouseEvent      │ MouseListener      │ mouseClicked(), etc.     │
+ * │ MouseEvent      │ MouseMotionListener│ mouseMoved(), etc.       │
+ * │ KeyEvent        │ KeyListener        │ keyPressed(), etc.       │
+ * │ FocusEvent      │ FocusListener      │ focusGained(), etc.      │
+ * │ WindowEvent     │ WindowListener     │ windowClosing(), etc.    │
+ * │ ItemEvent       │ ItemListener       │ itemStateChanged()       │
+ * │ ChangeEvent     │ ChangeListener     │ stateChanged()           │
+ * └─────────────────┴────────────────────┴──────────────────────────┘
+ */</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Content Pane and Container Hierarchy</h3>
+            <p>Understanding how Swing containers work is crucial for building proper GUI applications. The content pane is the main container where all components are placed.</p>
+            
+            <pre><code>// =============================================
+// CONTENT PANE AND CONTAINER STRUCTURE
+// =============================================
+
+import javax.swing.*;
+import java.awt.*;
+
+public class ContentPaneExplained {
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            demonstrateContentPane();
+            demonstrateLayeredPane();
+            demonstrateGlassPane();
+        });
+    }
+    
+    /*
+     * JFRAME STRUCTURE:
+     * 
+     *  ┌─────────────────────────────────────────────┐
+     *  │              JFrame (Window)                │
+     *  │  ┌───────────────────────────────────────┐  │
+     *  │  │           JRootPane                   │  │
+     *  │  │  ┌─────────────────────────────────┐  │  │
+     *  │  │  │         JLayeredPane            │  │  │
+     *  │  │  │  ┌───────────────────────────┐  │  │  │
+     *  │  │  │  │    Menu Bar (optional)    │  │  │  │
+     *  │  │  │  ├───────────────────────────┤  │  │  │
+     *  │  │  │  │                           │  │  │  │
+     *  │  │  │  │      CONTENT PANE         │  │  │  │
+     *  │  │  │  │   (Your components go     │  │  │  │
+     *  │  │  │  │        here!)             │  │  │  │
+     *  │  │  │  │                           │  │  │  │
+     *  │  │  │  └───────────────────────────┘  │  │  │
+     *  │  │  └─────────────────────────────────┘  │  │
+     *  │  │  ┌─────────────────────────────────┐  │  │
+     *  │  │  │  Glass Pane (overlay layer)    │  │  │
+     *  │  │  └─────────────────────────────────┘  │  │
+     *  │  └───────────────────────────────────────┘  │
+     *  └─────────────────────────────────────────────┘
+     */
+    
+    static void demonstrateContentPane() {
+        JFrame frame = new JFrame("Content Pane Demo");
+        frame.setSize(500, 400);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        // ===== WAY 1: Get Content Pane Explicitly =====
+        Container contentPane = frame.getContentPane();
+        
+        // Set properties of content pane
+        contentPane.setBackground(new Color(240, 240, 250));
+        contentPane.setLayout(new BorderLayout(10, 10));
+        
+        // Add components to content pane
+        JPanel headerPanel = new JPanel();
+        headerPanel.setBackground(new Color(70, 130, 180));
+        headerPanel.add(new JLabel("HEADER"));
+        ((JLabel)headerPanel.getComponent(0)).setForeground(Color.WHITE);
+        contentPane.add(headerPanel, BorderLayout.NORTH);
+        
+        JPanel centerPanel = new JPanel();
+        centerPanel.add(new JLabel("Main Content Area"));
+        contentPane.add(centerPanel, BorderLayout.CENTER);
+        
+        JPanel footerPanel = new JPanel();
+        footerPanel.setBackground(new Color(100, 100, 100));
+        footerPanel.add(new JLabel("FOOTER"));
+        ((JLabel)footerPanel.getComponent(0)).setForeground(Color.WHITE);
+        contentPane.add(footerPanel, BorderLayout.SOUTH);
+        
+        // ===== WAY 2: Add directly to JFrame (Java 5+) =====
+        // frame.add(component) is equivalent to 
+        // frame.getContentPane().add(component)
+        
+        // ===== WAY 3: Set entire content pane =====
+        // JPanel customContentPane = new JPanel();
+        // frame.setContentPane(customContentPane);
+        
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+    
+    static void demonstrateLayeredPane() {
+        JFrame frame = new JFrame("Layered Pane Demo");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        // Get the layered pane
+        JLayeredPane layeredPane = frame.getLayeredPane();
+        
+        // Create panels at different layers
+        JPanel layer1 = createColorPanel(Color.RED, "Layer 1 (Default)");
+        layer1.setBounds(20, 20, 150, 100);
+        layeredPane.add(layer1, JLayeredPane.DEFAULT_LAYER);
+        
+        JPanel layer2 = createColorPanel(Color.GREEN, "Layer 2 (Palette)");
+        layer2.setBounds(80, 60, 150, 100);
+        layeredPane.add(layer2, JLayeredPane.PALETTE_LAYER);
+        
+        JPanel layer3 = createColorPanel(Color.BLUE, "Layer 3 (Modal)");
+        layer3.setBounds(140, 100, 150, 100);
+        layeredPane.add(layer3, JLayeredPane.MODAL_LAYER);
+        
+        frame.setLocation(520, 0);
+        frame.setVisible(true);
+    }
+    
+    static void demonstrateGlassPane() {
+        JFrame frame = new JFrame("Glass Pane Demo");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        // Add content
+        JPanel content = new JPanel(new GridLayout(3, 3, 5, 5));
+        for (int i = 1; i <= 9; i++) {
+            content.add(new JButton("Button " + i));
+        }
+        frame.add(content);
+        
+        // Create custom glass pane for overlay effects
+        JPanel glassPane = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Semi-transparent overlay
+                g.setColor(new Color(0, 0, 0, 100));
+                g.fillRect(0, 0, getWidth(), getHeight());
+                
+                // Draw message
+                g.setColor(Color.WHITE);
+                g.setFont(new Font("Arial", Font.BOLD, 20));
+                String msg = "Loading...";
+                FontMetrics fm = g.getFontMetrics();
+                int x = (getWidth() - fm.stringWidth(msg)) / 2;
+                int y = getHeight() / 2;
+                g.drawString(msg, x, y);
+            }
+        };
+        glassPane.setOpaque(false);
+        frame.setGlassPane(glassPane);
+        
+        // Button to toggle glass pane
+        JButton toggleBtn = new JButton("Toggle Overlay");
+        toggleBtn.addActionListener(e -> {
+            glassPane.setVisible(!glassPane.isVisible());
+        });
+        frame.add(toggleBtn, BorderLayout.SOUTH);
+        
+        frame.setLocation(520, 320);
+        frame.setVisible(true);
+    }
+    
+    static JPanel createColorPanel(Color color, String text) {
+        JPanel panel = new JPanel();
+        panel.setBackground(color);
+        panel.add(new JLabel(text));
+        panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        return panel;
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>ActionListener - Button and Menu Events</h3>
+            <p>ActionListener is the most commonly used event listener, handling button clicks, menu selections, and text field actions.</p>
+            
+            <pre><code>// =============================================
+// ACTIONLISTENER - COMPREHENSIVE GUIDE
+// =============================================
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class ActionListenerComplete extends JFrame {
+    
+    private JLabel statusLabel;
+    private int clickCount = 0;
+    
+    public ActionListenerComplete() {
+        super("ActionListener Demo");
+        setSize(600, 500);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new BorderLayout(10, 10));
+        
+        // Status label
+        statusLabel = new JLabel("Click buttons to see events", JLabel.CENTER);
+        statusLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        statusLabel.setBorder(BorderFactory.createEtchedBorder());
+        add(statusLabel, BorderLayout.NORTH);
+        
+        // Main panel with examples
+        JTabbedPane tabs = new JTabbedPane();
+        tabs.addTab("Method 1: Inner Class", createInnerClassDemo());
+        tabs.addTab("Method 2: Lambda", createLambdaDemo());
+        tabs.addTab("Method 3: This Reference", createThisDemo());
+        tabs.addTab("Method 4: Separate Class", createSeparateClassDemo());
+        
+        add(tabs, BorderLayout.CENTER);
+        
+        setLocationRelativeTo(null);
+    }
+    
+    // =============================================
+    // METHOD 1: Anonymous Inner Class
+    // =============================================
+    private JPanel createInnerClassDemo() {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        panel.setBorder(BorderFactory.createTitledBorder(
+            "Anonymous Inner Class - Traditional Approach"));
+        
+        JButton button = new JButton("Click Me (Inner Class)");
+        
+        // Anonymous inner class implementation
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clickCount++;
+                statusLabel.setText("Inner Class: Button clicked " + 
+                                   clickCount + " time(s)");
+                
+                // Access event details
+                String details = String.format(
+                    "Source: %s | Command: %s | When: %d",
+                    e.getSource().getClass().getSimpleName(),
+                    e.getActionCommand(),
+                    e.getWhen()
+                );
+                System.out.println(details);
+            }
+        });
+        
+        // With custom action command
+        JButton customBtn = new JButton("Custom Command");
+        customBtn.setActionCommand("CUSTOM_ACTION");
+        customBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String command = e.getActionCommand();
+                statusLabel.setText("Received command: " + command);
+            }
+        });
+        
+        panel.add(button);
+        panel.add(customBtn);
+        
+        // Code explanation
+        JTextArea codeArea = new JTextArea(
+            "// Anonymous Inner Class:\n" +
+            "button.addActionListener(new ActionListener() {\n" +
+            "    @Override\n" +
+            "    public void actionPerformed(ActionEvent e) {\n" +
+            "        // Handle the event\n" +
+            "    }\n" +
+            "});"
+        );
+        codeArea.setEditable(false);
+        codeArea.setFont(new Font("Consolas", Font.PLAIN, 12));
+        panel.add(new JScrollPane(codeArea));
+        
+        return panel;
+    }
+    
+    // =============================================
+    // METHOD 2: Lambda Expression (Java 8+)
+    // =============================================
+    private JPanel createLambdaDemo() {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        panel.setBorder(BorderFactory.createTitledBorder(
+            "Lambda Expression - Modern Approach (Java 8+)"));
+        
+        // Single statement lambda
+        JButton btn1 = new JButton("Simple Lambda");
+        btn1.addActionListener(e -> 
+            statusLabel.setText("Simple lambda executed!"));
+        
+        // Multi-statement lambda
+        JButton btn2 = new JButton("Multi-line Lambda");
+        btn2.addActionListener(e -> {
+            clickCount++;
+            String message = "Multi-line lambda: Click #" + clickCount;
+            statusLabel.setText(message);
+            System.out.println("Event source: " + e.getSource());
+        });
+        
+        // Method reference
+        JButton btn3 = new JButton("Method Reference");
+        btn3.addActionListener(this::handleButtonClick);
+        
+        panel.add(btn1);
+        panel.add(btn2);
+        panel.add(btn3);
+        
+        // Code explanation
+        JTextArea codeArea = new JTextArea(
+            "// Lambda Expressions:\n\n" +
+            "// Simple (single statement)\n" +
+            "btn.addActionListener(e -> doSomething());\n\n" +
+            "// Multi-statement\n" +
+            "btn.addActionListener(e -> {\n" +
+            "    line1();\n" +
+            "    line2();\n" +
+            "});\n\n" +
+            "// Method reference\n" +
+            "btn.addActionListener(this::methodName);"
+        );
+        codeArea.setEditable(false);
+        codeArea.setFont(new Font("Consolas", Font.PLAIN, 12));
+        panel.add(new JScrollPane(codeArea));
+        
+        return panel;
+    }
+    
+    // Method for method reference
+    private void handleButtonClick(ActionEvent e) {
+        statusLabel.setText("Method reference: " + e.getActionCommand());
+    }
+    
+    // =============================================
+    // METHOD 3: Class Implementing ActionListener
+    // =============================================
+    private JPanel createThisDemo() {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        panel.setBorder(BorderFactory.createTitledBorder(
+            "Class Implements ActionListener"));
+        
+        // Create a simple inner class that implements ActionListener
+        class ButtonHandler implements ActionListener {
+            private String buttonName;
+            
+            public ButtonHandler(String name) {
+                this.buttonName = name;
+            }
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                statusLabel.setText("Handler for: " + buttonName);
+            }
+        }
+        
+        JButton btn1 = new JButton("Button A");
+        btn1.addActionListener(new ButtonHandler("Button A"));
+        
+        JButton btn2 = new JButton("Button B");
+        btn2.addActionListener(new ButtonHandler("Button B"));
+        
+        JButton btn3 = new JButton("Button C");
+        btn3.addActionListener(new ButtonHandler("Button C"));
+        
+        panel.add(btn1);
+        panel.add(btn2);
+        panel.add(btn3);
+        
+        return panel;
+    }
+    
+    // =============================================
+    // METHOD 4: Separate Handler Class
+    // =============================================
+    private JPanel createSeparateClassDemo() {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        panel.setBorder(BorderFactory.createTitledBorder(
+            "Separate Handler Class - For Complex Logic"));
+        
+        JButton btn = new JButton("Handled by Separate Class");
+        btn.addActionListener(new SeparateHandler(statusLabel));
+        
+        panel.add(btn);
+        
+        JTextArea codeArea = new JTextArea(
+            "// Separate class for complex handlers:\n\n" +
+            "class MyHandler implements ActionListener {\n" +
+            "    private JLabel label;\n" +
+            "    \n" +
+            "    public MyHandler(JLabel label) {\n" +
+            "        this.label = label;\n" +
+            "    }\n" +
+            "    \n" +
+            "    @Override\n" +
+            "    public void actionPerformed(ActionEvent e) {\n" +
+            "        // Complex logic here\n" +
+            "    }\n" +
+            "}"
+        );
+        codeArea.setEditable(false);
+        codeArea.setFont(new Font("Consolas", Font.PLAIN, 12));
+        panel.add(new JScrollPane(codeArea));
+        
+        return panel;
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new ActionListenerComplete().setVisible(true);
+        });
+    }
+}
+
+// Separate handler class
+class SeparateHandler implements ActionListener {
+    private JLabel label;
+    
+    public SeparateHandler(JLabel label) {
+        this.label = label;
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        label.setText("Handled by SeparateHandler class!");
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Mouse Events - Complete Guide</h3>
+            <p>MouseListener and MouseMotionListener handle all mouse-related events including clicks, movement, dragging, and entering/exiting components.</p>
+            
+            <pre><code>// =============================================
+// MOUSE EVENTS - COMPREHENSIVE DEMO
+// =============================================
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+
+public class MouseEventsComplete extends JFrame {
+    
+    private JLabel statusLabel;
+    private DrawingPanel drawingPanel;
+    
+    public MouseEventsComplete() {
+        super("Mouse Events Demo");
+        setSize(800, 600);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        // Status bar
+        statusLabel = new JLabel("Move your mouse or click...", JLabel.CENTER);
+        statusLabel.setBorder(BorderFactory.createEtchedBorder());
+        add(statusLabel, BorderLayout.NORTH);
+        
+        // Create tabbed pane
+        JTabbedPane tabs = new JTabbedPane();
+        tabs.addTab("Mouse Listener", createMouseListenerDemo());
+        tabs.addTab("Mouse Motion", createMouseMotionDemo());
+        tabs.addTab("Drawing Canvas", createDrawingDemo());
+        tabs.addTab("Drag & Drop", createDragDropDemo());
+        
+        add(tabs, BorderLayout.CENTER);
+        
+        setLocationRelativeTo(null);
+    }
+    
+    // =============================================
+    // MOUSELISTENER - Clicks and Enter/Exit
+    // =============================================
+    private JPanel createMouseListenerDemo() {
+        JPanel panel = new JPanel(new GridLayout(2, 2, 20, 20));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        
+        // Create colored panels with mouse listeners
+        String[] colors = {"Red Panel", "Green Panel", "Blue Panel", "Yellow Panel"};
+        Color[] bgColors = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW};
+        
+        for (int i = 0; i < 4; i++) {
+            JPanel colorPanel = new JPanel();
+            colorPanel.setBackground(bgColors[i]);
+            colorPanel.setBorder(BorderFactory.createRaisedBevelBorder());
+            
+            JLabel label = new JLabel(colors[i], JLabel.CENTER);
+            label.setFont(new Font("Arial", Font.BOLD, 16));
+            colorPanel.add(label);
+            
+            final Color originalColor = bgColors[i];
+            final String panelName = colors[i];
+            
+            // Add MouseListener
+            colorPanel.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    // Detect single/double click
+                    int clicks = e.getClickCount();
+                    String button = getButtonName(e);
+                    statusLabel.setText(String.format(
+                        "%s: %s %s-click at (%d, %d)",
+                        panelName, button, 
+                        clicks == 2 ? "double" : "single",
+                        e.getX(), e.getY()));
+                }
+                
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    colorPanel.setBorder(
+                        BorderFactory.createLoweredBevelBorder());
+                    statusLabel.setText(panelName + ": Mouse pressed");
+                }
+                
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    colorPanel.setBorder(
+                        BorderFactory.createRaisedBevelBorder());
+                    statusLabel.setText(panelName + ": Mouse released");
+                }
+                
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    colorPanel.setBackground(originalColor.brighter());
+                    statusLabel.setText(panelName + ": Mouse entered");
+                    colorPanel.setCursor(
+                        Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                }
+                
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    colorPanel.setBackground(originalColor);
+                    statusLabel.setText(panelName + ": Mouse exited");
+                    colorPanel.setCursor(Cursor.getDefaultCursor());
+                }
+            });
+            
+            panel.add(colorPanel);
+        }
+        
+        return panel;
+    }
+    
+    private String getButtonName(MouseEvent e) {
+        if (SwingUtilities.isLeftMouseButton(e)) return "Left";
+        if (SwingUtilities.isMiddleMouseButton(e)) return "Middle";
+        if (SwingUtilities.isRightMouseButton(e)) return "Right";
+        return "Unknown";
+    }
+    
+    // =============================================
+    // MOUSEMOTIONLISTENER - Movement and Dragging
+    // =============================================
+    private JPanel createMouseMotionDemo() {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        
+        // Tracking panel
+        JPanel trackPanel = new JPanel() {
+            private Point mousePos = new Point(0, 0);
+            private ArrayList<Point> trail = new ArrayList<>();
+            
+            {
+                setBackground(Color.WHITE);
+                
+                // Mouse Motion Listener
+                addMouseMotionListener(new MouseMotionListener() {
+                    @Override
+                    public void mouseMoved(MouseEvent e) {
+                        mousePos = e.getPoint();
+                        statusLabel.setText(String.format(
+                            "Position: (%d, %d)", e.getX(), e.getY()));
+                        repaint();
+                    }
+                    
+                    @Override
+                    public void mouseDragged(MouseEvent e) {
+                        mousePos = e.getPoint();
+                        trail.add(new Point(e.getPoint()));
+                        if (trail.size() > 100) trail.remove(0);
+                        statusLabel.setText(String.format(
+                            "Dragging: (%d, %d)", e.getX(), e.getY()));
+                        repaint();
+                    }
+                });
+                
+                // Clear trail on click
+                addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        trail.clear();
+                        repaint();
+                    }
+                });
+            }
+            
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                                    RenderingHints.VALUE_ANTIALIAS_ON);
+                
+                // Draw trail
+                g2d.setColor(Color.BLUE);
+                for (int i = 1; i < trail.size(); i++) {
+                    Point p1 = trail.get(i - 1);
+                    Point p2 = trail.get(i);
+                    g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
+                }
+                
+                // Draw crosshair at mouse position
+                g2d.setColor(Color.RED);
+                g2d.drawLine(mousePos.x - 20, mousePos.y, 
+                            mousePos.x + 20, mousePos.y);
+                g2d.drawLine(mousePos.x, mousePos.y - 20, 
+                            mousePos.x, mousePos.y + 20);
+                g2d.drawOval(mousePos.x - 5, mousePos.y - 5, 10, 10);
+                
+                // Instructions
+                g2d.setColor(Color.GRAY);
+                g2d.drawString("Move mouse to track position", 10, 20);
+                g2d.drawString("Drag to draw trail", 10, 40);
+                g2d.drawString("Click to clear trail", 10, 60);
+            }
+        };
+        
+        panel.add(trackPanel, BorderLayout.CENTER);
+        return panel;
+    }
+    
+    // =============================================
+    // DRAWING CANVAS - Practical Example
+    // =============================================
+    private JPanel createDrawingDemo() {
+        JPanel panel = new JPanel(new BorderLayout());
+        
+        drawingPanel = new DrawingPanel();
+        panel.add(drawingPanel, BorderLayout.CENTER);
+        
+        // Toolbar
+        JPanel toolbar = new JPanel();
+        
+        JButton clearBtn = new JButton("Clear");
+        clearBtn.addActionListener(e -> drawingPanel.clear());
+        
+        String[] colors = {"Black", "Red", "Blue", "Green"};
+        JComboBox<String> colorCombo = new JComboBox<>(colors);
+        colorCombo.addActionListener(e -> {
+            String selected = (String) colorCombo.getSelectedItem();
+            switch (selected) {
+                case "Red" -> drawingPanel.setDrawColor(Color.RED);
+                case "Blue" -> drawingPanel.setDrawColor(Color.BLUE);
+                case "Green" -> drawingPanel.setDrawColor(Color.GREEN);
+                default -> drawingPanel.setDrawColor(Color.BLACK);
+            }
+        });
+        
+        JSlider sizeSlider = new JSlider(1, 20, 3);
+        sizeSlider.addChangeListener(e -> 
+            drawingPanel.setBrushSize(sizeSlider.getValue()));
+        
+        toolbar.add(new JLabel("Color:"));
+        toolbar.add(colorCombo);
+        toolbar.add(new JLabel("Size:"));
+        toolbar.add(sizeSlider);
+        toolbar.add(clearBtn);
+        
+        panel.add(toolbar, BorderLayout.SOUTH);
+        return panel;
+    }
+    
+    // =============================================
+    // DRAG AND DROP - Moving Components
+    // =============================================
+    private JPanel createDragDropDemo() {
+        JPanel panel = new JPanel(null); // null layout for absolute positioning
+        panel.setBackground(new Color(245, 245, 250));
+        
+        // Create draggable labels
+        String[] items = {"Drag Me!", "Me Too!", "And Me!"};
+        Color[] colors = {Color.RED, Color.GREEN, Color.BLUE};
+        int x = 50;
+        
+        for (int i = 0; i < items.length; i++) {
+            JLabel label = createDraggableLabel(items[i], colors[i]);
+            label.setBounds(x, 100, 100, 40);
+            panel.add(label);
+            x += 150;
+        }
+        
+        // Instructions
+        JLabel instructions = new JLabel(
+            "Click and drag the labels to move them around!");
+        instructions.setBounds(50, 20, 400, 30);
+        panel.add(instructions);
+        
+        return panel;
+    }
+    
+    private JLabel createDraggableLabel(String text, Color color) {
+        JLabel label = new JLabel(text, JLabel.CENTER);
+        label.setOpaque(true);
+        label.setBackground(color);
+        label.setForeground(Color.WHITE);
+        label.setFont(new Font("Arial", Font.BOLD, 14));
+        label.setBorder(BorderFactory.createRaisedBevelBorder());
+        label.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+        
+        // Variables to track dragging
+        final Point[] offset = {new Point()};
+        
+        label.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                offset[0] = e.getPoint();
+                label.setBorder(BorderFactory.createLoweredBevelBorder());
+            }
+            
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                label.setBorder(BorderFactory.createRaisedBevelBorder());
+            }
+        });
+        
+        label.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                // Calculate new position
+                Point current = label.getLocation();
+                int newX = current.x + e.getX() - offset[0].x;
+                int newY = current.y + e.getY() - offset[0].y;
+                
+                // Keep within bounds
+                Container parent = label.getParent();
+                if (parent != null) {
+                    newX = Math.max(0, Math.min(newX, 
+                           parent.getWidth() - label.getWidth()));
+                    newY = Math.max(0, Math.min(newY, 
+                           parent.getHeight() - label.getHeight()));
+                }
+                
+                label.setLocation(newX, newY);
+                statusLabel.setText(String.format(
+                    "Dragging '%s' to (%d, %d)", text, newX, newY));
+            }
+        });
+        
+        return label;
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new MouseEventsComplete().setVisible(true);
+        });
+    }
+}
+
+// Drawing Panel for canvas example
+class DrawingPanel extends JPanel {
+    private ArrayList<DrawPoint> points = new ArrayList<>();
+    private Color drawColor = Color.BLACK;
+    private int brushSize = 3;
+    
+    public DrawingPanel() {
+        setBackground(Color.WHITE);
+        
+        MouseAdapter adapter = new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                points.add(new DrawPoint(e.getPoint(), drawColor, brushSize, true));
+                repaint();
+            }
+            
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                points.add(new DrawPoint(e.getPoint(), drawColor, brushSize, false));
+                repaint();
+            }
+        };
+        
+        addMouseListener(adapter);
+        addMouseMotionListener(adapter);
+    }
+    
+    public void setDrawColor(Color color) { this.drawColor = color; }
+    public void setBrushSize(int size) { this.brushSize = size; }
+    
+    public void clear() {
+        points.clear();
+        repaint();
+    }
+    
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                            RenderingHints.VALUE_ANTIALIAS_ON);
+        
+        DrawPoint prev = null;
+        for (DrawPoint p : points) {
+            g2d.setColor(p.color);
+            g2d.setStroke(new BasicStroke(p.size, BasicStroke.CAP_ROUND, 
+                                         BasicStroke.JOIN_ROUND));
+            
+            if (!p.newStroke && prev != null) {
+                g2d.drawLine(prev.point.x, prev.point.y, p.point.x, p.point.y);
+            }
+            prev = p;
+        }
+    }
+    
+    private static class DrawPoint {
+        Point point;
+        Color color;
+        int size;
+        boolean newStroke;
+        
+        DrawPoint(Point p, Color c, int s, boolean n) {
+            point = p; color = c; size = s; newStroke = n;
+        }
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Keyboard Events</h3>
+            <p>KeyListener handles keyboard input, allowing you to respond to key presses, releases, and typed characters.</p>
+            
+            <pre><code>// =============================================
+// KEYBOARD EVENTS - COMPREHENSIVE DEMO
+// =============================================
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class KeyboardEventsDemo extends JFrame {
+    
+    private JTextArea logArea;
+    private JPanel gamePanel;
+    private int playerX = 200, playerY = 200;
+    
+    public KeyboardEventsDemo() {
+        super("Keyboard Events Demo");
+        setSize(700, 500);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        JTabbedPane tabs = new JTabbedPane();
+        tabs.addTab("Key Events", createKeyEventsPanel());
+        tabs.addTab("Game Movement", createGamePanel());
+        tabs.addTab("Keyboard Shortcuts", createShortcutsPanel());
+        
+        add(tabs);
+        setLocationRelativeTo(null);
+    }
+    
+    // =============================================
+    // KEY EVENTS PANEL
+    // =============================================
+    private JPanel createKeyEventsPanel() {
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        
+        // Input field
+        JTextField inputField = new JTextField();
+        inputField.setFont(new Font("Arial", Font.PLAIN, 18));
+        
+        // Event log
+        logArea = new JTextArea(10, 40);
+        logArea.setEditable(false);
+        logArea.setFont(new Font("Consolas", Font.PLAIN, 12));
+        
+        // Add KeyListener to input field
+        inputField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                logEvent("PRESSED", e);
+            }
+            
+            @Override
+            public void keyReleased(KeyEvent e) {
+                logEvent("RELEASED", e);
+            }
+            
+            @Override
+            public void keyTyped(KeyEvent e) {
+                // keyTyped only fires for character keys
+                log(String.format("TYPED: '%c' (char code: %d)",
+                    e.getKeyChar(), (int) e.getKeyChar()));
+            }
+        });
+        
+        // Layout
+        JPanel inputPanel = new JPanel(new BorderLayout());
+        inputPanel.add(new JLabel("Type here: "), BorderLayout.WEST);
+        inputPanel.add(inputField, BorderLayout.CENTER);
+        
+        panel.add(inputPanel, BorderLayout.NORTH);
+        panel.add(new JScrollPane(logArea), BorderLayout.CENTER);
+        
+        // Instructions
+        JLabel instructions = new JLabel(
+            "<html><b>Key Events:</b><br>" +
+            "• keyPressed - fires when key goes down<br>" +
+            "• keyReleased - fires when key comes up<br>" +
+            "• keyTyped - fires for character keys only</html>");
+        panel.add(instructions, BorderLayout.SOUTH);
+        
+        return panel;
+    }
+    
+    private void logEvent(String eventType, KeyEvent e) {
+        String keyText = KeyEvent.getKeyText(e.getKeyCode());
+        String modifiers = KeyEvent.getModifiersExText(e.getModifiersEx());
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append(eventType).append(": ");
+        sb.append("Key=").append(keyText);
+        sb.append(" | Code=").append(e.getKeyCode());
+        
+        if (!modifiers.isEmpty()) {
+            sb.append(" | Modifiers=").append(modifiers);
+        }
+        
+        // Check special keys
+        if (e.isActionKey()) sb.append(" [ACTION KEY]");
+        if (e.isControlDown()) sb.append(" [CTRL]");
+        if (e.isAltDown()) sb.append(" [ALT]");
+        if (e.isShiftDown()) sb.append(" [SHIFT]");
+        
+        log(sb.toString());
+    }
+    
+    private void log(String message) {
+        logArea.append(message + "\n");
+        logArea.setCaretPosition(logArea.getDocument().getLength());
+    }
+    
+    // =============================================
+    // GAME MOVEMENT PANEL (Arrow Keys)
+    // =============================================
+    private JPanel createGamePanel() {
+        gamePanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                                    RenderingHints.VALUE_ANTIALIAS_ON);
+                
+                // Draw grid
+                g2d.setColor(new Color(230, 230, 230));
+                for (int i = 0; i < getWidth(); i += 50) {
+                    g2d.drawLine(i, 0, i, getHeight());
+                }
+                for (int i = 0; i < getHeight(); i += 50) {
+                    g2d.drawLine(0, i, getWidth(), i);
+                }
+                
+                // Draw player (simple character)
+                g2d.setColor(Color.BLUE);
+                g2d.fillOval(playerX - 20, playerY - 20, 40, 40);
+                
+                // Eyes
+                g2d.setColor(Color.WHITE);
+                g2d.fillOval(playerX - 12, playerY - 10, 10, 10);
+                g2d.fillOval(playerX + 2, playerY - 10, 10, 10);
+                
+                g2d.setColor(Color.BLACK);
+                g2d.fillOval(playerX - 9, playerY - 7, 5, 5);
+                g2d.fillOval(playerX + 5, playerY - 7, 5, 5);
+                
+                // Smile
+                g2d.drawArc(playerX - 10, playerY - 5, 20, 15, 180, 180);
+                
+                // Instructions
+                g2d.setColor(Color.GRAY);
+                g2d.drawString("Use Arrow Keys or WASD to move", 10, 20);
+                g2d.drawString("Position: (" + playerX + ", " + playerY + ")", 10, 40);
+            }
+        };
+        
+        gamePanel.setBackground(Color.WHITE);
+        gamePanel.setFocusable(true);
+        
+        // KeyAdapter - convenience class
+        gamePanel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int step = 10;
+                
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_UP:
+                    case KeyEvent.VK_W:
+                        playerY = Math.max(20, playerY - step);
+                        break;
+                    case KeyEvent.VK_DOWN:
+                    case KeyEvent.VK_S:
+                        playerY = Math.min(gamePanel.getHeight() - 20, playerY + step);
+                        break;
+                    case KeyEvent.VK_LEFT:
+                    case KeyEvent.VK_A:
+                        playerX = Math.max(20, playerX - step);
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                    case KeyEvent.VK_D:
+                        playerX = Math.min(gamePanel.getWidth() - 20, playerX + step);
+                        break;
+                    case KeyEvent.VK_SPACE:
+                        // Reset position
+                        playerX = gamePanel.getWidth() / 2;
+                        playerY = gamePanel.getHeight() / 2;
+                        break;
+                }
+                
+                gamePanel.repaint();
+            }
+        });
+        
+        // Request focus when clicked
+        gamePanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                gamePanel.requestFocusInWindow();
+            }
+        });
+        
+        JPanel container = new JPanel(new BorderLayout());
+        container.add(gamePanel, BorderLayout.CENTER);
+        container.add(new JLabel("Click the panel first, then use arrow keys or WASD", 
+                                JLabel.CENTER), BorderLayout.SOUTH);
+        
+        return container;
+    }
+    
+    // =============================================
+    // KEYBOARD SHORTCUTS PANEL
+    // =============================================
+    private JPanel createShortcutsPanel() {
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        
+        JTextArea textArea = new JTextArea(10, 40);
+        textArea.setFont(new Font("Arial", Font.PLAIN, 14));
+        textArea.setText("Try the keyboard shortcuts:\n" +
+                        "• Ctrl+S - Save\n" +
+                        "• Ctrl+O - Open\n" +
+                        "• Ctrl+N - New\n" +
+                        "• Ctrl+B - Toggle Bold\n");
+        
+        // Register keyboard shortcuts using InputMap and ActionMap
+        InputMap inputMap = textArea.getInputMap(JComponent.WHEN_FOCUSED);
+        ActionMap actionMap = textArea.getActionMap();
+        
+        // Ctrl+S - Save
+        KeyStroke saveKey = KeyStroke.getKeyStroke(KeyEvent.VK_S, 
+                           InputEvent.CTRL_DOWN_MASK);
+        inputMap.put(saveKey, "save");
+        actionMap.put("save", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(panel, 
+                    "Save shortcut pressed!", 
+                    "Keyboard Shortcut", 
+                    JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        
+        // Ctrl+O - Open
+        KeyStroke openKey = KeyStroke.getKeyStroke(KeyEvent.VK_O, 
+                           InputEvent.CTRL_DOWN_MASK);
+        inputMap.put(openKey, "open");
+        actionMap.put("open", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(panel, 
+                    "Open shortcut pressed!", 
+                    "Keyboard Shortcut", 
+                    JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        
+        // Ctrl+N - New
+        KeyStroke newKey = KeyStroke.getKeyStroke(KeyEvent.VK_N, 
+                          InputEvent.CTRL_DOWN_MASK);
+        inputMap.put(newKey, "new");
+        actionMap.put("new", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textArea.setText("New document created!\n");
+            }
+        });
+        
+        // Ctrl+B - Toggle Bold
+        KeyStroke boldKey = KeyStroke.getKeyStroke(KeyEvent.VK_B, 
+                           InputEvent.CTRL_DOWN_MASK);
+        inputMap.put(boldKey, "bold");
+        actionMap.put("bold", new AbstractAction() {
+            private boolean isBold = false;
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                isBold = !isBold;
+                Font current = textArea.getFont();
+                int style = isBold ? Font.BOLD : Font.PLAIN;
+                textArea.setFont(new Font(current.getName(), style, current.getSize()));
+            }
+        });
+        
+        panel.add(new JScrollPane(textArea), BorderLayout.CENTER);
+        
+        JLabel info = new JLabel(
+            "<html><b>Keyboard Shortcuts Implementation:</b><br>" +
+            "Use InputMap + ActionMap for reusable shortcuts</html>");
+        panel.add(info, BorderLayout.SOUTH);
+        
+        return panel;
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new KeyboardEventsDemo().setVisible(true);
+        });
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Complete Application: Interactive Calculator</h3>
+            <p>A fully functional calculator application demonstrating all event handling concepts.</p>
+            
+            <pre><code>// =============================================
+// INTERACTIVE CALCULATOR - COMPLETE APPLICATION
+// =============================================
+
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class InteractiveCalculator extends JFrame {
+    
+    private JTextField display;
+    private double num1 = 0, num2 = 0, result = 0;
+    private String operator = "";
+    private boolean startNewNumber = true;
+    
+    // Color scheme
+    private final Color BG_COLOR = new Color(40, 44, 52);
+    private final Color DISPLAY_BG = new Color(30, 33, 40);
+    private final Color NUM_BTN_COLOR = new Color(55, 60, 70);
+    private final Color OP_BTN_COLOR = new Color(255, 149, 0);
+    private final Color FUNC_BTN_COLOR = new Color(75, 80, 90);
+    private final Color TEXT_COLOR = Color.WHITE;
+    
+    public InteractiveCalculator() {
+        super("Calculator");
+        setSize(350, 500);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
+        getContentPane().setBackground(BG_COLOR);
+        
+        // Main panel
+        JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
+        mainPanel.setBackground(BG_COLOR);
+        mainPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        
+        // Display
+        display = createDisplay();
+        mainPanel.add(display, BorderLayout.NORTH);
+        
+        // Button panel
+        mainPanel.add(createButtonPanel(), BorderLayout.CENTER);
+        
+        add(mainPanel);
+        
+        // Add keyboard support
+        addKeyboardSupport();
+        
+        setLocationRelativeTo(null);
+    }
+    
+    private JTextField createDisplay() {
+        JTextField field = new JTextField("0");
+        field.setFont(new Font("Segoe UI Light", Font.PLAIN, 48));
+        field.setHorizontalAlignment(JTextField.RIGHT);
+        field.setEditable(false);
+        field.setBackground(DISPLAY_BG);
+        field.setForeground(TEXT_COLOR);
+        field.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(60, 64, 72), 1),
+            BorderFactory.createEmptyBorder(15, 15, 15, 15)
+        ));
+        field.setCaretColor(DISPLAY_BG);
+        return field;
+    }
+    
+    private JPanel createButtonPanel() {
+        JPanel panel = new JPanel(new GridLayout(5, 4, 8, 8));
+        panel.setBackground(BG_COLOR);
+        
+        // Button layout
+        String[][] buttons = {
+            {"C", "±", "%", "÷"},
+            {"7", "8", "9", "×"},
+            {"4", "5", "6", "−"},
+            {"1", "2", "3", "+"},
+            {"0", "0", ".", "="}
+        };
+        
+        for (int row = 0; row < buttons.length; row++) {
+            for (int col = 0; col < buttons[row].length; col++) {
+                String label = buttons[row][col];
+                
+                // Skip duplicate "0"
+                if (row == 4 && col == 1) continue;
+                
+                JButton button = createButton(label);
+                
+                // Special handling for "0" button (spans 2 columns)
+                if (row == 4 && col == 0) {
+                    // We'll handle this with GridBagLayout instead
+                    // For simplicity, just add regular button
+                }
+                
+                panel.add(button);
+            }
+        }
+        
+        return panel;
+    }
+    
+    private JButton createButton(String label) {
+        JButton button = new JButton(label);
+        button.setFont(new Font("Segoe UI", Font.PLAIN, 24));
+        button.setForeground(TEXT_COLOR);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        
+        // Set colors based on button type
+        if (label.matches("[0-9.]")) {
+            button.setBackground(NUM_BTN_COLOR);
+        } else if (label.matches("[÷×−+=]")) {
+            button.setBackground(OP_BTN_COLOR);
+        } else {
+            button.setBackground(FUNC_BTN_COLOR);
+        }
+        
+        // Hover effect
+        Color originalColor = button.getBackground();
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                button.setBackground(originalColor.brighter());
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent e) {
+                button.setBackground(originalColor);
+            }
+            
+            @Override
+            public void mousePressed(MouseEvent e) {
+                button.setBackground(originalColor.darker());
+            }
+            
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                button.setBackground(originalColor);
+            }
+        });
+        
+        // Action listener
+        button.addActionListener(e -> handleButton(label));
+        
+        return button;
+    }
+    
+    private void handleButton(String label) {
+        switch (label) {
+            // Numbers
+            case "0": case "1": case "2": case "3": case "4":
+            case "5": case "6": case "7": case "8": case "9":
+                handleNumber(label);
+                break;
+                
+            // Decimal point
+            case ".":
+                handleDecimal();
+                break;
+                
+            // Operators
+            case "+": case "−": case "×": case "÷":
+                handleOperator(label);
+                break;
+                
+            // Equals
+            case "=":
+                calculateResult();
+                break;
+                
+            // Clear
+            case "C":
+                clear();
+                break;
+                
+            // Plus/Minus toggle
+            case "±":
+                toggleSign();
+                break;
+                
+            // Percent
+            case "%":
+                percent();
+                break;
+        }
+    }
+    
+    private void handleNumber(String digit) {
+        if (startNewNumber) {
+            display.setText(digit);
+            startNewNumber = false;
+        } else {
+            String current = display.getText();
+            if (current.equals("0")) {
+                display.setText(digit);
+            } else {
+                display.setText(current + digit);
+            }
+        }
+    }
+    
+    private void handleDecimal() {
+        if (startNewNumber) {
+            display.setText("0.");
+            startNewNumber = false;
+        } else if (!display.getText().contains(".")) {
+            display.setText(display.getText() + ".");
+        }
+    }
+    
+    private void handleOperator(String op) {
+        if (!operator.isEmpty() && !startNewNumber) {
+            calculateResult();
+        }
+        num1 = Double.parseDouble(display.getText());
+        operator = op;
+        startNewNumber = true;
+    }
+    
+    private void calculateResult() {
+        if (operator.isEmpty()) return;
+        
+        num2 = Double.parseDouble(display.getText());
+        
+        switch (operator) {
+            case "+":
+                result = num1 + num2;
+                break;
+            case "−":
+                result = num1 - num2;
+                break;
+            case "×":
+                result = num1 * num2;
+                break;
+            case "÷":
+                if (num2 == 0) {
+                    display.setText("Error");
+                    operator = "";
+                    startNewNumber = true;
+                    return;
+                }
+                result = num1 / num2;
+                break;
+        }
+        
+        // Format result (remove .0 for whole numbers)
+        if (result == (long) result) {
+            display.setText(String.valueOf((long) result));
+        } else {
+            display.setText(String.valueOf(result));
+        }
+        
+        operator = "";
+        startNewNumber = true;
+    }
+    
+    private void clear() {
+        display.setText("0");
+        num1 = num2 = result = 0;
+        operator = "";
+        startNewNumber = true;
+    }
+    
+    private void toggleSign() {
+        double value = Double.parseDouble(display.getText());
+        value = -value;
+        if (value == (long) value) {
+            display.setText(String.valueOf((long) value));
+        } else {
+            display.setText(String.valueOf(value));
+        }
+    }
+    
+    private void percent() {
+        double value = Double.parseDouble(display.getText());
+        value = value / 100;
+        display.setText(String.valueOf(value));
+    }
+    
+    private void addKeyboardSupport() {
+        // Make frame focusable
+        setFocusable(true);
+        
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                char key = e.getKeyChar();
+                int code = e.getKeyCode();
+                
+                // Number keys
+                if (Character.isDigit(key)) {
+                    handleButton(String.valueOf(key));
+                }
+                // Operators
+                else if (key == '+') handleButton("+");
+                else if (key == '-') handleButton("−");
+                else if (key == '*') handleButton("×");
+                else if (key == '/') handleButton("÷");
+                else if (key == '.') handleButton(".");
+                else if (key == '%') handleButton("%");
+                // Enter/Equals
+                else if (code == KeyEvent.VK_ENTER || key == '=') {
+                    handleButton("=");
+                }
+                // Escape/Clear
+                else if (code == KeyEvent.VK_ESCAPE) {
+                    handleButton("C");
+                }
+                // Backspace
+                else if (code == KeyEvent.VK_BACK_SPACE) {
+                    String text = display.getText();
+                    if (text.length() > 1) {
+                        display.setText(text.substring(0, text.length() - 1));
+                    } else {
+                        display.setText("0");
+                        startNewNumber = true;
+                    }
+                }
+            }
+        });
+    }
+    
+    public static void main(String[] args) {
+        // Use system look and feel
+        try {
+            UIManager.setLookAndFeel(
+                UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            // Use default look and feel
+        }
+        
+        SwingUtilities.invokeLater(() -> {
+            new InteractiveCalculator().setVisible(true);
+        });
+    }
+}</code></pre>
+        </div>
+        
+        <a href="index.html#syllabus" class="btn">Back to Syllabus</a>
+        <a href="week13-14.html" class="btn">← Previous: Week 13-14</a>
+        <a href="week17-18.html" class="btn">Next: Week 17-18 →</a>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CC3 Computer Programming. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

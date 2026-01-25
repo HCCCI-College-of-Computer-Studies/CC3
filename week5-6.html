@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 5-6: Objects and Methods - CC3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>CC3: Computer Programming</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#syllabus">Syllabus</a></li>
+                    <li><a href="index.html#resources">Resources</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="container">
+        <h2>Week 5-6: Objects and Methods</h2>
+        <div class="week">
+            <p>Demonstrate a thorough understanding of objects and methods in Java, including the ability to recall, comprehend, apply, analyze, synthesize, and evaluate concepts such as constructors, static variables, and static methods, while effectively utilizing them to design, implement, and optimize object-oriented software solutions.</p>
+            <h3>Topics:</h3>
+            <ul>
+                <li>Constructors</li>
+                <li>Static Variables and Static Methods</li>
+            </ul>
+        </div>
+        
+        <div class="week">
+            <h3>Understanding Constructors</h3>
+            <p>A constructor is a special method that is automatically called when an object is created. It initializes the object's state. Unlike regular methods, constructors have no return type (not even void) and must have the same name as the class.</p>
+            
+            <h4>Key Characteristics of Constructors:</h4>
+            <ul>
+                <li><strong>Same name as class:</strong> The constructor must be named exactly like the class</li>
+                <li><strong>No return type:</strong> Not even void - just the access modifier and name</li>
+                <li><strong>Called automatically:</strong> Invoked when <code>new</code> keyword is used</li>
+                <li><strong>Can be overloaded:</strong> Multiple constructors with different parameters</li>
+                <li><strong>Default constructor:</strong> Java provides one if you don't write any</li>
+            </ul>
+            
+            <pre><code>// =============================================
+// CONSTRUCTORS - COMPLETE GUIDE
+// =============================================
+
+public class Book {
+    // Instance Variables
+    private String isbn;
+    private String title;
+    private String author;
+    private String publisher;
+    private int yearPublished;
+    private double price;
+    private int pages;
+    private boolean isAvailable;
+    
+    // =============================================
+    // 1. DEFAULT CONSTRUCTOR
+    // =============================================
+    /**
+     * Default constructor - creates a book with default values.
+     * Called when: new Book()
+     * 
+     * If you don't write ANY constructor, Java provides this automatically.
+     * But once you write any constructor, Java won't provide a default one.
+     */
+    public Book() {
+        // Initialize with default values
+        this.isbn = "000-0-00-000000-0";
+        this.title = "Untitled";
+        this.author = "Unknown Author";
+        this.publisher = "Unknown Publisher";
+        this.yearPublished = 2024;
+        this.price = 0.0;
+        this.pages = 0;
+        this.isAvailable = true;
+        
+        System.out.println("Default constructor called - Book created with defaults");
+    }
+    
+    // =============================================
+    // 2. PARAMETERIZED CONSTRUCTORS
+    // =============================================
+    
+    /**
+     * Constructor with essential parameters only.
+     * Called when: new Book("978-0-13-468599-1", "Effective Java", "Joshua Bloch")
+     */
+    public Book(String isbn, String title, String author) {
+        // Validate required fields
+        if (isbn == null || isbn.isEmpty()) {
+            throw new IllegalArgumentException("ISBN cannot be empty");
+        }
+        if (title == null || title.isEmpty()) {
+            throw new IllegalArgumentException("Title cannot be empty");
+        }
+        
+        this.isbn = isbn;
+        this.title = title;
+        this.author = (author != null) ? author : "Unknown Author";
+        this.publisher = "Unknown Publisher";
+        this.yearPublished = 2024;
+        this.price = 0.0;
+        this.pages = 0;
+        this.isAvailable = true;
+        
+        System.out.println("3-parameter constructor called for: " + title);
+    }
+    
+    /**
+     * Constructor with more details.
+     * Called when: new Book("978-...", "Title", "Author", "Publisher", 2023)
+     */
+    public Book(String isbn, String title, String author, String publisher, int year) {
+        this.isbn = isbn;
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.yearPublished = year;
+        this.price = 0.0;
+        this.pages = 0;
+        this.isAvailable = true;
+        
+        System.out.println("5-parameter constructor called for: " + title);
+    }
+    
+    /**
+     * Full constructor with all parameters.
+     * Called when: new Book("978-...", "Title", "Author", "Pub", 2023, 49.99, 416, true)
+     */
+    public Book(String isbn, String title, String author, String publisher,
+                int year, double price, int pages, boolean isAvailable) {
+        // Using 'this' keyword to distinguish between parameters and fields
+        this.isbn = isbn;
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.yearPublished = year;
+        this.price = price;
+        this.pages = pages;
+        this.isAvailable = isAvailable;
+        
+        System.out.println("Full constructor called for: " + title);
+    }
+    
+    // =============================================
+    // 3. COPY CONSTRUCTOR
+    // =============================================
+    /**
+     * Copy constructor - creates a new book as a copy of another.
+     * Called when: new Book(existingBook)
+     * 
+     * This is useful for creating independent copies of objects.
+     */
+    public Book(Book other) {
+        if (other == null) {
+            throw new IllegalArgumentException("Cannot copy from null Book");
+        }
+        
+        // Copy all values from the other book
+        this.isbn = other.isbn;
+        this.title = other.title + " (Copy)";  // Mark as copy
+        this.author = other.author;
+        this.publisher = other.publisher;
+        this.yearPublished = other.yearPublished;
+        this.price = other.price;
+        this.pages = other.pages;
+        this.isAvailable = other.isAvailable;
+        
+        System.out.println("Copy constructor called - copied: " + other.title);
+    }
+    
+    // Getters
+    public String getIsbn() { return isbn; }
+    public String getTitle() { return title; }
+    public String getAuthor() { return author; }
+    public String getPublisher() { return publisher; }
+    public int getYearPublished() { return yearPublished; }
+    public double getPrice() { return price; }
+    public int getPages() { return pages; }
+    public boolean isAvailable() { return isAvailable; }
+    
+    // Display method
+    public void displayInfo() {
+        System.out.println("╔═══════════════════════════════════════════╗");
+        System.out.println("║            BOOK INFORMATION               ║");
+        System.out.println("╠═══════════════════════════════════════════╣");
+        System.out.printf("  ISBN:      %s%n", isbn);
+        System.out.printf("  Title:     %s%n", title);
+        System.out.printf("  Author:    %s%n", author);
+        System.out.printf("  Publisher: %s%n", publisher);
+        System.out.printf("  Year:      %d%n", yearPublished);
+        System.out.printf("  Price:     $%.2f%n", price);
+        System.out.printf("  Pages:     %d%n", pages);
+        System.out.printf("  Available: %s%n", isAvailable ? "Yes" : "No");
+        System.out.println("╚═══════════════════════════════════════════╝");
+    }
+}
+
+// =============================================
+// USING DIFFERENT CONSTRUCTORS
+// =============================================
+public class BookDemo {
+    public static void main(String[] args) {
+        System.out.println("=== Creating Books with Different Constructors ===\n");
+        
+        // 1. Default constructor
+        Book book1 = new Book();
+        book1.displayInfo();
+        
+        System.out.println();
+        
+        // 2. Three-parameter constructor
+        Book book2 = new Book(
+            "978-0-13-468599-1",
+            "Effective Java",
+            "Joshua Bloch"
+        );
+        book2.displayInfo();
+        
+        System.out.println();
+        
+        // 3. Full constructor
+        Book book3 = new Book(
+            "978-0-596-51774-8",
+            "JavaScript: The Good Parts",
+            "Douglas Crockford",
+            "O'Reilly Media",
+            2008,
+            29.99,
+            176,
+            true
+        );
+        book3.displayInfo();
+        
+        System.out.println();
+        
+        // 4. Copy constructor
+        Book book4 = new Book(book3);
+        book4.displayInfo();
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Constructor Chaining</h3>
+            <p>Constructor chaining is a technique where one constructor calls another constructor in the same class using <code>this()</code> or in the parent class using <code>super()</code>. This helps avoid code duplication and ensures consistent initialization.</p>
+            
+            <h4>Rules for Constructor Chaining:</h4>
+            <ul>
+                <li><code>this()</code> or <code>super()</code> must be the FIRST statement in the constructor</li>
+                <li>You cannot use both <code>this()</code> and <code>super()</code> in the same constructor</li>
+                <li>Be careful to avoid circular chaining (infinite loop)</li>
+            </ul>
+            
+            <pre><code>// =============================================
+// CONSTRUCTOR CHAINING WITH this()
+// =============================================
+
+public class Employee {
+    private String employeeId;
+    private String name;
+    private String department;
+    private String position;
+    private double salary;
+    private java.time.LocalDate hireDate;
+    
+    // Static counter for generating IDs
+    private static int idCounter = 1000;
+    
+    // =============================================
+    // CONSTRUCTOR CHAINING EXAMPLE
+    // =============================================
+    
+    /**
+     * Primary constructor (the "master" constructor).
+     * All other constructors eventually call this one.
+     * This ensures all initialization logic is in ONE place.
+     */
+    public Employee(String name, String department, String position, 
+                    double salary, java.time.LocalDate hireDate) {
+        // Generate unique ID
+        this.employeeId = "EMP" + (++idCounter);
+        
+        // Initialize all fields
+        this.name = (name != null && !name.isEmpty()) ? name : "Unknown";
+        this.department = (department != null) ? department : "General";
+        this.position = (position != null) ? position : "Staff";
+        this.salary = (salary > 0) ? salary : 30000.0;
+        this.hireDate = (hireDate != null) ? hireDate : java.time.LocalDate.now();
+        
+        System.out.println("✓ Created employee: " + this.employeeId);
+    }
+    
+    /**
+     * Constructor with 4 parameters.
+     * Chains to the 5-parameter constructor using this().
+     */
+    public Employee(String name, String department, String position, double salary) {
+        // this() MUST be the first statement!
+        this(name, department, position, salary, java.time.LocalDate.now());
+        System.out.println("  (Called from 4-parameter constructor)");
+    }
+    
+    /**
+     * Constructor with 3 parameters.
+     * Chains to the 4-parameter constructor.
+     */
+    public Employee(String name, String department, String position) {
+        this(name, department, position, 30000.0);  // Default salary
+        System.out.println("  (Called from 3-parameter constructor)");
+    }
+    
+    /**
+     * Constructor with 2 parameters.
+     * Chains to the 3-parameter constructor.
+     */
+    public Employee(String name, String department) {
+        this(name, department, "Staff");  // Default position
+        System.out.println("  (Called from 2-parameter constructor)");
+    }
+    
+    /**
+     * Constructor with 1 parameter.
+     * Chains to the 2-parameter constructor.
+     */
+    public Employee(String name) {
+        this(name, "General");  // Default department
+        System.out.println("  (Called from 1-parameter constructor)");
+    }
+    
+    /**
+     * Default constructor.
+     * Chains to the 1-parameter constructor.
+     */
+    public Employee() {
+        this("New Employee");  // Default name
+        System.out.println("  (Called from default constructor)");
+    }
+    
+    // Getters
+    public String getEmployeeId() { return employeeId; }
+    public String getName() { return name; }
+    public String getDepartment() { return department; }
+    public String getPosition() { return position; }
+    public double getSalary() { return salary; }
+    public java.time.LocalDate getHireDate() { return hireDate; }
+    
+    public void displayInfo() {
+        System.out.println("╔════════════════════════════════════╗");
+        System.out.printf("  ID:         %s%n", employeeId);
+        System.out.printf("  Name:       %s%n", name);
+        System.out.printf("  Department: %s%n", department);
+        System.out.printf("  Position:   %s%n", position);
+        System.out.printf("  Salary:     $%,.2f%n", salary);
+        System.out.printf("  Hire Date:  %s%n", hireDate);
+        System.out.println("╚════════════════════════════════════╝");
+    }
+}
+
+// =============================================
+// CONSTRUCTOR CHAINING WITH super()
+// =============================================
+
+class Person {
+    protected String name;
+    protected int age;
+    
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+        System.out.println("Person constructor called");
+    }
+    
+    public Person(String name) {
+        this(name, 0);  // Chain within same class
+    }
+    
+    public Person() {
+        this("Unknown");
+    }
+}
+
+class Student extends Person {
+    private String studentId;
+    private String major;
+    private double gpa;
+    
+    /**
+     * Full constructor - calls parent constructor with super()
+     */
+    public Student(String name, int age, String studentId, String major, double gpa) {
+        super(name, age);  // MUST be first statement - calls Person(name, age)
+        this.studentId = studentId;
+        this.major = major;
+        this.gpa = gpa;
+        System.out.println("Student full constructor called");
+    }
+    
+    /**
+     * Chains to full constructor using this()
+     */
+    public Student(String name, String studentId, String major) {
+        this(name, 18, studentId, major, 0.0);  // Default age and GPA
+        System.out.println("  (Called from 3-parameter Student constructor)");
+    }
+    
+    /**
+     * Minimal constructor
+     */
+    public Student(String name, String studentId) {
+        this(name, studentId, "Undeclared");  // Default major
+        System.out.println("  (Called from 2-parameter Student constructor)");
+    }
+    
+    public void displayStudentInfo() {
+        System.out.printf("Student: %s (ID: %s)%n", name, studentId);
+        System.out.printf("Age: %d, Major: %s, GPA: %.2f%n", age, major, gpa);
+    }
+}
+
+// =============================================
+// DEMONSTRATION
+// =============================================
+public class ConstructorChainingDemo {
+    public static void main(String[] args) {
+        System.out.println("=== Constructor Chaining with this() ===\n");
+        
+        // Each constructor chains to the next
+        System.out.println("Creating with default constructor:");
+        Employee emp1 = new Employee();
+        emp1.displayInfo();
+        
+        System.out.println("\nCreating with name only:");
+        Employee emp2 = new Employee("Maria Santos");
+        emp2.displayInfo();
+        
+        System.out.println("\nCreating with all parameters:");
+        Employee emp3 = new Employee("John Doe", "IT", "Developer", 75000);
+        emp3.displayInfo();
+        
+        System.out.println("\n=== Constructor Chaining with super() ===\n");
+        
+        System.out.println("Creating Student:");
+        Student student = new Student("Ana Garcia", "STU001", "Computer Science");
+        student.displayStudentInfo();
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Static Variables - In Depth</h3>
+            <p>Static variables (also called class variables) belong to the class itself, not to any specific instance. There is only ONE copy of a static variable, shared by ALL instances of the class.</p>
+            
+            <h4>Key Characteristics of Static Variables:</h4>
+            <ul>
+                <li><strong>Single copy:</strong> Only one copy exists regardless of how many objects are created</li>
+                <li><strong>Shared data:</strong> All instances access the same variable</li>
+                <li><strong>Class-level access:</strong> Can be accessed using the class name without creating an object</li>
+                <li><strong>Memory allocation:</strong> Allocated when class is loaded, deallocated when program ends</li>
+                <li><strong>Initialization:</strong> Initialized only once when the class is first loaded</li>
+            </ul>
+            
+            <pre><code>// =============================================
+// STATIC VARIABLES - COMPREHENSIVE EXAMPLE
+// =============================================
+
+public class BankAccount {
+    // =============================================
+    // STATIC VARIABLES (Class Variables)
+    // =============================================
+    
+    // Shared by all accounts - counts total accounts created
+    private static int totalAccounts = 0;
+    
+    // Bank information - same for all accounts
+    private static String bankName = "Philippine National Bank";
+    private static String bankCode = "PNB";
+    
+    // Interest rates - applies to all accounts
+    private static double savingsRate = 0.02;  // 2% annual
+    private static double checkingRate = 0.005; // 0.5% annual
+    
+    // Minimum balance requirement - policy for all accounts
+    private static double minimumBalance = 500.0;
+    
+    // Constants - never change
+    public static final double MAX_TRANSFER_LIMIT = 1000000.0;
+    public static final int ACCOUNT_NUMBER_LENGTH = 12;
+    
+    // =============================================
+    // INSTANCE VARIABLES (unique to each account)
+    // =============================================
+    private String accountNumber;
+    private String accountHolder;
+    private String accountType;
+    private double balance;
+    private java.time.LocalDate dateOpened;
+    
+    // =============================================
+    // CONSTRUCTOR
+    // =============================================
+    public BankAccount(String accountHolder, String accountType, double initialDeposit) {
+        // Generate account number
+        totalAccounts++;
+        this.accountNumber = generateAccountNumber();
+        
+        // Set instance data
+        this.accountHolder = accountHolder;
+        this.accountType = accountType.equalsIgnoreCase("checking") ? "Checking" : "Savings";
+        this.balance = Math.max(initialDeposit, minimumBalance);
+        this.dateOpened = java.time.LocalDate.now();
+        
+        System.out.println("Account #" + accountNumber + " created for " + accountHolder);
+    }
+    
+    // =============================================
+    // STATIC METHODS
+    // =============================================
+    
+    /**
+     * Get total number of accounts (static - no object needed)
+     */
+    public static int getTotalAccounts() {
+        return totalAccounts;
+    }
+    
+    /**
+     * Get bank name (static)
+     */
+    public static String getBankName() {
+        return bankName;
+    }
+    
+    /**
+     * Get current interest rate based on account type
+     */
+    public static double getInterestRate(String accountType) {
+        if (accountType.equalsIgnoreCase("checking")) {
+            return checkingRate;
+        }
+        return savingsRate;
+    }
+    
+    /**
+     * Update interest rates (would require authorization in real app)
+     */
+    public static void updateInterestRates(double newSavingsRate, double newCheckingRate) {
+        if (newSavingsRate >= 0 && newSavingsRate <= 0.15) {
+            savingsRate = newSavingsRate;
+        }
+        if (newCheckingRate >= 0 && newCheckingRate <= 0.10) {
+            checkingRate = newCheckingRate;
+        }
+        System.out.printf("Interest rates updated - Savings: %.2f%%, Checking: %.2f%%%n",
+                         savingsRate * 100, checkingRate * 100);
+    }
+    
+    /**
+     * Get minimum balance requirement
+     */
+    public static double getMinimumBalance() {
+        return minimumBalance;
+    }
+    
+    /**
+     * Display bank information (static)
+     */
+    public static void displayBankInfo() {
+        System.out.println("╔════════════════════════════════════════╗");
+        System.out.println("║          BANK INFORMATION              ║");
+        System.out.println("╠════════════════════════════════════════╣");
+        System.out.printf("  Bank Name:        %s%n", bankName);
+        System.out.printf("  Bank Code:        %s%n", bankCode);
+        System.out.printf("  Total Accounts:   %d%n", totalAccounts);
+        System.out.printf("  Savings Rate:     %.2f%%%n", savingsRate * 100);
+        System.out.printf("  Checking Rate:    %.2f%%%n", checkingRate * 100);
+        System.out.printf("  Minimum Balance:  $%.2f%n", minimumBalance);
+        System.out.printf("  Max Transfer:     $%,.2f%n", MAX_TRANSFER_LIMIT);
+        System.out.println("╚════════════════════════════════════════╝");
+    }
+    
+    // =============================================
+    // INSTANCE METHODS
+    // =============================================
+    
+    private String generateAccountNumber() {
+        // Format: PNB + year + sequence number (padded)
+        int year = java.time.LocalDate.now().getYear();
+        return String.format("%s%d%06d", bankCode, year, totalAccounts);
+    }
+    
+    /**
+     * Calculate interest earned (uses static rate, instance balance)
+     */
+    public double calculateAnnualInterest() {
+        double rate = accountType.equals("Checking") ? checkingRate : savingsRate;
+        return balance * rate;
+    }
+    
+    /**
+     * Apply monthly interest
+     */
+    public void applyMonthlyInterest() {
+        double monthlyRate = (accountType.equals("Checking") ? checkingRate : savingsRate) / 12;
+        double interest = balance * monthlyRate;
+        balance += interest;
+        System.out.printf("Interest applied: $%.2f | New Balance: $%.2f%n", interest, balance);
+    }
+    
+    public void displayAccountInfo() {
+        System.out.println("╔════════════════════════════════════════╗");
+        System.out.printf("  Bank:          %s%n", bankName);  // Static variable
+        System.out.printf("  Account #:     %s%n", accountNumber);
+        System.out.printf("  Holder:        %s%n", accountHolder);
+        System.out.printf("  Type:          %s%n", accountType);
+        System.out.printf("  Balance:       $%,.2f%n", balance);
+        System.out.printf("  Interest Rate: %.2f%%%n", 
+                         (accountType.equals("Checking") ? checkingRate : savingsRate) * 100);
+        System.out.printf("  Annual Interest: $%.2f%n", calculateAnnualInterest());
+        System.out.printf("  Opened:        %s%n", dateOpened);
+        System.out.println("╚════════════════════════════════════════╝");
+    }
+}
+
+// =============================================
+// DEMONSTRATION: Static vs Instance Variables
+// =============================================
+public class StaticDemo {
+    public static void main(String[] args) {
+        // Access static members WITHOUT creating objects
+        System.out.println("=== Accessing Static Members Without Objects ===");
+        System.out.println("Bank Name: " + BankAccount.getBankName());
+        System.out.println("Total Accounts: " + BankAccount.getTotalAccounts());
+        System.out.println("Minimum Balance: $" + BankAccount.getMinimumBalance());
+        
+        BankAccount.displayBankInfo();
+        
+        System.out.println("\n=== Creating Accounts ===");
+        
+        // Create accounts - each has unique instance data
+        BankAccount acc1 = new BankAccount("Maria Santos", "Savings", 10000);
+        BankAccount acc2 = new BankAccount("Juan Dela Cruz", "Checking", 5000);
+        BankAccount acc3 = new BankAccount("Ana Garcia", "Savings", 25000);
+        
+        System.out.println("\n=== Account Information ===");
+        acc1.displayAccountInfo();
+        acc2.displayAccountInfo();
+        acc3.displayAccountInfo();
+        
+        // Static variable is shared - all show same total
+        System.out.println("\n=== Shared Static Data ===");
+        System.out.println("Total accounts (via class): " + BankAccount.getTotalAccounts());
+        
+        // Updating static variable affects all
+        System.out.println("\n=== Updating Interest Rates (affects ALL accounts) ===");
+        BankAccount.updateInterestRates(0.025, 0.01);  // 2.5% savings, 1% checking
+        
+        System.out.println("\n=== After Rate Change ===");
+        System.out.printf("Maria's new annual interest: $%.2f%n", acc1.calculateAnnualInterest());
+        System.out.printf("Juan's new annual interest: $%.2f%n", acc2.calculateAnnualInterest());
+        System.out.printf("Ana's new annual interest: $%.2f%n", acc3.calculateAnnualInterest());
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Static Methods - Complete Guide</h3>
+            <p>Static methods belong to the class rather than instances. They can be called without creating an object and are commonly used for utility functions, factory methods, and accessing static data.</p>
+            
+            <h4>Rules for Static Methods:</h4>
+            <ul>
+                <li>Can access static variables and other static methods directly</li>
+                <li>CANNOT access instance variables or instance methods directly</li>
+                <li>CANNOT use <code>this</code> keyword (no instance context)</li>
+                <li>CAN be called using class name or object reference (class name preferred)</li>
+            </ul>
+            
+            <pre><code>// =============================================
+// STATIC METHODS - COMPREHENSIVE EXAMPLES
+// =============================================
+
+/**
+ * Utility class with only static methods.
+ * Cannot be instantiated (private constructor).
+ */
+public class StringUtils {
+    
+    // Private constructor prevents instantiation
+    private StringUtils() {
+        throw new UnsupportedOperationException("Utility class cannot be instantiated");
+    }
+    
+    // =============================================
+    // STRING VALIDATION METHODS
+    // =============================================
+    
+    /**
+     * Check if a string is null or empty.
+     */
+    public static boolean isEmpty(String str) {
+        return str == null || str.isEmpty();
+    }
+    
+    /**
+     * Check if a string is null, empty, or contains only whitespace.
+     */
+    public static boolean isBlank(String str) {
+        return str == null || str.trim().isEmpty();
+    }
+    
+    /**
+     * Check if a string contains only digits.
+     */
+    public static boolean isNumeric(String str) {
+        if (isEmpty(str)) return false;
+        for (char c : str.toCharArray()) {
+            if (!Character.isDigit(c)) return false;
+        }
+        return true;
+    }
+    
+    /**
+     * Check if a string contains only letters.
+     */
+    public static boolean isAlpha(String str) {
+        if (isEmpty(str)) return false;
+        for (char c : str.toCharArray()) {
+            if (!Character.isLetter(c)) return false;
+        }
+        return true;
+    }
+    
+    /**
+     * Check if string is a valid email format.
+     */
+    public static boolean isValidEmail(String email) {
+        if (isEmpty(email)) return false;
+        return email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+    }
+    
+    /**
+     * Check if string is a valid Philippine mobile number.
+     */
+    public static boolean isValidPhilippineMobile(String number) {
+        if (isEmpty(number)) return false;
+        // Format: 09XXXXXXXXX or +639XXXXXXXXX
+        return number.matches("^(09|\\+639)\\d{9}$");
+    }
+    
+    // =============================================
+    // STRING TRANSFORMATION METHODS
+    // =============================================
+    
+    /**
+     * Capitalize the first letter of each word.
+     */
+    public static String toTitleCase(String str) {
+        if (isEmpty(str)) return str;
+        
+        StringBuilder result = new StringBuilder();
+        boolean capitalizeNext = true;
+        
+        for (char c : str.toCharArray()) {
+            if (Character.isWhitespace(c)) {
+                capitalizeNext = true;
+                result.append(c);
+            } else if (capitalizeNext) {
+                result.append(Character.toUpperCase(c));
+                capitalizeNext = false;
+            } else {
+                result.append(Character.toLowerCase(c));
+            }
+        }
+        return result.toString();
+    }
+    
+    /**
+     * Reverse a string.
+     */
+    public static String reverse(String str) {
+        if (isEmpty(str)) return str;
+        return new StringBuilder(str).reverse().toString();
+    }
+    
+    /**
+     * Remove all whitespace from a string.
+     */
+    public static String removeWhitespace(String str) {
+        if (isEmpty(str)) return str;
+        return str.replaceAll("\\s+", "");
+    }
+    
+    /**
+     * Truncate string to specified length with ellipsis.
+     */
+    public static String truncate(String str, int maxLength) {
+        if (isEmpty(str) || str.length() <= maxLength) {
+            return str;
+        }
+        return str.substring(0, maxLength - 3) + "...";
+    }
+    
+    /**
+     * Pad string on the left to reach specified length.
+     */
+    public static String padLeft(String str, int length, char padChar) {
+        if (str == null) str = "";
+        if (str.length() >= length) return str;
+        
+        StringBuilder sb = new StringBuilder();
+        for (int i = str.length(); i < length; i++) {
+            sb.append(padChar);
+        }
+        sb.append(str);
+        return sb.toString();
+    }
+    
+    /**
+     * Pad string on the right to reach specified length.
+     */
+    public static String padRight(String str, int length, char padChar) {
+        if (str == null) str = "";
+        if (str.length() >= length) return str;
+        
+        StringBuilder sb = new StringBuilder(str);
+        while (sb.length() < length) {
+            sb.append(padChar);
+        }
+        return sb.toString();
+    }
+}
+
+// =============================================
+// MATH UTILITY CLASS
+// =============================================
+
+public class MathUtils {
+    
+    // Constants
+    public static final double PI = 3.14159265358979;
+    public static final double E = 2.71828182845905;
+    public static final double GOLDEN_RATIO = 1.61803398874989;
+    
+    private MathUtils() {}  // Prevent instantiation
+    
+    // =============================================
+    // BASIC CALCULATIONS
+    // =============================================
+    
+    public static int max(int a, int b) {
+        return (a > b) ? a : b;
+    }
+    
+    public static int max(int... numbers) {
+        if (numbers.length == 0) {
+            throw new IllegalArgumentException("At least one number required");
+        }
+        int max = numbers[0];
+        for (int num : numbers) {
+            if (num > max) max = num;
+        }
+        return max;
+    }
+    
+    public static int min(int a, int b) {
+        return (a < b) ? a : b;
+    }
+    
+    public static double average(double... numbers) {
+        if (numbers.length == 0) return 0;
+        double sum = 0;
+        for (double num : numbers) {
+            sum += num;
+        }
+        return sum / numbers.length;
+    }
+    
+    public static long factorial(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("n must be non-negative");
+        }
+        if (n <= 1) return 1;
+        long result = 1;
+        for (int i = 2; i <= n; i++) {
+            result *= i;
+        }
+        return result;
+    }
+    
+    public static int fibonacci(int n) {
+        if (n <= 0) return 0;
+        if (n == 1) return 1;
+        
+        int prev = 0, curr = 1;
+        for (int i = 2; i <= n; i++) {
+            int next = prev + curr;
+            prev = curr;
+            curr = next;
+        }
+        return curr;
+    }
+    
+    public static boolean isPrime(int n) {
+        if (n < 2) return false;
+        if (n == 2) return true;
+        if (n % 2 == 0) return false;
+        
+        for (int i = 3; i <= Math.sqrt(n); i += 2) {
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
+    
+    public static int gcd(int a, int b) {
+        a = Math.abs(a);
+        b = Math.abs(b);
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+    
+    public static int lcm(int a, int b) {
+        return Math.abs(a * b) / gcd(a, b);
+    }
+    
+    // =============================================
+    // GEOMETRY CALCULATIONS
+    // =============================================
+    
+    public static double circleArea(double radius) {
+        return PI * radius * radius;
+    }
+    
+    public static double circleCircumference(double radius) {
+        return 2 * PI * radius;
+    }
+    
+    public static double rectangleArea(double length, double width) {
+        return length * width;
+    }
+    
+    public static double triangleArea(double base, double height) {
+        return 0.5 * base * height;
+    }
+    
+    public static double sphereVolume(double radius) {
+        return (4.0 / 3.0) * PI * Math.pow(radius, 3);
+    }
+    
+    // =============================================
+    // CONVERSION METHODS
+    // =============================================
+    
+    public static double celsiusToFahrenheit(double celsius) {
+        return (celsius * 9.0 / 5.0) + 32;
+    }
+    
+    public static double fahrenheitToCelsius(double fahrenheit) {
+        return (fahrenheit - 32) * 5.0 / 9.0;
+    }
+    
+    public static double kilometersToMiles(double km) {
+        return km * 0.621371;
+    }
+    
+    public static double milesToKilometers(double miles) {
+        return miles * 1.60934;
+    }
+}
+
+// =============================================
+// DEMONSTRATION
+// =============================================
+public class StaticMethodsDemo {
+    public static void main(String[] args) {
+        // String utilities - called using class name
+        System.out.println("=== StringUtils Demo ===");
+        
+        System.out.println("isEmpty(null): " + StringUtils.isEmpty(null));
+        System.out.println("isEmpty(\"\"): " + StringUtils.isEmpty(""));
+        System.out.println("isEmpty(\"hello\"): " + StringUtils.isEmpty("hello"));
+        
+        System.out.println("\nisNumeric(\"12345\"): " + StringUtils.isNumeric("12345"));
+        System.out.println("isNumeric(\"123a5\"): " + StringUtils.isNumeric("123a5"));
+        
+        System.out.println("\nisValidEmail(\"test@email.com\"): " + 
+                          StringUtils.isValidEmail("test@email.com"));
+        System.out.println("isValidPhilippineMobile(\"09171234567\"): " + 
+                          StringUtils.isValidPhilippineMobile("09171234567"));
+        
+        System.out.println("\ntoTitleCase(\"hello world\"): " + 
+                          StringUtils.toTitleCase("hello world"));
+        System.out.println("reverse(\"Java\"): " + StringUtils.reverse("Java"));
+        System.out.println("truncate(\"This is a long text\", 12): " + 
+                          StringUtils.truncate("This is a long text", 12));
+        System.out.println("padLeft(\"42\", 5, '0'): " + StringUtils.padLeft("42", 5, '0'));
+        
+        System.out.println("\n=== MathUtils Demo ===");
+        
+        System.out.println("PI: " + MathUtils.PI);
+        System.out.println("max(5, 10, 3, 8, 2): " + MathUtils.max(5, 10, 3, 8, 2));
+        System.out.println("average(85, 90, 78, 92): " + 
+                          MathUtils.average(85, 90, 78, 92));
+        System.out.println("factorial(5): " + MathUtils.factorial(5));
+        System.out.println("fibonacci(10): " + MathUtils.fibonacci(10));
+        System.out.println("isPrime(17): " + MathUtils.isPrime(17));
+        System.out.println("gcd(48, 18): " + MathUtils.gcd(48, 18));
+        
+        System.out.println("\ncircleArea(5): " + MathUtils.circleArea(5));
+        System.out.println("sphereVolume(3): " + MathUtils.sphereVolume(3));
+        
+        System.out.println("\n25°C = " + MathUtils.celsiusToFahrenheit(25) + "°F");
+        System.out.println("100km = " + MathUtils.kilometersToMiles(100) + " miles");
+    }
+}</code></pre>
+            
+            <h4>When to Use Static:</h4>
+            <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="background: #35424a; color: white;">
+                    <th style="padding: 10px; border: 1px solid #ddd;">Use Static When...</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Use Instance When...</th>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Value is shared by ALL instances</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Value is unique to each object</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 10px; border: 1px solid #ddd;">Utility methods that don't need object state</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Methods that use object's data</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Constants (with <code>final</code>)</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Configurable values per object</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 10px; border: 1px solid #ddd;">Factory methods</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Regular business methods</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Counter for number of instances</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Individual object properties</td>
+                </tr>
+            </table>
+        </div>
+        
+        <a href="index.html#syllabus" class="btn">Back to Syllabus</a>
+        <a href="week3-4.html" class="btn">← Previous: Week 3-4</a>
+        <a href="week7-8.html" class="btn">Next: Week 7-8 →</a>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CC3 Computer Programming. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

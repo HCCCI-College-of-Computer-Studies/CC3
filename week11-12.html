@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 11-12: File Input and Output - CC3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>CC3: Computer Programming</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#syllabus">Syllabus</a></li>
+                    <li><a href="index.html#resources">Resources</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="container">
+        <h2>Week 11-12: File Input and Output</h2>
+        <div class="week">
+            <p>Exhibit comprehensive mastery of file input and output operations in Java, encompassing the ability to recall, understand, apply, analyze, synthesize, and evaluate various techniques for reading from and writing to files, facilitating the development of efficient and reliable file-handling functionalities within software solutions.</p>
+            <h3>Topics:</h3>
+            <ul>
+                <li>The Computer Files</li>
+                <li>The path and file Classes</li>
+                <li>File Organization</li>
+                <li>Streams</li>
+                <li>Buffer</li>
+                <li>The I/O classes</li>
+                <li>Sequential Data Files</li>
+            </ul>
+        </div>
+        
+        <div class="week">
+            <h3>Understanding Files and File Systems</h3>
+            <p>Files are named locations on disk that store related information. Java provides comprehensive support for file operations through its I/O (Input/Output) API. Understanding file I/O is essential for data persistence in applications.</p>
+            
+            <h4>Java I/O Stream Hierarchy:</h4>
+            <pre><code>/*
+ * JAVA I/O CLASS HIERARCHY
+ * 
+ * ┌─────────────────────────────────────────────────────────────┐
+ * │                     STREAM TYPES                            │
+ * ├─────────────────────────────────────────────────────────────┤
+ * │                                                              │
+ * │   BYTE STREAMS (Binary Data)    CHARACTER STREAMS (Text)    │
+ * │   ─────────────────────────     ─────────────────────────   │
+ * │                                                              │
+ * │   InputStream                   Reader                       │
+ * │     └─ FileInputStream            └─ FileReader              │
+ * │     └─ BufferedInputStream        └─ BufferedReader          │
+ * │     └─ DataInputStream            └─ InputStreamReader       │
+ * │     └─ ObjectInputStream                                     │
+ * │                                                              │
+ * │   OutputStream                  Writer                       │
+ * │     └─ FileOutputStream           └─ FileWriter              │
+ * │     └─ BufferedOutputStream       └─ BufferedWriter          │
+ * │     └─ DataOutputStream           └─ PrintWriter             │
+ * │     └─ ObjectOutputStream         └─ OutputStreamWriter      │
+ * │                                                              │
+ * └─────────────────────────────────────────────────────────────┘
+ * 
+ * USE BYTE STREAMS FOR:
+ * - Images, audio, video files
+ * - Serialized objects
+ * - Any binary data
+ * 
+ * USE CHARACTER STREAMS FOR:
+ * - Text files (.txt, .csv, .html)
+ * - Configuration files
+ * - Log files
+ */</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>The Path and File Classes</h3>
+            <p>Java provides multiple ways to work with file paths. The older <code>File</code> class and newer <code>Path</code> interface (Java 7+) both allow you to represent and manipulate file system paths.</p>
+            
+            <pre><code>// =============================================
+// FILE AND PATH OPERATIONS - COMPLETE GUIDE
+// =============================================
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.*;
+
+public class FilePathOperations {
+    
+    public static void main(String[] args) {
+        demonstrateFileClass();
+        demonstratePathClass();
+        demonstrateFileOperations();
+        demonstrateDirectoryOperations();
+    }
+    
+    // =============================================
+    // USING THE FILE CLASS (Legacy but still useful)
+    // =============================================
+    static void demonstrateFileClass() {
+        System.out.println("═══════════════════════════════════════════");
+        System.out.println("       FILE CLASS DEMONSTRATION            ");
+        System.out.println("═══════════════════════════════════════════\n");
+        
+        // Creating File objects
+        File file1 = new File("data.txt");
+        File file2 = new File("C:\\Users\\Documents\\report.txt");
+        File file3 = new File("documents", "notes.txt");
+        File directory = new File("myFolder");
+        
+        // File information methods
+        System.out.println("--- File Information ---");
+        System.out.println("Name: " + file1.getName());
+        System.out.println("Path: " + file1.getPath());
+        System.out.println("Absolute Path: " + file1.getAbsolutePath());
+        System.out.println("Parent: " + file1.getParent());
+        
+        // Checking file status
+        System.out.println("\n--- File Status ---");
+        System.out.println("Exists: " + file1.exists());
+        System.out.println("Is File: " + file1.isFile());
+        System.out.println("Is Directory: " + file1.isDirectory());
+        System.out.println("Can Read: " + file1.canRead());
+        System.out.println("Can Write: " + file1.canWrite());
+        System.out.println("Is Hidden: " + file1.isHidden());
+        
+        // File size and date
+        if (file1.exists()) {
+            System.out.println("\n--- File Details ---");
+            System.out.println("Size: " + file1.length() + " bytes");
+            System.out.println("Last Modified: " + 
+                new java.util.Date(file1.lastModified()));
+        }
+        
+        // Create a new file
+        System.out.println("\n--- Creating New File ---");
+        File newFile = new File("newfile.txt");
+        try {
+            if (newFile.createNewFile()) {
+                System.out.println("✓ File created: " + newFile.getName());
+            } else {
+                System.out.println("File already exists");
+            }
+        } catch (IOException e) {
+            System.out.println("Error creating file: " + e.getMessage());
+        }
+        
+        // Create directory
+        System.out.println("\n--- Creating Directory ---");
+        File newDir = new File("testDirectory");
+        if (newDir.mkdir()) {
+            System.out.println("✓ Directory created: " + newDir.getName());
+        }
+        
+        // Create nested directories
+        File nestedDirs = new File("parent/child/grandchild");
+        if (nestedDirs.mkdirs()) {
+            System.out.println("✓ Nested directories created");
+        }
+        
+        // List files in directory
+        System.out.println("\n--- Listing Current Directory ---");
+        File currentDir = new File(".");
+        String[] files = currentDir.list();
+        if (files != null) {
+            for (String name : files) {
+                System.out.println("  " + name);
+            }
+        }
+        
+        // List with filter
+        System.out.println("\n--- Java Files Only ---");
+        File[] javaFiles = currentDir.listFiles((dir, name) -> 
+            name.endsWith(".java") || name.endsWith(".txt"));
+        if (javaFiles != null) {
+            for (File f : javaFiles) {
+                System.out.printf("  %s (%d bytes)%n", f.getName(), f.length());
+            }
+        }
+    }
+    
+    // =============================================
+    // USING THE PATH INTERFACE (Java 7+ - Recommended)
+    // =============================================
+    static void demonstratePathClass() {
+        System.out.println("\n═══════════════════════════════════════════");
+        System.out.println("       PATH CLASS DEMONSTRATION            ");
+        System.out.println("═══════════════════════════════════════════\n");
+        
+        // Creating Path objects
+        Path path1 = Paths.get("data.txt");
+        Path path2 = Paths.get("C:", "Users", "Documents", "file.txt");
+        Path path3 = Paths.get("folder", "subfolder", "document.txt");
+        Path path4 = Path.of("config", "settings.json"); // Java 11+
+        
+        // Path components
+        System.out.println("--- Path Components ---");
+        System.out.println("Path: " + path3);
+        System.out.println("File Name: " + path3.getFileName());
+        System.out.println("Parent: " + path3.getParent());
+        System.out.println("Root: " + path3.getRoot());
+        System.out.println("Name Count: " + path3.getNameCount());
+        
+        // Iterate through path elements
+        System.out.println("\n--- Path Elements ---");
+        for (int i = 0; i < path3.getNameCount(); i++) {
+            System.out.println("  Element " + i + ": " + path3.getName(i));
+        }
+        
+        // Path operations
+        System.out.println("\n--- Path Operations ---");
+        Path absolute = path1.toAbsolutePath();
+        System.out.println("To Absolute: " + absolute);
+        
+        Path normalized = Paths.get("folder/../folder/./file.txt").normalize();
+        System.out.println("Normalized: " + normalized);
+        
+        // Resolving paths (joining)
+        Path base = Paths.get("documents");
+        Path resolved = base.resolve("reports/annual.txt");
+        System.out.println("Resolved: " + resolved);
+        
+        // Relative path between two paths
+        Path path5 = Paths.get("home/user/documents");
+        Path path6 = Paths.get("home/user/pictures");
+        Path relative = path5.relativize(path6);
+        System.out.println("Relative: " + relative);
+        
+        // Using Files utility class
+        System.out.println("\n--- Files Class Methods ---");
+        Path testPath = Paths.get("test.txt");
+        System.out.println("Exists: " + Files.exists(testPath));
+        System.out.println("Is Regular File: " + Files.isRegularFile(testPath));
+        System.out.println("Is Directory: " + Files.isDirectory(testPath));
+        System.out.println("Is Readable: " + Files.isReadable(testPath));
+        System.out.println("Is Writable: " + Files.isWritable(testPath));
+    }
+    
+    // =============================================
+    // FILE OPERATIONS (Create, Copy, Move, Delete)
+    // =============================================
+    static void demonstrateFileOperations() {
+        System.out.println("\n═══════════════════════════════════════════");
+        System.out.println("       FILE OPERATIONS                     ");
+        System.out.println("═══════════════════════════════════════════\n");
+        
+        try {
+            // Create a file
+            Path newFile = Paths.get("demo_file.txt");
+            if (!Files.exists(newFile)) {
+                Files.createFile(newFile);
+                System.out.println("✓ Created: " + newFile);
+            }
+            
+            // Write to file (simple way)
+            Files.writeString(newFile, "Hello, World!\nThis is a test file.");
+            System.out.println("✓ Written to: " + newFile);
+            
+            // Read from file
+            String content = Files.readString(newFile);
+            System.out.println("✓ Content: " + content);
+            
+            // Copy file
+            Path copyPath = Paths.get("demo_file_copy.txt");
+            Files.copy(newFile, copyPath, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("✓ Copied to: " + copyPath);
+            
+            // Move/Rename file
+            Path movedPath = Paths.get("demo_file_moved.txt");
+            Files.move(copyPath, movedPath, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("✓ Moved to: " + movedPath);
+            
+            // Get file attributes
+            BasicFileAttributes attrs = Files.readAttributes(
+                newFile, BasicFileAttributes.class);
+            System.out.println("\n--- File Attributes ---");
+            System.out.println("Size: " + attrs.size() + " bytes");
+            System.out.println("Created: " + attrs.creationTime());
+            System.out.println("Modified: " + attrs.lastModifiedTime());
+            System.out.println("Is Directory: " + attrs.isDirectory());
+            
+            // Delete files (cleanup)
+            Files.deleteIfExists(newFile);
+            Files.deleteIfExists(movedPath);
+            System.out.println("\n✓ Cleanup completed");
+            
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    // =============================================
+    // DIRECTORY OPERATIONS
+    // =============================================
+    static void demonstrateDirectoryOperations() {
+        System.out.println("\n═══════════════════════════════════════════");
+        System.out.println("       DIRECTORY OPERATIONS                ");
+        System.out.println("═══════════════════════════════════════════\n");
+        
+        try {
+            // Create directory
+            Path dir = Paths.get("demo_directory");
+            if (!Files.exists(dir)) {
+                Files.createDirectory(dir);
+                System.out.println("✓ Created directory: " + dir);
+            }
+            
+            // Create nested directories
+            Path nested = Paths.get("demo_parent", "demo_child", "demo_grandchild");
+            Files.createDirectories(nested);
+            System.out.println("✓ Created nested directories");
+            
+            // Create some files in directory
+            for (int i = 1; i <= 3; i++) {
+                Path file = dir.resolve("file" + i + ".txt");
+                Files.writeString(file, "Content of file " + i);
+            }
+            System.out.println("✓ Created sample files");
+            
+            // List directory contents
+            System.out.println("\n--- Directory Contents ---");
+            try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
+                for (Path entry : stream) {
+                    System.out.println("  " + entry.getFileName());
+                }
+            }
+            
+            // List with glob pattern
+            System.out.println("\n--- .txt Files Only ---");
+            try (DirectoryStream<Path> stream = 
+                    Files.newDirectoryStream(dir, "*.txt")) {
+                for (Path entry : stream) {
+                    System.out.println("  " + entry.getFileName());
+                }
+            }
+            
+            // Walk directory tree
+            System.out.println("\n--- Walking Directory Tree ---");
+            Files.walk(Paths.get("demo_parent"))
+                 .forEach(p -> System.out.println("  " + p));
+            
+            // Find files matching condition
+            System.out.println("\n--- Finding .txt Files ---");
+            Files.find(Paths.get("."), 3,
+                      (path, attrs) -> path.toString().endsWith(".txt"))
+                 .limit(5)
+                 .forEach(p -> System.out.println("  " + p));
+            
+            // Cleanup
+            System.out.println("\n--- Cleanup ---");
+            deleteDirectory(dir);
+            deleteDirectory(Paths.get("demo_parent"));
+            System.out.println("✓ Cleanup completed");
+            
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    // Helper method to delete directory recursively
+    static void deleteDirectory(Path dir) throws IOException {
+        if (Files.exists(dir)) {
+            Files.walk(dir)
+                 .sorted((a, b) -> b.compareTo(a))  // Reverse order (files first)
+                 .forEach(p -> {
+                     try {
+                         Files.delete(p);
+                     } catch (IOException e) {
+                         System.out.println("Could not delete: " + p);
+                     }
+                 });
+        }
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Writing to Files - Complete Guide</h3>
+            <p>Java provides multiple classes for writing to files. Choose based on your needs: simple text, formatted output, or binary data.</p>
+            
+            <pre><code>// =============================================
+// FILE WRITING - ALL METHODS DEMONSTRATED
+// =============================================
+
+import java.io.*;
+import java.nio.file.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+
+public class FileWritingComplete {
+    
+    public static void main(String[] args) {
+        System.out.println("═══════════════════════════════════════════");
+        System.out.println("      FILE WRITING DEMONSTRATION           ");
+        System.out.println("═══════════════════════════════════════════\n");
+        
+        writeWithFileWriter();
+        writeWithBufferedWriter();
+        writeWithPrintWriter();
+        writeWithFilesClass();
+        writeAppendToFile();
+        writeStructuredData();
+    }
+    
+    // =============================================
+    // METHOD 1: FileWriter (Basic character output)
+    // =============================================
+    static void writeWithFileWriter() {
+        System.out.println("--- 1. FileWriter ---");
+        
+        // Try-with-resources ensures file is closed
+        try (FileWriter writer = new FileWriter("filewriter_demo.txt")) {
+            // Write string
+            writer.write("Hello, this is FileWriter!\n");
+            
+            // Write characters
+            writer.write("Line 2: ");
+            char[] chars = {'J', 'a', 'v', 'a'};
+            writer.write(chars);
+            writer.write('\n');
+            
+            // Write portion of string
+            writer.write("This is a longer string", 0, 7);  // "This is"
+            writer.write('\n');
+            
+            // Flush buffer to ensure all data is written
+            writer.flush();
+            
+            System.out.println("✓ FileWriter demo completed");
+            
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    // =============================================
+    // METHOD 2: BufferedWriter (Efficient for large files)
+    // =============================================
+    static void writeWithBufferedWriter() {
+        System.out.println("\n--- 2. BufferedWriter ---");
+        
+        try (BufferedWriter writer = new BufferedWriter(
+                new FileWriter("buffered_demo.txt"))) {
+            
+            // Write lines
+            writer.write("Line 1: BufferedWriter is efficient");
+            writer.newLine();  // Platform-independent line separator
+            
+            writer.write("Line 2: It uses internal buffer");
+            writer.newLine();
+            
+            // Write multiple lines
+            String[] lines = {
+                "Line 3: Reduces disk I/O operations",
+                "Line 4: Best for large files",
+                "Line 5: Default buffer size is 8KB"
+            };
+            
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+            
+            System.out.println("✓ BufferedWriter demo completed");
+            
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    // =============================================
+    // METHOD 3: PrintWriter (Most convenient)
+    // =============================================
+    static void writeWithPrintWriter() {
+        System.out.println("\n--- 3. PrintWriter ---");
+        
+        try (PrintWriter writer = new PrintWriter("printwriter_demo.txt")) {
+            // print() - no newline
+            writer.print("Hello ");
+            writer.print("World");
+            writer.println();  // Add newline
+            
+            // println() - with newline
+            writer.println("This line has automatic newline");
+            
+            // printf() - formatted output (like System.out.printf)
+            writer.printf("Integer: %d%n", 42);
+            writer.printf("Float: %.2f%n", 3.14159);
+            writer.printf("String: %s%n", "Java");
+            writer.printf("Padded: |%10s|%-10s|%n", "right", "left");
+            
+            // Write data
+            int age = 25;
+            String name = "Maria";
+            double gpa = 3.85;
+            writer.printf("Student: %s, Age: %d, GPA: %.2f%n", name, age, gpa);
+            
+            // Check for errors
+            if (writer.checkError()) {
+                System.out.println("Error occurred during writing");
+            } else {
+                System.out.println("✓ PrintWriter demo completed");
+            }
+            
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    // =============================================
+    // METHOD 4: Files class (Java 7+ - Simple one-liners)
+    // =============================================
+    static void writeWithFilesClass() {
+        System.out.println("\n--- 4. Files Class (NIO) ---");
+        
+        try {
+            Path path = Paths.get("files_demo.txt");
+            
+            // Write string directly (Java 11+)
+            Files.writeString(path, "Simple one-liner write!\n");
+            Files.writeString(path, "Second line\n", StandardOpenOption.APPEND);
+            
+            // Write all lines
+            List<String> lines = Arrays.asList(
+                "Line 1 from list",
+                "Line 2 from list",
+                "Line 3 from list"
+            );
+            Files.write(Paths.get("files_lines_demo.txt"), lines);
+            
+            // Write with specific charset
+            String content = "UTF-8 content: café, niño, 日本語";
+            Files.write(Paths.get("files_utf8_demo.txt"), 
+                       content.getBytes(StandardCharsets.UTF_8));
+            
+            System.out.println("✓ Files class demo completed");
+            
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    // =============================================
+    // METHOD 5: Appending to existing file
+    // =============================================
+    static void writeAppendToFile() {
+        System.out.println("\n--- 5. Appending to File ---");
+        
+        String filename = "append_demo.txt";
+        
+        try {
+            // Create initial file
+            try (PrintWriter writer = new PrintWriter(filename)) {
+                writer.println("Initial content - Line 1");
+                writer.println("Initial content - Line 2");
+            }
+            System.out.println("Created file with initial content");
+            
+            // Append using FileWriter with append=true
+            try (FileWriter fw = new FileWriter(filename, true);
+                 BufferedWriter bw = new BufferedWriter(fw);
+                 PrintWriter pw = new PrintWriter(bw)) {
+                
+                pw.println("Appended - Line 3");
+                pw.println("Appended - Line 4");
+            }
+            System.out.println("Appended more content");
+            
+            // Append using Files class
+            Files.writeString(Paths.get(filename), 
+                            "Appended using Files.writeString\n",
+                            StandardOpenOption.APPEND);
+            
+            // Read and display
+            System.out.println("\n--- File Contents ---");
+            Files.readAllLines(Paths.get(filename))
+                 .forEach(line -> System.out.println("  " + line));
+            
+            System.out.println("\n✓ Append demo completed");
+            
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    // =============================================
+    // METHOD 6: Writing Structured Data (CSV format)
+    // =============================================
+    static void writeStructuredData() {
+        System.out.println("\n--- 6. Writing Structured Data (CSV) ---");
+        
+        String filename = "students.csv";
+        
+        try (PrintWriter writer = new PrintWriter(filename)) {
+            // Write header
+            writer.println("ID,Name,Age,GPA,Major");
+            
+            // Write data rows
+            Object[][] students = {
+                {1001, "Maria Santos", 20, 3.85, "Computer Science"},
+                {1002, "Juan Dela Cruz", 21, 3.42, "Information Technology"},
+                {1003, "Ana Garcia", 19, 3.95, "Computer Science"},
+                {1004, "Pedro Reyes", 22, 3.21, "Software Engineering"},
+                {1005, "Sofia Martinez", 20, 3.78, "Data Science"}
+            };
+            
+            for (Object[] student : students) {
+                writer.printf("%d,%s,%d,%.2f,%s%n",
+                    student[0], student[1], student[2], student[3], student[4]);
+            }
+            
+            System.out.println("✓ CSV file created: " + filename);
+            
+            // Display what was written
+            System.out.println("\n--- CSV Contents ---");
+            Files.readAllLines(Paths.get(filename))
+                 .forEach(System.out::println);
+                 
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Reading from Files - Complete Guide</h3>
+            <p>Java provides multiple classes for reading files. Choose based on what you need to read: character by character, line by line, or all at once.</p>
+            
+            <pre><code>// =============================================
+// FILE READING - ALL METHODS DEMONSTRATED
+// =============================================
+
+import java.io.*;
+import java.nio.file.*;
+import java.util.*;
+import java.util.stream.*;
+
+public class FileReadingComplete {
+    
+    public static void main(String[] args) {
+        // First, create a sample file to read
+        createSampleFile();
+        
+        System.out.println("═══════════════════════════════════════════");
+        System.out.println("       FILE READING DEMONSTRATION          ");
+        System.out.println("═══════════════════════════════════════════\n");
+        
+        readWithFileReader();
+        readWithBufferedReader();
+        readWithScanner();
+        readWithFilesClass();
+        readSpecificDataTypes();
+        readCSVFile();
+    }
+    
+    static void createSampleFile() {
+        try (PrintWriter pw = new PrintWriter("sample.txt")) {
+            pw.println("Line 1: Welcome to Java File I/O");
+            pw.println("Line 2: This is a sample text file");
+            pw.println("Line 3: It contains multiple lines");
+            pw.println("Line 4: For demonstration purposes");
+            pw.println("Line 5: End of file");
+        } catch (FileNotFoundException e) {
+            System.out.println("Error creating sample file");
+        }
+    }
+    
+    // =============================================
+    // METHOD 1: FileReader (Basic character input)
+    // =============================================
+    static void readWithFileReader() {
+        System.out.println("--- 1. FileReader (Character by Character) ---");
+        
+        try (FileReader reader = new FileReader("sample.txt")) {
+            int character;
+            StringBuilder content = new StringBuilder();
+            
+            // Read one character at a time
+            while ((character = reader.read()) != -1) {
+                content.append((char) character);
+            }
+            
+            System.out.println("Content:");
+            System.out.println(content.toString());
+            
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    // =============================================
+    // METHOD 2: BufferedReader (Efficient line reading)
+    // =============================================
+    static void readWithBufferedReader() {
+        System.out.println("\n--- 2. BufferedReader (Line by Line) ---");
+        
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader("sample.txt"))) {
+            
+            String line;
+            int lineNumber = 1;
+            
+            // Read line by line
+            while ((line = reader.readLine()) != null) {
+                System.out.printf("Line %d: %s%n", lineNumber++, line);
+            }
+            
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        
+        // Using BufferedReader with streams (Java 8+)
+        System.out.println("\n--- BufferedReader with Streams ---");
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader("sample.txt"))) {
+            
+            // Use lines() to get a Stream<String>
+            reader.lines()
+                  .filter(line -> line.contains("Line"))
+                  .map(String::toUpperCase)
+                  .forEach(System.out::println);
+                  
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    // =============================================
+    // METHOD 3: Scanner (Flexible parsing)
+    // =============================================
+    static void readWithScanner() {
+        System.out.println("\n--- 3. Scanner (Flexible Parsing) ---");
+        
+        try (Scanner scanner = new Scanner(new File("sample.txt"))) {
+            // Read entire file
+            System.out.println("Word by word:");
+            int wordCount = 0;
+            while (scanner.hasNext() && wordCount < 10) {
+                System.out.print(scanner.next() + " ");
+                wordCount++;
+            }
+            System.out.println("...");
+            
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        
+        // Scanner with custom delimiter
+        System.out.println("\nWith custom delimiter (comma):");
+        try (Scanner scanner = new Scanner(new File("sample.txt"))) {
+            scanner.useDelimiter(",|\\n");
+            while (scanner.hasNext()) {
+                System.out.println("  Token: " + scanner.next().trim());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    // =============================================
+    // METHOD 4: Files class (Java 7+ - Simple one-liners)
+    // =============================================
+    static void readWithFilesClass() {
+        System.out.println("\n--- 4. Files Class (NIO) ---");
+        
+        Path path = Paths.get("sample.txt");
+        
+        try {
+            // Read all content as string (Java 11+)
+            System.out.println("Read all as string:");
+            String content = Files.readString(path);
+            System.out.println(content);
+            
+            // Read all lines into List
+            System.out.println("Read all lines into List:");
+            List<String> lines = Files.readAllLines(path);
+            for (int i = 0; i < lines.size(); i++) {
+                System.out.printf("  [%d] %s%n", i, lines.get(i));
+            }
+            
+            // Read all bytes
+            byte[] bytes = Files.readAllBytes(path);
+            System.out.println("\nFile size: " + bytes.length + " bytes");
+            
+            // Using streams (lazy loading - good for large files)
+            System.out.println("\nUsing Files.lines() stream:");
+            try (Stream<String> stream = Files.lines(path)) {
+                stream.filter(line -> line.length() > 20)
+                      .forEach(line -> System.out.println("  " + line));
+            }
+            
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    // =============================================
+    // METHOD 5: Reading Specific Data Types
+    // =============================================
+    static void readSpecificDataTypes() {
+        System.out.println("\n--- 5. Reading Specific Data Types ---");
+        
+        // Create a file with mixed data
+        try (PrintWriter pw = new PrintWriter("numbers.txt")) {
+            pw.println("42");
+            pw.println("3.14159");
+            pw.println("true");
+            pw.println("Hello World");
+            pw.println("100 200 300");
+        } catch (FileNotFoundException e) {
+            System.out.println("Error creating file");
+            return;
+        }
+        
+        // Read specific types with Scanner
+        try (Scanner scanner = new Scanner(new File("numbers.txt"))) {
+            // Read as different types
+            int intValue = scanner.nextInt();
+            double doubleValue = scanner.nextDouble();
+            boolean boolValue = scanner.nextBoolean();
+            scanner.nextLine();  // Consume newline
+            String stringValue = scanner.nextLine();
+            
+            System.out.println("Integer: " + intValue);
+            System.out.println("Double: " + doubleValue);
+            System.out.println("Boolean: " + boolValue);
+            System.out.println("String: " + stringValue);
+            
+            // Read multiple integers from one line
+            System.out.print("Integers from line: ");
+            while (scanner.hasNextInt()) {
+                System.out.print(scanner.nextInt() + " ");
+            }
+            System.out.println();
+            
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    // =============================================
+    // METHOD 6: Reading CSV File
+    // =============================================
+    static void readCSVFile() {
+        System.out.println("\n--- 6. Reading CSV File ---");
+        
+        // Create sample CSV
+        try (PrintWriter pw = new PrintWriter("data.csv")) {
+            pw.println("ID,Name,Age,Score");
+            pw.println("1,Alice,20,95.5");
+            pw.println("2,Bob,22,87.3");
+            pw.println("3,Charlie,21,91.8");
+            pw.println("4,Diana,19,98.2");
+        } catch (FileNotFoundException e) {
+            System.out.println("Error creating CSV");
+            return;
+        }
+        
+        // Read and parse CSV
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader("data.csv"))) {
+            
+            String header = reader.readLine();
+            System.out.println("Headers: " + header);
+            System.out.println("\nParsed Data:");
+            
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] fields = line.split(",");
+                
+                int id = Integer.parseInt(fields[0]);
+                String name = fields[1];
+                int age = Integer.parseInt(fields[2]);
+                double score = Double.parseDouble(fields[3]);
+                
+                System.out.printf("  ID: %d, Name: %-10s, Age: %d, Score: %.1f%n",
+                                 id, name, age, score);
+            }
+            
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        
+        // Alternative: Using Files.lines() with streams
+        System.out.println("\nUsing Streams:");
+        try {
+            Files.lines(Paths.get("data.csv"))
+                 .skip(1)  // Skip header
+                 .map(line -> line.split(","))
+                 .map(fields -> String.format("  %s scored %.1f",
+                      fields[1], Double.parseDouble(fields[3])))
+                 .forEach(System.out::println);
+                 
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Complete Application: Student Record Manager</h3>
+            <p>A practical application that demonstrates file I/O with structured data, including saving, loading, searching, and modifying student records.</p>
+            
+            <pre><code>// =============================================
+// STUDENT RECORD MANAGER - COMPLETE APPLICATION
+// =============================================
+
+import java.io.*;
+import java.nio.file.*;
+import java.util.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+/**
+ * Student class - represents a student record
+ */
+class Student implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
+    private String studentId;
+    private String firstName;
+    private String lastName;
+    private int age;
+    private String major;
+    private double gpa;
+    private LocalDate enrollmentDate;
+    
+    public Student(String studentId, String firstName, String lastName,
+                   int age, String major, double gpa) {
+        this.studentId = studentId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.major = major;
+        this.gpa = gpa;
+        this.enrollmentDate = LocalDate.now();
+    }
+    
+    // Getters
+    public String getStudentId() { return studentId; }
+    public String getFirstName() { return firstName; }
+    public String getLastName() { return lastName; }
+    public String getFullName() { return firstName + " " + lastName; }
+    public int getAge() { return age; }
+    public String getMajor() { return major; }
+    public double getGpa() { return gpa; }
+    public LocalDate getEnrollmentDate() { return enrollmentDate; }
+    
+    // Setters
+    public void setAge(int age) { this.age = age; }
+    public void setMajor(String major) { this.major = major; }
+    public void setGpa(double gpa) { this.gpa = gpa; }
+    
+    // Convert to CSV format
+    public String toCSV() {
+        return String.format("%s,%s,%s,%d,%s,%.2f,%s",
+            studentId, firstName, lastName, age, major, gpa,
+            enrollmentDate.format(DateTimeFormatter.ISO_DATE));
+    }
+    
+    // Create from CSV line
+    public static Student fromCSV(String csvLine) {
+        String[] parts = csvLine.split(",");
+        if (parts.length >= 7) {
+            Student student = new Student(
+                parts[0], parts[1], parts[2],
+                Integer.parseInt(parts[3]),
+                parts[4], Double.parseDouble(parts[5])
+            );
+            student.enrollmentDate = LocalDate.parse(parts[6]);
+            return student;
+        }
+        throw new IllegalArgumentException("Invalid CSV format");
+    }
+    
+    @Override
+    public String toString() {
+        return String.format(
+            "╔═══════════════════════════════════════╗%n" +
+            "  Student ID:     %s%n" +
+            "  Name:           %s%n" +
+            "  Age:            %d%n" +
+            "  Major:          %s%n" +
+            "  GPA:            %.2f%n" +
+            "  Enrolled:       %s%n" +
+            "╚═══════════════════════════════════════╝",
+            studentId, getFullName(), age, major, gpa,
+            enrollmentDate.format(DateTimeFormatter.ofPattern("MMM dd, yyyy"))
+        );
+    }
+}
+
+/**
+ * StudentRecordManager - handles all file operations
+ */
+public class StudentRecordManager {
+    private static final String DATA_FILE = "students.csv";
+    private static final String BACKUP_FILE = "students_backup.csv";
+    private List<Student> students;
+    
+    public StudentRecordManager() {
+        students = new ArrayList<>();
+        loadFromFile();
+    }
+    
+    // =============================================
+    // CRUD OPERATIONS
+    // =============================================
+    
+    public void addStudent(Student student) {
+        // Check for duplicate ID
+        for (Student s : students) {
+            if (s.getStudentId().equals(student.getStudentId())) {
+                throw new IllegalArgumentException(
+                    "Student ID already exists: " + student.getStudentId());
+            }
+        }
+        students.add(student);
+        saveToFile();
+        System.out.println("✓ Student added successfully");
+    }
+    
+    public Student findById(String studentId) {
+        for (Student s : students) {
+            if (s.getStudentId().equals(studentId)) {
+                return s;
+            }
+        }
+        return null;
+    }
+    
+    public List<Student> findByMajor(String major) {
+        List<Student> result = new ArrayList<>();
+        for (Student s : students) {
+            if (s.getMajor().equalsIgnoreCase(major)) {
+                result.add(s);
+            }
+        }
+        return result;
+    }
+    
+    public List<Student> findByGpaRange(double minGpa, double maxGpa) {
+        List<Student> result = new ArrayList<>();
+        for (Student s : students) {
+            if (s.getGpa() >= minGpa && s.getGpa() <= maxGpa) {
+                result.add(s);
+            }
+        }
+        return result;
+    }
+    
+    public boolean updateStudent(String studentId, String field, Object value) {
+        Student student = findById(studentId);
+        if (student == null) {
+            return false;
+        }
+        
+        switch (field.toLowerCase()) {
+            case "age":
+                student.setAge((Integer) value);
+                break;
+            case "major":
+                student.setMajor((String) value);
+                break;
+            case "gpa":
+                student.setGpa((Double) value);
+                break;
+            default:
+                System.out.println("Invalid field: " + field);
+                return false;
+        }
+        
+        saveToFile();
+        System.out.println("✓ Student updated successfully");
+        return true;
+    }
+    
+    public boolean deleteStudent(String studentId) {
+        Student student = findById(studentId);
+        if (student != null) {
+            students.remove(student);
+            saveToFile();
+            System.out.println("✓ Student deleted successfully");
+            return true;
+        }
+        return false;
+    }
+    
+    // =============================================
+    // FILE OPERATIONS
+    // =============================================
+    
+    public void saveToFile() {
+        try (PrintWriter writer = new PrintWriter(DATA_FILE)) {
+            // Write header
+            writer.println("StudentID,FirstName,LastName,Age,Major,GPA,EnrollmentDate");
+            
+            // Write each student
+            for (Student student : students) {
+                writer.println(student.toCSV());
+            }
+            
+        } catch (FileNotFoundException e) {
+            System.out.println("Error saving file: " + e.getMessage());
+        }
+    }
+    
+    public void loadFromFile() {
+        students.clear();
+        Path path = Paths.get(DATA_FILE);
+        
+        if (!Files.exists(path)) {
+            System.out.println("No existing data file found. Starting fresh.");
+            return;
+        }
+        
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader(DATA_FILE))) {
+            
+            // Skip header line
+            String header = reader.readLine();
+            
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!line.trim().isEmpty()) {
+                    try {
+                        students.add(Student.fromCSV(line));
+                    } catch (Exception e) {
+                        System.out.println("Warning: Skipping invalid line: " + line);
+                    }
+                }
+            }
+            
+            System.out.println("✓ Loaded " + students.size() + " students from file");
+            
+        } catch (IOException e) {
+            System.out.println("Error loading file: " + e.getMessage());
+        }
+    }
+    
+    public void createBackup() {
+        try {
+            Files.copy(Paths.get(DATA_FILE), Paths.get(BACKUP_FILE),
+                      StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("✓ Backup created: " + BACKUP_FILE);
+        } catch (IOException e) {
+            System.out.println("Error creating backup: " + e.getMessage());
+        }
+    }
+    
+    public void restoreFromBackup() {
+        try {
+            Files.copy(Paths.get(BACKUP_FILE), Paths.get(DATA_FILE),
+                      StandardCopyOption.REPLACE_EXISTING);
+            loadFromFile();
+            System.out.println("✓ Data restored from backup");
+        } catch (IOException e) {
+            System.out.println("Error restoring backup: " + e.getMessage());
+        }
+    }
+    
+    // =============================================
+    // DISPLAY METHODS
+    // =============================================
+    
+    public void displayAll() {
+        if (students.isEmpty()) {
+            System.out.println("No students in database.");
+            return;
+        }
+        
+        System.out.println("\n╔═══════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║                         STUDENT RECORDS                                    ║");
+        System.out.println("╠═══════════════════════════════════════════════════════════════════════════╣");
+        System.out.printf("║ %-8s │ %-20s │ %-4s │ %-15s │ %-5s ║%n",
+                         "ID", "Name", "Age", "Major", "GPA");
+        System.out.println("╠══════════╪══════════════════════╪══════╪═════════════════╪═══════╣");
+        
+        for (Student s : students) {
+            System.out.printf("║ %-8s │ %-20s │ %-4d │ %-15s │ %-5.2f ║%n",
+                s.getStudentId(),
+                truncate(s.getFullName(), 20),
+                s.getAge(),
+                truncate(s.getMajor(), 15),
+                s.getGpa());
+        }
+        
+        System.out.println("╚═══════════════════════════════════════════════════════════════════════════╝");
+        System.out.println("Total: " + students.size() + " students");
+    }
+    
+    public void displayStatistics() {
+        if (students.isEmpty()) {
+            System.out.println("No data for statistics.");
+            return;
+        }
+        
+        double totalGpa = 0;
+        double maxGpa = 0;
+        double minGpa = 4.0;
+        Map<String, Integer> majorCount = new HashMap<>();
+        
+        for (Student s : students) {
+            totalGpa += s.getGpa();
+            if (s.getGpa() > maxGpa) maxGpa = s.getGpa();
+            if (s.getGpa() < minGpa) minGpa = s.getGpa();
+            majorCount.merge(s.getMajor(), 1, Integer::sum);
+        }
+        
+        System.out.println("\n═══════════════════════════════════════");
+        System.out.println("           STATISTICS                  ");
+        System.out.println("═══════════════════════════════════════");
+        System.out.printf("Total Students:    %d%n", students.size());
+        System.out.printf("Average GPA:       %.2f%n", totalGpa / students.size());
+        System.out.printf("Highest GPA:       %.2f%n", maxGpa);
+        System.out.printf("Lowest GPA:        %.2f%n", minGpa);
+        
+        System.out.println("\nStudents by Major:");
+        for (Map.Entry<String, Integer> entry : majorCount.entrySet()) {
+            System.out.printf("  %-20s: %d%n", entry.getKey(), entry.getValue());
+        }
+    }
+    
+    private String truncate(String str, int maxLen) {
+        if (str.length() <= maxLen) return str;
+        return str.substring(0, maxLen - 3) + "...";
+    }
+    
+    public int getStudentCount() {
+        return students.size();
+    }
+    
+    // =============================================
+    // MAIN METHOD - INTERACTIVE MENU
+    // =============================================
+    
+    public static void main(String[] args) {
+        StudentRecordManager manager = new StudentRecordManager();
+        Scanner scanner = new Scanner(System.in);
+        
+        // Add sample data if empty
+        if (manager.getStudentCount() == 0) {
+            System.out.println("Adding sample students...");
+            manager.addStudent(new Student("STU001", "Maria", "Santos", 20, "Computer Science", 3.85));
+            manager.addStudent(new Student("STU002", "Juan", "Dela Cruz", 21, "Information Technology", 3.42));
+            manager.addStudent(new Student("STU003", "Ana", "Garcia", 19, "Computer Science", 3.95));
+            manager.addStudent(new Student("STU004", "Pedro", "Reyes", 22, "Software Engineering", 3.21));
+            manager.addStudent(new Student("STU005", "Sofia", "Martinez", 20, "Data Science", 3.78));
+        }
+        
+        boolean running = true;
+        while (running) {
+            System.out.println("\n╔═══════════════════════════════════════╗");
+            System.out.println("║      STUDENT RECORD MANAGER           ║");
+            System.out.println("╠═══════════════════════════════════════╣");
+            System.out.println("║  1. Display All Students              ║");
+            System.out.println("║  2. Add New Student                   ║");
+            System.out.println("║  3. Find Student by ID                ║");
+            System.out.println("║  4. Update Student                    ║");
+            System.out.println("║  5. Delete Student                    ║");
+            System.out.println("║  6. View Statistics                   ║");
+            System.out.println("║  7. Create Backup                     ║");
+            System.out.println("║  8. Restore from Backup               ║");
+            System.out.println("║  0. Exit                              ║");
+            System.out.println("╚═══════════════════════════════════════╝");
+            System.out.print("Enter choice: ");
+            
+            try {
+                int choice = scanner.nextInt();
+                scanner.nextLine();  // Consume newline
+                
+                switch (choice) {
+                    case 1:
+                        manager.displayAll();
+                        break;
+                    case 2:
+                        addNewStudent(manager, scanner);
+                        break;
+                    case 3:
+                        findStudent(manager, scanner);
+                        break;
+                    case 4:
+                        updateStudent(manager, scanner);
+                        break;
+                    case 5:
+                        deleteStudent(manager, scanner);
+                        break;
+                    case 6:
+                        manager.displayStatistics();
+                        break;
+                    case 7:
+                        manager.createBackup();
+                        break;
+                    case 8:
+                        manager.restoreFromBackup();
+                        break;
+                    case 0:
+                        running = false;
+                        System.out.println("Goodbye!");
+                        break;
+                    default:
+                        System.out.println("Invalid choice!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter a valid number");
+                scanner.nextLine();
+            }
+        }
+        
+        scanner.close();
+    }
+    
+    static void addNewStudent(StudentRecordManager manager, Scanner scanner) {
+        System.out.println("\n--- Add New Student ---");
+        System.out.print("Student ID: ");
+        String id = scanner.nextLine();
+        System.out.print("First Name: ");
+        String firstName = scanner.nextLine();
+        System.out.print("Last Name: ");
+        String lastName = scanner.nextLine();
+        System.out.print("Age: ");
+        int age = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Major: ");
+        String major = scanner.nextLine();
+        System.out.print("GPA: ");
+        double gpa = scanner.nextDouble();
+        
+        try {
+            manager.addStudent(new Student(id, firstName, lastName, age, major, gpa));
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    static void findStudent(StudentRecordManager manager, Scanner scanner) {
+        System.out.print("Enter Student ID: ");
+        String id = scanner.nextLine();
+        Student student = manager.findById(id);
+        if (student != null) {
+            System.out.println(student);
+        } else {
+            System.out.println("Student not found!");
+        }
+    }
+    
+    static void updateStudent(StudentRecordManager manager, Scanner scanner) {
+        System.out.print("Enter Student ID: ");
+        String id = scanner.nextLine();
+        System.out.print("Field to update (age/major/gpa): ");
+        String field = scanner.nextLine();
+        System.out.print("New value: ");
+        
+        Object value;
+        if (field.equalsIgnoreCase("age")) {
+            value = scanner.nextInt();
+        } else if (field.equalsIgnoreCase("gpa")) {
+            value = scanner.nextDouble();
+        } else {
+            value = scanner.nextLine();
+        }
+        
+        if (!manager.updateStudent(id, field, value)) {
+            System.out.println("Student not found or update failed!");
+        }
+    }
+    
+    static void deleteStudent(StudentRecordManager manager, Scanner scanner) {
+        System.out.print("Enter Student ID to delete: ");
+        String id = scanner.nextLine();
+        if (!manager.deleteStudent(id)) {
+            System.out.println("Student not found!");
+        }
+    }
+}</code></pre>
+        </div>
+        
+        <a href="index.html#syllabus" class="btn">Back to Syllabus</a>
+        <a href="week9-10.html" class="btn">← Previous: Week 9-10</a>
+        <a href="week13-14.html" class="btn">Next: Week 13-14 →</a>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CC3 Computer Programming. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

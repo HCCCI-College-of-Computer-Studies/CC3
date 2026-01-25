@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 7-8: OOP Concepts - CC3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>CC3: Computer Programming</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#syllabus">Syllabus</a></li>
+                    <li><a href="index.html#resources">Resources</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="container">
+        <h2>Week 7-8: OOP Concepts</h2>
+        <div class="week">
+            <p>Exhibit comprehensive mastery of Object-Oriented Programming (OOP) concepts in Java, including recalling, understanding, applying, analyzing, evaluating, and creating principles such as encapsulation, inheritance, polymorphism, abstraction, and composition, to design, develop, and optimize sophisticated software solutions.</p>
+            <h3>Topics:</h3>
+            <ul>
+                <li>Inheritance</li>
+                <li>Polymorphism</li>
+                <li>Interface</li>
+                <li>Abstract Classes</li>
+            </ul>
+        </div>
+        
+        <div class="week">
+            <h3>Inheritance - Complete Guide</h3>
+            <p>Inheritance is a fundamental OOP mechanism where a new class (child/subclass) is derived from an existing class (parent/superclass). The child class inherits all non-private fields and methods from the parent class, promoting code reuse and establishing an "IS-A" relationship.</p>
+            
+            <h4>Key Concepts of Inheritance:</h4>
+            <ul>
+                <li><strong>extends keyword:</strong> Used to inherit from a class</li>
+                <li><strong>super keyword:</strong> Access parent class members and constructors</li>
+                <li><strong>Method Overriding:</strong> Child class can provide its own implementation</li>
+                <li><strong>Single Inheritance:</strong> Java allows only one parent class</li>
+                <li><strong>protected modifier:</strong> Accessible in subclasses</li>
+            </ul>
+            
+            <pre><code>// =============================================
+// INHERITANCE - COMPREHENSIVE EXAMPLE
+// =============================================
+
+/**
+ * BASE CLASS: Person
+ * This is the parent class that defines common attributes
+ * and behaviors for all types of people.
+ */
+public class Person {
+    // Protected fields - accessible in subclasses
+    protected String firstName;
+    protected String lastName;
+    protected int age;
+    protected String email;
+    protected String phone;
+    
+    // Private field - NOT inherited
+    private String ssn;  // Social Security Number - sensitive data
+    
+    // =============================================
+    // CONSTRUCTORS
+    // =============================================
+    
+    public Person() {
+        this.firstName = "Unknown";
+        this.lastName = "Unknown";
+        this.age = 0;
+    }
+    
+    public Person(String firstName, String lastName, int age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        setAge(age);  // Use setter for validation
+    }
+    
+    public Person(String firstName, String lastName, int age, String email, String phone) {
+        this(firstName, lastName, age);
+        this.email = email;
+        this.phone = phone;
+    }
+    
+    // =============================================
+    // GETTERS AND SETTERS
+    // =============================================
+    
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+    
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
+    
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+    
+    public int getAge() { return age; }
+    public void setAge(int age) {
+        if (age >= 0 && age <= 150) {
+            this.age = age;
+        }
+    }
+    
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
+    
+    // =============================================
+    // METHODS (Can be inherited and/or overridden)
+    // =============================================
+    
+    public void introduce() {
+        System.out.println("Hello, my name is " + getFullName());
+        System.out.println("I am " + age + " years old.");
+    }
+    
+    public void displayInfo() {
+        System.out.println("╔═══════════════════════════════════════════╗");
+        System.out.println("║           PERSON INFORMATION              ║");
+        System.out.println("╠═══════════════════════════════════════════╣");
+        System.out.printf("  Name:  %s%n", getFullName());
+        System.out.printf("  Age:   %d%n", age);
+        System.out.printf("  Email: %s%n", email != null ? email : "N/A");
+        System.out.printf("  Phone: %s%n", phone != null ? phone : "N/A");
+        System.out.println("╚═══════════════════════════════════════════╝");
+    }
+    
+    @Override
+    public String toString() {
+        return "Person[name=" + getFullName() + ", age=" + age + "]";
+    }
+}
+
+// =============================================
+// DERIVED CLASS: Student (extends Person)
+// =============================================
+
+/**
+ * Student IS-A Person.
+ * Inherits all non-private members from Person.
+ * Adds student-specific attributes and behaviors.
+ */
+public class Student extends Person {
+    // Student-specific fields
+    private String studentId;
+    private String major;
+    private int yearLevel;  // 1-4
+    private double gpa;
+    private String[] enrolledCourses;
+    private static int studentCount = 0;
+    
+    // =============================================
+    // CONSTRUCTORS - Must call super() to initialize parent
+    // =============================================
+    
+    public Student() {
+        super();  // Call Person's default constructor
+        this.studentId = generateStudentId();
+        this.major = "Undeclared";
+        this.yearLevel = 1;
+        this.gpa = 0.0;
+        studentCount++;
+    }
+    
+    public Student(String firstName, String lastName, int age, String major) {
+        // super() MUST be the first statement
+        super(firstName, lastName, age);
+        this.studentId = generateStudentId();
+        this.major = major;
+        this.yearLevel = 1;
+        this.gpa = 0.0;
+        studentCount++;
+    }
+    
+    public Student(String firstName, String lastName, int age, 
+                   String email, String phone, String major, int yearLevel) {
+        super(firstName, lastName, age, email, phone);
+        this.studentId = generateStudentId();
+        this.major = major;
+        this.yearLevel = yearLevel;
+        this.gpa = 0.0;
+        studentCount++;
+    }
+    
+    // =============================================
+    // STUDENT-SPECIFIC GETTERS AND SETTERS
+    // =============================================
+    
+    public String getStudentId() { return studentId; }
+    
+    public String getMajor() { return major; }
+    public void setMajor(String major) { this.major = major; }
+    
+    public int getYearLevel() { return yearLevel; }
+    public void setYearLevel(int yearLevel) {
+        if (yearLevel >= 1 && yearLevel <= 4) {
+            this.yearLevel = yearLevel;
+        }
+    }
+    
+    public double getGpa() { return gpa; }
+    public void setGpa(double gpa) {
+        if (gpa >= 0.0 && gpa <= 4.0) {
+            this.gpa = gpa;
+        }
+    }
+    
+    public static int getStudentCount() { return studentCount; }
+    
+    // =============================================
+    // OVERRIDDEN METHODS
+    // =============================================
+    
+    /**
+     * Override introduce() to include student-specific info.
+     * Uses @Override annotation for compiler checking.
+     */
+    @Override
+    public void introduce() {
+        // Can call parent's method using super
+        super.introduce();
+        System.out.println("I am a year " + yearLevel + " " + major + " student.");
+        System.out.println("My student ID is " + studentId);
+    }
+    
+    /**
+     * Override displayInfo() to show all information.
+     */
+    @Override
+    public void displayInfo() {
+        System.out.println("╔═══════════════════════════════════════════╗");
+        System.out.println("║          STUDENT INFORMATION              ║");
+        System.out.println("╠═══════════════════════════════════════════╣");
+        // Access inherited protected fields directly
+        System.out.printf("  Student ID: %s%n", studentId);
+        System.out.printf("  Name:       %s%n", getFullName());
+        System.out.printf("  Age:        %d%n", age);  // Protected - direct access
+        System.out.printf("  Email:      %s%n", email != null ? email : "N/A");
+        System.out.printf("  Phone:      %s%n", phone != null ? phone : "N/A");
+        System.out.println("╠═══════════════════════════════════════════╣");
+        System.out.printf("  Major:      %s%n", major);
+        System.out.printf("  Year Level: %d%n", yearLevel);
+        System.out.printf("  GPA:        %.2f%n", gpa);
+        System.out.printf("  Standing:   %s%n", getAcademicStanding());
+        System.out.println("╚═══════════════════════════════════════════╝");
+    }
+    
+    @Override
+    public String toString() {
+        return "Student[id=" + studentId + ", name=" + getFullName() + 
+               ", major=" + major + ", gpa=" + gpa + "]";
+    }
+    
+    // =============================================
+    // STUDENT-SPECIFIC METHODS
+    // =============================================
+    
+    public void study(String subject) {
+        System.out.println(firstName + " is studying " + subject);
+    }
+    
+    public void enrollCourse(String course) {
+        System.out.println(firstName + " enrolled in " + course);
+    }
+    
+    public String getAcademicStanding() {
+        if (gpa >= 3.5) return "Dean's List";
+        if (gpa >= 3.0) return "Good Standing";
+        if (gpa >= 2.0) return "Satisfactory";
+        if (gpa >= 1.0) return "Probation";
+        return "Academic Warning";
+    }
+    
+    public String getYearLevelName() {
+        switch (yearLevel) {
+            case 1: return "Freshman";
+            case 2: return "Sophomore";
+            case 3: return "Junior";
+            case 4: return "Senior";
+            default: return "Unknown";
+        }
+    }
+    
+    private String generateStudentId() {
+        int year = java.time.LocalDate.now().getYear();
+        return String.format("%d-%05d", year, studentCount + 1);
+    }
+}
+
+// =============================================
+// ANOTHER DERIVED CLASS: Employee (extends Person)
+// =============================================
+
+public class Employee extends Person {
+    private String employeeId;
+    private String department;
+    private String position;
+    private double salary;
+    private java.time.LocalDate hireDate;
+    private static int employeeCount = 0;
+    
+    public Employee(String firstName, String lastName, int age,
+                    String department, String position, double salary) {
+        super(firstName, lastName, age);
+        this.employeeId = "EMP" + String.format("%05d", ++employeeCount);
+        this.department = department;
+        this.position = position;
+        this.salary = salary;
+        this.hireDate = java.time.LocalDate.now();
+    }
+    
+    // Getters
+    public String getEmployeeId() { return employeeId; }
+    public String getDepartment() { return department; }
+    public String getPosition() { return position; }
+    public double getSalary() { return salary; }
+    
+    @Override
+    public void introduce() {
+        super.introduce();
+        System.out.println("I work in " + department + " as a " + position);
+    }
+    
+    @Override
+    public void displayInfo() {
+        System.out.println("╔═══════════════════════════════════════════╗");
+        System.out.println("║          EMPLOYEE INFORMATION             ║");
+        System.out.println("╠═══════════════════════════════════════════╣");
+        System.out.printf("  Employee ID: %s%n", employeeId);
+        System.out.printf("  Name:        %s%n", getFullName());
+        System.out.printf("  Age:         %d%n", age);
+        System.out.printf("  Department:  %s%n", department);
+        System.out.printf("  Position:    %s%n", position);
+        System.out.printf("  Salary:      $%,.2f%n", salary);
+        System.out.printf("  Hire Date:   %s%n", hireDate);
+        System.out.println("╚═══════════════════════════════════════════╝");
+    }
+    
+    public void work() {
+        System.out.println(firstName + " is working on " + department + " tasks.");
+    }
+    
+    public void giveRaise(double percentage) {
+        salary += salary * (percentage / 100);
+        System.out.printf("Raise of %.1f%% applied. New salary: $%,.2f%n", percentage, salary);
+    }
+}
+
+// =============================================
+// DEMONSTRATION
+// =============================================
+
+public class InheritanceDemo {
+    public static void main(String[] args) {
+        System.out.println("=== Inheritance Demonstration ===\n");
+        
+        // Create a Person
+        Person person = new Person("Juan", "Dela Cruz", 30);
+        person.displayInfo();
+        
+        System.out.println();
+        
+        // Create a Student (IS-A Person)
+        Student student = new Student("Maria", "Santos", 20, 
+                                       "maria@university.edu", "09171234567",
+                                       "Computer Science", 2);
+        student.setGpa(3.75);
+        student.displayInfo();
+        student.introduce();
+        student.study("Java Programming");
+        
+        System.out.println();
+        
+        // Create an Employee (IS-A Person)
+        Employee employee = new Employee("Pedro", "Garcia", 35,
+                                         "IT", "Software Developer", 75000);
+        employee.displayInfo();
+        employee.work();
+        employee.giveRaise(10);
+        
+        System.out.println();
+        
+        // Polymorphism - treat all as Person
+        System.out.println("=== Polymorphism with Inheritance ===\n");
+        Person[] people = { person, student, employee };
+        
+        for (Person p : people) {
+            System.out.println("Type: " + p.getClass().getSimpleName());
+            p.introduce();  // Each calls their own version
+            System.out.println();
+        }
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Polymorphism - Complete Guide</h3>
+            <p>Polymorphism (Greek for "many forms") allows objects to be treated as instances of their parent class while maintaining their own specific behavior. Java supports two types: compile-time (method overloading) and runtime (method overriding) polymorphism.</p>
+            
+            <h4>Types of Polymorphism:</h4>
+            <ul>
+                <li><strong>Compile-time (Static):</strong> Method overloading - same method name, different parameters</li>
+                <li><strong>Runtime (Dynamic):</strong> Method overriding - subclass provides specific implementation</li>
+            </ul>
+            
+            <pre><code>// =============================================
+// POLYMORPHISM - COMPREHENSIVE EXAMPLE
+// =============================================
+
+// =============================================
+// 1. COMPILE-TIME POLYMORPHISM (Method Overloading)
+// =============================================
+
+/**
+ * Method Overloading: Same method name, different parameter lists.
+ * The compiler determines which method to call at compile time.
+ */
+public class MathOperations {
+    
+    // Overloaded add methods - different number of parameters
+    public int add(int a, int b) {
+        System.out.println("Adding two integers");
+        return a + b;
+    }
+    
+    public int add(int a, int b, int c) {
+        System.out.println("Adding three integers");
+        return a + b + c;
+    }
+    
+    public int add(int a, int b, int c, int d) {
+        System.out.println("Adding four integers");
+        return a + b + c + d;
+    }
+    
+    // Overloaded add methods - different parameter types
+    public double add(double a, double b) {
+        System.out.println("Adding two doubles");
+        return a + b;
+    }
+    
+    public String add(String a, String b) {
+        System.out.println("Concatenating two strings");
+        return a + b;
+    }
+    
+    // Overloaded add method - array parameter
+    public int add(int[] numbers) {
+        System.out.println("Adding array of integers");
+        int sum = 0;
+        for (int num : numbers) {
+            sum += num;
+        }
+        return sum;
+    }
+    
+    // Overloaded with varargs
+    public double add(double... numbers) {
+        System.out.println("Adding variable number of doubles");
+        double sum = 0;
+        for (double num : numbers) {
+            sum += num;
+        }
+        return sum;
+    }
+}
+
+// =============================================
+// 2. RUNTIME POLYMORPHISM (Method Overriding)
+// =============================================
+
+/**
+ * Base class for payment processing.
+ * Demonstrates runtime polymorphism with method overriding.
+ */
+abstract class PaymentMethod {
+    protected String accountHolder;
+    protected double balance;
+    
+    public PaymentMethod(String accountHolder, double initialBalance) {
+        this.accountHolder = accountHolder;
+        this.balance = initialBalance;
+    }
+    
+    // Abstract method - MUST be overridden
+    public abstract boolean processPayment(double amount);
+    
+    // Abstract method
+    public abstract void displayPaymentDetails();
+    
+    // Concrete method - can be overridden
+    public void displayBalance() {
+        System.out.printf("Account Holder: %s%n", accountHolder);
+        System.out.printf("Balance: $%.2f%n", balance);
+    }
+    
+    // Final method - CANNOT be overridden
+    public final String getAccountHolder() {
+        return accountHolder;
+    }
+}
+
+/**
+ * Credit Card payment implementation.
+ */
+class CreditCard extends PaymentMethod {
+    private String cardNumber;
+    private String expiryDate;
+    private double creditLimit;
+    
+    public CreditCard(String accountHolder, String cardNumber, 
+                      String expiryDate, double creditLimit) {
+        super(accountHolder, 0);  // Balance starts at 0 (amount owed)
+        this.cardNumber = cardNumber;
+        this.expiryDate = expiryDate;
+        this.creditLimit = creditLimit;
+    }
+    
+    @Override
+    public boolean processPayment(double amount) {
+        System.out.println("\n💳 Processing Credit Card Payment...");
+        
+        if (amount <= 0) {
+            System.out.println("❌ Invalid amount");
+            return false;
+        }
+        
+        double availableCredit = creditLimit - balance;
+        if (amount > availableCredit) {
+            System.out.println("❌ Insufficient credit limit");
+            System.out.printf("   Available: $%.2f%n", availableCredit);
+            return false;
+        }
+        
+        balance += amount;  // Add to amount owed
+        System.out.printf("✓ Payment of $%.2f approved%n", amount);
+        System.out.printf("  Card: **** **** **** %s%n", cardNumber.substring(cardNumber.length() - 4));
+        System.out.printf("  Amount owed: $%.2f%n", balance);
+        return true;
+    }
+    
+    @Override
+    public void displayPaymentDetails() {
+        System.out.println("╔═══════════════════════════════════════╗");
+        System.out.println("║          CREDIT CARD DETAILS          ║");
+        System.out.println("╠═══════════════════════════════════════╣");
+        System.out.printf("  Holder:       %s%n", accountHolder);
+        System.out.printf("  Card Number:  **** **** **** %s%n", 
+                         cardNumber.substring(cardNumber.length() - 4));
+        System.out.printf("  Expiry:       %s%n", expiryDate);
+        System.out.printf("  Credit Limit: $%.2f%n", creditLimit);
+        System.out.printf("  Amount Owed:  $%.2f%n", balance);
+        System.out.printf("  Available:    $%.2f%n", creditLimit - balance);
+        System.out.println("╚═══════════════════════════════════════╝");
+    }
+    
+    public void makePaymentToBill(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            System.out.printf("Payment of $%.2f applied to credit card bill%n", amount);
+        }
+    }
+}
+
+/**
+ * Bank Account payment implementation.
+ */
+class BankTransfer extends PaymentMethod {
+    private String accountNumber;
+    private String bankName;
+    
+    public BankTransfer(String accountHolder, String accountNumber, 
+                        String bankName, double balance) {
+        super(accountHolder, balance);
+        this.accountNumber = accountNumber;
+        this.bankName = bankName;
+    }
+    
+    @Override
+    public boolean processPayment(double amount) {
+        System.out.println("\n🏦 Processing Bank Transfer...");
+        
+        if (amount <= 0) {
+            System.out.println("❌ Invalid amount");
+            return false;
+        }
+        
+        if (amount > balance) {
+            System.out.println("❌ Insufficient funds");
+            System.out.printf("   Available: $%.2f%n", balance);
+            return false;
+        }
+        
+        balance -= amount;
+        System.out.printf("✓ Transfer of $%.2f completed%n", amount);
+        System.out.printf("  From: %s (%s)%n", bankName, maskAccountNumber());
+        System.out.printf("  Remaining balance: $%.2f%n", balance);
+        return true;
+    }
+    
+    @Override
+    public void displayPaymentDetails() {
+        System.out.println("╔═══════════════════════════════════════╗");
+        System.out.println("║         BANK ACCOUNT DETAILS          ║");
+        System.out.println("╠═══════════════════════════════════════╣");
+        System.out.printf("  Holder:  %s%n", accountHolder);
+        System.out.printf("  Bank:    %s%n", bankName);
+        System.out.printf("  Account: %s%n", maskAccountNumber());
+        System.out.printf("  Balance: $%.2f%n", balance);
+        System.out.println("╚═══════════════════════════════════════╝");
+    }
+    
+    private String maskAccountNumber() {
+        int len = accountNumber.length();
+        return "****" + accountNumber.substring(len - 4);
+    }
+    
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.printf("Deposited $%.2f. New balance: $%.2f%n", amount, balance);
+        }
+    }
+}
+
+/**
+ * Digital Wallet payment implementation.
+ */
+class DigitalWallet extends PaymentMethod {
+    private String walletId;
+    private String linkedPhone;
+    private boolean twoFactorEnabled;
+    
+    public DigitalWallet(String accountHolder, String walletId, 
+                         String linkedPhone, double balance) {
+        super(accountHolder, balance);
+        this.walletId = walletId;
+        this.linkedPhone = linkedPhone;
+        this.twoFactorEnabled = true;
+    }
+    
+    @Override
+    public boolean processPayment(double amount) {
+        System.out.println("\n📱 Processing Digital Wallet Payment...");
+        
+        if (amount <= 0) {
+            System.out.println("❌ Invalid amount");
+            return false;
+        }
+        
+        if (amount > balance) {
+            System.out.println("❌ Insufficient wallet balance");
+            System.out.printf("   Available: $%.2f%n", balance);
+            return false;
+        }
+        
+        // Simulate 2FA
+        if (twoFactorEnabled) {
+            System.out.println("  🔐 2FA verification sent to " + maskPhone());
+        }
+        
+        balance -= amount;
+        System.out.printf("✓ Payment of $%.2f completed%n", amount);
+        System.out.printf("  Wallet ID: %s%n", walletId);
+        System.out.printf("  Remaining balance: $%.2f%n", balance);
+        return true;
+    }
+    
+    @Override
+    public void displayPaymentDetails() {
+        System.out.println("╔═══════════════════════════════════════╗");
+        System.out.println("║        DIGITAL WALLET DETAILS         ║");
+        System.out.println("╠═══════════════════════════════════════╣");
+        System.out.printf("  Holder:    %s%n", accountHolder);
+        System.out.printf("  Wallet ID: %s%n", walletId);
+        System.out.printf("  Phone:     %s%n", maskPhone());
+        System.out.printf("  Balance:   $%.2f%n", balance);
+        System.out.printf("  2FA:       %s%n", twoFactorEnabled ? "Enabled" : "Disabled");
+        System.out.println("╚═══════════════════════════════════════╝");
+    }
+    
+    private String maskPhone() {
+        return "****" + linkedPhone.substring(linkedPhone.length() - 4);
+    }
+    
+    public void topUp(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.printf("Topped up $%.2f. New balance: $%.2f%n", amount, balance);
+        }
+    }
+}
+
+// =============================================
+// PAYMENT PROCESSOR - Uses Polymorphism
+// =============================================
+
+class PaymentProcessor {
+    
+    /**
+     * Process payment using ANY PaymentMethod.
+     * This demonstrates polymorphism - the actual type determines
+     * which processPayment() implementation is called at runtime.
+     */
+    public static boolean makePayment(PaymentMethod method, double amount) {
+        System.out.println("\n" + "═".repeat(45));
+        System.out.println("PAYMENT REQUEST: $" + amount);
+        System.out.println("Method Type: " + method.getClass().getSimpleName());
+        System.out.println("═".repeat(45));
+        
+        return method.processPayment(amount);  // Polymorphic call
+    }
+    
+    /**
+     * Display details of ANY PaymentMethod.
+     */
+    public static void showDetails(PaymentMethod method) {
+        method.displayPaymentDetails();  // Polymorphic call
+    }
+}
+
+// =============================================
+// DEMONSTRATION
+// =============================================
+
+public class PolymorphismDemo {
+    public static void main(String[] args) {
+        // =========================================
+        // Compile-time Polymorphism Demo
+        // =========================================
+        System.out.println("═══════════════════════════════════════════");
+        System.out.println("  COMPILE-TIME POLYMORPHISM (Overloading)  ");
+        System.out.println("═══════════════════════════════════════════\n");
+        
+        MathOperations math = new MathOperations();
+        
+        // Compiler decides which method based on arguments
+        System.out.println("Result: " + math.add(5, 3));
+        System.out.println("Result: " + math.add(5, 3, 2));
+        System.out.println("Result: " + math.add(5.5, 3.2));
+        System.out.println("Result: " + math.add("Hello, ", "World!"));
+        System.out.println("Result: " + math.add(new int[]{1, 2, 3, 4, 5}));
+        
+        // =========================================
+        // Runtime Polymorphism Demo
+        // =========================================
+        System.out.println("\n═══════════════════════════════════════════");
+        System.out.println("   RUNTIME POLYMORPHISM (Overriding)       ");
+        System.out.println("═══════════════════════════════════════════");
+        
+        // Create different payment methods
+        PaymentMethod creditCard = new CreditCard(
+            "Maria Santos", "4111111111111234", "12/25", 5000.00
+        );
+        
+        PaymentMethod bankAccount = new BankTransfer(
+            "Juan Dela Cruz", "1234567890", "BDO", 10000.00
+        );
+        
+        PaymentMethod wallet = new DigitalWallet(
+            "Pedro Garcia", "GCash-12345", "09171234567", 2500.00
+        );
+        
+        // Display all payment methods
+        PaymentProcessor.showDetails(creditCard);
+        PaymentProcessor.showDetails(bankAccount);
+        PaymentProcessor.showDetails(wallet);
+        
+        // Process payments - polymorphic behavior
+        System.out.println("\n=== PROCESSING PAYMENTS ===");
+        
+        PaymentProcessor.makePayment(creditCard, 1500.00);
+        PaymentProcessor.makePayment(bankAccount, 3000.00);
+        PaymentProcessor.makePayment(wallet, 500.00);
+        
+        // Store in array of parent type - polymorphism
+        System.out.println("\n=== PROCESSING VIA ARRAY ===");
+        PaymentMethod[] methods = { creditCard, bankAccount, wallet };
+        
+        for (PaymentMethod method : methods) {
+            // Each calls its own processPayment implementation
+            method.processPayment(100.00);
+        }
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Interface - Complete Guide</h3>
+            <p>An interface in Java is a reference type that defines a contract of methods that implementing classes must provide. Interfaces enable multiple inheritance of type and define behavior that can be shared across unrelated classes.</p>
+            
+            <h4>Key Characteristics of Interfaces:</h4>
+            <ul>
+                <li>All methods are implicitly <code>public abstract</code> (before Java 8)</li>
+                <li>All fields are implicitly <code>public static final</code> (constants)</li>
+                <li>A class can implement multiple interfaces</li>
+                <li>Java 8+ allows <code>default</code> and <code>static</code> methods with implementations</li>
+                <li>Java 9+ allows <code>private</code> methods in interfaces</li>
+            </ul>
+            
+            <pre><code>// =============================================
+// INTERFACES - COMPREHENSIVE EXAMPLE
+// =============================================
+
+/**
+ * Interface for objects that can be saved to storage.
+ */
+public interface Saveable {
+    // Constants (implicitly public static final)
+    String DEFAULT_PATH = "/data/";
+    int MAX_FILE_SIZE = 10 * 1024 * 1024;  // 10 MB
+    
+    // Abstract methods (implicitly public abstract)
+    void save(String filename);
+    void load(String filename);
+    boolean delete(String filename);
+    
+    // Default method (Java 8+) - has implementation
+    default String getFullPath(String filename) {
+        return DEFAULT_PATH + filename;
+    }
+    
+    // Static method (Java 8+)
+    static boolean isValidFilename(String filename) {
+        return filename != null && !filename.isEmpty() && 
+               filename.matches("[a-zA-Z0-9_.-]+");
+    }
+}
+
+/**
+ * Interface for objects that can be printed.
+ */
+public interface Printable {
+    void print();
+    void printPreview();
+    
+    default void printMultiple(int copies) {
+        for (int i = 0; i < copies; i++) {
+            System.out.println("Printing copy " + (i + 1) + " of " + copies);
+            print();
+        }
+    }
+}
+
+/**
+ * Interface for objects that can be exported.
+ */
+public interface Exportable {
+    void exportToPDF(String filename);
+    void exportToCSV(String filename);
+    void exportToJSON(String filename);
+    
+    default void exportAll(String baseFilename) {
+        exportToPDF(baseFilename + ".pdf");
+        exportToCSV(baseFilename + ".csv");
+        exportToJSON(baseFilename + ".json");
+    }
+}
+
+/**
+ * Interface for searchable content.
+ */
+public interface Searchable {
+    boolean contains(String keyword);
+    int count(String keyword);
+    java.util.List<Integer> findPositions(String keyword);
+}
+
+// =============================================
+// CLASS IMPLEMENTING MULTIPLE INTERFACES
+// =============================================
+
+/**
+ * Document class implements multiple interfaces.
+ * This demonstrates how a class can have multiple behaviors
+ * through interface implementation.
+ */
+public class Document implements Saveable, Printable, Exportable, Searchable {
+    private String title;
+    private String content;
+    private String author;
+    private java.time.LocalDateTime createdDate;
+    private java.time.LocalDateTime lastModified;
+    private boolean isModified;
+    
+    public Document(String title, String author) {
+        this.title = title;
+        this.author = author;
+        this.content = "";
+        this.createdDate = java.time.LocalDateTime.now();
+        this.lastModified = this.createdDate;
+        this.isModified = false;
+    }
+    
+    // =============================================
+    // SAVEABLE INTERFACE IMPLEMENTATION
+    // =============================================
+    
+    @Override
+    public void save(String filename) {
+        if (!Saveable.isValidFilename(filename)) {  // Static interface method
+            System.out.println("❌ Invalid filename: " + filename);
+            return;
+        }
+        
+        String fullPath = getFullPath(filename);  // Default interface method
+        System.out.println("💾 Saving document...");
+        System.out.println("   Title: " + title);
+        System.out.println("   Path: " + fullPath);
+        System.out.println("   Size: " + content.length() + " bytes");
+        System.out.println("✓ Document saved successfully!");
+        
+        isModified = false;
+        lastModified = java.time.LocalDateTime.now();
+    }
+    
+    @Override
+    public void load(String filename) {
+        String fullPath = getFullPath(filename);
+        System.out.println("📂 Loading document from: " + fullPath);
+        // Simulate loading
+        System.out.println("✓ Document loaded!");
+    }
+    
+    @Override
+    public boolean delete(String filename) {
+        String fullPath = getFullPath(filename);
+        System.out.println("🗑️ Deleting: " + fullPath);
+        System.out.println("✓ Document deleted!");
+        return true;
+    }
+    
+    // =============================================
+    // PRINTABLE INTERFACE IMPLEMENTATION
+    // =============================================
+    
+    @Override
+    public void print() {
+        System.out.println("\n🖨️ PRINTING DOCUMENT");
+        System.out.println("═".repeat(40));
+        System.out.println("Title: " + title);
+        System.out.println("Author: " + author);
+        System.out.println("─".repeat(40));
+        System.out.println(content.isEmpty() ? "(Empty document)" : content);
+        System.out.println("═".repeat(40));
+        System.out.println("✓ Print job completed!\n");
+    }
+    
+    @Override
+    public void printPreview() {
+        System.out.println("\n👁️ PRINT PREVIEW");
+        System.out.println("─".repeat(40));
+        System.out.println("Title: " + title);
+        System.out.println("Pages: " + calculatePages());
+        String preview = content.length() > 100 ? 
+                        content.substring(0, 100) + "..." : content;
+        System.out.println("Preview: " + preview);
+        System.out.println("─".repeat(40));
+    }
+    
+    // =============================================
+    // EXPORTABLE INTERFACE IMPLEMENTATION
+    // =============================================
+    
+    @Override
+    public void exportToPDF(String filename) {
+        System.out.println("📄 Exporting to PDF: " + filename);
+        System.out.println("   Converting formatting...");
+        System.out.println("   Embedding fonts...");
+        System.out.println("✓ PDF export complete!");
+    }
+    
+    @Override
+    public void exportToCSV(String filename) {
+        System.out.println("📊 Exporting to CSV: " + filename);
+        System.out.println("   Parsing content...");
+        System.out.println("   Creating CSV structure...");
+        System.out.println("✓ CSV export complete!");
+    }
+    
+    @Override
+    public void exportToJSON(String filename) {
+        System.out.println("🔧 Exporting to JSON: " + filename);
+        System.out.printf("   {\"title\": \"%s\", \"author\": \"%s\", ...}%n", title, author);
+        System.out.println("✓ JSON export complete!");
+    }
+    
+    // =============================================
+    // SEARCHABLE INTERFACE IMPLEMENTATION
+    // =============================================
+    
+    @Override
+    public boolean contains(String keyword) {
+        return content.toLowerCase().contains(keyword.toLowerCase());
+    }
+    
+    @Override
+    public int count(String keyword) {
+        if (content.isEmpty() || keyword.isEmpty()) return 0;
+        
+        String lowerContent = content.toLowerCase();
+        String lowerKeyword = keyword.toLowerCase();
+        int count = 0;
+        int index = 0;
+        
+        while ((index = lowerContent.indexOf(lowerKeyword, index)) != -1) {
+            count++;
+            index += lowerKeyword.length();
+        }
+        return count;
+    }
+    
+    @Override
+    public java.util.List<Integer> findPositions(String keyword) {
+        java.util.List<Integer> positions = new java.util.ArrayList<>();
+        if (content.isEmpty() || keyword.isEmpty()) return positions;
+        
+        String lowerContent = content.toLowerCase();
+        String lowerKeyword = keyword.toLowerCase();
+        int index = 0;
+        
+        while ((index = lowerContent.indexOf(lowerKeyword, index)) != -1) {
+            positions.add(index);
+            index += lowerKeyword.length();
+        }
+        return positions;
+    }
+    
+    // =============================================
+    // DOCUMENT-SPECIFIC METHODS
+    // =============================================
+    
+    public void setContent(String content) {
+        this.content = content;
+        this.isModified = true;
+        this.lastModified = java.time.LocalDateTime.now();
+    }
+    
+    public void appendContent(String text) {
+        this.content += text;
+        this.isModified = true;
+        this.lastModified = java.time.LocalDateTime.now();
+    }
+    
+    public String getContent() { return content; }
+    public String getTitle() { return title; }
+    public String getAuthor() { return author; }
+    public boolean isModified() { return isModified; }
+    
+    private int calculatePages() {
+        // Assume 2000 characters per page
+        return Math.max(1, (content.length() / 2000) + 1);
+    }
+    
+    public void displayInfo() {
+        System.out.println("╔═══════════════════════════════════════════╗");
+        System.out.println("║          DOCUMENT INFORMATION             ║");
+        System.out.println("╠═══════════════════════════════════════════╣");
+        System.out.printf("  Title:         %s%n", title);
+        System.out.printf("  Author:        %s%n", author);
+        System.out.printf("  Content Size:  %d characters%n", content.length());
+        System.out.printf("  Pages:         %d%n", calculatePages());
+        System.out.printf("  Created:       %s%n", createdDate.toLocalDate());
+        System.out.printf("  Modified:      %s%n", lastModified.toLocalDate());
+        System.out.printf("  Unsaved:       %s%n", isModified ? "Yes" : "No");
+        System.out.println("╚═══════════════════════════════════════════╝");
+    }
+}
+
+// =============================================
+// DEMONSTRATION
+// =============================================
+
+public class InterfaceDemo {
+    public static void main(String[] args) {
+        System.out.println("═══════════════════════════════════════════");
+        System.out.println("        INTERFACE DEMONSTRATION            ");
+        System.out.println("═══════════════════════════════════════════\n");
+        
+        // Create a document
+        Document doc = new Document("Java Programming Guide", "Maria Santos");
+        doc.setContent("Java is a versatile programming language. Java supports " +
+                      "object-oriented programming. Java has strong type checking. " +
+                      "Java applications are platform-independent.");
+        
+        doc.displayInfo();
+        
+        // Use Saveable interface methods
+        System.out.println("\n=== SAVEABLE INTERFACE ===");
+        System.out.println("Default path: " + Saveable.DEFAULT_PATH);
+        System.out.println("Valid filename? " + Saveable.isValidFilename("myfile.txt"));
+        doc.save("java_guide.txt");
+        
+        // Use Printable interface methods
+        System.out.println("\n=== PRINTABLE INTERFACE ===");
+        doc.printPreview();
+        doc.print();
+        doc.printMultiple(2);  // Default method
+        
+        // Use Exportable interface methods
+        System.out.println("\n=== EXPORTABLE INTERFACE ===");
+        doc.exportAll("java_guide");  // Default method
+        
+        // Use Searchable interface methods
+        System.out.println("\n=== SEARCHABLE INTERFACE ===");
+        System.out.println("Contains 'Java': " + doc.contains("Java"));
+        System.out.println("Count of 'Java': " + doc.count("Java"));
+        System.out.println("Positions: " + doc.findPositions("Java"));
+        
+        // Polymorphism through interfaces
+        System.out.println("\n=== INTERFACE POLYMORPHISM ===");
+        
+        Saveable saveable = doc;
+        saveable.save("backup.txt");
+        
+        Printable printable = doc;
+        printable.print();
+        
+        Searchable searchable = doc;
+        System.out.println("Has 'programming': " + searchable.contains("programming"));
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Abstract Classes - Complete Guide</h3>
+            <p>An abstract class is a class that cannot be instantiated and may contain abstract methods (without implementation) and concrete methods (with implementation). It serves as a base class for other classes and provides a partial implementation.</p>
+            
+            <h4>Abstract Class vs Interface:</h4>
+            <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="background: #35424a; color: white;">
+                    <th style="padding: 10px; border: 1px solid #ddd;">Feature</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Abstract Class</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Interface</th>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Methods</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Abstract & Concrete</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Abstract (+ default since Java 8)</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 10px; border: 1px solid #ddd;">Variables</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Any type</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Only public static final</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Inheritance</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Single (extends one class)</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Multiple (implements many)</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 10px; border: 1px solid #ddd;">Constructor</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Can have constructors</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Cannot have constructors</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Use Case</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">IS-A relationship with shared code</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Defines capability/behavior</td>
+                </tr>
+            </table>
+            
+            <pre><code>// =============================================
+// ABSTRACT CLASSES - COMPREHENSIVE EXAMPLE
+// =============================================
+
+/**
+ * Abstract class for geometric shapes.
+ * Cannot be instantiated directly.
+ */
+public abstract class Shape {
+    // Instance variables - subclasses inherit these
+    protected String name;
+    protected String color;
+    protected boolean filled;
+    
+    // Static counter
+    private static int shapeCount = 0;
+    
+    // =============================================
+    // CONSTRUCTORS (Abstract classes CAN have constructors)
+    // =============================================
+    
+    public Shape() {
+        this.name = "Unknown Shape";
+        this.color = "white";
+        this.filled = false;
+        shapeCount++;
+    }
+    
+    public Shape(String name, String color, boolean filled) {
+        this.name = name;
+        this.color = color;
+        this.filled = filled;
+        shapeCount++;
+    }
+    
+    // =============================================
+    // ABSTRACT METHODS (Must be implemented by subclasses)
+    // =============================================
+    
+    /**
+     * Calculate the area of the shape.
+     * Each shape calculates area differently.
+     */
+    public abstract double getArea();
+    
+    /**
+     * Calculate the perimeter of the shape.
+     */
+    public abstract double getPerimeter();
+    
+    /**
+     * Draw the shape (simulate).
+     */
+    public abstract void draw();
+    
+    // =============================================
+    // CONCRETE METHODS (Have implementation)
+    // =============================================
+    
+    public String getName() { return name; }
+    public String getColor() { return color; }
+    public void setColor(String color) { this.color = color; }
+    public boolean isFilled() { return filled; }
+    public void setFilled(boolean filled) { this.filled = filled; }
+    
+    public static int getShapeCount() { return shapeCount; }
+    
+    /**
+     * Display basic shape information.
+     * Can be overridden for more details.
+     */
+    public void displayInfo() {
+        System.out.println("╔═══════════════════════════════════════╗");
+        System.out.printf("  Shape: %s%n", name);
+        System.out.printf("  Color: %s%n", color);
+        System.out.printf("  Filled: %s%n", filled ? "Yes" : "No");
+        System.out.printf("  Area: %.2f%n", getArea());
+        System.out.printf("  Perimeter: %.2f%n", getPerimeter());
+        System.out.println("╚═══════════════════════════════════════╝");
+    }
+    
+    /**
+     * Compare areas with another shape.
+     */
+    public int compareArea(Shape other) {
+        return Double.compare(this.getArea(), other.getArea());
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("%s[color=%s, filled=%b, area=%.2f]",
+                           name, color, filled, getArea());
+    }
+}
+
+// =============================================
+// CONCRETE CLASS: Circle
+// =============================================
+
+public class Circle extends Shape {
+    private double radius;
+    
+    public Circle() {
+        super("Circle", "red", false);
+        this.radius = 1.0;
+    }
+    
+    public Circle(double radius) {
+        super("Circle", "red", false);
+        this.radius = radius;
+    }
+    
+    public Circle(double radius, String color, boolean filled) {
+        super("Circle", color, filled);
+        this.radius = radius;
+    }
+    
+    // Getters and Setters
+    public double getRadius() { return radius; }
+    public void setRadius(double radius) {
+        if (radius > 0) this.radius = radius;
+    }
+    
+    // Implement abstract methods
+    @Override
+    public double getArea() {
+        return Math.PI * radius * radius;
+    }
+    
+    @Override
+    public double getPerimeter() {
+        return 2 * Math.PI * radius;
+    }
+    
+    @Override
+    public void draw() {
+        System.out.println("\n  Drawing Circle:");
+        System.out.println("       ****");
+        System.out.println("    **      **");
+        System.out.println("   *          *");
+        System.out.println("   *          *");
+        System.out.println("    **      **");
+        System.out.println("       ****");
+        System.out.printf("   (radius: %.2f, color: %s)\n", radius, color);
+    }
+    
+    // Circle-specific method
+    public double getDiameter() {
+        return radius * 2;
+    }
+}
+
+// =============================================
+// CONCRETE CLASS: Rectangle
+// =============================================
+
+public class Rectangle extends Shape {
+    protected double width;
+    protected double height;
+    
+    public Rectangle() {
+        super("Rectangle", "blue", false);
+        this.width = 1.0;
+        this.height = 1.0;
+    }
+    
+    public Rectangle(double width, double height) {
+        super("Rectangle", "blue", false);
+        this.width = width;
+        this.height = height;
+    }
+    
+    public Rectangle(double width, double height, String color, boolean filled) {
+        super("Rectangle", color, filled);
+        this.width = width;
+        this.height = height;
+    }
+    
+    // Getters and Setters
+    public double getWidth() { return width; }
+    public void setWidth(double width) {
+        if (width > 0) this.width = width;
+    }
+    public double getHeight() { return height; }
+    public void setHeight(double height) {
+        if (height > 0) this.height = height;
+    }
+    
+    @Override
+    public double getArea() {
+        return width * height;
+    }
+    
+    @Override
+    public double getPerimeter() {
+        return 2 * (width + height);
+    }
+    
+    @Override
+    public void draw() {
+        System.out.println("\n  Drawing Rectangle:");
+        System.out.println("   ┌────────────────┐");
+        System.out.println("   │                │");
+        System.out.println("   │                │");
+        System.out.println("   └────────────────┘");
+        System.out.printf("   (%.2f x %.2f, color: %s)\n", width, height, color);
+    }
+    
+    // Rectangle-specific method
+    public double getDiagonal() {
+        return Math.sqrt(width * width + height * height);
+    }
+}
+
+// =============================================
+// CONCRETE CLASS: Square (extends Rectangle)
+// =============================================
+
+public class Square extends Rectangle {
+    
+    public Square() {
+        super(1.0, 1.0);
+        this.name = "Square";
+    }
+    
+    public Square(double side) {
+        super(side, side);
+        this.name = "Square";
+    }
+    
+    public Square(double side, String color, boolean filled) {
+        super(side, side, color, filled);
+        this.name = "Square";
+    }
+    
+    // Side getter and setter (keep width and height equal)
+    public double getSide() {
+        return width;
+    }
+    
+    public void setSide(double side) {
+        if (side > 0) {
+            this.width = side;
+            this.height = side;
+        }
+    }
+    
+    @Override
+    public void setWidth(double width) {
+        setSide(width);  // Keep it a square
+    }
+    
+    @Override
+    public void setHeight(double height) {
+        setSide(height);  // Keep it a square
+    }
+    
+    @Override
+    public void draw() {
+        System.out.println("\n  Drawing Square:");
+        System.out.println("   ┌──────────┐");
+        System.out.println("   │          │");
+        System.out.println("   │          │");
+        System.out.println("   │          │");
+        System.out.println("   └──────────┘");
+        System.out.printf("   (side: %.2f, color: %s)\n", width, color);
+    }
+}
+
+// =============================================
+// CONCRETE CLASS: Triangle
+// =============================================
+
+public class Triangle extends Shape {
+    private double sideA, sideB, sideC;
+    
+    public Triangle() {
+        super("Triangle", "green", false);
+        this.sideA = this.sideB = this.sideC = 1.0;
+    }
+    
+    public Triangle(double sideA, double sideB, double sideC) {
+        super("Triangle", "green", false);
+        if (isValidTriangle(sideA, sideB, sideC)) {
+            this.sideA = sideA;
+            this.sideB = sideB;
+            this.sideC = sideC;
+        } else {
+            throw new IllegalArgumentException("Invalid triangle sides");
+        }
+    }
+    
+    // Check if sides can form a valid triangle
+    private boolean isValidTriangle(double a, double b, double c) {
+        return (a + b > c) && (b + c > a) && (a + c > b);
+    }
+    
+    @Override
+    public double getArea() {
+        // Heron's formula
+        double s = getPerimeter() / 2;  // Semi-perimeter
+        return Math.sqrt(s * (s - sideA) * (s - sideB) * (s - sideC));
+    }
+    
+    @Override
+    public double getPerimeter() {
+        return sideA + sideB + sideC;
+    }
+    
+    @Override
+    public void draw() {
+        System.out.println("\n  Drawing Triangle:");
+        System.out.println("       /\\");
+        System.out.println("      /  \\");
+        System.out.println("     /    \\");
+        System.out.println("    /      \\");
+        System.out.println("   /________\\");
+        System.out.printf("   (sides: %.2f, %.2f, %.2f)\n", sideA, sideB, sideC);
+    }
+    
+    // Triangle-specific methods
+    public String getTriangleType() {
+        if (sideA == sideB && sideB == sideC) return "Equilateral";
+        if (sideA == sideB || sideB == sideC || sideA == sideC) return "Isosceles";
+        return "Scalene";
+    }
+}
+
+// =============================================
+// DEMONSTRATION
+// =============================================
+
+public class AbstractClassDemo {
+    public static void main(String[] args) {
+        System.out.println("═══════════════════════════════════════════");
+        System.out.println("      ABSTRACT CLASS DEMONSTRATION         ");
+        System.out.println("═══════════════════════════════════════════\n");
+        
+        // Cannot instantiate abstract class
+        // Shape s = new Shape();  // ERROR!
+        
+        // Create concrete shapes
+        Circle circle = new Circle(5, "red", true);
+        Rectangle rectangle = new Rectangle(8, 4, "blue", false);
+        Square square = new Square(6, "green", true);
+        Triangle triangle = new Triangle(3, 4, 5);
+        
+        // Polymorphism with abstract class
+        Shape[] shapes = { circle, rectangle, square, triangle };
+        
+        System.out.println("=== Drawing All Shapes ===");
+        for (Shape shape : shapes) {
+            shape.draw();  // Polymorphic call
+        }
+        
+        System.out.println("\n=== Shape Information ===");
+        for (Shape shape : shapes) {
+            shape.displayInfo();
+        }
+        
+        System.out.println("\n=== Comparing Areas ===");
+        for (int i = 0; i < shapes.length; i++) {
+            for (int j = i + 1; j < shapes.length; j++) {
+                int result = shapes[i].compareArea(shapes[j]);
+                String comparison = result > 0 ? "larger than" : 
+                                   result < 0 ? "smaller than" : "equal to";
+                System.out.printf("%s is %s %s%n", 
+                                 shapes[i].getName(), comparison, shapes[j].getName());
+            }
+        }
+        
+        System.out.println("\n=== Shape-Specific Methods ===");
+        System.out.printf("Circle diameter: %.2f%n", circle.getDiameter());
+        System.out.printf("Rectangle diagonal: %.2f%n", rectangle.getDiagonal());
+        System.out.printf("Triangle type: %s%n", triangle.getTriangleType());
+        
+        System.out.printf("\nTotal shapes created: %d%n", Shape.getShapeCount());
+    }
+}</code></pre>
+        </div>
+        
+        <a href="index.html#syllabus" class="btn">Back to Syllabus</a>
+        <a href="week5-6.html" class="btn">← Previous: Week 5-6</a>
+        <a href="week9-10.html" class="btn">Next: Week 9-10 →</a>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CC3 Computer Programming. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

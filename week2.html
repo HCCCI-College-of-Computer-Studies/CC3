@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 2: Object Oriented Programming - CC3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>CC3: Computer Programming</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#syllabus">Syllabus</a></li>
+                    <li><a href="index.html#resources">Resources</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="container">
+        <h2>Week 2: Object Oriented Programming</h2>
+        <div class="week">
+            <p>Demonstrate proficiency in applying object-oriented programming principles in Java, including understanding, defining, analyzing, evaluating, and creating objects, classes, inheritance, interfaces, and packages, to design and develop robust, scalable, and maintainable software solutions.</p>
+            <h3>Topics:</h3>
+            <ul>
+                <li>Object</li>
+                <li>Class</li>
+                <li>Inheritance</li>
+                <li>Interface</li>
+                <li>Package</li>
+            </ul>
+        </div>
+        
+        <div class="week">
+            <h3>What is Object-Oriented Programming?</h3>
+            <p>Object-Oriented Programming (OOP) is a programming paradigm that organizes software design around data, or objects, rather than functions and logic. An object can be thought of as a data field that has unique attributes and behavior.</p>
+            
+            <h4>The Four Pillars of OOP:</h4>
+            <ul>
+                <li><strong>Encapsulation:</strong> Bundling data and methods that operate on that data within a single unit (class), and restricting direct access to some components.</li>
+                <li><strong>Abstraction:</strong> Hiding complex implementation details and showing only the necessary features of an object.</li>
+                <li><strong>Inheritance:</strong> A mechanism where a new class inherits properties and behaviors from an existing class.</li>
+                <li><strong>Polymorphism:</strong> The ability of objects to take on multiple forms, allowing the same method to behave differently based on the object.</li>
+            </ul>
+            
+            <h4>Why Use OOP?</h4>
+            <ul>
+                <li><strong>Modularity:</strong> Code is organized into discrete classes, making it easier to manage and understand.</li>
+                <li><strong>Reusability:</strong> Classes can be reused across different programs through inheritance.</li>
+                <li><strong>Flexibility:</strong> Polymorphism allows for flexible and extensible code.</li>
+                <li><strong>Security:</strong> Encapsulation protects data from unauthorized access.</li>
+                <li><strong>Easy Maintenance:</strong> Changes in one part of the code don't affect other parts.</li>
+            </ul>
+        </div>
+        
+        <div class="week">
+            <h3>Objects - Detailed Explanation</h3>
+            <p>An object is a fundamental unit in OOP that represents a real-world entity. Every object has:</p>
+            <ul>
+                <li><strong>State (Attributes/Properties):</strong> The data stored in the object (e.g., a car's color, model, speed)</li>
+                <li><strong>Behavior (Methods):</strong> The actions the object can perform (e.g., a car can accelerate, brake, turn)</li>
+                <li><strong>Identity:</strong> A unique identifier that distinguishes one object from another</li>
+            </ul>
+            
+            <h4>Real-World Analogy:</h4>
+            <p>Think of a "Car" as a class. Each actual car you see on the road is an object (instance) of that class. Your specific car has its own color, model, license plate (state), and it can drive, stop, honk (behavior).</p>
+            
+            <pre><code>// First, we need a Class (blueprint) to create objects
+public class Car {
+    // Attributes (State) - what the object HAS
+    String brand;
+    String model;
+    String color;
+    int year;
+    double speed;
+    
+    // Methods (Behavior) - what the object CAN DO
+    public void accelerate() {
+        speed += 10;
+        System.out.println("Accelerating... Speed is now: " + speed + " km/h");
+    }
+    
+    public void brake() {
+        speed -= 10;
+        if (speed < 0) speed = 0;
+        System.out.println("Braking... Speed is now: " + speed + " km/h");
+    }
+    
+    public void displayInfo() {
+        System.out.println("=== Car Information ===");
+        System.out.println("Brand: " + brand);
+        System.out.println("Model: " + model);
+        System.out.println("Color: " + color);
+        System.out.println("Year: " + year);
+        System.out.println("Current Speed: " + speed + " km/h");
+    }
+}
+
+// Creating and using objects
+public class CarDemo {
+    public static void main(String[] args) {
+        // Creating object using 'new' keyword
+        // Syntax: ClassName objectName = new ClassName();
+        
+        Car myCar = new Car();      // myCar is an object of Car class
+        Car friendsCar = new Car(); // friendsCar is another object
+        
+        // Setting attributes (state) using dot notation
+        myCar.brand = "Toyota";
+        myCar.model = "Camry";
+        myCar.color = "Silver";
+        myCar.year = 2023;
+        myCar.speed = 0;
+        
+        friendsCar.brand = "Honda";
+        friendsCar.model = "Civic";
+        friendsCar.color = "Blue";
+        friendsCar.year = 2022;
+        friendsCar.speed = 0;
+        
+        // Calling methods (behavior) using dot notation
+        myCar.displayInfo();
+        
+        System.out.println("\nDriving my car:");
+        myCar.accelerate();  // Speed: 10
+        myCar.accelerate();  // Speed: 20
+        myCar.accelerate();  // Speed: 30
+        myCar.brake();       // Speed: 20
+        
+        System.out.println("\n");
+        friendsCar.displayInfo();
+    }
+}</code></pre>
+            
+            <h4>Key Points About Objects:</h4>
+            <ul>
+                <li>Objects are created at runtime using the <code>new</code> keyword</li>
+                <li>Each object has its own copy of instance variables (attributes)</li>
+                <li>Multiple objects of the same class can exist simultaneously</li>
+                <li>Objects are stored in the heap memory</li>
+                <li>The reference variable (e.g., myCar) is stored in the stack memory</li>
+            </ul>
+        </div>
+        
+        <div class="week">
+            <h3>Classes - The Blueprint</h3>
+            <p>A class is a user-defined data type that serves as a blueprint or template for creating objects. It defines what attributes and methods objects of that type will have.</p>
+            
+            <h4>Anatomy of a Class:</h4>
+            <pre><code>// Access modifier: public, private, protected, or default (no modifier)
+public class Student {
+    
+    // ============================================
+    // ATTRIBUTES (Instance Variables / Fields)
+    // ============================================
+    // These define the STATE of objects
+    
+    private String studentId;    // Private - only accessible within this class
+    private String name;
+    private int age;
+    private String course;
+    private double gpa;
+    
+    // ============================================
+    // CONSTRUCTORS
+    // ============================================
+    // Special methods used to initialize objects
+    
+    // Default constructor (no parameters)
+    public Student() {
+        // Initialize with default values
+        this.studentId = "Unknown";
+        this.name = "Unknown";
+        this.age = 0;
+        this.course = "Undeclared";
+        this.gpa = 0.0;
+    }
+    
+    // Parameterized constructor
+    public Student(String studentId, String name, int age, String course) {
+        this.studentId = studentId;  // 'this' refers to current object
+        this.name = name;
+        this.age = age;
+        this.course = course;
+        this.gpa = 0.0;
+    }
+    
+    // ============================================
+    // METHODS (Behavior)
+    // ============================================
+    // These define what objects CAN DO
+    
+    // Getter methods - retrieve private attribute values
+    public String getStudentId() {
+        return studentId;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public int getAge() {
+        return age;
+    }
+    
+    public double getGpa() {
+        return gpa;
+    }
+    
+    // Setter methods - modify private attribute values
+    public void setName(String name) {
+        // Validation can be added here
+        if (name != null && !name.isEmpty()) {
+            this.name = name;
+        }
+    }
+    
+    public void setAge(int age) {
+        // Validation: age must be positive and reasonable
+        if (age > 0 && age < 150) {
+            this.age = age;
+        } else {
+            System.out.println("Invalid age provided!");
+        }
+    }
+    
+    public void setGpa(double gpa) {
+        // Validation: GPA must be between 0 and 4
+        if (gpa >= 0.0 && gpa <= 4.0) {
+            this.gpa = gpa;
+        } else {
+            System.out.println("GPA must be between 0.0 and 4.0");
+        }
+    }
+    
+    // Other methods
+    public void study(String subject) {
+        System.out.println(name + " is studying " + subject);
+    }
+    
+    public void attendClass(String className) {
+        System.out.println(name + " is attending " + className + " class");
+    }
+    
+    public void displayInfo() {
+        System.out.println("╔════════════════════════════════╗");
+        System.out.println("║      STUDENT INFORMATION       ║");
+        System.out.println("╠════════════════════════════════╣");
+        System.out.println("  ID:     " + studentId);
+        System.out.println("  Name:   " + name);
+        System.out.println("  Age:    " + age);
+        System.out.println("  Course: " + course);
+        System.out.printf("  GPA:    %.2f%n", gpa);
+        System.out.println("╚════════════════════════════════╝");
+    }
+    
+    // Method that returns a value
+    public boolean isPassing() {
+        return gpa >= 2.0;  // Returns true if GPA is 2.0 or higher
+    }
+}
+
+// Using the Student class
+public class StudentDemo {
+    public static void main(String[] args) {
+        // Creating objects using different constructors
+        
+        // Using default constructor
+        Student student1 = new Student();
+        student1.displayInfo();  // Shows default values
+        
+        // Using parameterized constructor
+        Student student2 = new Student("2024-001", "Maria Santos", 20, "Computer Science");
+        student2.setGpa(3.5);
+        student2.displayInfo();
+        
+        // Using methods
+        student2.study("Java Programming");
+        student2.attendClass("CC3");
+        
+        // Using return value from method
+        if (student2.isPassing()) {
+            System.out.println(student2.getName() + " is passing!");
+        } else {
+            System.out.println(student2.getName() + " needs to improve.");
+        }
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Inheritance - Extending Classes</h3>
+            <p>Inheritance is a mechanism that allows a class (child/subclass) to inherit attributes and methods from another class (parent/superclass). This promotes code reuse and establishes a natural hierarchy.</p>
+            
+            <h4>Types of Inheritance in Java:</h4>
+            <ul>
+                <li><strong>Single Inheritance:</strong> A class inherits from one superclass</li>
+                <li><strong>Multilevel Inheritance:</strong> A class inherits from a class that inherits from another class</li>
+                <li><strong>Hierarchical Inheritance:</strong> Multiple classes inherit from a single superclass</li>
+                <li><em>Note: Java does NOT support multiple inheritance with classes (but can with interfaces)</em></li>
+            </ul>
+            
+            <pre><code>// =============================================
+// PARENT CLASS (Superclass / Base Class)
+// =============================================
+public class Person {
+    // Protected - accessible in subclasses
+    protected String name;
+    protected int age;
+    protected String address;
+    
+    // Constructor
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+        this.address = "Not specified";
+    }
+    
+    // Methods that will be inherited
+    public void introduce() {
+        System.out.println("Hi, I'm " + name + " and I'm " + age + " years old.");
+    }
+    
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    
+    public String getAddress() {
+        return address;
+    }
+}
+
+// =============================================
+// CHILD CLASS (Subclass / Derived Class)
+// =============================================
+public class Student extends Person {  // 'extends' keyword for inheritance
+    // Additional attributes specific to Student
+    private String studentId;
+    private String course;
+    private double gpa;
+    
+    // Constructor - must call parent constructor using super()
+    public Student(String name, int age, String studentId, String course) {
+        super(name, age);  // Calls Person constructor - MUST be first line!
+        this.studentId = studentId;
+        this.course = course;
+        this.gpa = 0.0;
+    }
+    
+    // Getters and Setters for new attributes
+    public String getStudentId() { return studentId; }
+    public String getCourse() { return course; }
+    public double getGpa() { return gpa; }
+    public void setGpa(double gpa) { this.gpa = gpa; }
+    
+    // Override parent method - provide different implementation
+    @Override  // Annotation - tells compiler we're overriding
+    public void introduce() {
+        System.out.println("Hi, I'm " + name + ", a " + course + " student.");
+        System.out.println("My student ID is " + studentId);
+    }
+    
+    // New method specific to Student
+    public void study() {
+        System.out.println(name + " is studying hard!");
+    }
+    
+    public void displayFullInfo() {
+        System.out.println("=== Student Details ===");
+        System.out.println("Name: " + name);           // Inherited from Person
+        System.out.println("Age: " + age);             // Inherited from Person
+        System.out.println("Address: " + address);     // Inherited from Person
+        System.out.println("Student ID: " + studentId);
+        System.out.println("Course: " + course);
+        System.out.printf("GPA: %.2f%n", gpa);
+    }
+}
+
+// =============================================
+// ANOTHER CHILD CLASS
+// =============================================
+public class Teacher extends Person {
+    private String employeeId;
+    private String department;
+    private double salary;
+    
+    public Teacher(String name, int age, String employeeId, String department) {
+        super(name, age);
+        this.employeeId = employeeId;
+        this.department = department;
+    }
+    
+    @Override
+    public void introduce() {
+        System.out.println("Hello, I'm Professor " + name);
+        System.out.println("I teach in the " + department + " department.");
+    }
+    
+    public void teach(String subject) {
+        System.out.println("Professor " + name + " is teaching " + subject);
+    }
+}
+
+// =============================================
+// DEMONSTRATING INHERITANCE
+// =============================================
+public class InheritanceDemo {
+    public static void main(String[] args) {
+        // Create Person object
+        Person person = new Person("John", 30);
+        person.introduce();
+        System.out.println();
+        
+        // Create Student object
+        Student student = new Student("Maria", 20, "2024-001", "Computer Science");
+        student.setGpa(3.75);
+        student.setAddress("123 Main St");  // Inherited method
+        student.introduce();                 // Overridden method
+        student.study();                     // Student-specific method
+        System.out.println();
+        student.displayFullInfo();
+        System.out.println();
+        
+        // Create Teacher object
+        Teacher teacher = new Teacher("Dr. Smith", 45, "EMP-001", "IT");
+        teacher.introduce();
+        teacher.teach("Java Programming");
+        
+        // Demonstrating 'instanceof' keyword
+        System.out.println("\n=== Type Checking ===");
+        System.out.println("student instanceof Student: " + (student instanceof Student));  // true
+        System.out.println("student instanceof Person: " + (student instanceof Person));    // true
+        System.out.println("teacher instanceof Student: " + (teacher instanceof Student));  // false
+    }
+}</code></pre>
+            
+            <h4>Important Inheritance Concepts:</h4>
+            <ul>
+                <li><strong>super keyword:</strong> Used to refer to the parent class constructor, methods, or attributes</li>
+                <li><strong>@Override annotation:</strong> Indicates a method is overriding a parent method</li>
+                <li><strong>Method Overriding:</strong> Subclass provides its own implementation of a method defined in the parent class</li>
+                <li><strong>instanceof operator:</strong> Checks if an object is an instance of a specific class</li>
+            </ul>
+        </div>
+        
+        <div class="week">
+            <h3>Interface - Defining Contracts</h3>
+            <p>An interface is a completely abstract type that defines a contract specifying what methods a class must implement, without specifying how. Interfaces enable abstraction and multiple inheritance of type in Java.</p>
+            
+            <h4>Key Characteristics of Interfaces:</h4>
+            <ul>
+                <li>All methods are implicitly <code>public</code> and <code>abstract</code> (before Java 8)</li>
+                <li>All variables are implicitly <code>public</code>, <code>static</code>, and <code>final</code> (constants)</li>
+                <li>A class can implement multiple interfaces (multiple inheritance of type)</li>
+                <li>Interfaces cannot be instantiated directly</li>
+                <li>Since Java 8, interfaces can have <code>default</code> and <code>static</code> methods with implementations</li>
+            </ul>
+            
+            <pre><code>// =============================================
+// INTERFACE DEFINITIONS
+// =============================================
+
+// Interface for objects that can be drawn
+public interface Drawable {
+    // Abstract method (no body)
+    void draw();
+    
+    // Constant (public static final by default)
+    String DEFAULT_COLOR = "Black";
+    
+    // Default method with implementation (Java 8+)
+    default void setColor(String color) {
+        System.out.println("Setting color to: " + color);
+    }
+    
+    // Static method (Java 8+)
+    static void printInfo() {
+        System.out.println("This is a Drawable interface");
+    }
+}
+
+// Another interface
+public interface Resizable {
+    void resize(int width, int height);
+    void resize(double percentage);
+}
+
+// Interface for objects that can be saved
+public interface Saveable {
+    void save(String filename);
+    void load(String filename);
+}
+
+// =============================================
+// CLASS IMPLEMENTING MULTIPLE INTERFACES
+// =============================================
+public class Rectangle implements Drawable, Resizable, Saveable {
+    private int x, y;           // Position
+    private int width, height;  // Dimensions
+    private String color;
+    
+    public Rectangle(int x, int y, int width, int height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.color = Drawable.DEFAULT_COLOR;  // Using interface constant
+    }
+    
+    // Implementing Drawable interface
+    @Override
+    public void draw() {
+        System.out.println("Drawing a " + color + " rectangle");
+        System.out.println("Position: (" + x + ", " + y + ")");
+        System.out.println("Size: " + width + " x " + height);
+        
+        // Visual representation
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if (i == 0 || i == height-1 || j == 0 || j == width-1) {
+                    System.out.print("* ");
+                } else {
+                    System.out.print("  ");
+                }
+            }
+            System.out.println();
+        }
+    }
+    
+    // Implementing Resizable interface
+    @Override
+    public void resize(int width, int height) {
+        System.out.println("Resizing rectangle to " + width + " x " + height);
+        this.width = width;
+        this.height = height;
+    }
+    
+    @Override
+    public void resize(double percentage) {
+        System.out.println("Resizing rectangle by " + percentage + "%");
+        this.width = (int)(this.width * percentage / 100);
+        this.height = (int)(this.height * percentage / 100);
+    }
+    
+    // Implementing Saveable interface
+    @Override
+    public void save(String filename) {
+        System.out.println("Saving rectangle to: " + filename);
+        // In real code, this would write to a file
+    }
+    
+    @Override
+    public void load(String filename) {
+        System.out.println("Loading rectangle from: " + filename);
+        // In real code, this would read from a file
+    }
+    
+    // Overriding default method (optional)
+    @Override
+    public void setColor(String color) {
+        this.color = color;
+        System.out.println("Rectangle color changed to: " + color);
+    }
+}
+
+// =============================================
+// ANOTHER IMPLEMENTING CLASS
+// =============================================
+public class Circle implements Drawable, Resizable {
+    private int centerX, centerY;
+    private int radius;
+    private String color;
+    
+    public Circle(int centerX, int centerY, int radius) {
+        this.centerX = centerX;
+        this.centerY = centerY;
+        this.radius = radius;
+        this.color = Drawable.DEFAULT_COLOR;
+    }
+    
+    @Override
+    public void draw() {
+        System.out.println("Drawing a " + color + " circle");
+        System.out.println("Center: (" + centerX + ", " + centerY + ")");
+        System.out.println("Radius: " + radius);
+        System.out.printf("Area: %.2f%n", Math.PI * radius * radius);
+    }
+    
+    @Override
+    public void resize(int width, int height) {
+        // For circle, use the average
+        this.radius = (width + height) / 4;
+        System.out.println("Circle radius set to: " + radius);
+    }
+    
+    @Override
+    public void resize(double percentage) {
+        this.radius = (int)(this.radius * percentage / 100);
+        System.out.println("Circle radius is now: " + radius);
+    }
+}
+
+// =============================================
+// DEMONSTRATING INTERFACES
+// =============================================
+public class InterfaceDemo {
+    public static void main(String[] args) {
+        // Using interface static method
+        Drawable.printInfo();
+        System.out.println();
+        
+        // Create objects
+        Rectangle rect = new Rectangle(0, 0, 10, 5);
+        Circle circle = new Circle(5, 5, 4);
+        
+        // Using interface reference (polymorphism)
+        Drawable[] shapes = {rect, circle};
+        
+        System.out.println("=== Drawing all shapes ===");
+        for (Drawable shape : shapes) {
+            shape.draw();
+            shape.setColor("Red");  // Using default method
+            System.out.println();
+        }
+        
+        // Casting to access specific methods
+        Resizable resizable = rect;
+        resizable.resize(150);  // Resize by 150%
+        
+        // Rectangle implements Saveable, Circle doesn't
+        if (rect instanceof Saveable) {
+            Saveable saveable = rect;
+            saveable.save("rectangle.dat");
+        }
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Package - Organizing Your Code</h3>
+            <p>A package is a namespace that groups related classes, interfaces, and sub-packages together. Packages help organize code, prevent naming conflicts, and control access to classes.</p>
+            
+            <h4>Benefits of Using Packages:</h4>
+            <ul>
+                <li><strong>Organization:</strong> Group related classes logically</li>
+                <li><strong>Naming Conflicts:</strong> Classes with the same name can exist in different packages</li>
+                <li><strong>Access Control:</strong> Package-private (default) access restricts visibility</li>
+                <li><strong>Reusability:</strong> Easy to locate and use classes</li>
+            </ul>
+            
+            <pre><code>// =============================================
+// PACKAGE STRUCTURE EXAMPLE
+// =============================================
+
+/*
+Project Structure:
+src/
+├── com/
+│   └── school/
+│       ├── models/
+│       │   ├── Person.java
+│       │   ├── Student.java
+│       │   └── Teacher.java
+│       ├── services/
+│       │   ├── StudentService.java
+│       │   └── TeacherService.java
+│       └── utils/
+│           └── Validator.java
+└── Main.java
+*/
+
+// =============================================
+// File: com/school/models/Person.java
+// =============================================
+package com.school.models;  // Package declaration MUST be first line
+
+public class Person {
+    protected String name;
+    protected int age;
+    
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+    
+    public String getName() { return name; }
+    public int getAge() { return age; }
+}
+
+// =============================================
+// File: com/school/models/Student.java
+// =============================================
+package com.school.models;
+
+public class Student extends Person {  // Same package, no import needed
+    private String studentId;
+    private String course;
+    
+    public Student(String name, int age, String studentId, String course) {
+        super(name, age);
+        this.studentId = studentId;
+        this.course = course;
+    }
+    
+    public String getStudentId() { return studentId; }
+    public String getCourse() { return course; }
+    
+    @Override
+    public String toString() {
+        return "Student[ID=" + studentId + ", Name=" + name + ", Course=" + course + "]";
+    }
+}
+
+// =============================================
+// File: com/school/utils/Validator.java
+// =============================================
+package com.school.utils;
+
+public class Validator {
+    public static boolean isValidEmail(String email) {
+        return email != null && email.contains("@") && email.contains(".");
+    }
+    
+    public static boolean isValidAge(int age) {
+        return age > 0 && age < 150;
+    }
+    
+    public static boolean isValidStudentId(String id) {
+        // Format: YYYY-XXXX (e.g., 2024-0001)
+        return id != null && id.matches("\\d{4}-\\d{4}");
+    }
+}
+
+// =============================================
+// File: com/school/services/StudentService.java
+// =============================================
+package com.school.services;
+
+// Import classes from other packages
+import com.school.models.Student;
+import com.school.utils.Validator;
+import java.util.ArrayList;
+import java.util.List;
+
+public class StudentService {
+    private List&lt;Student&gt; students;
+    
+    public StudentService() {
+        this.students = new ArrayList&lt;&gt;();
+    }
+    
+    public boolean addStudent(String name, int age, String id, String course) {
+        // Use Validator from utils package
+        if (!Validator.isValidAge(age)) {
+            System.out.println("Invalid age!");
+            return false;
+        }
+        if (!Validator.isValidStudentId(id)) {
+            System.out.println("Invalid student ID format!");
+            return false;
+        }
+        
+        Student student = new Student(name, age, id, course);
+        students.add(student);
+        System.out.println("Student added: " + student);
+        return true;
+    }
+    
+    public List&lt;Student&gt; getAllStudents() {
+        return new ArrayList&lt;&gt;(students);
+    }
+    
+    public Student findById(String id) {
+        for (Student s : students) {
+            if (s.getStudentId().equals(id)) {
+                return s;
+            }
+        }
+        return null;
+    }
+}
+
+// =============================================
+// File: Main.java (in default package or another package)
+// =============================================
+// Import specific classes
+import com.school.models.Student;
+import com.school.services.StudentService;
+
+// Import all classes from a package (use sparingly)
+// import com.school.models.*;
+
+public class Main {
+    public static void main(String[] args) {
+        StudentService service = new StudentService();
+        
+        // Add students
+        service.addStudent("Maria Santos", 20, "2024-0001", "Computer Science");
+        service.addStudent("John Doe", 19, "2024-0002", "Information Technology");
+        service.addStudent("Invalid", -5, "2024-0003", "CS");  // Will fail validation
+        service.addStudent("Bad ID", 20, "12345", "IT");        // Will fail validation
+        
+        // List all students
+        System.out.println("\n=== All Students ===");
+        for (Student s : service.getAllStudents()) {
+            System.out.println(s);
+        }
+        
+        // Find specific student
+        Student found = service.findById("2024-0001");
+        if (found != null) {
+            System.out.println("\nFound: " + found.getName());
+        }
+    }
+}</code></pre>
+            
+            <h4>Common Java Packages:</h4>
+            <ul>
+                <li><code>java.lang</code> - Fundamental classes (String, Math, System) - automatically imported</li>
+                <li><code>java.util</code> - Utility classes (ArrayList, HashMap, Scanner, Date)</li>
+                <li><code>java.io</code> - Input/Output classes (File, BufferedReader, PrintWriter)</li>
+                <li><code>java.nio</code> - New I/O classes (Path, Files, Channels)</li>
+                <li><code>javax.swing</code> - GUI components (JFrame, JButton, JLabel)</li>
+                <li><code>java.awt</code> - Abstract Window Toolkit (Graphics, Color, Event handling)</li>
+            </ul>
+        </div>
+        
+        <a href="index.html#syllabus" class="btn">Back to Syllabus</a>
+        <a href="week1.html" class="btn">← Previous: Week 1</a>
+        <a href="week3-4.html" class="btn">Next: Week 3-4 →</a>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CC3 Computer Programming. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 17-18: Project Presentation - CC3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>CC3: Computer Programming</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#syllabus">Syllabus</a></li>
+                    <li><a href="index.html#resources">Resources</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="container">
+        <h2>Week 17-18: Project Presentation</h2>
+        <div class="week">
+            <p>Final project presentation and course wrap-up. Apply all the concepts learned throughout the course to build a complete Java application.</p>
+        </div>
+        
+        <div class="week">
+            <h3>Project Requirements Overview</h3>
+            <p>Your final project should demonstrate mastery of the following concepts learned throughout the course:</p>
+            
+            <pre><code>/*
+ * ╔═══════════════════════════════════════════════════════════════════╗
+ * ║           CC3 FINAL PROJECT REQUIREMENTS CHECKLIST                ║
+ * ╠═══════════════════════════════════════════════════════════════════╣
+ * ║                                                                   ║
+ * ║  ✓ OBJECT-ORIENTED PROGRAMMING (Weeks 2-8)                       ║
+ * ║    □ At least 3-4 custom classes                                 ║
+ * ║    □ Proper encapsulation (private fields, public methods)       ║
+ * ║    □ Inheritance (extend at least one class)                     ║
+ * ║    □ Polymorphism (method overriding or interfaces)              ║
+ * ║    □ Constructor overloading                                     ║
+ * ║    □ Static members where appropriate                            ║
+ * ║                                                                   ║
+ * ║  ✓ EXCEPTION HANDLING (Weeks 9-10)                               ║
+ * ║    □ Try-catch blocks for error handling                         ║
+ * ║    □ At least one custom exception class                         ║
+ * ║    □ Proper exception propagation (throws)                       ║
+ * ║    □ User-friendly error messages                                ║
+ * ║                                                                   ║
+ * ║  ✓ FILE I/O (Weeks 11-12)                                        ║
+ * ║    □ Save data to file (persistence)                             ║
+ * ║    □ Load data from file on startup                              ║
+ * ║    □ Handle file-related exceptions                              ║
+ * ║                                                                   ║
+ * ║  ✓ GRAPHICAL USER INTERFACE (Weeks 13-16)                        ║
+ * ║    □ JFrame with proper layout                                   ║
+ * ║    □ Multiple Swing components (buttons, text fields, etc.)      ║
+ * ║    □ Appropriate layout managers                                 ║
+ * ║    □ Event handling (ActionListener, etc.)                       ║
+ * ║    □ User-friendly interface design                              ║
+ * ║                                                                   ║
+ * ║  ✓ CODE QUALITY                                                  ║
+ * ║    □ Meaningful variable and method names                        ║
+ * ║    □ Proper code comments and documentation                      ║
+ * ║    □ Clean code organization                                     ║
+ * ║    □ No code duplication (DRY principle)                         ║
+ * ║                                                                   ║
+ * ╚═══════════════════════════════════════════════════════════════════╝
+ */</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Suggested Project Ideas</h3>
+            <p>Choose one of these project ideas or propose your own:</p>
+            
+            <pre><code>/*
+ * PROJECT IDEAS FOR CC3 FINAL PROJECT
+ * ===================================
+ * 
+ * 1. STUDENT MANAGEMENT SYSTEM
+ *    - Add, edit, delete student records
+ *    - Search by ID or name
+ *    - Calculate GPA statistics
+ *    - Export student list to file
+ *    Skills: CRUD operations, file I/O, GUI
+ * 
+ * 2. LIBRARY MANAGEMENT SYSTEM
+ *    - Manage books and members
+ *    - Borrow and return books
+ *    - Track overdue books
+ *    - Fine calculation
+ *    Skills: Relationships between classes, date handling
+ * 
+ * 3. INVENTORY MANAGEMENT SYSTEM
+ *    - Product catalog management
+ *    - Stock tracking (add/remove)
+ *    - Low stock alerts
+ *    - Sales recording
+ *    Skills: Business logic, validation
+ * 
+ * 4. EMPLOYEE PAYROLL SYSTEM
+ *    - Employee information management
+ *    - Salary calculation (hourly/monthly)
+ *    - Deductions and bonuses
+ *    - Payslip generation
+ *    Skills: Inheritance (different employee types)
+ * 
+ * 5. QUIZ/EXAM APPLICATION
+ *    - Question bank management
+ *    - Timed quizzes
+ *    - Score tracking and history
+ *    - Question categories
+ *    Skills: Timer events, scoring logic
+ * 
+ * 6. PERSONAL FINANCE TRACKER
+ *    - Income and expense tracking
+ *    - Category-wise analysis
+ *    - Monthly/yearly reports
+ *    - Budget setting
+ *    Skills: Data analysis, charts (optional)
+ * 
+ * 7. CONTACT MANAGEMENT SYSTEM
+ *    - Store contact information
+ *    - Search and filter contacts
+ *    - Group contacts
+ *    - Export to CSV
+ *    Skills: Search algorithms, file formats
+ * 
+ * 8. RESTAURANT ORDER SYSTEM
+ *    - Menu management
+ *    - Order taking
+ *    - Bill calculation
+ *    - Order history
+ *    Skills: Complex calculations, GUI design
+ */</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Sample Project: Library Management System</h3>
+            <p>A complete example demonstrating all course concepts in a professional application structure.</p>
+            
+            <h4>Project Structure:</h4>
+            <pre><code>/*
+ * RECOMMENDED PROJECT STRUCTURE
+ * 
+ * LibraryManagementSystem/
+ * │
+ * ├── src/
+ * │   ├── model/           # Data classes
+ * │   │   ├── Book.java
+ * │   │   ├── Member.java
+ * │   │   └── Loan.java
+ * │   │
+ * │   ├── service/         # Business logic
+ * │   │   ├── LibraryService.java
+ * │   │   └── FileManager.java
+ * │   │
+ * │   ├── exception/       # Custom exceptions
+ * │   │   ├── BookNotFoundException.java
+ * │   │   ├── BookNotAvailableException.java
+ * │   │   └── MemberNotFoundException.java
+ * │   │
+ * │   ├── gui/             # User interface
+ * │   │   ├── MainFrame.java
+ * │   │   ├── BookPanel.java
+ * │   │   ├── MemberPanel.java
+ * │   │   └── LoanPanel.java
+ * │   │
+ * │   └── Main.java        # Entry point
+ * │
+ * └── data/                # Data files
+ *     ├── books.csv
+ *     ├── members.csv
+ *     └── loans.csv
+ */</code></pre>
+
+            <h4>Book.java - Model Class:</h4>
+            <pre><code>// =============================================
+// BOOK.JAVA - MODEL CLASS
+// =============================================
+
+package model;
+
+import java.io.Serializable;
+
+/**
+ * Represents a book in the library system.
+ * Demonstrates encapsulation and data validation.
+ */
+public class Book implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
+    // Private fields (encapsulation)
+    private String isbn;
+    private String title;
+    private String author;
+    private String category;
+    private int totalCopies;
+    private int availableCopies;
+    
+    // Constructor with validation
+    public Book(String isbn, String title, String author, 
+                String category, int totalCopies) {
+        setIsbn(isbn);
+        setTitle(title);
+        setAuthor(author);
+        setCategory(category);
+        setTotalCopies(totalCopies);
+        this.availableCopies = totalCopies;
+    }
+    
+    // Getters
+    public String getIsbn() { return isbn; }
+    public String getTitle() { return title; }
+    public String getAuthor() { return author; }
+    public String getCategory() { return category; }
+    public int getTotalCopies() { return totalCopies; }
+    public int getAvailableCopies() { return availableCopies; }
+    
+    // Setters with validation
+    public void setIsbn(String isbn) {
+        if (isbn == null || isbn.trim().isEmpty()) {
+            throw new IllegalArgumentException("ISBN cannot be empty");
+        }
+        this.isbn = isbn.trim();
+    }
+    
+    public void setTitle(String title) {
+        if (title == null || title.trim().isEmpty()) {
+            throw new IllegalArgumentException("Title cannot be empty");
+        }
+        this.title = title.trim();
+    }
+    
+    public void setAuthor(String author) {
+        if (author == null || author.trim().isEmpty()) {
+            throw new IllegalArgumentException("Author cannot be empty");
+        }
+        this.author = author.trim();
+    }
+    
+    public void setCategory(String category) {
+        this.category = category != null ? category.trim() : "Uncategorized";
+    }
+    
+    public void setTotalCopies(int totalCopies) {
+        if (totalCopies < 1) {
+            throw new IllegalArgumentException("Must have at least 1 copy");
+        }
+        this.totalCopies = totalCopies;
+    }
+    
+    // Business logic methods
+    public boolean isAvailable() {
+        return availableCopies > 0;
+    }
+    
+    public void borrowCopy() {
+        if (availableCopies <= 0) {
+            throw new IllegalStateException("No copies available");
+        }
+        availableCopies--;
+    }
+    
+    public void returnCopy() {
+        if (availableCopies >= totalCopies) {
+            throw new IllegalStateException("All copies already returned");
+        }
+        availableCopies++;
+    }
+    
+    // Convert to CSV format for file storage
+    public String toCSV() {
+        return String.format("%s,%s,%s,%s,%d,%d",
+            isbn, title, author, category, totalCopies, availableCopies);
+    }
+    
+    // Create from CSV line
+    public static Book fromCSV(String csvLine) {
+        String[] parts = csvLine.split(",");
+        if (parts.length < 6) {
+            throw new IllegalArgumentException("Invalid CSV format");
+        }
+        Book book = new Book(parts[0], parts[1], parts[2], parts[3],
+                            Integer.parseInt(parts[4]));
+        book.availableCopies = Integer.parseInt(parts[5]);
+        return book;
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("[%s] %s by %s (%d/%d available)",
+            isbn, title, author, availableCopies, totalCopies);
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Book book = (Book) obj;
+        return isbn.equals(book.isbn);
+    }
+    
+    @Override
+    public int hashCode() {
+        return isbn.hashCode();
+    }
+}</code></pre>
+
+            <h4>Member.java - Model Class with Inheritance:</h4>
+            <pre><code>// =============================================
+// MEMBER.JAVA - MODEL WITH INHERITANCE
+// =============================================
+
+package model;
+
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+/**
+ * Abstract base class for library members.
+ * Demonstrates inheritance and polymorphism.
+ */
+public abstract class Member implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
+    protected String memberId;
+    protected String name;
+    protected String email;
+    protected String phone;
+    protected LocalDate memberSince;
+    protected int booksBorrowed;
+    
+    public Member(String memberId, String name, String email, String phone) {
+        this.memberId = memberId;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.memberSince = LocalDate.now();
+        this.booksBorrowed = 0;
+    }
+    
+    // Abstract method - subclasses must implement
+    public abstract int getMaxBooks();
+    public abstract int getLoanDays();
+    public abstract double getFinePerDay();
+    public abstract String getMemberType();
+    
+    // Common methods
+    public boolean canBorrow() {
+        return booksBorrowed < getMaxBooks();
+    }
+    
+    public void borrowBook() {
+        if (!canBorrow()) {
+            throw new IllegalStateException(
+                "Maximum books (" + getMaxBooks() + ") already borrowed");
+        }
+        booksBorrowed++;
+    }
+    
+    public void returnBook() {
+        if (booksBorrowed > 0) {
+            booksBorrowed--;
+        }
+    }
+    
+    // Getters
+    public String getMemberId() { return memberId; }
+    public String getName() { return name; }
+    public String getEmail() { return email; }
+    public String getPhone() { return phone; }
+    public LocalDate getMemberSince() { return memberSince; }
+    public int getBooksBorrowed() { return booksBorrowed; }
+    
+    @Override
+    public String toString() {
+        return String.format("[%s] %s (%s) - %d books borrowed",
+            memberId, name, getMemberType(), booksBorrowed);
+    }
+}
+
+/**
+ * Student member - can borrow 3 books for 14 days
+ */
+class StudentMember extends Member {
+    private String studentId;
+    private String course;
+    
+    public StudentMember(String memberId, String name, String email, 
+                        String phone, String studentId, String course) {
+        super(memberId, name, email, phone);
+        this.studentId = studentId;
+        this.course = course;
+    }
+    
+    @Override
+    public int getMaxBooks() { return 3; }
+    
+    @Override
+    public int getLoanDays() { return 14; }
+    
+    @Override
+    public double getFinePerDay() { return 5.00; } // ₱5 per day
+    
+    @Override
+    public String getMemberType() { return "Student"; }
+    
+    public String getStudentId() { return studentId; }
+    public String getCourse() { return course; }
+}
+
+/**
+ * Faculty member - can borrow 10 books for 30 days
+ */
+class FacultyMember extends Member {
+    private String department;
+    private String position;
+    
+    public FacultyMember(String memberId, String name, String email,
+                        String phone, String department, String position) {
+        super(memberId, name, email, phone);
+        this.department = department;
+        this.position = position;
+    }
+    
+    @Override
+    public int getMaxBooks() { return 10; }
+    
+    @Override
+    public int getLoanDays() { return 30; }
+    
+    @Override
+    public double getFinePerDay() { return 10.00; } // ₱10 per day
+    
+    @Override
+    public String getMemberType() { return "Faculty"; }
+    
+    public String getDepartment() { return department; }
+    public String getPosition() { return position; }
+}
+
+/**
+ * Regular member - can borrow 5 books for 21 days
+ */
+class RegularMember extends Member {
+    private String address;
+    
+    public RegularMember(String memberId, String name, String email,
+                        String phone, String address) {
+        super(memberId, name, email, phone);
+        this.address = address;
+    }
+    
+    @Override
+    public int getMaxBooks() { return 5; }
+    
+    @Override
+    public int getLoanDays() { return 21; }
+    
+    @Override
+    public double getFinePerDay() { return 7.50; } // ₱7.50 per day
+    
+    @Override
+    public String getMemberType() { return "Regular"; }
+    
+    public String getAddress() { return address; }
+}</code></pre>
+
+            <h4>Custom Exceptions:</h4>
+            <pre><code>// =============================================
+// CUSTOM EXCEPTIONS
+// =============================================
+
+package exception;
+
+/**
+ * Thrown when a book is not found in the system.
+ */
+public class BookNotFoundException extends Exception {
+    public BookNotFoundException(String isbn) {
+        super("Book not found with ISBN: " + isbn);
+    }
+}
+
+/**
+ * Thrown when trying to borrow a book that's not available.
+ */
+public class BookNotAvailableException extends Exception {
+    public BookNotAvailableException(String title) {
+        super("Book not available: " + title);
+    }
+}
+
+/**
+ * Thrown when a member is not found in the system.
+ */
+public class MemberNotFoundException extends Exception {
+    public MemberNotFoundException(String memberId) {
+        super("Member not found with ID: " + memberId);
+    }
+}
+
+/**
+ * Thrown when member has reached borrowing limit.
+ */
+public class BorrowingLimitException extends Exception {
+    public BorrowingLimitException(String memberName, int limit) {
+        super(memberName + " has reached borrowing limit of " + limit + " books");
+    }
+}
+
+/**
+ * Thrown when loan period has expired.
+ */
+public class OverdueLoanException extends Exception {
+    private double fineAmount;
+    
+    public OverdueLoanException(int daysOverdue, double fineAmount) {
+        super("Loan is " + daysOverdue + " days overdue. Fine: ₱" + 
+              String.format("%.2f", fineAmount));
+        this.fineAmount = fineAmount;
+    }
+    
+    public double getFineAmount() {
+        return fineAmount;
+    }
+}</code></pre>
+
+            <h4>LibraryService.java - Business Logic:</h4>
+            <pre><code>// =============================================
+// LIBRARY SERVICE - BUSINESS LOGIC LAYER
+// =============================================
+
+package service;
+
+import model.*;
+import exception.*;
+import java.io.*;
+import java.util.*;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
+/**
+ * Main service class handling library operations.
+ * Implements singleton pattern for single point of access.
+ */
+public class LibraryService {
+    private static LibraryService instance;
+    
+    private Map<String, Book> books;
+    private Map<String, Member> members;
+    private List<Loan> loans;
+    private List<Loan> loanHistory;
+    
+    private static final String BOOKS_FILE = "data/books.csv";
+    private static final String MEMBERS_FILE = "data/members.csv";
+    private static final String LOANS_FILE = "data/loans.csv";
+    
+    // Singleton pattern
+    private LibraryService() {
+        books = new HashMap<>();
+        members = new HashMap<>();
+        loans = new ArrayList<>();
+        loanHistory = new ArrayList<>();
+        loadData();
+    }
+    
+    public static LibraryService getInstance() {
+        if (instance == null) {
+            instance = new LibraryService();
+        }
+        return instance;
+    }
+    
+    // =============================================
+    // BOOK OPERATIONS
+    // =============================================
+    
+    public void addBook(Book book) {
+        if (books.containsKey(book.getIsbn())) {
+            throw new IllegalArgumentException(
+                "Book with ISBN " + book.getIsbn() + " already exists");
+        }
+        books.put(book.getIsbn(), book);
+        saveBooks();
+    }
+    
+    public Book findBook(String isbn) throws BookNotFoundException {
+        Book book = books.get(isbn);
+        if (book == null) {
+            throw new BookNotFoundException(isbn);
+        }
+        return book;
+    }
+    
+    public List<Book> searchBooks(String keyword) {
+        List<Book> results = new ArrayList<>();
+        String lowerKeyword = keyword.toLowerCase();
+        
+        for (Book book : books.values()) {
+            if (book.getTitle().toLowerCase().contains(lowerKeyword) ||
+                book.getAuthor().toLowerCase().contains(lowerKeyword) ||
+                book.getIsbn().toLowerCase().contains(lowerKeyword)) {
+                results.add(book);
+            }
+        }
+        return results;
+    }
+    
+    public List<Book> getAllBooks() {
+        return new ArrayList<>(books.values());
+    }
+    
+    public List<Book> getAvailableBooks() {
+        List<Book> available = new ArrayList<>();
+        for (Book book : books.values()) {
+            if (book.isAvailable()) {
+                available.add(book);
+            }
+        }
+        return available;
+    }
+    
+    // =============================================
+    // MEMBER OPERATIONS
+    // =============================================
+    
+    public void addMember(Member member) {
+        if (members.containsKey(member.getMemberId())) {
+            throw new IllegalArgumentException(
+                "Member with ID " + member.getMemberId() + " already exists");
+        }
+        members.put(member.getMemberId(), member);
+        saveMembers();
+    }
+    
+    public Member findMember(String memberId) throws MemberNotFoundException {
+        Member member = members.get(memberId);
+        if (member == null) {
+            throw new MemberNotFoundException(memberId);
+        }
+        return member;
+    }
+    
+    public List<Member> getAllMembers() {
+        return new ArrayList<>(members.values());
+    }
+    
+    // =============================================
+    // LOAN OPERATIONS
+    // =============================================
+    
+    public Loan borrowBook(String memberId, String isbn) 
+            throws MemberNotFoundException, BookNotFoundException,
+                   BookNotAvailableException, BorrowingLimitException {
+        
+        Member member = findMember(memberId);
+        Book book = findBook(isbn);
+        
+        // Check if book is available
+        if (!book.isAvailable()) {
+            throw new BookNotAvailableException(book.getTitle());
+        }
+        
+        // Check if member can borrow more books
+        if (!member.canBorrow()) {
+            throw new BorrowingLimitException(
+                member.getName(), member.getMaxBooks());
+        }
+        
+        // Create loan
+        Loan loan = new Loan(member, book, member.getLoanDays());
+        
+        // Update book and member
+        book.borrowCopy();
+        member.borrowBook();
+        loans.add(loan);
+        
+        // Save changes
+        saveBooks();
+        saveLoans();
+        
+        return loan;
+    }
+    
+    public double returnBook(String loanId) 
+            throws OverdueLoanException {
+        
+        Loan loan = null;
+        for (Loan l : loans) {
+            if (l.getLoanId().equals(loanId)) {
+                loan = l;
+                break;
+            }
+        }
+        
+        if (loan == null) {
+            throw new IllegalArgumentException("Loan not found: " + loanId);
+        }
+        
+        // Calculate fine if overdue
+        double fine = 0;
+        int daysOverdue = loan.getDaysOverdue();
+        if (daysOverdue > 0) {
+            fine = daysOverdue * loan.getMember().getFinePerDay();
+        }
+        
+        // Update book and member
+        loan.getBook().returnCopy();
+        loan.getMember().returnBook();
+        loan.setReturnDate(LocalDate.now());
+        loan.setFineAmount(fine);
+        
+        // Move to history
+        loans.remove(loan);
+        loanHistory.add(loan);
+        
+        // Save changes
+        saveBooks();
+        saveLoans();
+        
+        if (fine > 0) {
+            throw new OverdueLoanException(daysOverdue, fine);
+        }
+        
+        return fine;
+    }
+    
+    public List<Loan> getActiveLoans() {
+        return new ArrayList<>(loans);
+    }
+    
+    public List<Loan> getOverdueLoans() {
+        List<Loan> overdue = new ArrayList<>();
+        for (Loan loan : loans) {
+            if (loan.isOverdue()) {
+                overdue.add(loan);
+            }
+        }
+        return overdue;
+    }
+    
+    public List<Loan> getMemberLoans(String memberId) {
+        List<Loan> memberLoans = new ArrayList<>();
+        for (Loan loan : loans) {
+            if (loan.getMember().getMemberId().equals(memberId)) {
+                memberLoans.add(loan);
+            }
+        }
+        return memberLoans;
+    }
+    
+    // =============================================
+    // FILE I/O OPERATIONS
+    // =============================================
+    
+    private void loadData() {
+        loadBooks();
+        loadMembers();
+        loadLoans();
+    }
+    
+    private void loadBooks() {
+        File file = new File(BOOKS_FILE);
+        if (!file.exists()) return;
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            reader.readLine(); // Skip header
+            while ((line = reader.readLine()) != null) {
+                try {
+                    Book book = Book.fromCSV(line);
+                    books.put(book.getIsbn(), book);
+                } catch (Exception e) {
+                    System.err.println("Error parsing book: " + line);
+                }
+            }
+            System.out.println("Loaded " + books.size() + " books");
+        } catch (IOException e) {
+            System.err.println("Error loading books: " + e.getMessage());
+        }
+    }
+    
+    private void saveBooks() {
+        try {
+            new File("data").mkdirs(); // Create directory if not exists
+            try (PrintWriter writer = new PrintWriter(BOOKS_FILE)) {
+                writer.println("ISBN,Title,Author,Category,TotalCopies,Available");
+                for (Book book : books.values()) {
+                    writer.println(book.toCSV());
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error saving books: " + e.getMessage());
+        }
+    }
+    
+    private void loadMembers() {
+        // Similar implementation for members
+    }
+    
+    private void saveMembers() {
+        // Similar implementation for members
+    }
+    
+    private void loadLoans() {
+        // Similar implementation for loans
+    }
+    
+    private void saveLoans() {
+        // Similar implementation for loans
+    }
+    
+    // =============================================
+    // STATISTICS
+    // =============================================
+    
+    public Map<String, Integer> getStatistics() {
+        Map<String, Integer> stats = new HashMap<>();
+        stats.put("totalBooks", books.size());
+        stats.put("totalMembers", members.size());
+        stats.put("activeLoans", loans.size());
+        stats.put("overdueLoans", getOverdueLoans().size());
+        
+        int totalCopies = 0;
+        int availableCopies = 0;
+        for (Book book : books.values()) {
+            totalCopies += book.getTotalCopies();
+            availableCopies += book.getAvailableCopies();
+        }
+        stats.put("totalCopies", totalCopies);
+        stats.put("availableCopies", availableCopies);
+        
+        return stats;
+    }
+}</code></pre>
+
+            <h4>MainFrame.java - GUI Application:</h4>
+            <pre><code>// =============================================
+// MAIN FRAME - GUI APPLICATION
+// =============================================
+
+package gui;
+
+import javax.swing.*;
+import javax.swing.border.*;
+import javax.swing.table.*;
+import java.awt.*;
+import java.awt.event.*;
+import service.LibraryService;
+import model.*;
+import exception.*;
+import java.util.List;
+import java.util.Map;
+
+public class MainFrame extends JFrame {
+    
+    private LibraryService service;
+    private JTabbedPane tabbedPane;
+    private JLabel statusLabel;
+    
+    // Book tab components
+    private JTable bookTable;
+    private DefaultTableModel bookTableModel;
+    private JTextField bookSearchField;
+    
+    // Member tab components
+    private JTable memberTable;
+    private DefaultTableModel memberTableModel;
+    
+    // Loan tab components
+    private JTable loanTable;
+    private DefaultTableModel loanTableModel;
+    
+    public MainFrame() {
+        super("Library Management System");
+        service = LibraryService.getInstance();
+        
+        initializeUI();
+        loadData();
+        
+        setSize(1000, 700);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+    }
+    
+    private void initializeUI() {
+        // Set look and feel
+        try {
+            UIManager.setLookAndFeel(
+                UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {}
+        
+        setLayout(new BorderLayout());
+        
+        // Create menu bar
+        createMenuBar();
+        
+        // Create header
+        createHeader();
+        
+        // Create tabbed pane
+        tabbedPane = new JTabbedPane();
+        tabbedPane.addTab("📚 Books", createBookPanel());
+        tabbedPane.addTab("👥 Members", createMemberPanel());
+        tabbedPane.addTab("📋 Loans", createLoanPanel());
+        tabbedPane.addTab("📊 Dashboard", createDashboardPanel());
+        
+        add(tabbedPane, BorderLayout.CENTER);
+        
+        // Create status bar
+        createStatusBar();
+    }
+    
+    private void createMenuBar() {
+        JMenuBar menuBar = new JMenuBar();
+        
+        // File menu
+        JMenu fileMenu = new JMenu("File");
+        JMenuItem exitItem = new JMenuItem("Exit");
+        exitItem.addActionListener(e -> System.exit(0));
+        fileMenu.add(exitItem);
+        menuBar.add(fileMenu);
+        
+        // Actions menu
+        JMenu actionsMenu = new JMenu("Actions");
+        JMenuItem borrowItem = new JMenuItem("Borrow Book");
+        borrowItem.addActionListener(e -> showBorrowDialog());
+        JMenuItem returnItem = new JMenuItem("Return Book");
+        returnItem.addActionListener(e -> showReturnDialog());
+        actionsMenu.add(borrowItem);
+        actionsMenu.add(returnItem);
+        menuBar.add(actionsMenu);
+        
+        // Help menu
+        JMenu helpMenu = new JMenu("Help");
+        JMenuItem aboutItem = new JMenuItem("About");
+        aboutItem.addActionListener(e -> showAboutDialog());
+        helpMenu.add(aboutItem);
+        menuBar.add(helpMenu);
+        
+        setJMenuBar(menuBar);
+    }
+    
+    private void createHeader() {
+        JPanel header = new JPanel(new BorderLayout());
+        header.setBackground(new Color(41, 128, 185));
+        header.setBorder(new EmptyBorder(15, 20, 15, 20));
+        
+        JLabel titleLabel = new JLabel("📖 Library Management System");
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        titleLabel.setForeground(Color.WHITE);
+        
+        header.add(titleLabel, BorderLayout.WEST);
+        add(header, BorderLayout.NORTH);
+    }
+    
+    private JPanel createBookPanel() {
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        
+        // Search panel
+        JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        searchPanel.add(new JLabel("Search:"));
+        bookSearchField = new JTextField(20);
+        JButton searchBtn = new JButton("🔍 Search");
+        searchBtn.addActionListener(e -> searchBooks());
+        searchPanel.add(bookSearchField);
+        searchPanel.add(searchBtn);
+        
+        JButton addBookBtn = new JButton("➕ Add Book");
+        addBookBtn.addActionListener(e -> showAddBookDialog());
+        searchPanel.add(addBookBtn);
+        
+        panel.add(searchPanel, BorderLayout.NORTH);
+        
+        // Table
+        String[] columns = {"ISBN", "Title", "Author", "Category", 
+                           "Total", "Available", "Status"};
+        bookTableModel = new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        bookTable = new JTable(bookTableModel);
+        bookTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        bookTable.setRowHeight(25);
+        
+        JScrollPane scrollPane = new JScrollPane(bookTable);
+        panel.add(scrollPane, BorderLayout.CENTER);
+        
+        return panel;
+    }
+    
+    private JPanel createMemberPanel() {
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        
+        // Toolbar
+        JPanel toolbar = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JButton addMemberBtn = new JButton("➕ Add Member");
+        addMemberBtn.addActionListener(e -> showAddMemberDialog());
+        toolbar.add(addMemberBtn);
+        panel.add(toolbar, BorderLayout.NORTH);
+        
+        // Table
+        String[] columns = {"ID", "Name", "Type", "Email", 
+                           "Books Borrowed", "Max Books"};
+        memberTableModel = new DefaultTableModel(columns, 0);
+        memberTable = new JTable(memberTableModel);
+        
+        panel.add(new JScrollPane(memberTable), BorderLayout.CENTER);
+        
+        return panel;
+    }
+    
+    private JPanel createLoanPanel() {
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        
+        // Toolbar
+        JPanel toolbar = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JButton borrowBtn = new JButton("📤 Borrow Book");
+        borrowBtn.addActionListener(e -> showBorrowDialog());
+        JButton returnBtn = new JButton("📥 Return Book");
+        returnBtn.addActionListener(e -> showReturnDialog());
+        JButton overdueBtn = new JButton("⚠️ Show Overdue");
+        overdueBtn.addActionListener(e -> showOverdueLoans());
+        
+        toolbar.add(borrowBtn);
+        toolbar.add(returnBtn);
+        toolbar.add(overdueBtn);
+        panel.add(toolbar, BorderLayout.NORTH);
+        
+        // Table
+        String[] columns = {"Loan ID", "Member", "Book", 
+                           "Borrow Date", "Due Date", "Status"};
+        loanTableModel = new DefaultTableModel(columns, 0);
+        loanTable = new JTable(loanTableModel);
+        
+        panel.add(new JScrollPane(loanTable), BorderLayout.CENTER);
+        
+        return panel;
+    }
+    
+    private JPanel createDashboardPanel() {
+        JPanel panel = new JPanel(new GridLayout(2, 3, 20, 20));
+        panel.setBorder(new EmptyBorder(30, 30, 30, 30));
+        panel.setBackground(new Color(245, 245, 250));
+        
+        Map<String, Integer> stats = service.getStatistics();
+        
+        panel.add(createStatCard("📚 Total Books", 
+                                stats.get("totalBooks").toString(),
+                                new Color(52, 152, 219)));
+        panel.add(createStatCard("👥 Members", 
+                                stats.get("totalMembers").toString(),
+                                new Color(46, 204, 113)));
+        panel.add(createStatCard("📋 Active Loans", 
+                                stats.get("activeLoans").toString(),
+                                new Color(155, 89, 182)));
+        panel.add(createStatCard("⚠️ Overdue", 
+                                stats.get("overdueLoans").toString(),
+                                new Color(231, 76, 60)));
+        panel.add(createStatCard("📖 Available", 
+                                stats.get("availableCopies").toString(),
+                                new Color(26, 188, 156)));
+        panel.add(createStatCard("📦 Total Copies", 
+                                stats.get("totalCopies").toString(),
+                                new Color(241, 196, 15)));
+        
+        return panel;
+    }
+    
+    private JPanel createStatCard(String title, String value, Color color) {
+        JPanel card = new JPanel(new BorderLayout());
+        card.setBackground(Color.WHITE);
+        card.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(color, 3),
+            new EmptyBorder(20, 20, 20, 20)
+        ));
+        
+        JLabel valueLabel = new JLabel(value, JLabel.CENTER);
+        valueLabel.setFont(new Font("Segoe UI", Font.BOLD, 48));
+        valueLabel.setForeground(color);
+        
+        JLabel titleLabel = new JLabel(title, JLabel.CENTER);
+        titleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        
+        card.add(valueLabel, BorderLayout.CENTER);
+        card.add(titleLabel, BorderLayout.SOUTH);
+        
+        return card;
+    }
+    
+    private void createStatusBar() {
+        statusLabel = new JLabel("Ready");
+        statusLabel.setBorder(new EmptyBorder(5, 10, 5, 10));
+        add(statusLabel, BorderLayout.SOUTH);
+    }
+    
+    private void loadData() {
+        refreshBookTable();
+        refreshMemberTable();
+        refreshLoanTable();
+    }
+    
+    private void refreshBookTable() {
+        bookTableModel.setRowCount(0);
+        for (Book book : service.getAllBooks()) {
+            String status = book.isAvailable() ? "✅ Available" : "❌ All Borrowed";
+            bookTableModel.addRow(new Object[]{
+                book.getIsbn(), book.getTitle(), book.getAuthor(),
+                book.getCategory(), book.getTotalCopies(),
+                book.getAvailableCopies(), status
+            });
+        }
+        updateStatus("Loaded " + service.getAllBooks().size() + " books");
+    }
+    
+    private void refreshMemberTable() {
+        memberTableModel.setRowCount(0);
+        for (Member member : service.getAllMembers()) {
+            memberTableModel.addRow(new Object[]{
+                member.getMemberId(), member.getName(),
+                member.getMemberType(), member.getEmail(),
+                member.getBooksBorrowed(), member.getMaxBooks()
+            });
+        }
+    }
+    
+    private void refreshLoanTable() {
+        loanTableModel.setRowCount(0);
+        for (Loan loan : service.getActiveLoans()) {
+            String status = loan.isOverdue() ? "⚠️ OVERDUE" : "✓ Active";
+            loanTableModel.addRow(new Object[]{
+                loan.getLoanId(), loan.getMember().getName(),
+                loan.getBook().getTitle(), loan.getBorrowDate(),
+                loan.getDueDate(), status
+            });
+        }
+    }
+    
+    private void searchBooks() {
+        String keyword = bookSearchField.getText().trim();
+        if (keyword.isEmpty()) {
+            refreshBookTable();
+            return;
+        }
+        
+        bookTableModel.setRowCount(0);
+        List<Book> results = service.searchBooks(keyword);
+        for (Book book : results) {
+            String status = book.isAvailable() ? "✅ Available" : "❌ All Borrowed";
+            bookTableModel.addRow(new Object[]{
+                book.getIsbn(), book.getTitle(), book.getAuthor(),
+                book.getCategory(), book.getTotalCopies(),
+                book.getAvailableCopies(), status
+            });
+        }
+        updateStatus("Found " + results.size() + " books matching '" + keyword + "'");
+    }
+    
+    // Dialog methods...
+    private void showAddBookDialog() {
+        // Implementation for add book dialog
+    }
+    
+    private void showAddMemberDialog() {
+        // Implementation for add member dialog
+    }
+    
+    private void showBorrowDialog() {
+        // Implementation for borrow dialog
+    }
+    
+    private void showReturnDialog() {
+        // Implementation for return dialog
+    }
+    
+    private void showOverdueLoans() {
+        // Implementation for showing overdue loans
+    }
+    
+    private void showAboutDialog() {
+        JOptionPane.showMessageDialog(this,
+            "Library Management System\n" +
+            "Version 1.0\n\n" +
+            "CC3 Computer Programming\n" +
+            "Final Project",
+            "About",
+            JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    private void updateStatus(String message) {
+        statusLabel.setText(message);
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new MainFrame().setVisible(true);
+        });
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Presentation Guidelines</h3>
+            <p>Follow these guidelines for your project presentation:</p>
+            
+            <pre><code>/*
+ * ╔═══════════════════════════════════════════════════════════════════╗
+ * ║              PRESENTATION GUIDELINES (15-20 minutes)              ║
+ * ╠═══════════════════════════════════════════════════════════════════╣
+ * ║                                                                   ║
+ * ║  1. INTRODUCTION (2 minutes)                                     ║
+ * ║     • Project name and purpose                                   ║
+ * ║     • Target users and problem solved                            ║
+ * ║     • Brief overview of features                                 ║
+ * ║                                                                   ║
+ * ║  2. LIVE DEMONSTRATION (5-7 minutes)                             ║
+ * ║     • Show main features working                                 ║
+ * ║     • Demonstrate CRUD operations                                ║
+ * ║     • Show error handling in action                              ║
+ * ║     • Demonstrate file persistence (save/load)                   ║
+ * ║                                                                   ║
+ * ║  3. CODE WALKTHROUGH (5-7 minutes)                               ║
+ * ║     • Explain class structure and relationships                  ║
+ * ║     • Show OOP principles (inheritance, polymorphism)            ║
+ * ║     • Explain exception handling strategy                        ║
+ * ║     • Discuss interesting/challenging parts                      ║
+ * ║                                                                   ║
+ * ║  4. Q&A SESSION (3-5 minutes)                                    ║
+ * ║     • Be prepared to explain any part of your code               ║
+ * ║     • Discuss design decisions                                   ║
+ * ║     • Talk about challenges faced and solutions                  ║
+ * ║                                                                   ║
+ * ╠═══════════════════════════════════════════════════════════════════╣
+ * ║                       GRADING CRITERIA                            ║
+ * ├───────────────────────────────────────────────────────────────────┤
+ * ║  • Functionality & Features      30%                              ║
+ * ║  • Code Quality & OOP Principles 25%                              ║
+ * ║  • Exception Handling            15%                              ║
+ * ║  • File I/O Implementation       10%                              ║
+ * ║  • GUI Design & Usability        10%                              ║
+ * ║  • Presentation & Documentation  10%                              ║
+ * ╚═══════════════════════════════════════════════════════════════════╝
+ */</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Course Summary</h3>
+            <p>Congratulations on completing CC3: Computer Programming! Here's a summary of what you've learned:</p>
+            
+            <pre><code>/*
+ * ╔═══════════════════════════════════════════════════════════════════╗
+ * ║                    CC3 COURSE SUMMARY                             ║
+ * ╠═══════════════════════════════════════════════════════════════════╣
+ * ║                                                                   ║
+ * ║  WEEKS 1-2: Java Fundamentals                                    ║
+ * ║  ├── Data types and variables                                    ║
+ * ║  ├── Operators and expressions                                   ║
+ * ║  ├── Control structures (if, switch, loops)                     ║
+ * ║  └── Introduction to OOP concepts                                ║
+ * ║                                                                   ║
+ * ║  WEEKS 3-4: Classes and Methods                                  ║
+ * ║  ├── Class definition and objects                                ║
+ * ║  ├── Instance vs class methods                                   ║
+ * ║  ├── Method overloading                                          ║
+ * ║  └── Information hiding and encapsulation                        ║
+ * ║                                                                   ║
+ * ║  WEEKS 5-6: Constructors and Static Members                      ║
+ * ║  ├── Constructor types and overloading                           ║
+ * ║  ├── Constructor chaining                                        ║
+ * ║  ├── Static variables and methods                                ║
+ * ║  └── The 'this' keyword                                          ║
+ * ║                                                                   ║
+ * ║  WEEKS 7-8: Inheritance and Polymorphism                         ║
+ * ║  ├── Inheritance (extends keyword)                               ║
+ * ║  ├── Method overriding                                           ║
+ * ║  ├── Polymorphism                                                ║
+ * ║  ├── Interfaces and abstract classes                             ║
+ * ║  └── Multiple interface implementation                           ║
+ * ║                                                                   ║
+ * ║  WEEKS 9-10: Exception Handling                                  ║
+ * ║  ├── Try-catch-finally blocks                                    ║
+ * ║  ├── Exception hierarchy                                         ║
+ * ║  ├── throw and throws keywords                                   ║
+ * ║  ├── Custom exceptions                                           ║
+ * ║  └── Try-with-resources                                          ║
+ * ║                                                                   ║
+ * ║  WEEKS 11-12: File I/O                                           ║
+ * ║  ├── Path and File classes                                       ║
+ * ║  ├── FileReader/FileWriter                                       ║
+ * ║  ├── BufferedReader/BufferedWriter                               ║
+ * ║  ├── Streams and buffers                                         ║
+ * ║  └── Reading and writing data files                              ║
+ * ║                                                                   ║
+ * ║  WEEKS 13-14: Swing Components                                   ║
+ * ║  ├── JFrame, JPanel, JLabel                                      ║
+ * ║  ├── JButton, JTextField, JTextArea                              ║
+ * ║  ├── JComboBox, JCheckBox, JRadioButton                          ║
+ * ║  ├── JTable, JList                                               ║
+ * ║  └── Layout managers                                             ║
+ * ║                                                                   ║
+ * ║  WEEKS 15-16: Event Handling                                     ║
+ * ║  ├── ActionListener                                              ║
+ * ║  ├── MouseListener and MouseMotionListener                       ║
+ * ║  ├── KeyListener                                                 ║
+ * ║  ├── Anonymous inner classes                                     ║
+ * ║  └── Lambda expressions                                          ║
+ * ║                                                                   ║
+ * ║  WEEKS 17-18: Final Project                                      ║
+ * ║  └── Apply all concepts in a complete application                ║
+ * ║                                                                   ║
+ * ╚═══════════════════════════════════════════════════════════════════╝
+ * 
+ * 🎓 You are now equipped with the skills to build
+ *    professional Java desktop applications!
+ *    
+ *    Keep practicing and building projects to
+ *    strengthen your programming skills!
+ */</code></pre>
+        </div>
+        
+        <a href="index.html#syllabus" class="btn">Back to Syllabus</a>
+        <a href="week15-16.html" class="btn">← Previous: Week 15-16</a>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CC3 Computer Programming. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

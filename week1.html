@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 1: Class Orientation - CC3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>CC3: Computer Programming</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#syllabus">Syllabus</a></li>
+                    <li><a href="index.html#resources">Resources</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="container">
+        <h2>Week 1: Class Orientation</h2>
+        <div class="week">
+            <p>Welcome to CC3: Computer Programming! This week covers the course introduction, grading system, policies, and expectations.</p>
+            
+            <h3>Course Overview</h3>
+            <p>This course focuses on Object-Oriented Programming (OOP) using Java. You will learn how to design, develop, and implement software solutions using OOP principles. By the end of this course, you will be able to create complete applications with graphical user interfaces, file handling, and proper error management.</p>
+            
+            <h3>What You Will Learn</h3>
+            <ul>
+                <li><strong>Object-Oriented Programming fundamentals</strong> - Understanding classes, objects, and how they interact</li>
+                <li><strong>Java programming language syntax and structure</strong> - Variables, data types, operators, and control flow</li>
+                <li><strong>Classes, objects, inheritance, and polymorphism</strong> - The four pillars of OOP</li>
+                <li><strong>Exception handling and file I/O</strong> - Managing errors and working with files</li>
+                <li><strong>Graphical User Interface (GUI) development</strong> - Building interactive desktop applications</li>
+            </ul>
+        </div>
+        
+        <div class="week">
+            <h3>Introduction to Java</h3>
+            <p>Java is a high-level, class-based, object-oriented programming language designed to have as few implementation dependencies as possible. It was developed by James Gosling at Sun Microsystems (now owned by Oracle) and released in 1995.</p>
+            
+            <h4>Key Features of Java:</h4>
+            <ul>
+                <li><strong>Platform Independent:</strong> Java code is compiled into bytecode that runs on any system with a Java Virtual Machine (JVM). This is known as "Write Once, Run Anywhere" (WORA).</li>
+                <li><strong>Object-Oriented:</strong> Everything in Java is an object, making code modular, flexible, and easy to maintain.</li>
+                <li><strong>Simple and Familiar:</strong> Java syntax is similar to C/C++ but removes complex features like pointers and multiple inheritance.</li>
+                <li><strong>Secure:</strong> Java provides a secure environment with no explicit pointers and bytecode verification.</li>
+                <li><strong>Robust:</strong> Strong memory management and exception handling make Java programs reliable.</li>
+                <li><strong>Multithreaded:</strong> Java supports concurrent execution of multiple threads.</li>
+            </ul>
+        </div>
+        
+        <div class="week">
+            <h3>Your First Java Program - Explained Line by Line</h3>
+            <p>Let's break down a simple "Hello World" program to understand Java's basic structure:</p>
+            <pre><code>// This is a single-line comment - used to explain code
+
+/*
+ * This is a multi-line comment
+ * Used for longer explanations
+ */
+
+/**
+ * This is a Javadoc comment - used for documentation
+ * @author YourName
+ */
+public class HelloWorld {
+    // 'public' - accessible from anywhere
+    // 'class' - keyword to define a class
+    // 'HelloWorld' - name of the class (must match filename)
+    
+    public static void main(String[] args) {
+        // 'public' - accessible from anywhere
+        // 'static' - belongs to the class, not an instance
+        // 'void' - returns nothing
+        // 'main' - entry point of the program
+        // 'String[] args' - command line arguments
+        
+        System.out.println("Hello, World!");
+        // 'System' - a built-in class
+        // 'out' - output stream connected to console
+        // 'println' - method that prints and adds new line
+        
+        System.out.print("This doesn't add a new line");
+        System.out.println(" - but this does!");
+    }
+}</code></pre>
+            
+            <h4>Understanding the Structure:</h4>
+            <ul>
+                <li><strong>Class Declaration:</strong> Every Java program must have at least one class. The class name must match the filename (HelloWorld.java).</li>
+                <li><strong>Main Method:</strong> The <code>main</code> method is the entry point where program execution begins. Every standalone Java application must have a main method.</li>
+                <li><strong>Statements:</strong> Each statement ends with a semicolon (;). Statements are executed sequentially from top to bottom.</li>
+                <li><strong>Curly Braces:</strong> Used to define the beginning and end of classes, methods, and code blocks.</li>
+            </ul>
+        </div>
+        
+        <div class="week">
+            <h3>Java Data Types</h3>
+            <p>Java is a strongly-typed language, meaning every variable must have a declared type. There are two categories of data types:</p>
+            
+            <h4>Primitive Data Types (8 types):</h4>
+            <pre><code>// Integer types
+byte smallNumber = 127;           // 8-bit, range: -128 to 127
+short mediumNumber = 32000;       // 16-bit, range: -32,768 to 32,767
+int normalNumber = 2000000000;    // 32-bit, most commonly used
+long bigNumber = 9000000000L;     // 64-bit, note the 'L' suffix
+
+// Floating-point types
+float decimal1 = 3.14f;           // 32-bit, note the 'f' suffix
+double decimal2 = 3.14159265359;  // 64-bit, more precise, commonly used
+
+// Character type
+char letter = 'A';                // 16-bit Unicode character
+char unicode = '\u0041';          // Unicode representation of 'A'
+
+// Boolean type
+boolean isJavaFun = true;         // Can only be true or false
+boolean isHard = false;</code></pre>
+            
+            <h4>Reference Data Types:</h4>
+            <pre><code>// String - sequence of characters (not a primitive!)
+String greeting = "Hello, Java!";
+String name = "John Doe";
+
+// Arrays - collection of same-type elements
+int[] numbers = {1, 2, 3, 4, 5};
+String[] names = {"Alice", "Bob", "Charlie"};
+
+// Objects - instances of classes
+Scanner input = new Scanner(System.in);
+Student student = new Student();</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Variables and Constants</h3>
+            <p>Variables store data that can change during program execution. Constants store values that never change.</p>
+            <pre><code>public class VariablesDemo {
+    public static void main(String[] args) {
+        // Variable declaration and initialization
+        int age;              // Declaration - reserves memory
+        age = 25;             // Initialization - assigns a value
+        
+        int score = 100;      // Declaration and initialization together
+        
+        // Multiple variables of same type
+        int x = 10, y = 20, z = 30;
+        
+        // Constants - use 'final' keyword (UPPERCASE naming convention)
+        final double PI = 3.14159;
+        final int MAX_STUDENTS = 40;
+        final String SCHOOL_NAME = "ABC University";
+        
+        // PI = 3.14;  // ERROR! Cannot change a constant
+        
+        // Variable naming rules:
+        // - Must start with letter, underscore (_), or dollar sign ($)
+        // - Cannot start with a number
+        // - Cannot use reserved keywords (int, class, public, etc.)
+        // - Case-sensitive (age, Age, AGE are different variables)
+        
+        // Naming conventions (camelCase for variables):
+        int studentAge = 20;
+        String firstName = "John";
+        double accountBalance = 1500.50;
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Basic Input and Output</h3>
+            <p>Java uses the Scanner class to read input from the user and System.out for output.</p>
+            <pre><code>import java.util.Scanner;  // Must import Scanner class
+
+public class InputOutputDemo {
+    public static void main(String[] args) {
+        // Create Scanner object to read input
+        Scanner scanner = new Scanner(System.in);
+        
+        // Reading different types of input
+        System.out.print("Enter your name: ");
+        String name = scanner.nextLine();  // Reads entire line
+        
+        System.out.print("Enter your age: ");
+        int age = scanner.nextInt();       // Reads an integer
+        
+        System.out.print("Enter your GPA: ");
+        double gpa = scanner.nextDouble(); // Reads a decimal number
+        
+        // Clear the buffer after nextInt/nextDouble
+        scanner.nextLine();
+        
+        System.out.print("Enter your address: ");
+        String address = scanner.nextLine();
+        
+        // Output with formatting
+        System.out.println("=== Student Information ===");
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age + " years old");
+        
+        // Formatted output using printf
+        System.out.printf("GPA: %.2f%n", gpa);  // 2 decimal places
+        System.out.printf("%-20s %s%n", "Address:", address);
+        
+        // Format specifiers:
+        // %s - String
+        // %d - Integer
+        // %f - Floating-point
+        // %.2f - Float with 2 decimal places
+        // %n - New line (platform independent)
+        // %-20s - Left-aligned, 20 characters wide
+        
+        scanner.close();  // Always close the scanner
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Operators in Java</h3>
+            <p>Operators are symbols that perform operations on variables and values.</p>
+            <pre><code>public class OperatorsDemo {
+    public static void main(String[] args) {
+        // Arithmetic Operators
+        int a = 10, b = 3;
+        System.out.println("a + b = " + (a + b));   // Addition: 13
+        System.out.println("a - b = " + (a - b));   // Subtraction: 7
+        System.out.println("a * b = " + (a * b));   // Multiplication: 30
+        System.out.println("a / b = " + (a / b));   // Division: 3 (integer)
+        System.out.println("a % b = " + (a % b));   // Modulus (remainder): 1
+        
+        // Increment and Decrement
+        int x = 5;
+        System.out.println("x++ = " + x++);  // Post-increment: prints 5, then x becomes 6
+        System.out.println("++x = " + ++x);  // Pre-increment: x becomes 7, prints 7
+        System.out.println("x-- = " + x--);  // Post-decrement: prints 7, then x becomes 6
+        System.out.println("--x = " + --x);  // Pre-decrement: x becomes 5, prints 5
+        
+        // Comparison Operators (return boolean)
+        int p = 10, q = 20;
+        System.out.println("p == q: " + (p == q));  // Equal to: false
+        System.out.println("p != q: " + (p != q));  // Not equal: true
+        System.out.println("p > q: " + (p > q));    // Greater than: false
+        System.out.println("p < q: " + (p < q));    // Less than: true
+        System.out.println("p >= q: " + (p >= q));  // Greater or equal: false
+        System.out.println("p <= q: " + (p <= q));  // Less or equal: true
+        
+        // Logical Operators
+        boolean t = true, f = false;
+        System.out.println("t && f: " + (t && f));  // AND: false
+        System.out.println("t || f: " + (t || f));  // OR: true
+        System.out.println("!t: " + !t);            // NOT: false
+        
+        // Assignment Operators
+        int num = 10;
+        num += 5;   // num = num + 5;  -> 15
+        num -= 3;   // num = num - 3;  -> 12
+        num *= 2;   // num = num * 2;  -> 24
+        num /= 4;   // num = num / 4;  -> 6
+        num %= 4;   // num = num % 4;  -> 2
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Control Flow Statements</h3>
+            <p>Control flow statements allow you to make decisions and repeat actions in your programs.</p>
+            <pre><code>import java.util.Scanner;
+
+public class ControlFlowDemo {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // IF-ELSE Statement
+        System.out.print("Enter your score: ");
+        int score = scanner.nextInt();
+        
+        if (score >= 90) {
+            System.out.println("Grade: A - Excellent!");
+        } else if (score >= 80) {
+            System.out.println("Grade: B - Very Good!");
+        } else if (score >= 70) {
+            System.out.println("Grade: C - Good");
+        } else if (score >= 60) {
+            System.out.println("Grade: D - Passed");
+        } else {
+            System.out.println("Grade: F - Failed");
+        }
+        
+        // SWITCH Statement - better for multiple specific values
+        System.out.print("Enter day number (1-7): ");
+        int day = scanner.nextInt();
+        
+        switch (day) {
+            case 1:
+                System.out.println("Monday");
+                break;  // Important! Prevents fall-through
+            case 2:
+                System.out.println("Tuesday");
+                break;
+            case 3:
+                System.out.println("Wednesday");
+                break;
+            case 4:
+                System.out.println("Thursday");
+                break;
+            case 5:
+                System.out.println("Friday");
+                break;
+            case 6:
+            case 7:
+                System.out.println("Weekend!");
+                break;
+            default:
+                System.out.println("Invalid day");
+        }
+        
+        // FOR Loop - when you know how many times to repeat
+        System.out.println("\nCounting 1 to 5:");
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Count: " + i);
+        }
+        
+        // WHILE Loop - when condition controls repetition
+        System.out.println("\nCountdown:");
+        int countdown = 5;
+        while (countdown > 0) {
+            System.out.println(countdown);
+            countdown--;
+        }
+        System.out.println("Blast off!");
+        
+        // DO-WHILE Loop - executes at least once
+        int number;
+        do {
+            System.out.print("Enter a positive number: ");
+            number = scanner.nextInt();
+        } while (number <= 0);
+        System.out.println("You entered: " + number);
+        
+        scanner.close();
+    }
+}</code></pre>
+        </div>
+            
+        <div class="week">
+            <h3>Setting Up Your Environment</h3>
+            <p>To write and run Java programs, you need to set up your development environment:</p>
+            
+            <h4>Step 1: Install JDK (Java Development Kit)</h4>
+            <ul>
+                <li>Download JDK from <a href="https://www.oracle.com/java/technologies/downloads/" target="_blank">Oracle's website</a> or use OpenJDK</li>
+                <li>Run the installer and follow the instructions</li>
+                <li>Set the JAVA_HOME environment variable to your JDK installation path</li>
+                <li>Add the JDK's bin folder to your system PATH</li>
+            </ul>
+            
+            <h4>Step 2: Verify Installation</h4>
+            <pre><code>// Open Command Prompt/Terminal and type:
+java -version
+// Should display: java version "17.0.x" (or your version)
+
+javac -version
+// Should display: javac 17.0.x</code></pre>
+            
+            <h4>Step 3: Install an IDE</h4>
+            <ul>
+                <li><strong>NetBeans:</strong> Beginner-friendly, good for learning</li>
+                <li><strong>Eclipse:</strong> Popular, many plugins available</li>
+                <li><strong>IntelliJ IDEA:</strong> Professional-grade, excellent code assistance</li>
+                <li><strong>VS Code:</strong> Lightweight, with Java Extension Pack</li>
+            </ul>
+            
+            <h4>Step 4: Compile and Run from Command Line</h4>
+            <pre><code>// Save your code as HelloWorld.java
+
+// Compile the program (creates HelloWorld.class)
+javac HelloWorld.java
+
+// Run the program
+java HelloWorld
+
+// Output: Hello, World!</code></pre>
+        </div>
+        <a href="index.html#syllabus" class="btn">Back to Syllabus</a>
+        <a href="week2.html" class="btn">Next: Week 2 →</a>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CC3 Computer Programming. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

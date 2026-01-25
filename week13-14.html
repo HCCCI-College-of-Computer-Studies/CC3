@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 13-14: User Interface 01 - CC3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>CC3: Computer Programming</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#syllabus">Syllabus</a></li>
+                    <li><a href="index.html#resources">Resources</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="container">
+        <h2>Week 13-14: User Interface 01</h2>
+        <div class="week">
+            <p>Demonstrate comprehensive mastery of user interface design in Java, including recalling, understanding, applying, analyzing, synthesizing, and evaluating Swing components and layout managers to create visually appealing and interactive graphical user interfaces within software applications.</p>
+            <h3>Topics:</h3>
+            <ul>
+                <li>Swing Components</li>
+                <li>Layout Manager</li>
+            </ul>
+        </div>
+        
+        <div class="week">
+            <h3>Introduction to Java Swing</h3>
+            <p>Swing is Java's primary GUI (Graphical User Interface) toolkit, providing a rich set of widgets and components for building desktop applications with sophisticated user interfaces.</p>
+            
+            <h4>Swing vs AWT:</h4>
+            <pre><code>/*
+ * SWING vs AWT COMPARISON
+ * 
+ * ┌────────────────────────────────────────────────────────────┐
+ * │                    GUI TOOLKITS IN JAVA                    │
+ * ├────────────────────────────────────────────────────────────┤
+ * │                                                            │
+ * │  AWT (Abstract Window Toolkit)                             │
+ * │  - Original Java GUI toolkit                               │
+ * │  - Uses native OS components (heavyweight)                 │
+ * │  - Platform-dependent look and feel                        │
+ * │  - Limited components                                      │
+ * │                                                            │
+ * │  SWING                                                     │
+ * │  - Built on top of AWT                                     │
+ * │  - Pure Java components (lightweight)                      │
+ * │  - Consistent look across platforms                        │
+ * │  - Pluggable Look and Feel                                 │
+ * │  - More components and features                            │
+ * │  - All classes start with "J" (JFrame, JButton, etc.)     │
+ * │                                                            │
+ * └────────────────────────────────────────────────────────────┘
+ * 
+ * SWING COMPONENT HIERARCHY:
+ * 
+ *   java.lang.Object
+ *       └── java.awt.Component
+ *             └── java.awt.Container
+ *                   └── javax.swing.JComponent
+ *                         ├── JLabel
+ *                         ├── JButton
+ *                         ├── JTextField
+ *                         ├── JTextArea
+ *                         ├── JPanel
+ *                         ├── JComboBox
+ *                         └── ... (many more)
+ */</code></pre>
+            
+            <h4>Creating Your First Swing Window:</h4>
+            <pre><code>// =============================================
+// SWING BASICS - FIRST WINDOW
+// =============================================
+
+import javax.swing.*;
+import java.awt.*;
+
+public class FirstSwingWindow {
+    
+    public static void main(String[] args) {
+        // ===== METHOD 1: Simple Direct Creation =====
+        
+        // Create a JFrame - the main window container
+        JFrame frame = new JFrame("My First Swing Window");
+        
+        // Set the size of the window (width x height in pixels)
+        frame.setSize(500, 400);
+        
+        // What happens when user clicks the X button?
+        // EXIT_ON_CLOSE: Terminates the application
+        // HIDE_ON_CLOSE: Hides the window but app continues
+        // DISPOSE_ON_CLOSE: Destroys only this window
+        // DO_NOTHING_ON_CLOSE: Does nothing (handle manually)
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        // Center the window on screen
+        frame.setLocationRelativeTo(null);
+        
+        // Create a label and add it to the frame
+        JLabel label = new JLabel("Welcome to Swing!", JLabel.CENTER);
+        label.setFont(new Font("Arial", Font.BOLD, 24));
+        frame.add(label);
+        
+        // Make the frame visible (always do this last!)
+        frame.setVisible(true);
+    }
+}
+
+// =============================================
+// BETTER APPROACH: Extending JFrame
+// =============================================
+
+class MyWindow extends JFrame {
+    
+    public MyWindow() {
+        // Call parent constructor with window title
+        super("My Custom Window");
+        
+        // Initialize the window
+        initializeWindow();
+        
+        // Add components
+        addComponents();
+    }
+    
+    private void initializeWindow() {
+        setSize(600, 450);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setResizable(true);  // Allow resizing
+        
+        // Set minimum size
+        setMinimumSize(new Dimension(400, 300));
+        
+        // Set application icon (if you have an image)
+        // setIconImage(new ImageIcon("icon.png").getImage());
+    }
+    
+    private void addComponents() {
+        // Use a panel for better organization
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.setBackground(new Color(240, 240, 245));
+        
+        // Title label
+        JLabel titleLabel = new JLabel("Welcome to My Application");
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        titleLabel.setHorizontalAlignment(JLabel.CENTER);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
+        
+        // Subtitle
+        JLabel subtitleLabel = new JLabel("Built with Java Swing");
+        subtitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        subtitleLabel.setHorizontalAlignment(JLabel.CENTER);
+        subtitleLabel.setForeground(Color.GRAY);
+        
+        // Add components to panel
+        mainPanel.add(titleLabel, BorderLayout.CENTER);
+        mainPanel.add(subtitleLabel, BorderLayout.SOUTH);
+        
+        // Add panel to frame
+        add(mainPanel);
+    }
+    
+    public static void main(String[] args) {
+        // Best practice: Run GUI code on Event Dispatch Thread
+        SwingUtilities.invokeLater(() -> {
+            MyWindow window = new MyWindow();
+            window.setVisible(true);
+        });
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Essential Swing Components - Complete Guide</h3>
+            <p>Swing provides a rich set of components for building user interfaces. Here's a comprehensive overview of the most commonly used components.</p>
+            
+            <pre><code>// =============================================
+// SWING COMPONENTS - COMPREHENSIVE DEMO
+// =============================================
+
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.*;
+
+public class SwingComponentsShowcase extends JFrame {
+    
+    public SwingComponentsShowcase() {
+        super("Swing Components Showcase");
+        setSize(800, 700);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        
+        // Create tabbed pane to organize different component demos
+        JTabbedPane tabbedPane = new JTabbedPane();
+        
+        tabbedPane.addTab("Labels & Text", createTextPanel());
+        tabbedPane.addTab("Buttons", createButtonPanel());
+        tabbedPane.addTab("Selection", createSelectionPanel());
+        tabbedPane.addTab("Lists & Tables", createListPanel());
+        tabbedPane.addTab("Dialogs", createDialogPanel());
+        
+        add(tabbedPane);
+    }
+    
+    // =============================================
+    // TAB 1: LABELS AND TEXT COMPONENTS
+    // =============================================
+    private JPanel createTextPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        
+        // ----- JLabel - Display Text or Images -----
+        JPanel labelSection = createSection("JLabel - Display Text/Images");
+        
+        // Simple label
+        JLabel simpleLabel = new JLabel("This is a simple label");
+        
+        // Label with icon (using unicode as placeholder)
+        JLabel iconLabel = new JLabel("Label with icon", JLabel.LEFT);
+        iconLabel.setIcon(UIManager.getIcon("OptionPane.informationIcon"));
+        
+        // Styled label
+        JLabel styledLabel = new JLabel("Styled Label");
+        styledLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        styledLabel.setForeground(new Color(50, 100, 200));
+        
+        // HTML label (supports HTML formatting!)
+        JLabel htmlLabel = new JLabel(
+            "<html><b>Bold</b>, <i>italic</i>, " +
+            "<font color='red'>colored</font></html>");
+        
+        labelSection.add(simpleLabel);
+        labelSection.add(Box.createVerticalStrut(5));
+        labelSection.add(iconLabel);
+        labelSection.add(Box.createVerticalStrut(5));
+        labelSection.add(styledLabel);
+        labelSection.add(Box.createVerticalStrut(5));
+        labelSection.add(htmlLabel);
+        
+        // ----- JTextField - Single Line Input -----
+        JPanel textFieldSection = createSection("JTextField - Single Line Input");
+        
+        JTextField basicField = new JTextField(20);
+        basicField.setToolTipText("Enter your text here");
+        
+        JTextField prefilledField = new JTextField("Pre-filled text", 20);
+        
+        JTextField disabledField = new JTextField("Cannot edit", 20);
+        disabledField.setEnabled(false);
+        
+        // With placeholder-like effect
+        JTextField hintField = new JTextField(20);
+        hintField.setForeground(Color.GRAY);
+        hintField.setText("Enter username...");
+        
+        textFieldSection.add(new JLabel("Basic:"));
+        textFieldSection.add(basicField);
+        textFieldSection.add(new JLabel("Pre-filled:"));
+        textFieldSection.add(prefilledField);
+        textFieldSection.add(new JLabel("Disabled:"));
+        textFieldSection.add(disabledField);
+        
+        // ----- JPasswordField - Secure Input -----
+        JPanel passwordSection = createSection("JPasswordField - Secure Input");
+        
+        JPasswordField passwordField = new JPasswordField(20);
+        passwordField.setEchoChar('●');  // Custom mask character
+        
+        JLabel passNote = new JLabel("(Characters are masked for security)");
+        passNote.setFont(new Font("Arial", Font.ITALIC, 11));
+        
+        passwordSection.add(passwordField);
+        passwordSection.add(passNote);
+        
+        // ----- JTextArea - Multi-line Input -----
+        JPanel textAreaSection = createSection("JTextArea - Multi-line Input");
+        
+        JTextArea textArea = new JTextArea(5, 30);
+        textArea.setText("This is a multi-line text area.\n" +
+                        "You can write multiple paragraphs.\n" +
+                        "It supports scrolling when wrapped in JScrollPane.");
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        textAreaSection.add(scrollPane);
+        
+        // Add all sections
+        panel.add(labelSection);
+        panel.add(Box.createVerticalStrut(10));
+        panel.add(textFieldSection);
+        panel.add(Box.createVerticalStrut(10));
+        panel.add(passwordSection);
+        panel.add(Box.createVerticalStrut(10));
+        panel.add(textAreaSection);
+        
+        return panel;
+    }
+    
+    // =============================================
+    // TAB 2: BUTTON COMPONENTS
+    // =============================================
+    private JPanel createButtonPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        
+        // ----- JButton -----
+        JPanel buttonSection = createSection("JButton - Clickable Buttons");
+        buttonSection.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        
+        // Basic button
+        JButton basicBtn = new JButton("Click Me");
+        
+        // Button with icon
+        JButton iconBtn = new JButton("Save");
+        iconBtn.setIcon(UIManager.getIcon("FileView.floppyDriveIcon"));
+        
+        // Styled button
+        JButton styledBtn = new JButton("Styled");
+        styledBtn.setBackground(new Color(70, 130, 180));
+        styledBtn.setForeground(Color.WHITE);
+        styledBtn.setFocusPainted(false);
+        
+        // Disabled button
+        JButton disabledBtn = new JButton("Disabled");
+        disabledBtn.setEnabled(false);
+        
+        buttonSection.add(basicBtn);
+        buttonSection.add(iconBtn);
+        buttonSection.add(styledBtn);
+        buttonSection.add(disabledBtn);
+        
+        // ----- JToggleButton -----
+        JPanel toggleSection = createSection("JToggleButton - On/Off Toggle");
+        toggleSection.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        
+        JToggleButton toggle1 = new JToggleButton("Bold");
+        JToggleButton toggle2 = new JToggleButton("Italic");
+        JToggleButton toggle3 = new JToggleButton("Underline", true); // Initially selected
+        
+        toggleSection.add(toggle1);
+        toggleSection.add(toggle2);
+        toggleSection.add(toggle3);
+        
+        // Add sections
+        panel.add(buttonSection);
+        panel.add(Box.createVerticalStrut(10));
+        panel.add(toggleSection);
+        
+        return panel;
+    }
+    
+    // =============================================
+    // TAB 3: SELECTION COMPONENTS
+    // =============================================
+    private JPanel createSelectionPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        
+        // ----- JCheckBox -----
+        JPanel checkBoxSection = createSection("JCheckBox - Multiple Selection");
+        checkBoxSection.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        
+        JCheckBox check1 = new JCheckBox("Java");
+        JCheckBox check2 = new JCheckBox("Python", true);  // Pre-selected
+        JCheckBox check3 = new JCheckBox("JavaScript");
+        JCheckBox check4 = new JCheckBox("C++");
+        
+        checkBoxSection.add(new JLabel("Select languages: "));
+        checkBoxSection.add(check1);
+        checkBoxSection.add(check2);
+        checkBoxSection.add(check3);
+        checkBoxSection.add(check4);
+        
+        // ----- JRadioButton (with ButtonGroup) -----
+        JPanel radioSection = createSection("JRadioButton - Single Selection");
+        radioSection.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        
+        JRadioButton radio1 = new JRadioButton("Small");
+        JRadioButton radio2 = new JRadioButton("Medium", true);
+        JRadioButton radio3 = new JRadioButton("Large");
+        
+        // ButtonGroup ensures only one can be selected
+        ButtonGroup sizeGroup = new ButtonGroup();
+        sizeGroup.add(radio1);
+        sizeGroup.add(radio2);
+        sizeGroup.add(radio3);
+        
+        radioSection.add(new JLabel("Select size: "));
+        radioSection.add(radio1);
+        radioSection.add(radio2);
+        radioSection.add(radio3);
+        
+        // ----- JComboBox (Dropdown) -----
+        JPanel comboSection = createSection("JComboBox - Dropdown List");
+        comboSection.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        
+        String[] countries = {"Philippines", "USA", "Japan", "UK", "Canada"};
+        JComboBox<String> countryCombo = new JComboBox<>(countries);
+        
+        // Editable combo box
+        JComboBox<String> editableCombo = new JComboBox<>(countries);
+        editableCombo.setEditable(true);
+        
+        comboSection.add(new JLabel("Country: "));
+        comboSection.add(countryCombo);
+        comboSection.add(new JLabel("Editable: "));
+        comboSection.add(editableCombo);
+        
+        // ----- JSlider -----
+        JPanel sliderSection = createSection("JSlider - Range Selection");
+        
+        JSlider slider = new JSlider(0, 100, 50);
+        slider.setMajorTickSpacing(25);
+        slider.setMinorTickSpacing(5);
+        slider.setPaintTicks(true);
+        slider.setPaintLabels(true);
+        
+        sliderSection.add(slider);
+        
+        // ----- JSpinner -----
+        JPanel spinnerSection = createSection("JSpinner - Numeric Input");
+        spinnerSection.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        
+        // Number spinner
+        SpinnerModel numberModel = new SpinnerNumberModel(25, 0, 100, 1);
+        JSpinner numberSpinner = new JSpinner(numberModel);
+        
+        // Date spinner
+        SpinnerModel dateModel = new SpinnerDateModel();
+        JSpinner dateSpinner = new JSpinner(dateModel);
+        
+        spinnerSection.add(new JLabel("Age: "));
+        spinnerSection.add(numberSpinner);
+        spinnerSection.add(new JLabel("Date: "));
+        spinnerSection.add(dateSpinner);
+        
+        // Add all sections
+        panel.add(checkBoxSection);
+        panel.add(Box.createVerticalStrut(10));
+        panel.add(radioSection);
+        panel.add(Box.createVerticalStrut(10));
+        panel.add(comboSection);
+        panel.add(Box.createVerticalStrut(10));
+        panel.add(sliderSection);
+        panel.add(Box.createVerticalStrut(10));
+        panel.add(spinnerSection);
+        
+        return panel;
+    }
+    
+    // =============================================
+    // TAB 4: LISTS AND TABLES
+    // =============================================
+    private JPanel createListPanel() {
+        JPanel panel = new JPanel(new GridLayout(1, 2, 10, 10));
+        panel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        
+        // ----- JList -----
+        JPanel listSection = createSection("JList - Scrollable List");
+        
+        String[] items = {"Item 1", "Item 2", "Item 3", "Item 4", 
+                         "Item 5", "Item 6", "Item 7", "Item 8"};
+        JList<String> list = new JList<>(items);
+        list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        JScrollPane listScroll = new JScrollPane(list);
+        listScroll.setPreferredSize(new Dimension(150, 150));
+        
+        listSection.add(listScroll);
+        
+        // ----- JTable -----
+        JPanel tableSection = createSection("JTable - Data Table");
+        
+        String[] columns = {"ID", "Name", "Age", "Major"};
+        Object[][] data = {
+            {1, "Maria", 20, "CS"},
+            {2, "Juan", 21, "IT"},
+            {3, "Ana", 19, "CS"},
+            {4, "Pedro", 22, "SE"}
+        };
+        
+        JTable table = new JTable(data, columns);
+        JScrollPane tableScroll = new JScrollPane(table);
+        tableScroll.setPreferredSize(new Dimension(250, 150));
+        
+        tableSection.add(tableScroll);
+        
+        panel.add(listSection);
+        panel.add(tableSection);
+        
+        return panel;
+    }
+    
+    // =============================================
+    // TAB 5: DIALOGS
+    // =============================================
+    private JPanel createDialogPanel() {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        panel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        
+        // Message dialogs
+        JButton infoBtn = new JButton("Information Dialog");
+        infoBtn.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this,
+                "This is an information message.",
+                "Information",
+                JOptionPane.INFORMATION_MESSAGE);
+        });
+        
+        JButton warnBtn = new JButton("Warning Dialog");
+        warnBtn.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this,
+                "This is a warning message!",
+                "Warning",
+                JOptionPane.WARNING_MESSAGE);
+        });
+        
+        JButton errorBtn = new JButton("Error Dialog");
+        errorBtn.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this,
+                "An error has occurred!",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        });
+        
+        JButton confirmBtn = new JButton("Confirm Dialog");
+        confirmBtn.addActionListener(e -> {
+            int result = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to proceed?",
+                "Confirm",
+                JOptionPane.YES_NO_CANCEL_OPTION);
+            
+            String message = switch(result) {
+                case JOptionPane.YES_OPTION -> "You clicked YES";
+                case JOptionPane.NO_OPTION -> "You clicked NO";
+                case JOptionPane.CANCEL_OPTION -> "You clicked CANCEL";
+                default -> "Dialog was closed";
+            };
+            JOptionPane.showMessageDialog(this, message);
+        });
+        
+        JButton inputBtn = new JButton("Input Dialog");
+        inputBtn.addActionListener(e -> {
+            String name = JOptionPane.showInputDialog(this,
+                "Enter your name:",
+                "Input Required",
+                JOptionPane.QUESTION_MESSAGE);
+            
+            if (name != null && !name.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Hello, " + name + "!");
+            }
+        });
+        
+        panel.add(infoBtn);
+        panel.add(warnBtn);
+        panel.add(errorBtn);
+        panel.add(confirmBtn);
+        panel.add(inputBtn);
+        
+        return panel;
+    }
+    
+    // Helper method to create titled sections
+    private JPanel createSection(String title) {
+        JPanel section = new JPanel();
+        section.setLayout(new BoxLayout(section, BoxLayout.Y_AXIS));
+        section.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(new Color(200, 200, 200)),
+            title,
+            TitledBorder.LEFT,
+            TitledBorder.TOP,
+            new Font("Arial", Font.BOLD, 12)
+        ));
+        section.setAlignmentX(Component.LEFT_ALIGNMENT);
+        return section;
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new SwingComponentsShowcase().setVisible(true);
+        });
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Layout Managers - Complete Guide</h3>
+            <p>Layout managers control how components are arranged within a container. Choosing the right layout manager is crucial for creating well-organized user interfaces.</p>
+            
+            <pre><code>// =============================================
+// LAYOUT MANAGERS - COMPREHENSIVE GUIDE
+// =============================================
+
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.*;
+
+public class LayoutManagersDemo extends JFrame {
+    
+    public LayoutManagersDemo() {
+        super("Layout Managers Demo");
+        setSize(900, 700);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        
+        JTabbedPane tabs = new JTabbedPane();
+        
+        tabs.addTab("FlowLayout", createFlowLayoutDemo());
+        tabs.addTab("BorderLayout", createBorderLayoutDemo());
+        tabs.addTab("GridLayout", createGridLayoutDemo());
+        tabs.addTab("BoxLayout", createBoxLayoutDemo());
+        tabs.addTab("GridBagLayout", createGridBagLayoutDemo());
+        tabs.addTab("CardLayout", createCardLayoutDemo());
+        
+        add(tabs);
+    }
+    
+    // =============================================
+    // 1. FLOWLAYOUT - Default for JPanel
+    // =============================================
+    private JPanel createFlowLayoutDemo() {
+        JPanel container = new JPanel(new BorderLayout());
+        container.setBorder(new EmptyBorder(10, 10, 10, 10));
+        
+        // Description
+        JTextArea desc = new JTextArea(
+            "FlowLayout:\n" +
+            "• Default layout for JPanel\n" +
+            "• Arranges components in a row, left to right\n" +
+            "• Wraps to next row when no more room\n" +
+            "• Components maintain preferred size\n" +
+            "• Can align LEFT, CENTER, or RIGHT"
+        );
+        desc.setEditable(false);
+        desc.setBackground(new Color(255, 255, 230));
+        container.add(desc, BorderLayout.NORTH);
+        
+        // Demo panels
+        JPanel demoPanel = new JPanel(new GridLayout(3, 1, 5, 5));
+        
+        // Left aligned
+        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        leftPanel.setBorder(BorderFactory.createTitledBorder("FlowLayout.LEFT"));
+        for (int i = 1; i <= 5; i++) {
+            leftPanel.add(new JButton("Button " + i));
+        }
+        
+        // Center aligned (default)
+        JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        centerPanel.setBorder(BorderFactory.createTitledBorder("FlowLayout.CENTER"));
+        for (int i = 1; i <= 5; i++) {
+            centerPanel.add(new JButton("Button " + i));
+        }
+        
+        // Right aligned
+        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+        rightPanel.setBorder(BorderFactory.createTitledBorder("FlowLayout.RIGHT"));
+        for (int i = 1; i <= 5; i++) {
+            rightPanel.add(new JButton("Button " + i));
+        }
+        
+        demoPanel.add(leftPanel);
+        demoPanel.add(centerPanel);
+        demoPanel.add(rightPanel);
+        
+        container.add(demoPanel, BorderLayout.CENTER);
+        
+        return container;
+    }
+    
+    // =============================================
+    // 2. BORDERLAYOUT - Default for JFrame
+    // =============================================
+    private JPanel createBorderLayoutDemo() {
+        JPanel container = new JPanel(new BorderLayout(10, 10));
+        container.setBorder(new EmptyBorder(10, 10, 10, 10));
+        
+        // Description
+        JTextArea desc = new JTextArea(
+            "BorderLayout:\n" +
+            "• Default layout for JFrame content pane\n" +
+            "• Divides container into 5 regions: NORTH, SOUTH, EAST, WEST, CENTER\n" +
+            "• NORTH and SOUTH span full width, components fill width\n" +
+            "• EAST and WEST use preferred width, fill height\n" +
+            "• CENTER takes all remaining space\n" +
+            "• Only one component per region (use JPanel for multiple)"
+        );
+        desc.setEditable(false);
+        desc.setBackground(new Color(255, 255, 230));
+        container.add(desc, BorderLayout.NORTH);
+        
+        // Demo panel
+        JPanel demoPanel = new JPanel(new BorderLayout(5, 5));
+        demoPanel.setBorder(BorderFactory.createTitledBorder("BorderLayout Demo"));
+        
+        JButton northBtn = new JButton("NORTH (Header/Menu)");
+        northBtn.setBackground(new Color(173, 216, 230));
+        
+        JButton southBtn = new JButton("SOUTH (Footer/Status)");
+        southBtn.setBackground(new Color(144, 238, 144));
+        
+        JButton eastBtn = new JButton("EAST");
+        eastBtn.setBackground(new Color(255, 218, 185));
+        
+        JButton westBtn = new JButton("WEST (Sidebar)");
+        westBtn.setBackground(new Color(221, 160, 221));
+        
+        JButton centerBtn = new JButton("CENTER (Main Content)");
+        centerBtn.setBackground(new Color(255, 255, 224));
+        centerBtn.setPreferredSize(new Dimension(300, 200));
+        
+        demoPanel.add(northBtn, BorderLayout.NORTH);
+        demoPanel.add(southBtn, BorderLayout.SOUTH);
+        demoPanel.add(eastBtn, BorderLayout.EAST);
+        demoPanel.add(westBtn, BorderLayout.WEST);
+        demoPanel.add(centerBtn, BorderLayout.CENTER);
+        
+        container.add(demoPanel, BorderLayout.CENTER);
+        
+        return container;
+    }
+    
+    // =============================================
+    // 3. GRIDLAYOUT - Equal-sized grid
+    // =============================================
+    private JPanel createGridLayoutDemo() {
+        JPanel container = new JPanel(new BorderLayout(10, 10));
+        container.setBorder(new EmptyBorder(10, 10, 10, 10));
+        
+        // Description
+        JTextArea desc = new JTextArea(
+            "GridLayout:\n" +
+            "• Arranges components in a grid of equal-sized cells\n" +
+            "• Specify rows and columns (0 means any number)\n" +
+            "• All components get same size\n" +
+            "• Components fill their cell completely\n" +
+            "• Great for calculators, keypads, grids"
+        );
+        desc.setEditable(false);
+        desc.setBackground(new Color(255, 255, 230));
+        container.add(desc, BorderLayout.NORTH);
+        
+        JPanel demos = new JPanel(new GridLayout(1, 2, 10, 10));
+        
+        // Calculator-style keypad
+        JPanel calcPanel = new JPanel(new GridLayout(4, 3, 5, 5));
+        calcPanel.setBorder(BorderFactory.createTitledBorder("GridLayout(4, 3) - Calculator"));
+        String[] keys = {"7", "8", "9", "4", "5", "6", "1", "2", "3", "0", ".", "="};
+        for (String key : keys) {
+            JButton btn = new JButton(key);
+            btn.setFont(new Font("Arial", Font.BOLD, 16));
+            calcPanel.add(btn);
+        }
+        
+        // Tic-tac-toe board
+        JPanel tttPanel = new JPanel(new GridLayout(3, 3, 3, 3));
+        tttPanel.setBorder(BorderFactory.createTitledBorder("GridLayout(3, 3) - Tic-Tac-Toe"));
+        String[] ttt = {"X", "O", "X", "", "X", "", "O", "", "O"};
+        for (String cell : ttt) {
+            JButton btn = new JButton(cell);
+            btn.setFont(new Font("Arial", Font.BOLD, 24));
+            tttPanel.add(btn);
+        }
+        
+        demos.add(calcPanel);
+        demos.add(tttPanel);
+        
+        container.add(demos, BorderLayout.CENTER);
+        
+        return container;
+    }
+    
+    // =============================================
+    // 4. BOXLAYOUT - Single row or column
+    // =============================================
+    private JPanel createBoxLayoutDemo() {
+        JPanel container = new JPanel(new BorderLayout(10, 10));
+        container.setBorder(new EmptyBorder(10, 10, 10, 10));
+        
+        // Description
+        JTextArea desc = new JTextArea(
+            "BoxLayout:\n" +
+            "• Arranges components in a single row (X_AXIS) or column (Y_AXIS)\n" +
+            "• Components maintain preferred size\n" +
+            "• Use Box.createRigidArea() for fixed spacing\n" +
+            "• Use Box.createGlue() for flexible spacing\n" +
+            "• Use Box.createVerticalStrut()/createHorizontalStrut() for spacing"
+        );
+        desc.setEditable(false);
+        desc.setBackground(new Color(255, 255, 230));
+        container.add(desc, BorderLayout.NORTH);
+        
+        JPanel demos = new JPanel(new GridLayout(1, 2, 10, 10));
+        
+        // Vertical BoxLayout
+        JPanel vertPanel = new JPanel();
+        vertPanel.setLayout(new BoxLayout(vertPanel, BoxLayout.Y_AXIS));
+        vertPanel.setBorder(BorderFactory.createTitledBorder("BoxLayout.Y_AXIS (Vertical)"));
+        
+        vertPanel.add(new JButton("Top Button"));
+        vertPanel.add(Box.createVerticalStrut(10));  // Fixed spacing
+        vertPanel.add(new JButton("Middle Button"));
+        vertPanel.add(Box.createVerticalGlue());      // Flexible space
+        vertPanel.add(new JButton("Bottom Button"));
+        
+        // Horizontal BoxLayout
+        JPanel horzPanel = new JPanel();
+        horzPanel.setLayout(new BoxLayout(horzPanel, BoxLayout.X_AXIS));
+        horzPanel.setBorder(BorderFactory.createTitledBorder("BoxLayout.X_AXIS (Horizontal)"));
+        
+        horzPanel.add(new JButton("Left"));
+        horzPanel.add(Box.createHorizontalGlue());    // Push to edges
+        horzPanel.add(new JButton("Center"));
+        horzPanel.add(Box.createHorizontalGlue());
+        horzPanel.add(new JButton("Right"));
+        
+        demos.add(vertPanel);
+        demos.add(horzPanel);
+        
+        container.add(demos, BorderLayout.CENTER);
+        
+        return container;
+    }
+    
+    // =============================================
+    // 5. GRIDBAGLAYOUT - Most flexible
+    // =============================================
+    private JPanel createGridBagLayoutDemo() {
+        JPanel container = new JPanel(new BorderLayout(10, 10));
+        container.setBorder(new EmptyBorder(10, 10, 10, 10));
+        
+        // Description
+        JTextArea desc = new JTextArea(
+            "GridBagLayout:\n" +
+            "• Most flexible and complex layout\n" +
+            "• Components can span multiple cells\n" +
+            "• Different components can have different sizes\n" +
+            "• Uses GridBagConstraints to control placement\n" +
+            "• Perfect for complex forms"
+        );
+        desc.setEditable(false);
+        desc.setBackground(new Color(255, 255, 230));
+        container.add(desc, BorderLayout.NORTH);
+        
+        // Demo form
+        JPanel formPanel = new JPanel(new GridBagLayout());
+        formPanel.setBorder(BorderFactory.createTitledBorder("GridBagLayout - Form Example"));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        
+        // Row 0: Name
+        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        formPanel.add(new JLabel("Name:"), gbc);
+        
+        gbc.gridx = 1; gbc.gridwidth = 2;
+        gbc.weightx = 1.0;
+        formPanel.add(new JTextField(20), gbc);
+        
+        // Row 1: Email
+        gbc.gridx = 0; gbc.gridy = 1;
+        gbc.gridwidth = 1; gbc.weightx = 0;
+        formPanel.add(new JLabel("Email:"), gbc);
+        
+        gbc.gridx = 1; gbc.gridwidth = 2;
+        gbc.weightx = 1.0;
+        formPanel.add(new JTextField(20), gbc);
+        
+        // Row 2: Address (spans 2 rows)
+        gbc.gridx = 0; gbc.gridy = 2;
+        gbc.gridwidth = 1; gbc.weightx = 0;
+        gbc.anchor = GridBagConstraints.NORTHEAST;
+        formPanel.add(new JLabel("Address:"), gbc);
+        
+        gbc.gridx = 1; gbc.gridwidth = 2;
+        gbc.gridheight = 2;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weighty = 1.0;
+        formPanel.add(new JScrollPane(new JTextArea(3, 20)), gbc);
+        
+        // Row 4: Buttons
+        gbc.gridx = 1; gbc.gridy = 4;
+        gbc.gridwidth = 1; gbc.gridheight = 1;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weighty = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        formPanel.add(new JButton("Submit"), gbc);
+        
+        gbc.gridx = 2;
+        formPanel.add(new JButton("Cancel"), gbc);
+        
+        container.add(formPanel, BorderLayout.CENTER);
+        
+        return container;
+    }
+    
+    // =============================================
+    // 6. CARDLAYOUT - Stacked panels (like tabs)
+    // =============================================
+    private JPanel createCardLayoutDemo() {
+        JPanel container = new JPanel(new BorderLayout(10, 10));
+        container.setBorder(new EmptyBorder(10, 10, 10, 10));
+        
+        // Description
+        JTextArea desc = new JTextArea(
+            "CardLayout:\n" +
+            "• Stacks components like a deck of cards\n" +
+            "• Only one component visible at a time\n" +
+            "• Great for wizards, multi-step forms\n" +
+            "• Can switch between cards programmatically"
+        );
+        desc.setEditable(false);
+        desc.setBackground(new Color(255, 255, 230));
+        container.add(desc, BorderLayout.NORTH);
+        
+        // Card panel
+        CardLayout cardLayout = new CardLayout();
+        JPanel cards = new JPanel(cardLayout);
+        
+        // Create cards
+        JPanel card1 = createCard("Step 1: Personal Info", new Color(173, 216, 230));
+        JPanel card2 = createCard("Step 2: Contact Details", new Color(144, 238, 144));
+        JPanel card3 = createCard("Step 3: Review & Submit", new Color(255, 218, 185));
+        
+        cards.add(card1, "Card1");
+        cards.add(card2, "Card2");
+        cards.add(card3, "Card3");
+        
+        // Navigation buttons
+        JPanel navPanel = new JPanel(new FlowLayout());
+        JButton prevBtn = new JButton("← Previous");
+        JButton nextBtn = new JButton("Next →");
+        JButton firstBtn = new JButton("First");
+        JButton lastBtn = new JButton("Last");
+        
+        prevBtn.addActionListener(e -> cardLayout.previous(cards));
+        nextBtn.addActionListener(e -> cardLayout.next(cards));
+        firstBtn.addActionListener(e -> cardLayout.first(cards));
+        lastBtn.addActionListener(e -> cardLayout.last(cards));
+        
+        navPanel.add(firstBtn);
+        navPanel.add(prevBtn);
+        navPanel.add(nextBtn);
+        navPanel.add(lastBtn);
+        
+        container.add(cards, BorderLayout.CENTER);
+        container.add(navPanel, BorderLayout.SOUTH);
+        
+        return container;
+    }
+    
+    private JPanel createCard(String title, Color bgColor) {
+        JPanel card = new JPanel(new BorderLayout());
+        card.setBackground(bgColor);
+        JLabel label = new JLabel(title, JLabel.CENTER);
+        label.setFont(new Font("Arial", Font.BOLD, 18));
+        card.add(label, BorderLayout.CENTER);
+        return card;
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new LayoutManagersDemo().setVisible(true);
+        });
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Complete Application: Student Registration Form</h3>
+            <p>A practical application combining various Swing components and layout managers to create a fully functional student registration form.</p>
+            
+            <pre><code>// =============================================
+// STUDENT REGISTRATION FORM - COMPLETE APPLICATION
+// =============================================
+
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
+public class StudentRegistrationForm extends JFrame {
+    
+    // Form fields
+    private JTextField firstNameField, lastNameField, emailField;
+    private JPasswordField passwordField, confirmPasswordField;
+    private JComboBox<String> courseCombo, yearCombo;
+    private JRadioButton maleRadio, femaleRadio, otherRadio;
+    private JCheckBox termsCheck, newsletterCheck;
+    private JSpinner ageSpinner;
+    private JTextArea addressArea;
+    private JLabel statusLabel;
+    
+    // Data storage
+    private ArrayList<String> registeredStudents = new ArrayList<>();
+    
+    public StudentRegistrationForm() {
+        super("Student Registration System");
+        setSize(600, 700);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setResizable(false);
+        
+        // Main panel with padding
+        JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
+        mainPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        mainPanel.setBackground(new Color(245, 245, 250));
+        
+        // Header
+        mainPanel.add(createHeader(), BorderLayout.NORTH);
+        
+        // Form
+        mainPanel.add(createFormPanel(), BorderLayout.CENTER);
+        
+        // Buttons
+        mainPanel.add(createButtonPanel(), BorderLayout.SOUTH);
+        
+        add(mainPanel);
+    }
+    
+    // =============================================
+    // CREATE HEADER
+    // =============================================
+    private JPanel createHeader() {
+        JPanel header = new JPanel();
+        header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
+        header.setOpaque(false);
+        
+        JLabel titleLabel = new JLabel("Student Registration");
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        titleLabel.setForeground(new Color(50, 50, 100));
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        JLabel subtitleLabel = new JLabel("Please fill in all required fields (*)");
+        subtitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        subtitleLabel.setForeground(Color.GRAY);
+        subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        header.add(titleLabel);
+        header.add(Box.createVerticalStrut(5));
+        header.add(subtitleLabel);
+        header.add(Box.createVerticalStrut(15));
+        
+        return header;
+    }
+    
+    // =============================================
+    // CREATE FORM PANEL
+    // =============================================
+    private JPanel createFormPanel() {
+        JPanel formPanel = new JPanel(new GridBagLayout());
+        formPanel.setOpaque(false);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(8, 8, 8, 8);
+        gbc.anchor = GridBagConstraints.WEST;
+        
+        int row = 0;
+        
+        // ----- Personal Information Section -----
+        gbc.gridx = 0; gbc.gridy = row++;
+        gbc.gridwidth = 2;
+        formPanel.add(createSectionLabel("Personal Information"), gbc);
+        gbc.gridwidth = 1;
+        
+        // First Name
+        gbc.gridx = 0; gbc.gridy = row;
+        formPanel.add(new JLabel("First Name *:"), gbc);
+        gbc.gridx = 1; gbc.fill = GridBagConstraints.HORIZONTAL;
+        firstNameField = new JTextField(20);
+        formPanel.add(firstNameField, gbc);
+        gbc.fill = GridBagConstraints.NONE;
+        
+        // Last Name
+        row++;
+        gbc.gridx = 0; gbc.gridy = row;
+        formPanel.add(new JLabel("Last Name *:"), gbc);
+        gbc.gridx = 1; gbc.fill = GridBagConstraints.HORIZONTAL;
+        lastNameField = new JTextField(20);
+        formPanel.add(lastNameField, gbc);
+        gbc.fill = GridBagConstraints.NONE;
+        
+        // Age
+        row++;
+        gbc.gridx = 0; gbc.gridy = row;
+        formPanel.add(new JLabel("Age *:"), gbc);
+        gbc.gridx = 1;
+        SpinnerModel ageModel = new SpinnerNumberModel(18, 16, 60, 1);
+        ageSpinner = new JSpinner(ageModel);
+        formPanel.add(ageSpinner, gbc);
+        
+        // Gender
+        row++;
+        gbc.gridx = 0; gbc.gridy = row;
+        formPanel.add(new JLabel("Gender *:"), gbc);
+        gbc.gridx = 1;
+        JPanel genderPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
+        genderPanel.setOpaque(false);
+        maleRadio = new JRadioButton("Male");
+        femaleRadio = new JRadioButton("Female");
+        otherRadio = new JRadioButton("Other");
+        ButtonGroup genderGroup = new ButtonGroup();
+        genderGroup.add(maleRadio);
+        genderGroup.add(femaleRadio);
+        genderGroup.add(otherRadio);
+        genderPanel.add(maleRadio);
+        genderPanel.add(femaleRadio);
+        genderPanel.add(otherRadio);
+        formPanel.add(genderPanel, gbc);
+        
+        // ----- Contact Information Section -----
+        row++;
+        gbc.gridx = 0; gbc.gridy = row++;
+        gbc.gridwidth = 2;
+        formPanel.add(Box.createVerticalStrut(10), gbc);
+        gbc.gridy = row++;
+        formPanel.add(createSectionLabel("Contact Information"), gbc);
+        gbc.gridwidth = 1;
+        
+        // Email
+        gbc.gridx = 0; gbc.gridy = row;
+        formPanel.add(new JLabel("Email *:"), gbc);
+        gbc.gridx = 1; gbc.fill = GridBagConstraints.HORIZONTAL;
+        emailField = new JTextField(20);
+        formPanel.add(emailField, gbc);
+        gbc.fill = GridBagConstraints.NONE;
+        
+        // Address
+        row++;
+        gbc.gridx = 0; gbc.gridy = row;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        formPanel.add(new JLabel("Address:"), gbc);
+        gbc.gridx = 1; gbc.fill = GridBagConstraints.BOTH;
+        addressArea = new JTextArea(3, 20);
+        addressArea.setLineWrap(true);
+        JScrollPane addressScroll = new JScrollPane(addressArea);
+        formPanel.add(addressScroll, gbc);
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.WEST;
+        
+        // ----- Academic Information Section -----
+        row++;
+        gbc.gridx = 0; gbc.gridy = row++;
+        gbc.gridwidth = 2;
+        formPanel.add(Box.createVerticalStrut(10), gbc);
+        gbc.gridy = row++;
+        formPanel.add(createSectionLabel("Academic Information"), gbc);
+        gbc.gridwidth = 1;
+        
+        // Course
+        gbc.gridx = 0; gbc.gridy = row;
+        formPanel.add(new JLabel("Course *:"), gbc);
+        gbc.gridx = 1;
+        String[] courses = {"-- Select Course --", "Computer Science", 
+                           "Information Technology", "Software Engineering",
+                           "Data Science", "Cybersecurity"};
+        courseCombo = new JComboBox<>(courses);
+        formPanel.add(courseCombo, gbc);
+        
+        // Year Level
+        row++;
+        gbc.gridx = 0; gbc.gridy = row;
+        formPanel.add(new JLabel("Year Level *:"), gbc);
+        gbc.gridx = 1;
+        String[] years = {"-- Select Year --", "1st Year", "2nd Year", 
+                         "3rd Year", "4th Year"};
+        yearCombo = new JComboBox<>(years);
+        formPanel.add(yearCombo, gbc);
+        
+        // ----- Account Section -----
+        row++;
+        gbc.gridx = 0; gbc.gridy = row++;
+        gbc.gridwidth = 2;
+        formPanel.add(Box.createVerticalStrut(10), gbc);
+        gbc.gridy = row++;
+        formPanel.add(createSectionLabel("Account Setup"), gbc);
+        gbc.gridwidth = 1;
+        
+        // Password
+        gbc.gridx = 0; gbc.gridy = row;
+        formPanel.add(new JLabel("Password *:"), gbc);
+        gbc.gridx = 1; gbc.fill = GridBagConstraints.HORIZONTAL;
+        passwordField = new JPasswordField(20);
+        formPanel.add(passwordField, gbc);
+        gbc.fill = GridBagConstraints.NONE;
+        
+        // Confirm Password
+        row++;
+        gbc.gridx = 0; gbc.gridy = row;
+        formPanel.add(new JLabel("Confirm Password *:"), gbc);
+        gbc.gridx = 1; gbc.fill = GridBagConstraints.HORIZONTAL;
+        confirmPasswordField = new JPasswordField(20);
+        formPanel.add(confirmPasswordField, gbc);
+        gbc.fill = GridBagConstraints.NONE;
+        
+        // ----- Terms Section -----
+        row++;
+        gbc.gridx = 0; gbc.gridy = row;
+        gbc.gridwidth = 2;
+        JPanel termsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        termsPanel.setOpaque(false);
+        termsCheck = new JCheckBox("I agree to the Terms and Conditions *");
+        newsletterCheck = new JCheckBox("Subscribe to newsletter");
+        termsPanel.add(termsCheck);
+        formPanel.add(termsPanel, gbc);
+        
+        row++;
+        gbc.gridy = row;
+        JPanel newsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        newsPanel.setOpaque(false);
+        newsPanel.add(newsletterCheck);
+        formPanel.add(newsPanel, gbc);
+        
+        return formPanel;
+    }
+    
+    // =============================================
+    // CREATE BUTTON PANEL
+    // =============================================
+    private JPanel createButtonPanel() {
+        JPanel buttonPanel = new JPanel(new BorderLayout());
+        buttonPanel.setOpaque(false);
+        
+        // Status label
+        statusLabel = new JLabel(" ");
+        statusLabel.setFont(new Font("Segoe UI", Font.ITALIC, 12));
+        buttonPanel.add(statusLabel, BorderLayout.NORTH);
+        
+        // Buttons
+        JPanel buttons = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
+        buttons.setOpaque(false);
+        
+        JButton registerBtn = createStyledButton("Register", new Color(46, 139, 87));
+        JButton clearBtn = createStyledButton("Clear Form", new Color(70, 130, 180));
+        JButton viewBtn = createStyledButton("View Registered", new Color(128, 128, 128));
+        
+        // Add action listeners
+        registerBtn.addActionListener(e -> registerStudent());
+        clearBtn.addActionListener(e -> clearForm());
+        viewBtn.addActionListener(e -> viewRegistered());
+        
+        buttons.add(registerBtn);
+        buttons.add(clearBtn);
+        buttons.add(viewBtn);
+        
+        buttonPanel.add(buttons, BorderLayout.CENTER);
+        
+        return buttonPanel;
+    }
+    
+    // =============================================
+    // HELPER METHODS
+    // =============================================
+    private JLabel createSectionLabel(String text) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        label.setForeground(new Color(70, 70, 120));
+        label.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, 
+                       new Color(200, 200, 220)));
+        return label;
+    }
+    
+    private JButton createStyledButton(String text, Color bgColor) {
+        JButton button = new JButton(text);
+        button.setBackground(bgColor);
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        button.setBorder(BorderFactory.createEmptyBorder(10, 25, 10, 25));
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+        // Hover effect
+        button.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                button.setBackground(bgColor.darker());
+            }
+            public void mouseExited(MouseEvent e) {
+                button.setBackground(bgColor);
+            }
+        });
+        
+        return button;
+    }
+    
+    // =============================================
+    // ACTION METHODS
+    // =============================================
+    private void registerStudent() {
+        // Validate fields
+        StringBuilder errors = new StringBuilder();
+        
+        if (firstNameField.getText().trim().isEmpty()) {
+            errors.append("• First name is required\n");
+        }
+        if (lastNameField.getText().trim().isEmpty()) {
+            errors.append("• Last name is required\n");
+        }
+        if (!maleRadio.isSelected() && !femaleRadio.isSelected() && 
+            !otherRadio.isSelected()) {
+            errors.append("• Gender is required\n");
+        }
+        if (emailField.getText().trim().isEmpty() || 
+            !emailField.getText().contains("@")) {
+            errors.append("• Valid email is required\n");
+        }
+        if (courseCombo.getSelectedIndex() == 0) {
+            errors.append("• Course selection is required\n");
+        }
+        if (yearCombo.getSelectedIndex() == 0) {
+            errors.append("• Year level is required\n");
+        }
+        
+        String password = new String(passwordField.getPassword());
+        String confirmPassword = new String(confirmPasswordField.getPassword());
+        
+        if (password.isEmpty()) {
+            errors.append("• Password is required\n");
+        } else if (password.length() < 6) {
+            errors.append("• Password must be at least 6 characters\n");
+        } else if (!password.equals(confirmPassword)) {
+            errors.append("• Passwords do not match\n");
+        }
+        
+        if (!termsCheck.isSelected()) {
+            errors.append("• You must accept the Terms and Conditions\n");
+        }
+        
+        // Show errors or register
+        if (errors.length() > 0) {
+            JOptionPane.showMessageDialog(this, 
+                "Please fix the following errors:\n\n" + errors.toString(),
+                "Validation Error", 
+                JOptionPane.ERROR_MESSAGE);
+            statusLabel.setText("Registration failed - please check errors");
+            statusLabel.setForeground(Color.RED);
+        } else {
+            // Create student record
+            String gender = maleRadio.isSelected() ? "Male" : 
+                           femaleRadio.isSelected() ? "Female" : "Other";
+            
+            String record = String.format(
+                "Name: %s %s | Age: %d | Gender: %s | Email: %s | " +
+                "Course: %s | Year: %s | Registered: %s",
+                firstNameField.getText().trim(),
+                lastNameField.getText().trim(),
+                (Integer) ageSpinner.getValue(),
+                gender,
+                emailField.getText().trim(),
+                courseCombo.getSelectedItem(),
+                yearCombo.getSelectedItem(),
+                LocalDate.now().format(DateTimeFormatter.ofPattern("MMM dd, yyyy"))
+            );
+            
+            registeredStudents.add(record);
+            
+            JOptionPane.showMessageDialog(this,
+                "Registration successful!\n\nWelcome, " + 
+                firstNameField.getText() + "!",
+                "Success",
+                JOptionPane.INFORMATION_MESSAGE);
+            
+            statusLabel.setText("✓ Student registered successfully");
+            statusLabel.setForeground(new Color(46, 139, 87));
+            
+            clearForm();
+        }
+    }
+    
+    private void clearForm() {
+        firstNameField.setText("");
+        lastNameField.setText("");
+        emailField.setText("");
+        addressArea.setText("");
+        passwordField.setText("");
+        confirmPasswordField.setText("");
+        ageSpinner.setValue(18);
+        courseCombo.setSelectedIndex(0);
+        yearCombo.setSelectedIndex(0);
+        
+        ButtonGroup genderGroup = new ButtonGroup();
+        genderGroup.add(maleRadio);
+        genderGroup.add(femaleRadio);
+        genderGroup.add(otherRadio);
+        genderGroup.clearSelection();
+        
+        termsCheck.setSelected(false);
+        newsletterCheck.setSelected(false);
+        
+        firstNameField.requestFocus();
+    }
+    
+    private void viewRegistered() {
+        if (registeredStudents.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                "No students registered yet.",
+                "Registered Students",
+                JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append("═══════════════════════════════════════\n");
+        sb.append("          REGISTERED STUDENTS          \n");
+        sb.append("═══════════════════════════════════════\n\n");
+        
+        for (int i = 0; i < registeredStudents.size(); i++) {
+            sb.append((i + 1) + ". " + registeredStudents.get(i) + "\n\n");
+        }
+        
+        sb.append("Total: " + registeredStudents.size() + " student(s)");
+        
+        JTextArea textArea = new JTextArea(sb.toString());
+        textArea.setEditable(false);
+        textArea.setFont(new Font("Consolas", Font.PLAIN, 11));
+        
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(500, 300));
+        
+        JOptionPane.showMessageDialog(this, scrollPane,
+            "Registered Students",
+            JOptionPane.PLAIN_MESSAGE);
+    }
+    
+    // =============================================
+    // MAIN METHOD
+    // =============================================
+    public static void main(String[] args) {
+        // Set system look and feel
+        try {
+            UIManager.setLookAndFeel(
+                UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        SwingUtilities.invokeLater(() -> {
+            new StudentRegistrationForm().setVisible(true);
+        });
+    }
+}</code></pre>
+        </div>
+        
+        <a href="index.html#syllabus" class="btn">Back to Syllabus</a>
+        <a href="week11-12.html" class="btn">← Previous: Week 11-12</a>
+        <a href="week15-16.html" class="btn">Next: Week 15-16 →</a>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CC3 Computer Programming. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

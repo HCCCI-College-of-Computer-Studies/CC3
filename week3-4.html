@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 3-4: Classes and Methods - CC3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>CC3: Computer Programming</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#syllabus">Syllabus</a></li>
+                    <li><a href="index.html#resources">Resources</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="container">
+        <h2>Week 3-4: Classes and Methods</h2>
+        <div class="week">
+            <p>Exhibit comprehensive mastery of classes and methods in Java, encompassing the ability to recall, comprehend, apply, analyze, synthesize, and evaluate their functionalities, while effectively designing, implementing, and refining object-oriented software solutions.</p>
+            <h3>Topics:</h3>
+            <ul>
+                <li>Class and Method Definition</li>
+                <li>Information Hiding</li>
+                <li>Encapsulation</li>
+            </ul>
+        </div>
+        
+        <div class="week">
+            <h3>Class Definition - In Depth</h3>
+            <p>A class is a blueprint that defines the structure and behavior of objects. Understanding how to properly define a class is fundamental to Java programming.</p>
+            
+            <h4>Components of a Class:</h4>
+            <ul>
+                <li><strong>Class Declaration:</strong> The class keyword followed by the class name</li>
+                <li><strong>Fields (Instance Variables):</strong> Variables that hold the state of an object</li>
+                <li><strong>Constructors:</strong> Special methods used to initialize objects</li>
+                <li><strong>Methods:</strong> Functions that define the behavior of objects</li>
+                <li><strong>Nested Classes:</strong> Classes defined within another class (advanced)</li>
+            </ul>
+            
+            <pre><code>// =============================================
+// COMPLETE CLASS DEFINITION EXAMPLE
+// =============================================
+
+/**
+ * Represents a product in an inventory system.
+ * This class demonstrates proper class structure and documentation.
+ * 
+ * @author Your Name
+ * @version 1.0
+ */
+public class Product {
+    
+    // =============================================
+    // FIELDS (Instance Variables)
+    // =============================================
+    
+    // Private fields - cannot be accessed directly from outside
+    private String productId;
+    private String name;
+    private String description;
+    private double price;
+    private int quantity;
+    private String category;
+    
+    // Static field - shared by all instances (belongs to the class)
+    private static int totalProducts = 0;
+    
+    // Constant - value cannot be changed
+    public static final double TAX_RATE = 0.12;  // 12% tax
+    
+    // =============================================
+    // CONSTRUCTORS
+    // =============================================
+    
+    /**
+     * Default constructor - creates a product with default values.
+     */
+    public Product() {
+        this.productId = generateId();
+        this.name = "Unknown Product";
+        this.description = "No description";
+        this.price = 0.0;
+        this.quantity = 0;
+        this.category = "Uncategorized";
+        totalProducts++;
+    }
+    
+    /**
+     * Parameterized constructor - creates a product with specified values.
+     * 
+     * @param name        The product name
+     * @param price       The product price
+     * @param quantity    The initial quantity
+     */
+    public Product(String name, double price, int quantity) {
+        this.productId = generateId();
+        this.name = name;
+        this.description = "No description";
+        this.price = price;
+        this.quantity = quantity;
+        this.category = "Uncategorized";
+        totalProducts++;
+    }
+    
+    /**
+     * Full constructor - creates a product with all details.
+     */
+    public Product(String name, String description, double price, 
+                   int quantity, String category) {
+        this.productId = generateId();
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+        this.category = category;
+        totalProducts++;
+    }
+    
+    // =============================================
+    // GETTER METHODS (Accessors)
+    // =============================================
+    
+    public String getProductId() {
+        return productId;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+    
+    public double getPrice() {
+        return price;
+    }
+    
+    public int getQuantity() {
+        return quantity;
+    }
+    
+    public String getCategory() {
+        return category;
+    }
+    
+    // Static getter - accessed through class name
+    public static int getTotalProducts() {
+        return totalProducts;
+    }
+    
+    // =============================================
+    // SETTER METHODS (Mutators)
+    // =============================================
+    
+    public void setName(String name) {
+        if (name != null && !name.trim().isEmpty()) {
+            this.name = name;
+        } else {
+            System.out.println("Error: Name cannot be empty");
+        }
+    }
+    
+    public void setDescription(String description) {
+        this.description = (description != null) ? description : "No description";
+    }
+    
+    public void setPrice(double price) {
+        if (price >= 0) {
+            this.price = price;
+        } else {
+            System.out.println("Error: Price cannot be negative");
+        }
+    }
+    
+    public void setQuantity(int quantity) {
+        if (quantity >= 0) {
+            this.quantity = quantity;
+        } else {
+            System.out.println("Error: Quantity cannot be negative");
+        }
+    }
+    
+    public void setCategory(String category) {
+        this.category = (category != null) ? category : "Uncategorized";
+    }
+    
+    // =============================================
+    // BUSINESS METHODS
+    // =============================================
+    
+    /**
+     * Calculates the total value of this product in inventory.
+     * @return Total value (price * quantity)
+     */
+    public double calculateInventoryValue() {
+        return price * quantity;
+    }
+    
+    /**
+     * Calculates the price including tax.
+     * @return Price with tax added
+     */
+    public double getPriceWithTax() {
+        return price + (price * TAX_RATE);
+    }
+    
+    /**
+     * Adds stock to the inventory.
+     * @param amount Number of items to add
+     */
+    public void addStock(int amount) {
+        if (amount > 0) {
+            quantity += amount;
+            System.out.println("Added " + amount + " items. New quantity: " + quantity);
+        } else {
+            System.out.println("Error: Amount must be positive");
+        }
+    }
+    
+    /**
+     * Removes stock from the inventory.
+     * @param amount Number of items to remove
+     * @return true if successful, false if insufficient stock
+     */
+    public boolean removeStock(int amount) {
+        if (amount <= 0) {
+            System.out.println("Error: Amount must be positive");
+            return false;
+        }
+        if (amount > quantity) {
+            System.out.println("Error: Insufficient stock. Available: " + quantity);
+            return false;
+        }
+        quantity -= amount;
+        System.out.println("Removed " + amount + " items. Remaining: " + quantity);
+        return true;
+    }
+    
+    /**
+     * Checks if the product is in stock.
+     * @return true if quantity > 0
+     */
+    public boolean isInStock() {
+        return quantity > 0;
+    }
+    
+    // =============================================
+    // HELPER METHODS
+    // =============================================
+    
+    /**
+     * Generates a unique product ID.
+     */
+    private String generateId() {
+        return "PRD-" + System.currentTimeMillis() + "-" + (totalProducts + 1);
+    }
+    
+    /**
+     * Returns a formatted string representation of the product.
+     */
+    @Override
+    public String toString() {
+        return String.format(
+            "Product[ID=%s, Name=%s, Price=%.2f, Qty=%d, Category=%s]",
+            productId, name, price, quantity, category
+        );
+    }
+    
+    /**
+     * Displays detailed product information.
+     */
+    public void displayDetails() {
+        System.out.println("╔══════════════════════════════════════╗");
+        System.out.println("║         PRODUCT INFORMATION          ║");
+        System.out.println("╠══════════════════════════════════════╣");
+        System.out.printf("  ID:          %s%n", productId);
+        System.out.printf("  Name:        %s%n", name);
+        System.out.printf("  Description: %s%n", description);
+        System.out.printf("  Category:    %s%n", category);
+        System.out.printf("  Price:       $%.2f%n", price);
+        System.out.printf("  With Tax:    $%.2f%n", getPriceWithTax());
+        System.out.printf("  Quantity:    %d%n", quantity);
+        System.out.printf("  In Stock:    %s%n", isInStock() ? "Yes" : "No");
+        System.out.printf("  Total Value: $%.2f%n", calculateInventoryValue());
+        System.out.println("╚══════════════════════════════════════╝");
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Method Definition - In Depth</h3>
+            <p>Methods define the behavior of objects. Understanding the different types of methods and how to define them properly is essential.</p>
+            
+            <h4>Method Syntax:</h4>
+            <pre><code>// Method Syntax:
+// [access_modifier] [static] [return_type] methodName([parameters]) {
+//     // method body
+//     [return statement]
+// }
+
+public class MethodExamples {
+    
+    // =============================================
+    // 1. METHODS WITH NO PARAMETERS AND NO RETURN VALUE
+    // =============================================
+    
+    public void sayHello() {
+        // 'void' means this method doesn't return anything
+        System.out.println("Hello!");
+    }
+    
+    public void printLine() {
+        System.out.println("════════════════════════════════");
+    }
+    
+    // =============================================
+    // 2. METHODS WITH PARAMETERS
+    // =============================================
+    
+    // Single parameter
+    public void greet(String name) {
+        System.out.println("Hello, " + name + "!");
+    }
+    
+    // Multiple parameters
+    public void displayStudentInfo(String name, int age, String course) {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Course: " + course);
+    }
+    
+    // Variable arguments (varargs) - accepts any number of arguments
+    public void printNumbers(int... numbers) {
+        // 'numbers' is treated as an array
+        System.out.print("Numbers: ");
+        for (int num : numbers) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+    }
+    
+    // =============================================
+    // 3. METHODS WITH RETURN VALUES
+    // =============================================
+    
+    // Return primitive type
+    public int add(int a, int b) {
+        int sum = a + b;
+        return sum;  // Return the calculated value
+    }
+    
+    public double calculateAverage(double[] numbers) {
+        if (numbers.length == 0) return 0;
+        
+        double total = 0;
+        for (double num : numbers) {
+            total += num;
+        }
+        return total / numbers.length;
+    }
+    
+    // Return boolean (commonly used for validation)
+    public boolean isEven(int number) {
+        return number % 2 == 0;
+    }
+    
+    public boolean isValidEmail(String email) {
+        // Simple validation
+        return email != null && 
+               email.contains("@") && 
+               email.contains(".") &&
+               email.indexOf("@") < email.lastIndexOf(".");
+    }
+    
+    // Return String
+    public String formatName(String firstName, String lastName) {
+        return lastName.toUpperCase() + ", " + firstName;
+    }
+    
+    // Return Object
+    public int[] createArray(int size, int defaultValue) {
+        int[] array = new int[size];
+        for (int i = 0; i < size; i++) {
+            array[i] = defaultValue;
+        }
+        return array;
+    }
+    
+    // =============================================
+    // 4. METHOD OVERLOADING
+    // =============================================
+    // Same method name, different parameters
+    
+    public int multiply(int a, int b) {
+        System.out.println("Multiplying two integers");
+        return a * b;
+    }
+    
+    public double multiply(double a, double b) {
+        System.out.println("Multiplying two doubles");
+        return a * b;
+    }
+    
+    public int multiply(int a, int b, int c) {
+        System.out.println("Multiplying three integers");
+        return a * b * c;
+    }
+    
+    // =============================================
+    // 5. RECURSIVE METHODS
+    // =============================================
+    // A method that calls itself
+    
+    public int factorial(int n) {
+        // Base case - stops the recursion
+        if (n <= 1) {
+            return 1;
+        }
+        // Recursive case - method calls itself
+        return n * factorial(n - 1);
+    }
+    
+    public int fibonacci(int n) {
+        if (n <= 0) return 0;
+        if (n == 1) return 1;
+        return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+    
+    // =============================================
+    // DEMONSTRATION
+    // =============================================
+    public static void main(String[] args) {
+        MethodExamples demo = new MethodExamples();
+        
+        // Methods with no return value
+        demo.sayHello();
+        demo.greet("Maria");
+        demo.displayStudentInfo("John", 20, "Computer Science");
+        
+        // Varargs example
+        demo.printNumbers(1, 2, 3);
+        demo.printNumbers(10, 20, 30, 40, 50);
+        
+        demo.printLine();
+        
+        // Methods with return values
+        int sum = demo.add(5, 3);
+        System.out.println("5 + 3 = " + sum);
+        
+        double[] grades = {85.5, 90.0, 78.5, 92.0, 88.0};
+        double avg = demo.calculateAverage(grades);
+        System.out.printf("Average: %.2f%n", avg);
+        
+        System.out.println("Is 10 even? " + demo.isEven(10));
+        System.out.println("Is 7 even? " + demo.isEven(7));
+        
+        System.out.println("Valid email? " + demo.isValidEmail("test@email.com"));
+        System.out.println("Valid email? " + demo.isValidEmail("invalid"));
+        
+        System.out.println("Formatted: " + demo.formatName("Juan", "Dela Cruz"));
+        
+        demo.printLine();
+        
+        // Method overloading - compiler chooses based on arguments
+        System.out.println("Result: " + demo.multiply(5, 3));       // int version
+        System.out.println("Result: " + demo.multiply(5.5, 3.2));   // double version
+        System.out.println("Result: " + demo.multiply(2, 3, 4));    // three int version
+        
+        demo.printLine();
+        
+        // Recursion
+        System.out.println("5! = " + demo.factorial(5));  // 120
+        System.out.println("Fibonacci(10) = " + demo.fibonacci(10));  // 55
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Information Hiding - Detailed Explanation</h3>
+            <p>Information hiding is one of the fundamental principles of OOP. It involves hiding the internal details of how a class works from outside code. This is achieved through access modifiers.</p>
+            
+            <h4>Access Modifiers in Java:</h4>
+            <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="background: #35424a; color: white;">
+                    <th style="padding: 10px; border: 1px solid #ddd;">Modifier</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Same Class</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Same Package</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Subclass</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Other Packages</th>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #ddd;"><code>public</code></td>
+                    <td style="padding: 10px; border: 1px solid #ddd; color: green;">✓</td>
+                    <td style="padding: 10px; border: 1px solid #ddd; color: green;">✓</td>
+                    <td style="padding: 10px; border: 1px solid #ddd; color: green;">✓</td>
+                    <td style="padding: 10px; border: 1px solid #ddd; color: green;">✓</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 10px; border: 1px solid #ddd;"><code>protected</code></td>
+                    <td style="padding: 10px; border: 1px solid #ddd; color: green;">✓</td>
+                    <td style="padding: 10px; border: 1px solid #ddd; color: green;">✓</td>
+                    <td style="padding: 10px; border: 1px solid #ddd; color: green;">✓</td>
+                    <td style="padding: 10px; border: 1px solid #ddd; color: red;">✗</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #ddd;"><code>default</code> (no modifier)</td>
+                    <td style="padding: 10px; border: 1px solid #ddd; color: green;">✓</td>
+                    <td style="padding: 10px; border: 1px solid #ddd; color: green;">✓</td>
+                    <td style="padding: 10px; border: 1px solid #ddd; color: red;">✗</td>
+                    <td style="padding: 10px; border: 1px solid #ddd; color: red;">✗</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 10px; border: 1px solid #ddd;"><code>private</code></td>
+                    <td style="padding: 10px; border: 1px solid #ddd; color: green;">✓</td>
+                    <td style="padding: 10px; border: 1px solid #ddd; color: red;">✗</td>
+                    <td style="padding: 10px; border: 1px solid #ddd; color: red;">✗</td>
+                    <td style="padding: 10px; border: 1px solid #ddd; color: red;">✗</td>
+                </tr>
+            </table>
+            
+            <pre><code>// =============================================
+// INFORMATION HIDING EXAMPLE
+// =============================================
+
+public class BankAccount {
+    // =============================================
+    // PRIVATE FIELDS - Hidden from outside
+    // =============================================
+    private String accountNumber;  // Cannot be changed once set
+    private String accountHolder;
+    private double balance;
+    private String pin;            // Sensitive data - must be private
+    private int failedAttempts;
+    private boolean isLocked;
+    
+    // =============================================
+    // CONSTRUCTOR
+    // =============================================
+    public BankAccount(String accountNumber, String accountHolder, String pin) {
+        this.accountNumber = accountNumber;
+        this.accountHolder = accountHolder;
+        this.pin = pin;  // In real app, this would be hashed
+        this.balance = 0.0;
+        this.failedAttempts = 0;
+        this.isLocked = false;
+    }
+    
+    // =============================================
+    // PUBLIC METHODS - Controlled interface
+    // =============================================
+    
+    // Read-only access to account number (no setter)
+    public String getAccountNumber() {
+        // Return masked version for security
+        return "****" + accountNumber.substring(accountNumber.length() - 4);
+    }
+    
+    public String getAccountHolder() {
+        return accountHolder;
+    }
+    
+    // No getPin() method - PIN should never be exposed!
+    
+    public double getBalance() {
+        return balance;
+    }
+    
+    // =============================================
+    // BUSINESS METHODS WITH VALIDATION
+    // =============================================
+    
+    /**
+     * Deposit money into the account.
+     * Validates that amount is positive.
+     */
+    public boolean deposit(double amount) {
+        if (isLocked) {
+            System.out.println("Account is locked. Contact customer service.");
+            return false;
+        }
+        
+        if (amount <= 0) {
+            System.out.println("Error: Deposit amount must be positive.");
+            return false;
+        }
+        
+        balance += amount;
+        System.out.printf("Deposited: $%.2f | New Balance: $%.2f%n", amount, balance);
+        return true;
+    }
+    
+    /**
+     * Withdraw money from the account.
+     * Requires PIN verification.
+     */
+    public boolean withdraw(double amount, String enteredPin) {
+        if (isLocked) {
+            System.out.println("Account is locked. Contact customer service.");
+            return false;
+        }
+        
+        // Verify PIN (private method handles this)
+        if (!verifyPin(enteredPin)) {
+            return false;
+        }
+        
+        if (amount <= 0) {
+            System.out.println("Error: Withdrawal amount must be positive.");
+            return false;
+        }
+        
+        if (amount > balance) {
+            System.out.println("Error: Insufficient funds.");
+            System.out.printf("Available balance: $%.2f%n", balance);
+            return false;
+        }
+        
+        balance -= amount;
+        System.out.printf("Withdrawn: $%.2f | Remaining: $%.2f%n", amount, balance);
+        return true;
+    }
+    
+    /**
+     * Change the PIN with proper verification.
+     */
+    public boolean changePin(String currentPin, String newPin) {
+        if (!verifyPin(currentPin)) {
+            return false;
+        }
+        
+        if (!isValidPin(newPin)) {
+            System.out.println("Error: New PIN must be 4-6 digits.");
+            return false;
+        }
+        
+        this.pin = newPin;
+        System.out.println("PIN changed successfully.");
+        return true;
+    }
+    
+    // =============================================
+    // PRIVATE HELPER METHODS - Internal use only
+    // =============================================
+    
+    /**
+     * Verifies the entered PIN against the stored PIN.
+     * Handles failed attempts and account locking.
+     */
+    private boolean verifyPin(String enteredPin) {
+        if (!this.pin.equals(enteredPin)) {
+            failedAttempts++;
+            int remaining = 3 - failedAttempts;
+            
+            if (failedAttempts >= 3) {
+                isLocked = true;
+                System.out.println("Account locked due to multiple failed attempts!");
+            } else {
+                System.out.println("Incorrect PIN. " + remaining + " attempt(s) remaining.");
+            }
+            return false;
+        }
+        
+        // Reset failed attempts on success
+        failedAttempts = 0;
+        return true;
+    }
+    
+    /**
+     * Validates PIN format.
+     */
+    private boolean isValidPin(String pin) {
+        return pin != null && pin.matches("\\d{4,6}");
+    }
+    
+    // =============================================
+    // DISPLAY METHOD
+    // =============================================
+    
+    public void displayAccountInfo() {
+        System.out.println("╔════════════════════════════════════╗");
+        System.out.println("║        ACCOUNT INFORMATION         ║");
+        System.out.println("╠════════════════════════════════════╣");
+        System.out.printf("  Account: %s%n", getAccountNumber());  // Masked
+        System.out.printf("  Holder:  %s%n", accountHolder);
+        System.out.printf("  Balance: $%.2f%n", balance);
+        System.out.printf("  Status:  %s%n", isLocked ? "LOCKED" : "Active");
+        System.out.println("╚════════════════════════════════════╝");
+    }
+}
+
+// =============================================
+// TESTING THE BANK ACCOUNT
+// =============================================
+public class BankDemo {
+    public static void main(String[] args) {
+        BankAccount account = new BankAccount("1234567890", "Juan Dela Cruz", "1234");
+        
+        account.displayAccountInfo();
+        
+        // Deposit - doesn't need PIN
+        account.deposit(1000);
+        account.deposit(-50);  // Will fail - negative amount
+        
+        System.out.println();
+        
+        // Withdrawal - needs PIN
+        account.withdraw(200, "1234");  // Success
+        account.withdraw(100, "0000");  // Wrong PIN - 1st attempt
+        account.withdraw(100, "0000");  // Wrong PIN - 2nd attempt
+        account.withdraw(100, "0000");  // Wrong PIN - 3rd attempt (locks)
+        
+        System.out.println();
+        account.withdraw(100, "1234");  // Won't work - account locked
+        
+        account.displayAccountInfo();
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Encapsulation - Complete Guide</h3>
+            <p>Encapsulation is the technique of bundling the data (attributes) and the methods that operate on that data within a single unit (class), while restricting direct access to some of the object's components. This is one of the four fundamental OOP concepts.</p>
+            
+            <h4>Benefits of Encapsulation:</h4>
+            <ul>
+                <li><strong>Data Protection:</strong> Prevents unauthorized access and modification of data</li>
+                <li><strong>Flexibility:</strong> Internal implementation can change without affecting external code</li>
+                <li><strong>Control:</strong> Setters can include validation logic</li>
+                <li><strong>Maintainability:</strong> Changes are localized to the class</li>
+                <li><strong>Debugging:</strong> Easier to find where data is modified</li>
+            </ul>
+            
+            <pre><code>// =============================================
+// ENCAPSULATION - COMPLETE EXAMPLE
+// =============================================
+
+/**
+ * A properly encapsulated Employee class.
+ * All data is private and accessed through controlled methods.
+ */
+public class Employee {
+    // =============================================
+    // PRIVATE DATA (Encapsulated)
+    // =============================================
+    private String employeeId;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String department;
+    private double baseSalary;
+    private double bonus;
+    private java.time.LocalDate hireDate;
+    
+    // =============================================
+    // CONSTRUCTOR WITH VALIDATION
+    // =============================================
+    public Employee(String firstName, String lastName, String department, 
+                    double baseSalary) {
+        this.employeeId = generateEmployeeId();
+        setFirstName(firstName);
+        setLastName(lastName);
+        setDepartment(department);
+        setBaseSalary(baseSalary);
+        this.bonus = 0;
+        this.hireDate = java.time.LocalDate.now();
+        generateEmail();
+    }
+    
+    // =============================================
+    // GETTERS - Provide read access
+    // =============================================
+    
+    public String getEmployeeId() {
+        return employeeId;
+    }
+    
+    public String getFirstName() {
+        return firstName;
+    }
+    
+    public String getLastName() {
+        return lastName;
+    }
+    
+    // Computed getter - returns derived value
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+    
+    public String getDepartment() {
+        return department;
+    }
+    
+    public double getBaseSalary() {
+        return baseSalary;
+    }
+    
+    public double getBonus() {
+        return bonus;
+    }
+    
+    // Computed getter - calculates total compensation
+    public double getTotalCompensation() {
+        return baseSalary + bonus;
+    }
+    
+    public java.time.LocalDate getHireDate() {
+        return hireDate;
+    }
+    
+    // Computed getter - calculates years of service
+    public int getYearsOfService() {
+        return java.time.Period.between(hireDate, java.time.LocalDate.now()).getYears();
+    }
+    
+    // =============================================
+    // SETTERS - Provide controlled write access
+    // =============================================
+    
+    public void setFirstName(String firstName) {
+        // Validation: name cannot be null or empty
+        if (firstName == null || firstName.trim().isEmpty()) {
+            throw new IllegalArgumentException("First name cannot be empty");
+        }
+        // Validation: name should only contain letters and spaces
+        if (!firstName.matches("[a-zA-Z\\s]+")) {
+            throw new IllegalArgumentException("First name can only contain letters");
+        }
+        // Normalize: capitalize first letter
+        this.firstName = capitalize(firstName.trim());
+        generateEmail();  // Update email when name changes
+    }
+    
+    public void setLastName(String lastName) {
+        if (lastName == null || lastName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Last name cannot be empty");
+        }
+        if (!lastName.matches("[a-zA-Z\\s]+")) {
+            throw new IllegalArgumentException("Last name can only contain letters");
+        }
+        this.lastName = capitalize(lastName.trim());
+        generateEmail();
+    }
+    
+    public void setDepartment(String department) {
+        // Validation: check against valid departments
+        String[] validDepts = {"IT", "HR", "Finance", "Marketing", "Operations"};
+        boolean isValid = false;
+        for (String dept : validDepts) {
+            if (dept.equalsIgnoreCase(department)) {
+                this.department = dept;  // Use standardized name
+                isValid = true;
+                break;
+            }
+        }
+        if (!isValid) {
+            throw new IllegalArgumentException(
+                "Invalid department. Valid options: IT, HR, Finance, Marketing, Operations"
+            );
+        }
+    }
+    
+    public void setBaseSalary(double baseSalary) {
+        // Validation: salary must be positive
+        if (baseSalary < 0) {
+            throw new IllegalArgumentException("Salary cannot be negative");
+        }
+        // Validation: minimum wage check
+        double minimumSalary = 15000.0;  // Example minimum
+        if (baseSalary < minimumSalary) {
+            System.out.println("Warning: Salary is below minimum. Setting to minimum.");
+            this.baseSalary = minimumSalary;
+        } else {
+            this.baseSalary = baseSalary;
+        }
+    }
+    
+    // Controlled bonus setter with business rules
+    public void setBonus(double bonus, String authorizationCode) {
+        // Require authorization for bonus changes
+        if (!validateAuthorization(authorizationCode)) {
+            throw new SecurityException("Unauthorized bonus modification");
+        }
+        if (bonus < 0) {
+            throw new IllegalArgumentException("Bonus cannot be negative");
+        }
+        // Business rule: bonus cannot exceed 50% of base salary
+        double maxBonus = baseSalary * 0.5;
+        if (bonus > maxBonus) {
+            System.out.printf("Warning: Bonus capped at 50%% of salary ($%.2f)%n", maxBonus);
+            this.bonus = maxBonus;
+        } else {
+            this.bonus = bonus;
+        }
+    }
+    
+    // =============================================
+    // PRIVATE HELPER METHODS
+    // =============================================
+    
+    private String generateEmployeeId() {
+        // Generate unique ID (simplified)
+        return "EMP" + System.currentTimeMillis() % 100000;
+    }
+    
+    private void generateEmail() {
+        if (firstName != null && lastName != null) {
+            this.email = firstName.toLowerCase() + "." + 
+                        lastName.toLowerCase() + "@company.com";
+        }
+    }
+    
+    private String capitalize(String str) {
+        if (str == null || str.isEmpty()) return str;
+        return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+    }
+    
+    private boolean validateAuthorization(String code) {
+        // In real application, this would verify against a secure system
+        return code != null && code.equals("HR-AUTH-2024");
+    }
+    
+    // =============================================
+    // BUSINESS METHODS
+    // =============================================
+    
+    public void giveRaise(double percentage) {
+        if (percentage <= 0 || percentage > 50) {
+            throw new IllegalArgumentException("Raise must be between 0% and 50%");
+        }
+        double raise = baseSalary * (percentage / 100);
+        baseSalary += raise;
+        System.out.printf("Raise of %.1f%% applied. New salary: $%.2f%n", 
+                          percentage, baseSalary);
+    }
+    
+    public void transferDepartment(String newDepartment) {
+        String oldDept = this.department;
+        setDepartment(newDepartment);
+        System.out.printf("%s transferred from %s to %s%n", 
+                          getFullName(), oldDept, newDepartment);
+    }
+    
+    // =============================================
+    // DISPLAY METHOD
+    // =============================================
+    
+    public void displayInfo() {
+        System.out.println("╔══════════════════════════════════════════╗");
+        System.out.println("║          EMPLOYEE INFORMATION            ║");
+        System.out.println("╠══════════════════════════════════════════╣");
+        System.out.printf("  ID:           %s%n", employeeId);
+        System.out.printf("  Name:         %s%n", getFullName());
+        System.out.printf("  Email:        %s%n", email);
+        System.out.printf("  Department:   %s%n", department);
+        System.out.printf("  Base Salary:  $%,.2f%n", baseSalary);
+        System.out.printf("  Bonus:        $%,.2f%n", bonus);
+        System.out.printf("  Total Comp:   $%,.2f%n", getTotalCompensation());
+        System.out.printf("  Hire Date:    %s%n", hireDate);
+        System.out.printf("  Years:        %d%n", getYearsOfService());
+        System.out.println("╚══════════════════════════════════════════╝");
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("Employee[%s: %s, %s, $%.2f]", 
+                            employeeId, getFullName(), department, baseSalary);
+    }
+}
+
+// =============================================
+// TESTING ENCAPSULATION
+// =============================================
+public class EncapsulationDemo {
+    public static void main(String[] args) {
+        try {
+            // Create employee with valid data
+            Employee emp = new Employee("maria", "santos", "IT", 50000);
+            emp.displayInfo();
+            
+            // Using setters with validation
+            System.out.println("\n--- Testing Setters ---");
+            emp.setFirstName("Maria Cristina");
+            System.out.println("Name updated: " + emp.getFullName());
+            
+            // Test salary validation
+            emp.giveRaise(10);
+            
+            // Test department transfer
+            emp.transferDepartment("Marketing");
+            
+            // Test bonus with authorization
+            emp.setBonus(5000, "HR-AUTH-2024");
+            
+            System.out.println("\n--- Final State ---");
+            emp.displayInfo();
+            
+            // These would throw exceptions:
+            // emp.setFirstName("");           // Empty name
+            // emp.setBaseSalary(-1000);       // Negative salary
+            // emp.setDepartment("Invalid");   // Invalid department
+            // emp.setBonus(100000, "wrong");  // Unauthorized
+            
+        } catch (IllegalArgumentException e) {
+            System.out.println("Validation Error: " + e.getMessage());
+        } catch (SecurityException e) {
+            System.out.println("Security Error: " + e.getMessage());
+        }
+    }
+}</code></pre>
+            
+            <h4>Key Takeaways:</h4>
+            <ul>
+                <li>Always make fields <code>private</code></li>
+                <li>Provide <code>public</code> getters for read access</li>
+                <li>Provide <code>public</code> setters with validation for write access</li>
+                <li>Use computed getters for derived values</li>
+                <li>Consider making some fields read-only (no setter)</li>
+                <li>Throw meaningful exceptions for invalid data</li>
+            </ul>
+        </div>
+        
+        <a href="index.html#syllabus" class="btn">Back to Syllabus</a>
+        <a href="week2.html" class="btn">← Previous: Week 2</a>
+        <a href="week5-6.html" class="btn">Next: Week 5-6 →</a>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CC3 Computer Programming. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

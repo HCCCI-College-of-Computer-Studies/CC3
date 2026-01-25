@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 9-10: Exception Handling - CC3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>CC3: Computer Programming</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#syllabus">Syllabus</a></li>
+                    <li><a href="index.html#resources">Resources</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="container">
+        <h2>Week 9-10: Exception Handling</h2>
+        <div class="week">
+            <p>Demonstrate a thorough understanding of exception handling in Java, including recalling, comprehending, applying, analyzing, synthesizing, and evaluating techniques to effectively manage and handle errors, ensuring robustness and reliability in software solutions.</p>
+            <h3>Topics:</h3>
+            <ul>
+                <li>Basic Exception Handling</li>
+                <li>Try, Catch, and Finally</li>
+                <li>User-Defined Exception</li>
+            </ul>
+        </div>
+        
+        <div class="week">
+            <h3>Understanding Exceptions</h3>
+            <p>An exception is an event that occurs during program execution that disrupts the normal flow of instructions. Java's exception handling mechanism allows you to handle errors gracefully, making your programs more robust and user-friendly.</p>
+            
+            <h4>Exception Hierarchy:</h4>
+            <pre><code>/*
+ * JAVA EXCEPTION HIERARCHY
+ * 
+ *                     Throwable
+ *                    /         \
+ *                   /           \
+ *               Error         Exception
+ *              (Fatal)        (Recoverable)
+ *                                  |
+ *                    ┌─────────────┼─────────────┐
+ *                    |             |             |
+ *            IOException    SQLException   RuntimeException
+ *           (Checked)       (Checked)      (Unchecked)
+ *                                              |
+ *                          ┌───────────┬───────┴───────┬──────────────┐
+ *                          |           |               |              |
+ *               ArithmeticException  NullPointer  ArrayIndexOut  NumberFormat
+ *                                    Exception    OfBounds        Exception
+ * 
+ * CHECKED EXCEPTIONS:
+ * - Must be declared or handled
+ * - Compiler enforces handling
+ * - Example: IOException, SQLException
+ * 
+ * UNCHECKED EXCEPTIONS (RuntimeException):
+ * - Don't need to be declared
+ * - Usually programming errors
+ * - Example: NullPointerException, ArrayIndexOutOfBoundsException
+ * 
+ * ERRORS:
+ * - Serious problems, should not be caught
+ * - Example: OutOfMemoryError, StackOverflowError
+ */</code></pre>
+            
+            <h4>Common Built-in Exceptions:</h4>
+            <pre><code>// =============================================
+// COMMON JAVA EXCEPTIONS DEMONSTRATED
+// =============================================
+
+public class CommonExceptions {
+    
+    public static void main(String[] args) {
+        // We'll call each method to see different exceptions
+        // (Normally you'd handle these, this is just to show what causes them)
+        
+        demonstrateArithmeticException();
+        demonstrateNullPointerException();
+        demonstrateArrayIndexException();
+        demonstrateNumberFormatException();
+        demonstrateClassCastException();
+        demonstrateIllegalArgumentException();
+    }
+    
+    // =============================================
+    // 1. ArithmeticException
+    // Occurs when an arithmetic operation fails
+    // =============================================
+    static void demonstrateArithmeticException() {
+        System.out.println("\n=== ArithmeticException ===");
+        try {
+            int numerator = 10;
+            int denominator = 0;
+            int result = numerator / denominator;  // Division by zero!
+            
+        } catch (ArithmeticException e) {
+            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println("   Cause: Attempted to divide by zero");
+            System.out.println("   Fix: Check denominator before dividing");
+        }
+    }
+    
+    // =============================================
+    // 2. NullPointerException
+    // Occurs when calling a method on null
+    // =============================================
+    static void demonstrateNullPointerException() {
+        System.out.println("\n=== NullPointerException ===");
+        try {
+            String text = null;
+            int length = text.length();  // Calling method on null!
+            
+        } catch (NullPointerException e) {
+            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println("   Cause: Attempted to use a null reference");
+            System.out.println("   Fix: Check for null before using objects");
+        }
+    }
+    
+    // =============================================
+    // 3. ArrayIndexOutOfBoundsException
+    // Occurs when accessing invalid array index
+    // =============================================
+    static void demonstrateArrayIndexException() {
+        System.out.println("\n=== ArrayIndexOutOfBoundsException ===");
+        try {
+            int[] numbers = {10, 20, 30};  // Valid indices: 0, 1, 2
+            int value = numbers[5];  // Index 5 doesn't exist!
+            
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println("   Cause: Accessed array index that doesn't exist");
+            System.out.println("   Fix: Ensure index < array.length");
+        }
+    }
+    
+    // =============================================
+    // 4. NumberFormatException
+    // Occurs when parsing invalid number string
+    // =============================================
+    static void demonstrateNumberFormatException() {
+        System.out.println("\n=== NumberFormatException ===");
+        try {
+            String notANumber = "Hello123";
+            int number = Integer.parseInt(notANumber);  // Can't parse this!
+            
+        } catch (NumberFormatException e) {
+            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println("   Cause: String cannot be converted to number");
+            System.out.println("   Fix: Validate string format before parsing");
+        }
+    }
+    
+    // =============================================
+    // 5. ClassCastException
+    // Occurs when invalid type casting
+    // =============================================
+    static void demonstrateClassCastException() {
+        System.out.println("\n=== ClassCastException ===");
+        try {
+            Object obj = "Hello";
+            Integer number = (Integer) obj;  // String cannot be cast to Integer!
+            
+        } catch (ClassCastException e) {
+            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println("   Cause: Attempted invalid type conversion");
+            System.out.println("   Fix: Use instanceof before casting");
+        }
+    }
+    
+    // =============================================
+    // 6. IllegalArgumentException
+    // Occurs when method receives invalid argument
+    // =============================================
+    static void demonstrateIllegalArgumentException() {
+        System.out.println("\n=== IllegalArgumentException ===");
+        try {
+            setAge(-5);  // Negative age is invalid!
+            
+        } catch (IllegalArgumentException e) {
+            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println("   Cause: Method received invalid argument");
+            System.out.println("   Fix: Validate input before processing");
+        }
+    }
+    
+    static void setAge(int age) {
+        if (age < 0) {
+            throw new IllegalArgumentException("Age cannot be negative: " + age);
+        }
+        System.out.println("Age set to: " + age);
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Try, Catch, Finally - Complete Guide</h3>
+            <p>The try-catch-finally block is the foundation of exception handling in Java. It allows you to attempt risky operations, catch and handle errors, and ensure cleanup code runs regardless of outcome.</p>
+            
+            <h4>Syntax and Flow:</h4>
+            <pre><code>/*
+ * TRY-CATCH-FINALLY FLOW:
+ * 
+ * try {
+ *     // Risky code that might throw exception
+ * } catch (SpecificException e) {
+ *     // Handle specific exception
+ * } catch (GeneralException e) {
+ *     // Handle more general exception
+ * } finally {
+ *     // ALWAYS executes (cleanup code)
+ *     // Runs even if return statement in try/catch
+ * }
+ */</code></pre>
+            
+            <pre><code>// =============================================
+// TRY-CATCH-FINALLY COMPREHENSIVE EXAMPLES
+// =============================================
+
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
+public class ExceptionHandlingDemo {
+    
+    public static void main(String[] args) {
+        // Example 1: Basic try-catch
+        basicTryCatch();
+        
+        // Example 2: Multiple catch blocks
+        multipleCatchBlocks();
+        
+        // Example 3: Finally block
+        finallyDemo();
+        
+        // Example 4: Try-with-resources
+        tryWithResources();
+        
+        // Example 5: Nested try-catch
+        nestedTryCatch();
+        
+        // Example 6: Practical example - Calculator
+        calculatorExample();
+    }
+    
+    // =============================================
+    // EXAMPLE 1: Basic Try-Catch
+    // =============================================
+    static void basicTryCatch() {
+        System.out.println("\n═══════════════════════════════════════");
+        System.out.println("EXAMPLE 1: Basic Try-Catch");
+        System.out.println("═══════════════════════════════════════");
+        
+        try {
+            // Risky code
+            int[] numbers = {1, 2, 3};
+            System.out.println("Accessing index 5...");
+            System.out.println(numbers[5]);  // This will throw exception
+            
+            // This line never executes
+            System.out.println("This won't print");
+            
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // Handle the exception
+            System.out.println("✓ Exception caught!");
+            System.out.println("  Type: " + e.getClass().getSimpleName());
+            System.out.println("  Message: " + e.getMessage());
+        }
+        
+        // Program continues normally
+        System.out.println("Program continues after handling exception");
+    }
+    
+    // =============================================
+    // EXAMPLE 2: Multiple Catch Blocks
+    // =============================================
+    static void multipleCatchBlocks() {
+        System.out.println("\n═══════════════════════════════════════");
+        System.out.println("EXAMPLE 2: Multiple Catch Blocks");
+        System.out.println("═══════════════════════════════════════");
+        
+        String[] inputs = {"10", "abc", null};
+        
+        for (String input : inputs) {
+            System.out.println("\nProcessing: \"" + input + "\"");
+            
+            try {
+                // Multiple potential exceptions
+                int length = input.length();         // NullPointerException?
+                int number = Integer.parseInt(input); // NumberFormatException?
+                int result = 100 / number;           // ArithmeticException?
+                
+                System.out.println("  ✓ Result: " + result);
+                
+            } catch (NullPointerException e) {
+                // Most specific exception first
+                System.out.println("  ❌ Input was null!");
+                
+            } catch (NumberFormatException e) {
+                // More specific
+                System.out.println("  ❌ Cannot convert '" + input + "' to number!");
+                
+            } catch (ArithmeticException e) {
+                System.out.println("  ❌ Cannot divide by zero!");
+                
+            } catch (Exception e) {
+                // Most general - catches anything else
+                System.out.println("  ❌ Unexpected error: " + e.getMessage());
+            }
+        }
+        
+        // Multi-catch syntax (Java 7+)
+        System.out.println("\n--- Multi-catch syntax ---");
+        try {
+            String text = "hello";
+            int num = Integer.parseInt(text);
+            
+        } catch (NumberFormatException | NullPointerException e) {
+            // Handle multiple exception types the same way
+            System.out.println("Input error: " + e.getMessage());
+        }
+    }
+    
+    // =============================================
+    // EXAMPLE 3: Finally Block
+    // =============================================
+    static void finallyDemo() {
+        System.out.println("\n═══════════════════════════════════════");
+        System.out.println("EXAMPLE 3: Finally Block");
+        System.out.println("═══════════════════════════════════════");
+        
+        Scanner scanner = null;
+        
+        try {
+            System.out.println("Opening resource...");
+            scanner = new Scanner(System.in);
+            
+            // Simulate some operation
+            System.out.println("Resource opened successfully");
+            
+            // Simulate an error
+            int result = 10 / 0;
+            
+        } catch (ArithmeticException e) {
+            System.out.println("Caught: " + e.getMessage());
+            
+        } finally {
+            // This ALWAYS runs
+            System.out.println("Finally block executing...");
+            System.out.println("Closing resource...");
+            if (scanner != null) {
+                scanner.close();
+            }
+            System.out.println("Resource closed.");
+        }
+        
+        // Finally runs even with return statements
+        System.out.println("\nReturn value test: " + testFinallyWithReturn());
+    }
+    
+    static int testFinallyWithReturn() {
+        try {
+            System.out.println("  In try - returning 1");
+            return 1;
+        } finally {
+            System.out.println("  Finally still runs!");
+            // Note: returning here would override try's return
+        }
+    }
+    
+    // =============================================
+    // EXAMPLE 4: Try-with-resources (Java 7+)
+    // =============================================
+    static void tryWithResources() {
+        System.out.println("\n═══════════════════════════════════════");
+        System.out.println("EXAMPLE 4: Try-with-resources");
+        System.out.println("═══════════════════════════════════════");
+        
+        // Resources declared in try() are automatically closed
+        System.out.println("Resources in try() are auto-closed:");
+        System.out.println("  try (Scanner scan = new Scanner(file)) {");
+        System.out.println("      // use scanner");
+        System.out.println("  } // scanner automatically closed here");
+        
+        // Simulated example with custom AutoCloseable
+        System.out.println("\nDemo with custom resource:");
+        
+        try (CustomResource resource = new CustomResource("MyResource")) {
+            resource.doSomething();
+            // resource.close() is called automatically
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    // Custom resource that implements AutoCloseable
+    static class CustomResource implements AutoCloseable {
+        private String name;
+        
+        public CustomResource(String name) {
+            this.name = name;
+            System.out.println("  Resource '" + name + "' opened");
+        }
+        
+        public void doSomething() {
+            System.out.println("  Resource '" + name + "' doing work...");
+        }
+        
+        @Override
+        public void close() {
+            System.out.println("  Resource '" + name + "' automatically closed!");
+        }
+    }
+    
+    // =============================================
+    // EXAMPLE 5: Nested Try-Catch
+    // =============================================
+    static void nestedTryCatch() {
+        System.out.println("\n═══════════════════════════════════════");
+        System.out.println("EXAMPLE 5: Nested Try-Catch");
+        System.out.println("═══════════════════════════════════════");
+        
+        try {
+            System.out.println("Outer try block");
+            
+            try {
+                System.out.println("  Inner try block");
+                int[] arr = new int[5];
+                arr[10] = 50;  // Inner exception
+                
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("  Inner catch: " + e.getMessage());
+                
+                // Can re-throw or throw different exception
+                throw new RuntimeException("Array operation failed");
+            }
+            
+        } catch (RuntimeException e) {
+            System.out.println("Outer catch: " + e.getMessage());
+        }
+    }
+    
+    // =============================================
+    // EXAMPLE 6: Practical Calculator Example
+    // =============================================
+    static void calculatorExample() {
+        System.out.println("\n═══════════════════════════════════════");
+        System.out.println("EXAMPLE 6: Practical Calculator");
+        System.out.println("═══════════════════════════════════════");
+        
+        // Simulate user inputs
+        String[][] testCases = {
+            {"10", "5", "/"},
+            {"10", "0", "/"},
+            {"abc", "5", "+"},
+            {"10", "3", "%"},
+            {"", "5", "+"}
+        };
+        
+        for (String[] test : testCases) {
+            System.out.println("\nInput: " + test[0] + " " + test[2] + " " + test[1]);
+            String result = calculate(test[0], test[1], test[2]);
+            System.out.println("Result: " + result);
+        }
+    }
+    
+    static String calculate(String num1Str, String num2Str, String operator) {
+        try {
+            // Validate input is not empty
+            if (num1Str == null || num1Str.isEmpty() || 
+                num2Str == null || num2Str.isEmpty()) {
+                throw new IllegalArgumentException("Numbers cannot be empty");
+            }
+            
+            // Parse numbers
+            double num1 = Double.parseDouble(num1Str);
+            double num2 = Double.parseDouble(num2Str);
+            double result;
+            
+            // Perform operation
+            switch (operator) {
+                case "+":
+                    result = num1 + num2;
+                    break;
+                case "-":
+                    result = num1 - num2;
+                    break;
+                case "*":
+                    result = num1 * num2;
+                    break;
+                case "/":
+                    if (num2 == 0) {
+                        throw new ArithmeticException("Cannot divide by zero");
+                    }
+                    result = num1 / num2;
+                    break;
+                case "%":
+                    if (num2 == 0) {
+                        throw new ArithmeticException("Cannot modulo by zero");
+                    }
+                    result = num1 % num2;
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown operator: " + operator);
+            }
+            
+            return "✓ " + result;
+            
+        } catch (NumberFormatException e) {
+            return "❌ Invalid number format";
+            
+        } catch (ArithmeticException e) {
+            return "❌ Math error: " + e.getMessage();
+            
+        } catch (IllegalArgumentException e) {
+            return "❌ Invalid input: " + e.getMessage();
+            
+        } catch (Exception e) {
+            return "❌ Unexpected error: " + e.getMessage();
+        }
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>Throwing Exceptions</h3>
+            <p>Java provides two keywords for throwing exceptions: <code>throw</code> (to actually throw an exception) and <code>throws</code> (to declare that a method might throw an exception).</p>
+            
+            <pre><code>// =============================================
+// THROW AND THROWS - COMPLETE GUIDE
+// =============================================
+
+/**
+ * throw - Actually throws an exception object
+ * throws - Declares that method might throw exception(s)
+ */
+public class ThrowThrowsDemo {
+    
+    public static void main(String[] args) {
+        // Test validation methods
+        testThrowExamples();
+        
+        // Test throws declaration
+        testThrowsExamples();
+        
+        // Test exception propagation
+        testExceptionPropagation();
+    }
+    
+    // =============================================
+    // USING 'throw' - Throwing exceptions
+    // =============================================
+    
+    static void testThrowExamples() {
+        System.out.println("═══════════════════════════════════════");
+        System.out.println("USING 'throw' KEYWORD");
+        System.out.println("═══════════════════════════════════════\n");
+        
+        // Test age validation
+        System.out.println("--- Age Validation ---");
+        testAge(25);
+        testAge(-5);
+        testAge(10);
+        
+        // Test email validation
+        System.out.println("\n--- Email Validation ---");
+        testEmail("user@example.com");
+        testEmail("invalid-email");
+        testEmail(null);
+        
+        // Test password validation
+        System.out.println("\n--- Password Validation ---");
+        testPassword("MyPassword123!");
+        testPassword("weak");
+        testPassword("nouppercase123!");
+    }
+    
+    static void testAge(int age) {
+        try {
+            validateAge(age);
+            System.out.println("✓ Age " + age + " is valid");
+        } catch (IllegalArgumentException e) {
+            System.out.println("❌ Age " + age + ": " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Validates age using throw for invalid values.
+     * This is an unchecked exception - no throws needed.
+     */
+    static void validateAge(int age) {
+        if (age < 0) {
+            // throw creates and throws an exception
+            throw new IllegalArgumentException("Age cannot be negative");
+        }
+        if (age < 18) {
+            throw new IllegalArgumentException("Must be at least 18 years old");
+        }
+        if (age > 150) {
+            throw new IllegalArgumentException("Age seems unrealistic");
+        }
+    }
+    
+    static void testEmail(String email) {
+        try {
+            validateEmail(email);
+            System.out.println("✓ Email '" + email + "' is valid");
+        } catch (IllegalArgumentException e) {
+            System.out.println("❌ Email '" + email + "': " + e.getMessage());
+        }
+    }
+    
+    static void validateEmail(String email) {
+        if (email == null) {
+            throw new IllegalArgumentException("Email cannot be null");
+        }
+        if (email.isEmpty()) {
+            throw new IllegalArgumentException("Email cannot be empty");
+        }
+        if (!email.contains("@")) {
+            throw new IllegalArgumentException("Email must contain @");
+        }
+        if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
+            throw new IllegalArgumentException("Invalid email format");
+        }
+    }
+    
+    static void testPassword(String password) {
+        try {
+            validatePassword(password);
+            System.out.println("✓ Password is strong");
+        } catch (IllegalArgumentException e) {
+            System.out.println("❌ Password rejected: " + e.getMessage());
+        }
+    }
+    
+    static void validatePassword(String password) {
+        if (password == null || password.length() < 8) {
+            throw new IllegalArgumentException("Password must be at least 8 characters");
+        }
+        if (!password.matches(".*[A-Z].*")) {
+            throw new IllegalArgumentException("Password must contain uppercase letter");
+        }
+        if (!password.matches(".*[a-z].*")) {
+            throw new IllegalArgumentException("Password must contain lowercase letter");
+        }
+        if (!password.matches(".*\\d.*")) {
+            throw new IllegalArgumentException("Password must contain a digit");
+        }
+        if (!password.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?].*")) {
+            throw new IllegalArgumentException("Password must contain special character");
+        }
+    }
+    
+    // =============================================
+    // USING 'throws' - Declaring exceptions
+    // =============================================
+    
+    static void testThrowsExamples() {
+        System.out.println("\n═══════════════════════════════════════");
+        System.out.println("USING 'throws' KEYWORD");
+        System.out.println("═══════════════════════════════════════\n");
+        
+        // Method with throws must be called in try-catch
+        // OR the calling method must also declare throws
+        
+        try {
+            String content = readFile("test.txt");
+            System.out.println("File content: " + content);
+        } catch (java.io.IOException e) {
+            System.out.println("Could not read file: " + e.getMessage());
+        }
+        
+        // Multiple exceptions declared
+        try {
+            processData("123");
+            processData("abc");
+        } catch (java.io.IOException e) {
+            System.out.println("IO Error: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Format Error: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Method declares it might throw IOException.
+     * Callers must handle or propagate this exception.
+     */
+    static String readFile(String filename) throws java.io.IOException {
+        // Simulated file reading
+        if (filename == null || filename.isEmpty()) {
+            throw new java.io.IOException("Filename cannot be empty");
+        }
+        
+        // In real code, this would actually read a file
+        System.out.println("Reading file: " + filename);
+        return "File contents here...";
+    }
+    
+    /**
+     * Method can throw multiple types of exceptions.
+     */
+    static void processData(String data) throws java.io.IOException, NumberFormatException {
+        if (data == null) {
+            throw new java.io.IOException("Data cannot be null");
+        }
+        
+        int number = Integer.parseInt(data);  // Might throw NumberFormatException
+        System.out.println("Processed number: " + number);
+    }
+    
+    // =============================================
+    // EXCEPTION PROPAGATION
+    // =============================================
+    
+    static void testExceptionPropagation() {
+        System.out.println("\n═══════════════════════════════════════");
+        System.out.println("EXCEPTION PROPAGATION");
+        System.out.println("═══════════════════════════════════════\n");
+        
+        System.out.println("Call stack: main -> methodA -> methodB -> methodC\n");
+        
+        try {
+            methodA();
+        } catch (Exception e) {
+            System.out.println("Exception caught in main!");
+            System.out.println("Exception type: " + e.getClass().getSimpleName());
+            System.out.println("Message: " + e.getMessage());
+            
+            System.out.println("\nStack trace:");
+            e.printStackTrace();
+        }
+    }
+    
+    static void methodA() throws Exception {
+        System.out.println("Entering methodA");
+        methodB();
+        System.out.println("Exiting methodA");  // Won't execute if exception thrown
+    }
+    
+    static void methodB() throws Exception {
+        System.out.println("  Entering methodB");
+        methodC();
+        System.out.println("  Exiting methodB");  // Won't execute if exception thrown
+    }
+    
+    static void methodC() throws Exception {
+        System.out.println("    Entering methodC");
+        System.out.println("    Throwing exception...");
+        
+        // Exception is thrown here
+        throw new Exception("Something went wrong in methodC!");
+        
+        // This line never executes
+        // System.out.println("    Exiting methodC");
+    }
+}</code></pre>
+        </div>
+        
+        <div class="week">
+            <h3>User-Defined Exceptions</h3>
+            <p>Custom exceptions allow you to create application-specific error types that provide more meaningful error handling. You can create checked exceptions (extending <code>Exception</code>) or unchecked exceptions (extending <code>RuntimeException</code>).</p>
+            
+            <pre><code>// =============================================
+// USER-DEFINED EXCEPTIONS - COMPLETE EXAMPLE
+// =============================================
+
+// =============================================
+// CUSTOM CHECKED EXCEPTION
+// Must be declared with 'throws' or caught
+// =============================================
+
+/**
+ * Exception thrown when bank account has insufficient funds.
+ */
+public class InsufficientFundsException extends Exception {
+    private double requestedAmount;
+    private double availableBalance;
+    private double shortfall;
+    
+    public InsufficientFundsException(double requested, double available) {
+        super(String.format(
+            "Insufficient funds. Requested: $%.2f, Available: $%.2f, Short by: $%.2f",
+            requested, available, requested - available
+        ));
+        this.requestedAmount = requested;
+        this.availableBalance = available;
+        this.shortfall = requested - available;
+    }
+    
+    // Getters for additional information
+    public double getRequestedAmount() { return requestedAmount; }
+    public double getAvailableBalance() { return availableBalance; }
+    public double getShortfall() { return shortfall; }
+}
+
+/**
+ * Exception thrown when account is locked.
+ */
+public class AccountLockedException extends Exception {
+    private String accountNumber;
+    private String reason;
+    private java.time.LocalDateTime lockedUntil;
+    
+    public AccountLockedException(String accountNumber, String reason) {
+        super("Account " + accountNumber + " is locked: " + reason);
+        this.accountNumber = accountNumber;
+        this.reason = reason;
+        this.lockedUntil = java.time.LocalDateTime.now().plusHours(24);
+    }
+    
+    public String getAccountNumber() { return accountNumber; }
+    public String getReason() { return reason; }
+    public java.time.LocalDateTime getLockedUntil() { return lockedUntil; }
+}
+
+// =============================================
+// CUSTOM UNCHECKED EXCEPTION
+// Doesn't need to be declared or caught
+// =============================================
+
+/**
+ * Exception thrown when account validation fails.
+ */
+public class InvalidAccountException extends RuntimeException {
+    private String fieldName;
+    private Object invalidValue;
+    
+    public InvalidAccountException(String message) {
+        super(message);
+    }
+    
+    public InvalidAccountException(String fieldName, Object invalidValue, String message) {
+        super(message);
+        this.fieldName = fieldName;
+        this.invalidValue = invalidValue;
+    }
+    
+    public String getFieldName() { return fieldName; }
+    public Object getInvalidValue() { return invalidValue; }
+}
+
+/**
+ * Exception thrown when transaction is invalid.
+ */
+public class InvalidTransactionException extends RuntimeException {
+    private String transactionType;
+    
+    public InvalidTransactionException(String transactionType, String message) {
+        super("Invalid " + transactionType + " transaction: " + message);
+        this.transactionType = transactionType;
+    }
+    
+    public String getTransactionType() { return transactionType; }
+}
+
+// =============================================
+// BANK ACCOUNT CLASS USING CUSTOM EXCEPTIONS
+// =============================================
+
+public class BankAccount {
+    private String accountNumber;
+    private String accountHolder;
+    private double balance;
+    private boolean isLocked;
+    private int failedLoginAttempts;
+    private java.util.List<String> transactionHistory;
+    
+    private static final int MAX_FAILED_ATTEMPTS = 3;
+    private static final double DAILY_WITHDRAWAL_LIMIT = 10000.0;
+    
+    public BankAccount(String accountNumber, String accountHolder, double initialDeposit) {
+        // Validate inputs - throw unchecked exceptions
+        validateAccountNumber(accountNumber);
+        validateAccountHolder(accountHolder);
+        validateInitialDeposit(initialDeposit);
+        
+        this.accountNumber = accountNumber;
+        this.accountHolder = accountHolder;
+        this.balance = initialDeposit;
+        this.isLocked = false;
+        this.failedLoginAttempts = 0;
+        this.transactionHistory = new java.util.ArrayList<>();
+        
+        addTransaction("OPEN", initialDeposit, "Account opened");
+    }
+    
+    // Validation methods throw unchecked exceptions
+    private void validateAccountNumber(String number) {
+        if (number == null || number.isEmpty()) {
+            throw new InvalidAccountException("accountNumber", number, 
+                "Account number cannot be empty");
+        }
+        if (!number.matches("\\d{10}")) {
+            throw new InvalidAccountException("accountNumber", number,
+                "Account number must be 10 digits");
+        }
+    }
+    
+    private void validateAccountHolder(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new InvalidAccountException("accountHolder", name,
+                "Account holder name cannot be empty");
+        }
+        if (name.length() < 2 || name.length() > 100) {
+            throw new InvalidAccountException("accountHolder", name,
+                "Name must be between 2 and 100 characters");
+        }
+    }
+    
+    private void validateInitialDeposit(double amount) {
+        if (amount < 0) {
+            throw new InvalidAccountException("initialDeposit", amount,
+                "Initial deposit cannot be negative");
+        }
+    }
+    
+    // =============================================
+    // METHODS THAT THROW CHECKED EXCEPTIONS
+    // =============================================
+    
+    /**
+     * Withdraw money from account.
+     * Throws checked exceptions that must be handled.
+     */
+    public void withdraw(double amount) 
+            throws InsufficientFundsException, AccountLockedException {
+        
+        // Check if account is locked
+        if (isLocked) {
+            throw new AccountLockedException(accountNumber, 
+                "Too many failed login attempts");
+        }
+        
+        // Validate amount
+        if (amount <= 0) {
+            throw new InvalidTransactionException("withdrawal",
+                "Amount must be positive");
+        }
+        
+        if (amount > DAILY_WITHDRAWAL_LIMIT) {
+            throw new InvalidTransactionException("withdrawal",
+                "Amount exceeds daily limit of $" + DAILY_WITHDRAWAL_LIMIT);
+        }
+        
+        // Check balance
+        if (amount > balance) {
+            throw new InsufficientFundsException(amount, balance);
+        }
+        
+        // Perform withdrawal
+        balance -= amount;
+        addTransaction("WITHDRAW", amount, "Withdrawal");
+        
+        System.out.printf("✓ Withdrew $%.2f | New balance: $%.2f%n", amount, balance);
+    }
+    
+    /**
+     * Transfer money to another account.
+     */
+    public void transfer(BankAccount destination, double amount)
+            throws InsufficientFundsException, AccountLockedException {
+        
+        if (destination == null) {
+            throw new InvalidTransactionException("transfer",
+                "Destination account cannot be null");
+        }
+        
+        if (destination.accountNumber.equals(this.accountNumber)) {
+            throw new InvalidTransactionException("transfer",
+                "Cannot transfer to the same account");
+        }
+        
+        // Withdraw from this account (might throw exception)
+        withdraw(amount);
+        
+        // Deposit to destination
+        destination.deposit(amount);
+        
+        addTransaction("TRANSFER", amount, "Transfer to " + destination.accountNumber);
+        System.out.printf("✓ Transferred $%.2f to %s%n", amount, destination.accountNumber);
+    }
+    
+    /**
+     * Deposit money (doesn't throw checked exceptions).
+     */
+    public void deposit(double amount) {
+        if (amount <= 0) {
+            throw new InvalidTransactionException("deposit",
+                "Deposit amount must be positive");
+        }
+        
+        balance += amount;
+        addTransaction("DEPOSIT", amount, "Deposit");
+        
+        System.out.printf("✓ Deposited $%.2f | New balance: $%.2f%n", amount, balance);
+    }
+    
+    /**
+     * Simulate login with PIN.
+     */
+    public void login(String pin) throws AccountLockedException {
+        if (isLocked) {
+            throw new AccountLockedException(accountNumber,
+                "Account locked due to failed attempts");
+        }
+        
+        // Simulate PIN check
+        if (!pin.equals("1234")) {
+            failedLoginAttempts++;
+            
+            if (failedLoginAttempts >= MAX_FAILED_ATTEMPTS) {
+                isLocked = true;
+                throw new AccountLockedException(accountNumber,
+                    "Too many failed login attempts");
+            }
+            
+            throw new InvalidTransactionException("login",
+                "Invalid PIN. " + (MAX_FAILED_ATTEMPTS - failedLoginAttempts) + " attempts remaining");
+        }
+        
+        failedLoginAttempts = 0;
+        System.out.println("✓ Login successful");
+    }
+    
+    public void unlock() {
+        isLocked = false;
+        failedLoginAttempts = 0;
+        System.out.println("✓ Account unlocked");
+    }
+    
+    private void addTransaction(String type, double amount, String description) {
+        String transaction = String.format("[%s] %s: $%.2f - %s",
+            java.time.LocalDateTime.now().format(
+                java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+            ),
+            type, amount, description
+        );
+        transactionHistory.add(transaction);
+    }
+    
+    // Getters
+    public String getAccountNumber() { return accountNumber; }
+    public String getAccountHolder() { return accountHolder; }
+    public double getBalance() { return balance; }
+    public boolean isLocked() { return isLocked; }
+    
+    public void displayInfo() {
+        System.out.println("╔═══════════════════════════════════════════╗");
+        System.out.println("║          ACCOUNT INFORMATION              ║");
+        System.out.println("╠═══════════════════════════════════════════╣");
+        System.out.printf("  Account #:  %s%n", accountNumber);
+        System.out.printf("  Holder:     %s%n", accountHolder);
+        System.out.printf("  Balance:    $%,.2f%n", balance);
+        System.out.printf("  Status:     %s%n", isLocked ? "🔒 LOCKED" : "✓ Active");
+        System.out.println("╚═══════════════════════════════════════════╝");
+    }
+}
+
+// =============================================
+// DEMONSTRATION CLASS
+// =============================================
+
+public class CustomExceptionDemo {
+    
+    public static void main(String[] args) {
+        System.out.println("═══════════════════════════════════════════");
+        System.out.println("    CUSTOM EXCEPTIONS DEMONSTRATION        ");
+        System.out.println("═══════════════════════════════════════════\n");
+        
+        // Test 1: Create valid account
+        System.out.println("--- Creating Accounts ---");
+        BankAccount account1 = null;
+        BankAccount account2 = null;
+        
+        try {
+            account1 = new BankAccount("1234567890", "Maria Santos", 5000);
+            account2 = new BankAccount("0987654321", "Juan Dela Cruz", 3000);
+            System.out.println("✓ Accounts created successfully\n");
+        } catch (InvalidAccountException e) {
+            System.out.println("❌ Failed to create account: " + e.getMessage());
+            return;
+        }
+        
+        account1.displayInfo();
+        account2.displayInfo();
+        
+        // Test 2: Invalid account creation
+        System.out.println("\n--- Testing Invalid Account Creation ---");
+        try {
+            new BankAccount("123", "Test", 100);  // Invalid account number
+        } catch (InvalidAccountException e) {
+            System.out.println("❌ " + e.getMessage());
+            System.out.println("   Field: " + e.getFieldName());
+            System.out.println("   Value: " + e.getInvalidValue());
+        }
+        
+        // Test 3: Successful transactions
+        System.out.println("\n--- Successful Transactions ---");
+        try {
+            account1.deposit(1000);
+            account1.withdraw(500);
+        } catch (InsufficientFundsException | AccountLockedException e) {
+            System.out.println("❌ " + e.getMessage());
+        }
+        
+        // Test 4: Insufficient funds
+        System.out.println("\n--- Testing Insufficient Funds ---");
+        try {
+            account1.withdraw(10000);  // More than balance
+        } catch (InsufficientFundsException e) {
+            System.out.println("❌ " + e.getMessage());
+            System.out.println("   Requested: $" + e.getRequestedAmount());
+            System.out.println("   Available: $" + e.getAvailableBalance());
+            System.out.println("   Short by:  $" + e.getShortfall());
+        } catch (AccountLockedException e) {
+            System.out.println("❌ " + e.getMessage());
+        }
+        
+        // Test 5: Transfer
+        System.out.println("\n--- Testing Transfer ---");
+        try {
+            account1.transfer(account2, 1000);
+        } catch (InsufficientFundsException | AccountLockedException e) {
+            System.out.println("❌ " + e.getMessage());
+        }
+        
+        account1.displayInfo();
+        account2.displayInfo();
+        
+        // Test 6: Account locking
+        System.out.println("\n--- Testing Account Locking ---");
+        for (int i = 1; i <= 4; i++) {
+            try {
+                System.out.println("Login attempt " + i + "...");
+                account1.login("wrong");
+            } catch (AccountLockedException e) {
+                System.out.println("❌ " + e.getMessage());
+                System.out.println("   Locked until: " + e.getLockedUntil());
+            } catch (InvalidTransactionException e) {
+                System.out.println("❌ " + e.getMessage());
+            }
+        }
+        
+        // Try to withdraw from locked account
+        System.out.println("\n--- Attempting Withdrawal from Locked Account ---");
+        try {
+            account1.withdraw(100);
+        } catch (InsufficientFundsException e) {
+            System.out.println("❌ " + e.getMessage());
+        } catch (AccountLockedException e) {
+            System.out.println("❌ " + e.getMessage());
+            System.out.println("   Account: " + e.getAccountNumber());
+            System.out.println("   Reason: " + e.getReason());
+        }
+        
+        // Unlock and retry
+        System.out.println("\n--- Unlocking Account ---");
+        account1.unlock();
+        try {
+            account1.withdraw(100);
+        } catch (InsufficientFundsException | AccountLockedException e) {
+            System.out.println("❌ " + e.getMessage());
+        }
+        
+        System.out.println("\n--- Final Account States ---");
+        account1.displayInfo();
+        account2.displayInfo();
+    }
+}</code></pre>
+            
+            <h4>When to Use Custom Exceptions:</h4>
+            <table style="width:100%; border-collapse: collapse; margin: 15px 0;">
+                <tr style="background: #35424a; color: white;">
+                    <th style="padding: 10px; border: 1px solid #ddd;">Use Checked Exceptions When...</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Use Unchecked Exceptions When...</th>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #ddd;">The caller can reasonably be expected to recover</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">The error is a programming bug</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 10px; border: 1px solid #ddd;">External resources are involved (files, network)</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Invalid method arguments</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Business rule violations that need handling</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">Illegal state that shouldn't occur</td>
+                </tr>
+            </table>
+        </div>
+        
+        <a href="index.html#syllabus" class="btn">Back to Syllabus</a>
+        <a href="week7-8.html" class="btn">← Previous: Week 7-8</a>
+        <a href="week11-12.html" class="btn">Next: Week 11-12 →</a>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CC3 Computer Programming. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
