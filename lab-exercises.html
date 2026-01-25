@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Exercises - CC3: Computer Programming</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="lab-exercises.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>CC3: Computer Programming</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#syllabus">Syllabus</a></li>
+                    <li><a href="index.html#resources">Resources</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="lab-hero">
+        <div class="container">
+            <h2>Lab Exercises</h2>
+            <p>Practice your Java programming skills with interactive coding exercises.</p>
+        </div>
+    </section>
+
+    <section class="container lab-container">
+        <!-- Tab Navigation -->
+        <div class="tab-navigation">
+            <button class="tab-btn active" data-tab="exercises">📝 Guided Exercises</button>
+            <button class="tab-btn" data-tab="compiler">💻 Java Compiler</button>
+        </div>
+
+        <!-- Tab 1: Guided Exercises -->
+        <div id="exercises-tab" class="tab-content active">
+            <div class="exercise-selector">
+                <h3>Select an Exercise</h3>
+                <select id="exerciseSelect">
+                    <option value="hello">Exercise 1: Hello World</option>
+                    <option value="variables">Exercise 2: Variables and Data Types</option>
+                    <option value="conditionals">Exercise 3: Conditional Statements</option>
+                    <option value="loops">Exercise 4: Loops</option>
+                    <option value="arrays">Exercise 5: Arrays</option>
+                    <option value="classes">Exercise 6: Classes and Objects</option>
+                    <option value="inheritance">Exercise 7: Inheritance</option>
+                </select>
+            </div>
+
+            <div class="exercise-description">
+                <h3>Exercise Instructions</h3>
+                <p id="instructions">Write a program that prints "Hello, World!" to the console.</p>
+            </div>
+
+            <div class="code-display">
+                <div class="code-header">
+                    <span>Sample Code</span>
+                    <button id="copyCode" class="btn-small">📋 Copy to Compiler</button>
+                </div>
+                <pre id="sampleCode"><code>public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}</code></pre>
+            </div>
+
+            <div class="tips-section">
+                <h3>💡 Tips</h3>
+                <ul>
+                    <li>Review the sample code and understand what each line does</li>
+                    <li>Click "Copy to Compiler" then switch to the Java Compiler tab</li>
+                    <li>Paste the code and click Execute to see it run</li>
+                    <li>Try modifying the code to experiment!</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Tab 2: Embedded Java Compiler -->
+        <div id="compiler-tab" class="tab-content">
+            <div class="compiler-info">
+                <p>✅ <strong>Full Java execution</strong> - Write, compile, and run Java code directly in your browser!</p>
+            </div>
+            
+            <div class="embedded-compiler">
+                <iframe 
+                    src="https://onecompiler.com/embed/java?theme=dark" 
+                    width="100%" 
+                    height="600" 
+                    frameborder="0"
+                    allow="clipboard-read; clipboard-write"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="alternative-compilers">
+                <h3>🔗 Alternative Online Compilers</h3>
+                <p>If the embedded compiler doesn't load, use these alternatives in a new tab:</p>
+                <div class="compiler-buttons">
+                    <a href="https://onecompiler.com/java" target="_blank" class="compiler-link">OneCompiler</a>
+                    <a href="https://www.programiz.com/java-programming/online-compiler/" target="_blank" class="compiler-link">Programiz</a>
+                    <a href="https://www.tutorialspoint.com/online_java_compiler.php" target="_blank" class="compiler-link">TutorialsPoint</a>
+                    <a href="https://replit.com/languages/java" target="_blank" class="compiler-link">Replit</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <p>&copy; 2024 CC3 Computer Programming. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="lab-exercises.js"></script>
+</body>
+</html>
