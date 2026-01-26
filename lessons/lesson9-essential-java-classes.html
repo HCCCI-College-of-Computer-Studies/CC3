@@ -6,6 +6,7 @@
     <title>Lesson IX: Essential Java Classes - CC3 Computer Programming 2</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../lessons.css">
+    <link rel="stylesheet" href="../css/code-runner.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
 </head>
 <body>
@@ -114,6 +115,13 @@
 }
 </pre>
                 </div>
+
+                <!-- Try It Yourself: Wrapper Classes -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Experiment with wrapper classes, autoboxing, and utility methods!</p>
+                    <div id="try-wrapper-classes"></div>
+                </div>
             </div>
 
             <!-- Utility Methods -->
@@ -172,6 +180,13 @@
     }
 }
 </pre>
+                </div>
+
+                <!-- Try It Yourself: Utility Methods -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Explore parsing, conversions, and utility methods from Java wrapper classes!</p>
+                    <div id="try-utility-methods"></div>
                 </div>
             </div>
 
@@ -281,5 +296,123 @@
 
     <script src="../main.js"></script>
     <script src="../lessons.js"></script>
+    <script src="../js/code-runner.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (document.getElementById('try-wrapper-classes')) {
+                createCodeRunner('try-wrapper-classes', `public class WrapperDemo {
+    public static void main(String[] args) {
+        System.out.println("=== Autoboxing & Unboxing ===");
+        
+        // Autoboxing: primitive to wrapper
+        Integer num1 = 100;  // int -> Integer
+        Double num2 = 3.14;   // double -> Double
+        
+        System.out.println("Integer object: " + num1);
+        System.out.println("Double object: " + num2);
+        
+        // Unboxing: wrapper to primitive
+        int value1 = num1;    // Integer -> int
+        double value2 = num2; // Double -> double
+        
+        System.out.println("int value: " + value1);
+        System.out.println("double value: " + value2);
+        
+        // Arithmetic with wrappers
+        Integer a = 10;
+        Integer b = 20;
+        int sum = a + b;  // Auto-unboxed for arithmetic
+        
+        System.out.println("\\nSum of " + a + " + " + b + " = " + sum);
+        
+        // Wrapper comparison
+        System.out.println("\\na equals b? " + a.equals(b));
+        System.out.println("a compareTo b: " + a.compareTo(b));
+    }
+}`, 'java');
+            }
+
+            if (document.getElementById('try-utility-methods')) {
+                createCodeRunner('try-utility-methods', `public class UtilityMethods {
+    public static void main(String[] args) {
+        System.out.println("=== Parsing Strings ===");
+        int num1 = Integer.parseInt("42");
+        double num2 = Double.parseDouble("3.14159");
+        System.out.println("parseInt('42'): " + num1);
+        System.out.println("parseDouble('3.14159'): " + num2);
+        
+        System.out.println("\\n=== Constants ===");
+        System.out.println("Integer.MAX_VALUE: " + Integer.MAX_VALUE);
+        System.out.println("Integer.MIN_VALUE: " + Integer.MIN_VALUE);
+        
+        System.out.println("\\n=== Comparison Methods ===");
+        System.out.println("Integer.compare(10, 20): " + Integer.compare(10, 20));
+        System.out.println("Integer.max(15, 25): " + Integer.max(15, 25));
+        
+        System.out.println("\\n=== Character Methods ===");
+        System.out.println("isDigit('5'): " + Character.isDigit('5'));
+        System.out.println("isLetter('A'): " + Character.isLetter('A'));
+        System.out.println("toUpperCase('a'): " + Character.toUpperCase('a'));
+        
+        System.out.println("\\n=== Number Conversions ===");
+        System.out.println("toBinaryString(10): " + Integer.toBinaryString(10));
+        System.out.println("toHexString(255): " + Integer.toHexString(255));
+    }
+}`, 'java');
+            }
+
+            if (document.getElementById('try-string-methods')) {
+                createCodeRunner('try-string-methods', `public class StringMethods {
+    public static void main(String[] args) {
+        String str = "  Hello, Java World!  ";
+        
+        System.out.println("Original: '" + str + "'");
+        System.out.println("Trimmed: '" + str.trim() + "'");
+        System.out.println("Uppercase: " + str.trim().toUpperCase());
+        System.out.println("Lowercase: " + str.trim().toLowerCase());
+        System.out.println("Length: " + str.trim().length());
+        System.out.println("Contains 'Java': " + str.contains("Java"));
+        System.out.println("Starts with '  H': " + str.startsWith("  H"));
+        System.out.println("Replace 'World' with 'Programming': " + 
+            str.trim().replace("World", "Programming"));
+        
+        // Splitting
+        String csv = "apple,banana,orange,mango";
+        String[] fruits = csv.split(",");
+        System.out.println("\\nSplit CSV:");
+        for (String fruit : fruits) {
+            System.out.println("- " + fruit);
+        }
+    }
+}`, 'java');
+            }
+
+            if (document.getElementById('try-math-class')) {
+                createCodeRunner('try-math-class', `public class MathDemo {
+    public static void main(String[] args) {
+        System.out.println("=== Math Class Methods ===");
+        System.out.println("Math.PI: " + Math.PI);
+        System.out.println("Math.E: " + Math.E);
+        System.out.println();
+        
+        System.out.println("Math.abs(-15): " + Math.abs(-15));
+        System.out.println("Math.max(10, 20): " + Math.max(10, 20));
+        System.out.println("Math.min(10, 20): " + Math.min(10, 20));
+        System.out.println("Math.pow(2, 8): " + Math.pow(2, 8));
+        System.out.println("Math.sqrt(144): " + Math.sqrt(144));
+        System.out.println("Math.round(4.7): " + Math.round(4.7));
+        System.out.println("Math.floor(4.7): " + Math.floor(4.7));
+        System.out.println("Math.ceil(4.2): " + Math.ceil(4.2));
+        System.out.println();
+        
+        System.out.println("Random numbers (0-100):");
+        for (int i = 0; i < 5; i++) {
+            System.out.println("  " + (int)(Math.random() * 100));
+        }
+    }
+}`, 'java');
+            }
+        });
+    </script>
 </body>
 </html>

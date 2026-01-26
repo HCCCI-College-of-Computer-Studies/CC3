@@ -6,6 +6,7 @@
     <title>Lesson III: Arrays - CC3 Computer Programming 2</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../lessons.css">
+    <link rel="stylesheet" href="../css/code-runner.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
 </head>
 <body>
@@ -175,6 +176,20 @@
                 <div class="warning-box">
                     <strong>ArrayIndexOutOfBoundsException:</strong> Accessing an index outside the valid range (0 to length-1) throws this runtime exception. Always ensure index values are within bounds.
                 </div>
+
+                <!-- Try It Yourself: Array Basics -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Experiment with arrays! Try adding more elements or changing values.</p>
+                    <div id="try-array-basics"></div>
+                </div>
+
+                <!-- Try It Yourself: Array Sum -->
+                <div class="try-it-section">
+                    <h4>Try It: Calculate Sum and Average</h4>
+                    <p>Practice calculating sum and average of array elements.</p>
+                    <div id="try-array-sum"></div>
+                </div>
             </div>
 
             <!-- Topic 3: Multi-Dimensional Arrays -->
@@ -270,6 +285,13 @@
     }
 }
 </pre>
+                </div>
+
+                <!-- Try It Yourself: 2D Array -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself: 2D Arrays</h4>
+                    <p>Explore 2D arrays and how to traverse them with nested loops.</p>
+                    <div id="try-2d-array"></div>
                 </div>
             </div>
 
@@ -585,5 +607,66 @@
 
     <script src="../main.js"></script>
     <script src="../lessons.js"></script>
+    <script src="../js/code-runner.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (document.getElementById('try-array-basics')) {
+                createCodeRunner('try-array-basics', `public class ArrayDemo {
+    public static void main(String[] args) {
+        // Declare and initialize array
+        int[] numbers = {10, 20, 30, 40, 50};
+        
+        System.out.println("Array Elements:");
+        for (int i = 0; i < numbers.length; i++) {
+            System.out.println("numbers[" + i + "] = " + numbers[i]);
+        }
+        
+        System.out.println("\\nArray length: " + numbers.length);
+    }
+}`, 'java');
+            }
+
+            if (document.getElementById('try-array-sum')) {
+                createCodeRunner('try-array-sum', `public class ArraySum {
+    public static void main(String[] args) {
+        int[] scores = {85, 90, 78, 92, 88};
+        int sum = 0;
+        
+        // Calculate sum using enhanced for loop
+        for (int score : scores) {
+            sum += score;
+        }
+        
+        double average = (double) sum / scores.length;
+        
+        System.out.println("Scores: ");
+        for (int s : scores) System.out.print(s + " ");
+        System.out.println("\\n\\nSum: " + sum);
+        System.out.println("Average: " + average);
+    }
+}`, 'java');
+            }
+
+            if (document.getElementById('try-2d-array')) {
+                createCodeRunner('try-2d-array', `public class Matrix {
+    public static void main(String[] args) {
+        int[][] matrix = {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
+        };
+        
+        System.out.println("2D Array (Matrix):");
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}`, 'java');
+            }
+        });
+    </script>
 </body>
 </html>

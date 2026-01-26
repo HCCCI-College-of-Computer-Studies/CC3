@@ -6,6 +6,7 @@
     <title>Lesson VIII: Regular Expressions - CC3 Computer Programming 2</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../lessons.css">
+    <link rel="stylesheet" href="../css/code-runner.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
 </head>
 <body>
@@ -123,6 +124,13 @@
 }
 </pre>
                 </div>
+
+                <!-- Try It Yourself: Basic Regex -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Experiment with regex patterns! Try modifying the pattern to find different things in the text.</p>
+                    <div id="try-regex-basic"></div>
+                </div>
             </div>
 
             <!-- Validation Examples -->
@@ -162,6 +170,13 @@
     }
 }
 </pre>
+                </div>
+
+                <!-- Try It Yourself: Validation -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Test different validation patterns! Try valid and invalid inputs for email, phone, and password validation.</p>
+                    <div id="try-regex-validation"></div>
                 </div>
             </div>
 
@@ -271,5 +286,84 @@
 
     <script src="../main.js"></script>
     <script src="../lessons.js"></script>
+    <script src="../js/code-runner.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (document.getElementById('try-regex-basic')) {
+                createCodeRunner('try-regex-basic', `import java.util.regex.*;
+
+public class RegexDemo {
+    public static void main(String[] args) {
+        String text = "The quick brown fox jumps over the lazy dog";
+        
+        // Find all words starting with specific letters
+        Pattern pattern = Pattern.compile("\\\\b[tT]\\\\w+");
+        Matcher matcher = pattern.matcher(text);
+        
+        System.out.println("Words starting with 't' or 'T':");
+        while (matcher.find()) {
+            System.out.println("Found: " + matcher.group());
+        }
+        
+        // Email validation
+        String email = "student@hccci.edu.ph";
+        boolean valid = email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,}");
+        System.out.println("\\nEmail '" + email + "' is valid: " + valid);
+    }
+}`, 'java');
+            }
+
+            if (document.getElementById('try-regex-validation')) {
+                createCodeRunner('try-regex-validation', `public class Validation {
+    public static void main(String[] args) {
+        // Test different inputs!
+        String[] emails = {"user@example.com", "invalid-email", "test@domain.org"};
+        String[] phones = {"0917-123-4567", "12345", "0912-999-8888"};
+        String[] passwords = {"Pass123!", "weak", "StrongP@ss1"};
+        
+        System.out.println("=== Email Validation ===");
+        for (String email : emails) {
+            boolean valid = email.matches("^[\\\\w.-]+@[\\\\w.-]+\\\\.[a-zA-Z]{2,}$");
+            System.out.println(email + " -> " + (valid ? "Valid" : "Invalid"));
+        }
+        
+        System.out.println("\\n=== Phone Validation (PH Format) ===");
+        for (String phone : phones) {
+            boolean valid = phone.matches("^09\\\\d{2}-\\\\d{3}-\\\\d{4}$");
+            System.out.println(phone + " -> " + (valid ? "Valid" : "Invalid"));
+        }
+        
+        System.out.println("\\n=== Password Strength ===");
+        for (String pwd : passwords) {
+            boolean strong = pwd.length() >= 8 && 
+                           pwd.matches(".*[A-Z].*") && 
+                           pwd.matches(".*[a-z].*") && 
+                           pwd.matches(".*\\\\d.*");
+            System.out.println(pwd + " -> " + (strong ? "Strong" : "Weak"));
+        }
+    }
+}`, 'java');
+            }
+
+            if (document.getElementById('try-regex-replace')) {
+                createCodeRunner('try-regex-replace', `public class RegexReplace {
+    public static void main(String[] args) {
+        String text = "Phone: 123-456-7890, Alt: 098-765-4321";
+        
+        // Replace phone number format
+        String result = text.replaceAll("(\\\\d{3})-(\\\\d{3})-(\\\\d{4})", "($1) $2-$3");
+        System.out.println("Original: " + text);
+        System.out.println("Formatted: " + result);
+        
+        // Remove extra spaces
+        String messy = "Too    many     spaces    here";
+        String clean = messy.replaceAll("\\\\s+", " ");
+        System.out.println("\\nMessy: '" + messy + "'");
+        System.out.println("Clean: '" + clean + "'");
+    }
+}`, 'java');
+            }
+        });
+    </script>
 </body>
 </html>

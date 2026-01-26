@@ -6,6 +6,7 @@
     <title>Lesson VII: Accessing Files - CC3 Computer Programming 2</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../lessons.css">
+    <link rel="stylesheet" href="../css/code-runner.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
 </head>
 <body>
@@ -161,6 +162,13 @@
 }
 </pre>
                 </div>
+
+                <!-- Try It Yourself: String IO -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Since actual file I/O requires a local file system, try this simulated example using StringReader/StringWriter to practice the concepts:</p>
+                    <div id="try-string-io"></div>
+                </div>
             </div>
 
             <!-- CSV Files -->
@@ -233,6 +241,13 @@
     }
 }
 </pre>
+                </div>
+
+                <!-- Try It Yourself: CSV Processing -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Practice parsing CSV data using String methods. This simulation shows how CSV parsing works:</p>
+                    <div id="try-csv-parsing"></div>
                 </div>
             </div>
 
@@ -342,5 +357,77 @@
 
     <script src="../main.js"></script>
     <script src="../lessons.js"></script>
+    <script src="../js/code-runner.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (document.getElementById('try-string-io')) {
+                createCodeRunner('try-string-io', `import java.io.*;
+
+public class StringDemo {
+    public static void main(String[] args) {
+        // Simulating file content with StringReader/Writer
+        String content = "Line 1: Hello World\\nLine 2: Java Programming\\nLine 3: File Handling";
+        
+        System.out.println("Reading content:");
+        try (BufferedReader reader = new BufferedReader(new StringReader(content))) {
+            String line;
+            int lineNum = 1;
+            while ((line = reader.readLine()) != null) {
+                System.out.println("Read: " + line);
+                lineNum++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        // Writing to StringWriter
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        pw.println("Written line 1");
+        pw.println("Written line 2");
+        System.out.println("\\nWritten content:");
+        System.out.println(sw.toString());
+    }
+}`, 'java');
+            }
+
+            if (document.getElementById('try-csv-parsing')) {
+                createCodeRunner('try-csv-parsing', `public class CSVParser {
+    public static void main(String[] args) {
+        // Simulated CSV data (like reading from a file)
+        String csvData = "ID,Name,Course,GPA\\n" +
+                         "001,Juan Dela Cruz,BSIT,3.5\\n" +
+                         "002,Maria Santos,BSCS,3.8\\n" +
+                         "003,Pedro Garcia,BSIT,3.2";
+        
+        String[] rows = csvData.split("\\\\n");
+        
+        System.out.println("=== Parsed CSV Data ===\\n");
+        
+        for (int i = 0; i < rows.length; i++) {
+            String[] columns = rows[i].split(",");
+            
+            if (i == 0) {
+                // Header row
+                System.out.println("--- Headers ---");
+                for (String header : columns) {
+                    System.out.print(header + "\\t");
+                }
+                System.out.println("\\n");
+            } else {
+                // Data rows
+                System.out.println("Student #" + i);
+                System.out.println("  ID: " + columns[0]);
+                System.out.println("  Name: " + columns[1]);
+                System.out.println("  Course: " + columns[2]);
+                System.out.println("  GPA: " + columns[3]);
+                System.out.println();
+            }
+        }
+    }
+}`, 'java');
+            }
+        });
+    </script>
 </body>
 </html>

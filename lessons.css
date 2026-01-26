@@ -161,6 +161,7 @@ body {
 /* Code Blocks */
 .code-example {
     margin: 20px 0;
+    position: relative;
 }
 
 .code-example .code-label {
@@ -170,6 +171,42 @@ body {
     font-size: 0.85rem;
     border-radius: 6px 6px 0 0;
     display: inline-block;
+}
+
+/* Code Copy Button */
+.code-copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #a0aec0;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    z-index: 10;
+}
+
+.code-copy-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.code-copy-btn.copied {
+    background: #38a169;
+    color: white;
+    border-color: #38a169;
+}
+
+.code-copy-btn .copy-icon {
+    font-size: 0.85rem;
 }
 
 pre {

@@ -6,6 +6,7 @@
     <title>Lesson IV: Functions - CC3 Computer Programming 2</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../lessons.css">
+    <link rel="stylesheet" href="../css/code-runner.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
 </head>
 <body>
@@ -194,6 +195,13 @@ Main program content here...
 }
 </pre>
                 </div>
+
+                <!-- Try It Yourself: Void Methods -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Create your own void methods that print messages or perform actions!</p>
+                    <div id="try-void-method"></div>
+                </div>
             </div>
 
             <!-- Topic 3: Functions with No Parameters but with Return Values -->
@@ -363,6 +371,13 @@ Course: BSIT
 }
 </pre>
                 </div>
+
+                <!-- Try It Yourself: Return Methods -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Practice with methods that return values! Try creating your own calculator functions.</p>
+                    <div id="try-return-method"></div>
+                </div>
             </div>
 
             <!-- Topic 6: Recursive Functions -->
@@ -445,6 +460,13 @@ Course: BSIT
                         <li><strong>Performance:</strong> Recursive solutions can be slower; consider iteration for performance-critical code</li>
                         <li><strong>Stack overflow:</strong> Deep recursion may exceed the call stack limit</li>
                     </ul>
+                </div>
+
+                <!-- Try It Yourself: Recursion -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Experiment with recursive functions! Try calculating factorial and Fibonacci numbers.</p>
+                    <div id="try-recursive"></div>
                 </div>
             </div>
 
@@ -664,5 +686,80 @@ Course: BSIT
 
     <script src="../main.js"></script>
     <script src="../lessons.js"></script>
+    <script src="../js/code-runner.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (document.getElementById('try-void-method')) {
+                createCodeRunner('try-void-method', `public class MethodDemo {
+    public static void main(String[] args) {
+        greet("Maria");
+        greet("Pedro");
+        greet("Juan");
+    }
+    
+    // Void method - no return value
+    public static void greet(String name) {
+        System.out.println("Hello, " + name + "!");
+        System.out.println("Welcome to Java Programming.\\n");
+    }
+}`, 'java');
+            }
+
+            if (document.getElementById('try-return-method')) {
+                createCodeRunner('try-return-method', `public class Calculator {
+    public static void main(String[] args) {
+        int a = 10, b = 5;
+        
+        System.out.println(a + " + " + b + " = " + add(a, b));
+        System.out.println(a + " - " + b + " = " + subtract(a, b));
+        System.out.println(a + " * " + b + " = " + multiply(a, b));
+        System.out.println(a + " / " + b + " = " + divide(a, b));
+    }
+    
+    public static int add(int x, int y) {
+        return x + y;
+    }
+    
+    public static int subtract(int x, int y) {
+        return x - y;
+    }
+    
+    public static int multiply(int x, int y) {
+        return x * y;
+    }
+    
+    public static double divide(int x, int y) {
+        return (double) x / y;
+    }
+}`, 'java');
+            }
+
+            if (document.getElementById('try-recursive')) {
+                createCodeRunner('try-recursive', `public class Recursion {
+    public static void main(String[] args) {
+        System.out.println("Factorial Examples:");
+        for (int i = 1; i <= 6; i++) {
+            System.out.println(i + "! = " + factorial(i));
+        }
+        
+        System.out.println("\\nFibonacci Sequence:");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(fibonacci(i) + " ");
+        }
+    }
+    
+    public static int factorial(int n) {
+        if (n <= 1) return 1;
+        return n * factorial(n - 1);
+    }
+    
+    public static int fibonacci(int n) {
+        if (n <= 1) return n;
+        return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+}`, 'java');
+            }
+        });
+    </script>
 </body>
 </html>

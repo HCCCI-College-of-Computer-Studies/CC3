@@ -6,6 +6,7 @@
     <title>Lesson VI: Enumerations - CC3 Computer Programming 2</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../lessons.css">
+    <link rel="stylesheet" href="../css/code-runner.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
 </head>
 <body>
@@ -136,6 +137,13 @@
 }
 </pre>
                 </div>
+
+                <!-- Try It Yourself: Basic Enum -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Create and experiment with enums! Try changing the current season and see what messages appear.</p>
+                    <div id="try-enum-basic"></div>
+                </div>
             </div>
 
             <!-- Enum Methods -->
@@ -170,6 +178,13 @@
     }
 }
 </pre>
+                </div>
+
+                <!-- Try It Yourself: Enum Methods -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Explore enum methods like values(), ordinal(), name(), and valueOf(). Try iterating through all values!</p>
+                    <div id="try-enum-methods"></div>
                 </div>
             </div>
 
@@ -325,5 +340,86 @@
 
     <script src="../main.js"></script>
     <script src="../lessons.js"></script>
+    <script src="../js/code-runner.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (document.getElementById('try-enum-basic')) {
+                createCodeRunner('try-enum-basic', `enum Day {
+    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+}
+
+public class EnumDemo {
+    public static void main(String[] args) {
+        Day today = Day.WEDNESDAY;
+        
+        System.out.println("Today is: " + today);
+        System.out.println("Ordinal: " + today.ordinal());
+        
+        System.out.println("\\nAll days:");
+        for (Day d : Day.values()) {
+            System.out.println(d.ordinal() + ": " + d);
+        }
+    }
+}`, 'java');
+            }
+
+            if (document.getElementById('try-enum-switch')) {
+                createCodeRunner('try-enum-switch', `enum Season {
+    SPRING, SUMMER, FALL, WINTER
+}
+
+public class SeasonDemo {
+    public static void main(String[] args) {
+        Season current = Season.SUMMER;  // Try different seasons!
+        
+        switch (current) {
+            case SPRING:
+                System.out.println("Flowers are blooming!");
+                break;
+            case SUMMER:
+                System.out.println("Time for the beach!");
+                break;
+            case FALL:
+                System.out.println("Leaves are falling!");
+                break;
+            case WINTER:
+                System.out.println("Bundle up, it's cold!");
+                break;
+        }
+    }
+}`, 'java');
+            }
+
+            if (document.getElementById('try-enum-methods')) {
+                createCodeRunner('try-enum-methods', `enum Priority {
+    LOW, MEDIUM, HIGH, CRITICAL
+}
+
+public class EnumMethods {
+    public static void main(String[] args) {
+        // values() - returns array of all enum constants
+        System.out.println("All priorities:");
+        for (Priority p : Priority.values()) {
+            System.out.println("  " + p + " (index: " + p.ordinal() + ")");
+        }
+        
+        // Working with specific enum
+        Priority task = Priority.HIGH;
+        
+        System.out.println("\\nCurrent task priority: " + task);
+        System.out.println("Ordinal (position): " + task.ordinal());
+        System.out.println("Name as String: " + task.name());
+        
+        // valueOf() - convert String to enum
+        Priority fromString = Priority.valueOf("CRITICAL");
+        System.out.println("\\nFrom string 'CRITICAL': " + fromString);
+        
+        // Comparing enums
+        System.out.println("\\nIs HIGH > MEDIUM? " + (task.ordinal() > Priority.MEDIUM.ordinal()));
+    }
+}`, 'java');
+            }
+        });
+    </script>
 </body>
 </html>

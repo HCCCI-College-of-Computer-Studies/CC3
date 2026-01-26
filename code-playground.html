@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Code Playground - CC3 Learning Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/code-runner.css">
+    <style>
+        .playground-hero {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-blue) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .playground-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .playground-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .playground-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .example-section {
+            margin-bottom: 3rem;
+        }
+
+        .example-section h2 {
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .example-section h2::before {
+            content: '▶';
+            color: var(--accent-green, #22c55e);
+            font-size: 0.8em;
+        }
+
+        .example-section > p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .feature-card h3 {
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #dbeafe, #e0f2fe);
+            border-left: 4px solid var(--secondary-blue);
+            padding: 1rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .tip-box strong {
+            color: var(--primary-navy);
+        }
+
+        .language-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .language-tab {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .language-tab:hover {
+            border-color: var(--secondary-blue);
+        }
+
+        .language-tab.active {
+            background: var(--primary-navy);
+            color: white;
+            border-color: var(--primary-navy);
+        }
+
+        .code-example {
+            display: none;
+        }
+
+        .code-example.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="university-logo">
+                    <span class="logo-icon">◈</span>
+                </div>
+                <div class="system-title">
+                    <h1>CC3 Learning Platform</h1>
+                    <span class="subtitle">HCCCI - College of Computer Studies</span>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="programming2-syllabus.html">Programming 2</a></li>
+                    <li><a href="code-playground.html" class="active">Code Playground</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="playground-hero">
+            <h1>Interactive Code Playground</h1>
+            <p>Write, edit, and run code directly in your browser. Practice Java programming with instant feedback!</p>
+        </section>
+
+        <section class="playground-content">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>✏️ Edit Code</h3>
+                    <p>Modify any code snippet to experiment with different approaches and solutions.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>▶️ Run Instantly</h3>
+                    <p>Execute your code with one click and see results immediately in the output panel.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔄 Reset Anytime</h3>
+                    <p>Made a mistake? Reset to the original code with a single click.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⌨️ Keyboard Shortcuts</h3>
+                    <p>Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to run code quickly.</p>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 Tip:</strong> The code runs on a secure online server (Piston API). Your code is not stored and executes in an isolated environment.
+            </div>
+
+            <!-- Example 1: Hello World -->
+            <div class="example-section">
+                <h2>Example 1: Hello World</h2>
+                <p>Start with the classic first program. Try changing the message!</p>
+                <div id="example1"></div>
+            </div>
+
+            <!-- Example 2: Variables and Data Types -->
+            <div class="example-section">
+                <h2>Example 2: Variables and Data Types</h2>
+                <p>Explore different data types in Java. Try adding your own variables!</p>
+                <div id="example2"></div>
+            </div>
+
+            <!-- Example 3: Selection Structures -->
+            <div class="example-section">
+                <h2>Example 3: If-Else Statements</h2>
+                <p>Practice with conditional statements. Change the score value to see different outputs!</p>
+                <div id="example3"></div>
+            </div>
+
+            <!-- Example 4: Loops -->
+            <div class="example-section">
+                <h2>Example 4: Loops (Iterative Structures)</h2>
+                <p>Experiment with for loops. Try changing the loop range or pattern!</p>
+                <div id="example4"></div>
+            </div>
+
+            <!-- Example 5: Arrays -->
+            <div class="example-section">
+                <h2>Example 5: Arrays</h2>
+                <p>Work with arrays and learn how to traverse them. Add more elements to the array!</p>
+                <div id="example5"></div>
+            </div>
+
+            <!-- Example 6: Methods/Functions -->
+            <div class="example-section">
+                <h2>Example 6: Methods (Functions)</h2>
+                <p>Create and call methods. Try adding your own method!</p>
+                <div id="example6"></div>
+            </div>
+
+            <!-- Multi-language Example -->
+            <div class="example-section">
+                <h2>Example 7: Try Different Languages</h2>
+                <p>The code runner also supports Python, JavaScript, C, and C++!</p>
+                
+                <div class="language-tabs">
+                    <button class="language-tab active" data-lang="java">Java</button>
+                    <button class="language-tab" data-lang="python">Python</button>
+                    <button class="language-tab" data-lang="javascript">JavaScript</button>
+                </div>
+
+                <div id="java-example" class="code-example active"></div>
+                <div id="python-example" class="code-example"></div>
+                <div id="js-example" class="code-example"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-icon">◈</span>
+                        <span>CC3 Learning Platform</span>
+                    </div>
+                    <p>Interactive learning resources for computer programming students.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="programming2-syllabus.html">Programming 2</a></li>
+                            <li><a href="lab-exercises.html">Lab Exercises</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Java Documentation</a></li>
+                            <li><a href="#">Code Examples</a></li>
+                            <li><a href="#">Practice Problems</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contact Instructor</h4>
+                        <ul>
+                            <li><strong>Jastine M. Gatdula</strong></li>
+                            <li>College Instructor</li>
+                            <li>College Department</li>
+                            <li><a href="mailto:jgatdula@hccci.edu.ph">jgatdula@hccci.edu.ph</a></li>
+                            <li><a href="https://teams.microsoft.com/l/chat/48:notes/conversations?context=%7B%22contextType%22%3A%22chat%22%7D" target="_blank">Chat on MS Teams</a></li>
+                            <li>Campus: Surallah</li>
+                            <li>Consultation: Friday 7AM-2:30PM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <p>&copy; 2026 HCCCI - College of Computer Studies. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script src="js/code-runner.js"></script>
+    <script>
+        // Wait for CodeRunner to initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Example 1: Hello World
+            createCodeRunner('example1', `public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+        System.out.println("Welcome to Java Programming!");
+    }
+}`, 'java');
+
+            // Example 2: Variables
+            createCodeRunner('example2', `public class Variables {
+    public static void main(String[] args) {
+        // Integer
+        int age = 20;
+        
+        // Double (decimal)
+        double gpa = 3.75;
+        
+        // String
+        String name = "Juan dela Cruz";
+        
+        // Boolean
+        boolean isStudent = true;
+        
+        // Character
+        char grade = 'A';
+        
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("GPA: " + gpa);
+        System.out.println("Student: " + isStudent);
+        System.out.println("Grade: " + grade);
+    }
+}`, 'java');
+
+            // Example 3: If-Else
+            createCodeRunner('example3', `public class GradeChecker {
+    public static void main(String[] args) {
+        int score = 85;  // Try changing this value!
+        
+        if (score >= 90) {
+            System.out.println("Excellent! Grade: A");
+        } else if (score >= 80) {
+            System.out.println("Very Good! Grade: B");
+        } else if (score >= 70) {
+            System.out.println("Good! Grade: C");
+        } else if (score >= 60) {
+            System.out.println("Fair! Grade: D");
+        } else {
+            System.out.println("Needs Improvement! Grade: F");
+        }
+        
+        System.out.println("Your score: " + score);
+    }
+}`, 'java');
+
+            // Example 4: Loops
+            createCodeRunner('example4', `public class LoopDemo {
+    public static void main(String[] args) {
+        System.out.println("=== For Loop ===");
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Count: " + i);
+        }
+        
+        System.out.println("\\n=== Pattern ===");
+        for (int row = 1; row <= 5; row++) {
+            for (int star = 1; star <= row; star++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+        
+        System.out.println("\\n=== Multiplication Table (5) ===");
+        for (int i = 1; i <= 10; i++) {
+            System.out.println("5 x " + i + " = " + (5 * i));
+        }
+    }
+}`, 'java');
+
+            // Example 5: Arrays
+            createCodeRunner('example5', `public class ArrayDemo {
+    public static void main(String[] args) {
+        // Declare and initialize array
+        int[] numbers = {10, 20, 30, 40, 50};
+        String[] fruits = {"Apple", "Banana", "Orange", "Mango"};
+        
+        System.out.println("=== Numbers Array ===");
+        for (int i = 0; i < numbers.length; i++) {
+            System.out.println("numbers[" + i + "] = " + numbers[i]);
+        }
+        
+        System.out.println("\\n=== Fruits Array (Enhanced For) ===");
+        for (String fruit : fruits) {
+            System.out.println("Fruit: " + fruit);
+        }
+        
+        // Calculate sum
+        int sum = 0;
+        for (int num : numbers) {
+            sum += num;
+        }
+        System.out.println("\\nSum of numbers: " + sum);
+        System.out.println("Average: " + (sum / numbers.length));
+    }
+}`, 'java');
+
+            // Example 6: Methods
+            createCodeRunner('example6', `public class MethodDemo {
+    public static void main(String[] args) {
+        // Call methods
+        greet("Maria");
+        greet("Pedro");
+        
+        int result = add(10, 20);
+        System.out.println("10 + 20 = " + result);
+        
+        System.out.println("5! = " + factorial(5));
+        System.out.println("Is 17 prime? " + isPrime(17));
+        System.out.println("Is 20 prime? " + isPrime(20));
+    }
+    
+    // Void method with parameter
+    public static void greet(String name) {
+        System.out.println("Hello, " + name + "!");
+    }
+    
+    // Method with return value
+    public static int add(int a, int b) {
+        return a + b;
+    }
+    
+    // Recursive method
+    public static int factorial(int n) {
+        if (n <= 1) return 1;
+        return n * factorial(n - 1);
+    }
+    
+    // Boolean return method
+    public static boolean isPrime(int n) {
+        if (n < 2) return false;
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
+}`, 'java');
+
+            // Multi-language examples
+            createCodeRunner('java-example', `public class FizzBuzz {
+    public static void main(String[] args) {
+        for (int i = 1; i <= 20; i++) {
+            if (i % 3 == 0 && i % 5 == 0) {
+                System.out.println("FizzBuzz");
+            } else if (i % 3 == 0) {
+                System.out.println("Fizz");
+            } else if (i % 5 == 0) {
+                System.out.println("Buzz");
+            } else {
+                System.out.println(i);
+            }
+        }
+    }
+}`, 'java');
+
+            createCodeRunner('python-example', `# FizzBuzz in Python
+for i in range(1, 21):
+    if i % 3 == 0 and i % 5 == 0:
+        print("FizzBuzz")
+    elif i % 3 == 0:
+        print("Fizz")
+    elif i % 5 == 0:
+        print("Buzz")
+    else:
+        print(i)`, 'python');
+
+            createCodeRunner('js-example', `// FizzBuzz in JavaScript
+for (let i = 1; i <= 20; i++) {
+    if (i % 3 === 0 && i % 5 === 0) {
+        console.log("FizzBuzz");
+    } else if (i % 3 === 0) {
+        console.log("Fizz");
+    } else if (i % 5 === 0) {
+        console.log("Buzz");
+    } else {
+        console.log(i);
+    }
+}`, 'javascript');
+
+            // Language tab switching
+            document.querySelectorAll('.language-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.language-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.code-example').forEach(e => e.classList.remove('active'));
+                    
+                    tab.classList.add('active');
+                    const lang = tab.dataset.lang;
+                    document.getElementById(`${lang}-example`).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

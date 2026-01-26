@@ -6,6 +6,7 @@
     <title>Lesson V: Functions with Arrays - CC3 Computer Programming 2</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../lessons.css">
+    <link rel="stylesheet" href="../css/code-runner.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
 </head>
 <body>
@@ -206,6 +207,13 @@
 }
 </pre>
                 </div>
+
+                <!-- Try It Yourself: Arrays with Functions -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Experiment with passing arrays to functions and returning arrays. Try modifying the functions or adding your own!</p>
+                    <div id="try-array-param"></div>
+                </div>
             </div>
 
             <!-- Topic 2: Functions with 2D Arrays -->
@@ -282,6 +290,13 @@
     }
 }
 </pre>
+                </div>
+
+                <!-- Try It Yourself: 2D Arrays -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Experiment with 2D array functions - print matrices, calculate sums, and try adding two matrices together!</p>
+                    <div id="try-2d-functions"></div>
                 </div>
             </div>
 
@@ -402,5 +417,141 @@
 
     <script src="../main.js"></script>
     <script src="../lessons.js"></script>
-</body>
-</html>
+    <script src="../js/code-runner.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (document.getElementById('try-array-param')) {
+                createCodeRunner('try-array-param', `public class ArrayFunctions {
+    public static void main(String[] args) {
+        int[] numbers = {5, 2, 8, 1, 9, 3};
+        
+        System.out.println("Original array:");
+        printArray(numbers);
+        
+        System.out.println("Sum: " + sumArray(numbers));
+        System.out.println("Max: " + findMax(numbers));
+        System.out.println("Min: " + findMin(numbers));
+        System.out.println("Average: " + average(numbers));
+    }
+    
+    public static void printArray(int[] arr) {
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+    }
+    
+    public static int sumArray(int[] arr) {
+        int sum = 0;
+        for (int num : arr) sum += num;
+        return sum;
+    }
+    
+    public static int findMax(int[] arr) {
+        int max = arr[0];
+        for (int num : arr) {
+            if (num > max) max = num;
+        }
+        return max;
+    }
+    
+    public static int findMin(int[] arr) {
+        int min = arr[0];
+        for (int num : arr) {
+            if (num < min) min = num;
+        }
+        return min;
+    }
+    
+    public static double average(int[] arr) {
+        return (double) sumArray(arr) / arr.length;
+    }
+}`, 'java');
+            }
+
+            if (document.getElementById('try-array-return')) {
+                createCodeRunner('try-array-return', `public class ArrayReturn {
+    public static void main(String[] args) {
+        int[] doubled = doubleValues(new int[]{1, 2, 3, 4, 5});
+        
+        System.out.println("Doubled values:");
+        for (int num : doubled) {
+            System.out.print(num + " ");
+        }
+        
+        System.out.println("\\n\\nReversed array:");
+        int[] reversed = reverseArray(new int[]{1, 2, 3, 4, 5});
+        for (int num : reversed) {
+            System.out.print(num + " ");
+        }
+    }
+    
+    public static int[] doubleValues(int[] arr) {
+        int[] result = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            result[i] = arr[i] * 2;
+        }
+        return result;
+    }
+    
+    public static int[] reverseArray(int[] arr) {
+        int[] result = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            result[i] = arr[arr.length - 1 - i];
+        }
+        return result;
+    }
+}`, 'java');
+            }
+
+            if (document.getElementById('try-2d-functions')) {
+                createCodeRunner('try-2d-functions', `public class Matrix2D {
+    public static void main(String[] args) {
+        int[][] matrix = {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
+        };
+        
+        System.out.println("Matrix:");
+        printMatrix(matrix);
+        
+        System.out.println("Sum of all elements: " + sumMatrix(matrix));
+        
+        System.out.println("\\nRow sums:");
+        int[] rowSums = getRowSums(matrix);
+        for (int i = 0; i < rowSums.length; i++) {
+            System.out.println("Row " + i + ": " + rowSums[i]);
+        }
+    }
+    
+    public static void printMatrix(int[][] mat) {
+        for (int[] row : mat) {
+            for (int val : row) {
+                System.out.printf("%4d", val);
+            }
+            System.out.println();
+        }
+    }
+    
+    public static int sumMatrix(int[][] mat) {
+        int sum = 0;
+        for (int[] row : mat) {
+            for (int val : row) {
+                sum += val;
+            }
+        }
+        return sum;
+    }
+    
+    public static int[] getRowSums(int[][] mat) {
+        int[] sums = new int[mat.length];
+        for (int i = 0; i < mat.length; i++) {
+            for (int val : mat[i]) {
+                sums[i] += val;
+            }
+        }
+        return sums;
+    }
+}`, 'java');
+            }

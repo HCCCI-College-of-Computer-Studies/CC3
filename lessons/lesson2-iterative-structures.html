@@ -6,6 +6,7 @@
     <title>Lesson II: Iterative Structures - CC3 Computer Programming 2</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../lessons.css">
+    <link rel="stylesheet" href="../css/code-runner.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
 </head>
 <body>
@@ -117,6 +118,13 @@
                     <code>Loop finished!</code>
                 </div>
 
+                <!-- Try It Yourself: For Loop -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Experiment with the for loop! Try changing the loop range or what gets printed.</p>
+                    <div id="try-for-loop"></div>
+                </div>
+
                 <h4>Example: Sum of Numbers</h4>
                 <p>Calculate the sum of numbers from 1 to 10:</p>
                 <div class="code-example">
@@ -140,6 +148,13 @@
 
                 <div class="warning-box">
                     <strong>Infinite Loop Warning:</strong> If the condition never becomes <code>false</code>, the loop runs forever. Always ensure your loop has a way to terminate (e.g., incrementing a counter or changing a condition variable).
+                </div>
+
+                <!-- Try It Yourself: While Loop -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Practice with while loops! Modify the counter and see how the loop behaves.</p>
+                    <div id="try-while-loop"></div>
                 </div>
             </div>
 
@@ -377,6 +392,13 @@
 ***
 ****
 *****</pre>
+                </div>
+
+                <!-- Try It Yourself: Nested Loops -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Create patterns with nested loops! Try changing the number of rows or the pattern character.</p>
+                    <div id="try-nested-loops"></div>
                 </div>
 
                 <h4>Example: Multiplication Table Grid</h4>
@@ -708,5 +730,104 @@
 
     <script src="../main.js"></script>
     <script src="../lessons.js"></script>
+    <script src="../js/code-runner.js"></script>
+    <script>
+        // Interactive Code Examples for Lesson 2
+        document.addEventListener('DOMContentLoaded', () => {
+            // Try It: For Loop
+            if (document.getElementById('try-for-loop')) {
+                createCodeRunner('try-for-loop', `public class ForLoopDemo {
+    public static void main(String[] args) {
+        System.out.println("Counting from 1 to 5:");
+        
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Count: " + i);
+        }
+        
+        System.out.println("\\nLoop finished!");
+    }
+}`, 'java');
+            }
+
+            // Try It: While Loop
+            if (document.getElementById('try-while-loop')) {
+                createCodeRunner('try-while-loop', `public class WhileLoopDemo {
+    public static void main(String[] args) {
+        int count = 1;
+        
+        System.out.println("While Loop Example:");
+        while (count <= 5) {
+            System.out.println("Iteration: " + count);
+            count++;
+        }
+        
+        System.out.println("Final count: " + count);
+    }
+}`, 'java');
+            }
+
+            // Try It: Do-While Loop
+            if (document.getElementById('try-do-while')) {
+                createCodeRunner('try-do-while', `public class DoWhileDemo {
+    public static void main(String[] args) {
+        int number = 1;
+        
+        System.out.println("Do-While Loop:");
+        do {
+            System.out.println("Number: " + number);
+            number++;
+        } while (number <= 5);
+        
+        // This runs at least once even if condition is false
+        int x = 10;
+        do {
+            System.out.println("\\nThis prints once: x = " + x);
+        } while (x < 5);
+    }
+}`, 'java');
+            }
+
+            // Try It: Nested Loops (Pattern)
+            if (document.getElementById('try-nested-loops')) {
+                createCodeRunner('try-nested-loops', `public class PatternDemo {
+    public static void main(String[] args) {
+        int rows = 5;  // Try changing this!
+        
+        System.out.println("Triangle Pattern:");
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+        
+        System.out.println("\\nInverted Triangle:");
+        for (int i = rows; i >= 1; i--) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+    }
+}`, 'java');
+            }
+
+            // Try It: Multiplication Table
+            if (document.getElementById('try-multiplication')) {
+                createCodeRunner('try-multiplication', `public class MultiplicationTable {
+    public static void main(String[] args) {
+        int num = 7;  // Change the number!
+        
+        System.out.println("Multiplication Table for " + num);
+        System.out.println("========================");
+        
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(num + " x " + i + " = " + (num * i));
+        }
+    }
+}`, 'java');
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,402 @@
+/**
+ * Code Runner Styles for CC3 Learning Platform
+ * Interactive code editor with execution capability
+ */
+
+/* Try It Yourself Section */
+.try-it-section {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border: 2px solid #22c55e;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.try-it-section h4 {
+    color: #166534;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.try-it-section > p {
+    color: #166534;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+/* Code Runner Container */
+.code-runner {
+    background: var(--bg-secondary, #1e1e2e);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 1.5rem 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--border-color, #313244);
+}
+
+/* Header */
+.code-runner-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--bg-tertiary, #181825);
+    border-bottom: 1px solid var(--border-color, #313244);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.code-runner-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.code-runner-icon {
+    color: var(--accent-green, #a6e3a1);
+    font-size: 1rem;
+}
+
+.code-runner-lang {
+    background: var(--accent-blue, #89b4fa);
+    color: var(--bg-primary, #1e1e2e);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.code-runner-label {
+    color: var(--text-muted, #a6adc8);
+    font-size: 0.8rem;
+}
+
+/* Action Buttons */
+.code-runner-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.code-runner-actions button {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.75rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-run {
+    background: var(--accent-green, #a6e3a1);
+    color: var(--bg-primary, #1e1e2e);
+}
+
+.btn-run:hover:not(:disabled) {
+    background: #94d990;
+    transform: translateY(-1px);
+}
+
+.btn-run:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.btn-reset {
+    background: var(--bg-secondary, #313244);
+    color: var(--text-primary, #cdd6f4);
+}
+
+.btn-reset:hover {
+    background: var(--bg-tertiary, #45475a);
+}
+
+.btn-copy {
+    background: var(--bg-secondary, #313244);
+    color: var(--text-primary, #cdd6f4);
+}
+
+.btn-copy:hover {
+    background: var(--bg-tertiary, #45475a);
+}
+
+/* Editor Wrapper */
+.code-runner-editor-wrapper {
+    display: flex;
+    position: relative;
+    max-height: 400px;
+    overflow: auto;
+    background: #f8fafc;
+}
+
+/* Line Numbers */
+.code-runner-line-numbers {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0.75rem;
+    background: #e2e8f0;
+    color: #64748b;
+    font-family: 'Source Code Pro', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    text-align: right;
+    user-select: none;
+    border-right: 1px solid #cbd5e1;
+    min-width: 3rem;
+    overflow: hidden;
+}
+
+.code-runner-line-numbers span {
+    display: block;
+}
+
+/* Editor Textarea */
+.code-runner-editor {
+    flex: 1;
+    padding: 1rem;
+    background: #f8fafc;
+    color: #1e293b;
+    font-family: 'Source Code Pro', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    border: none;
+    outline: none;
+    resize: vertical;
+    min-height: 150px;
+    tab-size: 4;
+    white-space: pre;
+    overflow-wrap: normal;
+    overflow-x: auto;
+}
+
+.code-runner-editor:focus {
+    background: #f1f5f9;
+    color: #1e293b;
+    outline: 2px solid #3b82f6;
+    outline-offset: -2px;
+}
+
+.code-runner-editor::placeholder {
+    color: var(--text-muted, #6c7086);
+}
+
+/* Output Section */
+.code-runner-output-wrapper {
+    border-top: 1px solid var(--border-color, #313244);
+    background: var(--bg-tertiary, #11111b);
+}
+
+.code-runner-output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary, #181825);
+    color: var(--text-muted, #a6adc8);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-clear-output {
+    background: transparent;
+    border: 1px solid var(--border-color, #313244);
+    color: var(--text-muted, #a6adc8);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-clear-output:hover {
+    background: var(--bg-tertiary, #313244);
+    color: var(--text-primary, #cdd6f4);
+}
+
+.code-runner-output {
+    padding: 1rem;
+    margin: 0;
+    font-family: 'Source Code Pro', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-primary, #cdd6f4);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: 300px;
+    overflow: auto;
+}
+
+.code-runner-output.success {
+    color: var(--accent-green, #a6e3a1);
+}
+
+.code-runner-output.error {
+    color: var(--accent-red, #f38ba8);
+}
+
+/* Status Bar */
+.code-runner-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: var(--bg-tertiary, #181825);
+    border-top: 1px solid var(--border-color, #313244);
+    font-size: 0.75rem;
+}
+
+.status-text {
+    color: var(--text-muted, #a6adc8);
+}
+
+.status-text.running {
+    color: var(--accent-yellow, #f9e2af);
+}
+
+.status-text.success {
+    color: var(--accent-green, #a6e3a1);
+}
+
+.status-text.error {
+    color: var(--accent-red, #f38ba8);
+}
+
+.status-hint {
+    color: var(--text-muted, #6c7086);
+}
+
+/* Spinner Animation */
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Light Theme Support */
+@media (prefers-color-scheme: light) {
+    .code-runner {
+        --bg-primary: #ffffff;
+        --bg-secondary: #f8f9fa;
+        --bg-tertiary: #e9ecef;
+        --text-primary: #212529;
+        --text-muted: #6c757d;
+        --border-color: #dee2e6;
+        --accent-green: #198754;
+        --accent-blue: #0d6efd;
+        --accent-red: #dc3545;
+        --accent-yellow: #ffc107;
+    }
+
+    .code-runner-editor {
+        background: #f8f9fa;
+        color: #212529;
+    }
+
+    .code-runner-editor:focus {
+        background: #ffffff;
+    }
+
+    .btn-run {
+        background: #198754;
+        color: white;
+    }
+
+    .btn-run:hover:not(:disabled) {
+        background: #157347;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .code-runner-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .code-runner-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .code-runner-actions button {
+        padding: 0.5rem;
+    }
+
+    .code-runner-actions button span:not(.spinner):last-child {
+        display: none;
+    }
+
+    .code-runner-editor {
+        font-size: 0.8rem;
+        min-height: 120px;
+    }
+
+    .code-runner-line-numbers {
+        font-size: 0.8rem;
+        padding: 1rem 0.5rem;
+        min-width: 2.5rem;
+    }
+
+    .status-hint {
+        display: none;
+    }
+}
+
+/* Interactive Badge for Code Blocks */
+.interactive-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: linear-gradient(135deg, var(--accent-green, #a6e3a1), var(--accent-blue, #89b4fa));
+    color: var(--bg-primary, #1e1e2e);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-left: 0.5rem;
+}
+
+.interactive-badge::before {
+    content: '▶';
+    font-size: 0.6rem;
+}
+
+/* Input Support */
+.code-runner-input-wrapper {
+    padding: 0.75rem 1rem;
+    background: var(--bg-tertiary, #181825);
+    border-top: 1px solid var(--border-color, #313244);
+}
+
+.code-runner-input-label {
+    display: block;
+    color: var(--text-muted, #a6adc8);
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.code-runner-input {
+    width: 100%;
+    padding: 0.5rem;
+    background: var(--bg-secondary, #1e1e2e);
+    border: 1px solid var(--border-color, #313244);
+    border-radius: 4px;
+    color: var(--text-primary, #cdd6f4);
+    font-family: 'Source Code Pro', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875rem;
+}
+
+.code-runner-input:focus {
+    outline: none;
+    border-color: var(--accent-blue, #89b4fa);
+}

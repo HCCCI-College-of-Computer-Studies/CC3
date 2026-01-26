@@ -104,6 +104,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Progress bar
     updateProgressBar();
     window.addEventListener('scroll', updateProgressBar);
+    
+    // Add copy buttons to code examples
+    addCopyButtons();
 });
 
 function updateProgressBar() {
@@ -133,11 +136,52 @@ function copyCode(buttonElement) {
     const code = codeBlock.textContent;
     
     navigator.clipboard.writeText(code).then(() => {
-        const originalText = buttonElement.textContent;
-        buttonElement.textContent = 'Copied!';
+        const originalHTML = buttonElement.innerHTML;
+        buttonElement.innerHTML = '✓ Copied!';
+        buttonElement.classList.add('copied');
         setTimeout(() => {
-            buttonElement.textContent = originalText;
+            buttonElement.innerHTML = originalHTML;
+            buttonElement.classList.remove('copied');
         }, 2000);
+    }).catch(err => {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = code;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        
+        const originalHTML = buttonElement.innerHTML;
+        buttonElement.innerHTML = '✓ Copied!';
+        buttonElement.classList.add('copied');
+        setTimeout(() => {
+            buttonElement.innerHTML = originalHTML;
+            buttonElement.classList.remove('copied');
+        }, 2000);
+    });
+}
+
+// Add copy buttons to all code examples
+function addCopyButtons() {
+    const codeExamples = document.querySelectorAll('.code-example');
+    
+    codeExamples.forEach(example => {
+        // Skip if already has a copy button
+        if (example.querySelector('.code-copy-btn')) return;
+        
+        // Create copy button
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'code-copy-btn';
+        copyBtn.innerHTML = 'Copy';
+        copyBtn.title = 'Copy code to clipboard';
+        copyBtn.onclick = function() { copyCode(this); };
+        
+        // Make the code-example position relative for absolute positioning
+        example.style.position = 'relative';
+        
+        // Insert button at the beginning of code-example
+        example.insertBefore(copyBtn, example.firstChild);
     });
 }
 

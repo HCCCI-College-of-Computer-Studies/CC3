@@ -6,6 +6,7 @@
     <title>Lesson I: Selection Structures - CC3 Computer Programming 2</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../lessons.css">
+    <link rel="stylesheet" href="../css/code-runner.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
 </head>
 <body>
@@ -154,6 +155,13 @@
                     <code>Program completed.</code>
                 </div>
 
+                <!-- Try It Yourself: If Statement -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Edit the code below and run it! Try changing the <code>age</code> value to see different outputs.</p>
+                    <div id="try-if-statement"></div>
+                </div>
+
                 <!-- Interactive: Predict the Output -->
                 <div class="predict-output">
                     <h4>Predict the Output</h4>
@@ -243,6 +251,13 @@
 }
 </pre>
                 </div>
+
+                <!-- Try It Yourself: If-Else Statement -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Experiment with the even/odd checker. Try different numbers!</p>
+                    <div id="try-if-else"></div>
+                </div>
             </div>
 
             <!-- Topic 3: if...else if...else Statement -->
@@ -305,6 +320,13 @@
 
                 <div class="warning-box">
                     <strong>Important:</strong> The order of conditions matters. Conditions are evaluated from top to bottom, and only the first true condition's block is executed. Always order your conditions from most specific to least specific.
+                </div>
+
+                <!-- Try It Yourself: If-Else-If Ladder -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Test the grade checker with different scores to see how the if-else-if ladder works!</p>
+                    <div id="try-if-else-if"></div>
                 </div>
             </div>
 
@@ -379,6 +401,13 @@
 
                 <div class="info-box">
                     <strong>Output:</strong> <code>Day 3: Wednesday</code>
+                </div>
+
+                <!-- Try It Yourself: Switch Statement -->
+                <div class="try-it-section">
+                    <h4>Try It Yourself</h4>
+                    <p>Experiment with the switch statement! Change the day number (1-7) to see different outputs.</p>
+                    <div id="try-switch"></div>
                 </div>
 
                 <h4>Switch with String (Java 7+)</h4>
@@ -712,5 +741,96 @@
 
     <script src="../main.js"></script>
     <script src="../lessons.js"></script>
+    <script src="../js/code-runner.js"></script>
+    <script>
+        // Interactive Code Examples for Lesson 1
+        document.addEventListener('DOMContentLoaded', () => {
+            // Try It: If Statement
+            if (document.getElementById('try-if-statement')) {
+                createCodeRunner('try-if-statement', `public class VotingEligibility {
+    public static void main(String[] args) {
+        int age = 18;  // Try changing this value!
+        
+        if (age >= 18) {
+            System.out.println("You are eligible to vote.");
+        }
+        
+        System.out.println("Program completed.");
+    }
+}`, 'java');
+            }
+
+            // Try It: If-Else Statement
+            if (document.getElementById('try-if-else')) {
+                createCodeRunner('try-if-else', `public class EvenOddChecker {
+    public static void main(String[] args) {
+        int number = 7;  // Try different numbers!
+        
+        if (number % 2 == 0) {
+            System.out.println(number + " is even.");
+        } else {
+            System.out.println(number + " is odd.");
+        }
+    }
+}`, 'java');
+            }
+
+            // Try It: If-Else-If Ladder
+            if (document.getElementById('try-if-else-if')) {
+                createCodeRunner('try-if-else-if', `public class GradeChecker {
+    public static void main(String[] args) {
+        int score = 85;  // Change the score!
+        
+        if (score >= 90) {
+            System.out.println("Excellent! Grade: A");
+        } else if (score >= 80) {
+            System.out.println("Very Good! Grade: B");
+        } else if (score >= 70) {
+            System.out.println("Good! Grade: C");
+        } else if (score >= 60) {
+            System.out.println("Fair! Grade: D");
+        } else {
+            System.out.println("Needs Improvement! Grade: F");
+        }
+    }
+}`, 'java');
+            }
+
+            // Try It: Switch Statement
+            if (document.getElementById('try-switch')) {
+                createCodeRunner('try-switch', `public class DayOfWeek {
+    public static void main(String[] args) {
+        int day = 3;  // Try 1-7 for different days!
+        
+        switch (day) {
+            case 1:
+                System.out.println("Monday");
+                break;
+            case 2:
+                System.out.println("Tuesday");
+                break;
+            case 3:
+                System.out.println("Wednesday");
+                break;
+            case 4:
+                System.out.println("Thursday");
+                break;
+            case 5:
+                System.out.println("Friday");
+                break;
+            case 6:
+                System.out.println("Saturday");
+                break;
+            case 7:
+                System.out.println("Sunday");
+                break;
+            default:
+                System.out.println("Invalid day");
+        }
+    }
+}`, 'java');
+            }
+        });
+    </script>
 </body>
 </html>

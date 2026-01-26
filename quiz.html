@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Quiz - CC3 Learning Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/quiz.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">💻</span>
+                <div class="logo-text">
+                    <span class="logo-title">CC3: Programming 2</span>
+                    <span class="logo-subtitle">Java Programming</span>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="index.html#lessons">Lessons</a>
+                <a href="lab-exercises.html">Lab Exercises</a>
+                <a href="code-playground.html">Code Playground</a>
+                <a href="quiz.html" class="active">Quiz</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Quiz Hero -->
+    <section class="quiz-hero">
+        <div class="container">
+            <h1>☕ Java Programming Quiz</h1>
+            <p>Test your knowledge of Java programming concepts</p>
+        </div>
+    </section>
+
+    <!-- Quiz Topic Selection -->
+    <section class="quiz-topics" id="quiz-topics">
+        <div class="container">
+            <h2>Choose a Topic</h2>
+            <div class="topics-grid">
+                <div class="topic-card" onclick="startQuiz('basics')">
+                    <span class="topic-icon">📚</span>
+                    <h3>Java Basics</h3>
+                    <p>Variables, data types, operators</p>
+                    <span class="question-count">10 Questions</span>
+                </div>
+                <div class="topic-card" onclick="startQuiz('selection')">
+                    <span class="topic-icon">🔀</span>
+                    <h3>Selection Structures</h3>
+                    <p>If-else, switch statements</p>
+                    <span class="question-count">10 Questions</span>
+                </div>
+                <div class="topic-card" onclick="startQuiz('loops')">
+                    <span class="topic-icon">🔄</span>
+                    <h3>Loops</h3>
+                    <p>For, while, do-while loops</p>
+                    <span class="question-count">10 Questions</span>
+                </div>
+                <div class="topic-card" onclick="startQuiz('arrays')">
+                    <span class="topic-icon">📊</span>
+                    <h3>Arrays</h3>
+                    <p>1D and 2D arrays</p>
+                    <span class="question-count">10 Questions</span>
+                </div>
+                <div class="topic-card" onclick="startQuiz('methods')">
+                    <span class="topic-icon">⚙️</span>
+                    <h3>Methods</h3>
+                    <p>Functions, parameters, return</p>
+                    <span class="question-count">10 Questions</span>
+                </div>
+                <div class="topic-card" onclick="startQuiz('mixed')">
+                    <span class="topic-icon">🎯</span>
+                    <h3>Mixed Quiz</h3>
+                    <p>All topics combined</p>
+                    <span class="question-count">15 Questions</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Container -->
+    <section class="quiz-container" id="quiz-container" style="display: none;">
+        <div class="container">
+            <!-- Progress Bar -->
+            <div class="quiz-progress">
+                <div class="progress-info">
+                    <span id="question-number">Question 1 of 10</span>
+                    <span id="score-display">Score: 0</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="question-card">
+                <div class="question-header">
+                    <span class="difficulty-badge" id="difficulty-badge">Medium</span>
+                </div>
+                <h2 class="question-text" id="question-text">Loading question...</h2>
+                
+                <!-- Code Block (if any) -->
+                <div class="question-code" id="question-code" style="display: none;">
+                    <pre><code id="code-content"></code></pre>
+                </div>
+
+                <!-- Answer Options -->
+                <div class="answer-options" id="answer-options">
+                    <!-- Options will be inserted here -->
+                </div>
+
+                <!-- Feedback -->
+                <div class="feedback-box" id="feedback-box" style="display: none;">
+                    <div class="feedback-icon" id="feedback-icon"></div>
+                    <div class="feedback-text" id="feedback-text"></div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="quiz-navigation">
+                    <button class="btn-quit" onclick="quitQuiz()">Quit Quiz</button>
+                    <button class="btn-next" id="btn-next" onclick="nextQuestion()" disabled>Next Question →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="quiz-results" id="quiz-results" style="display: none;">
+        <div class="container">
+            <div class="results-card">
+                <div class="results-icon" id="results-icon">🏆</div>
+                <h2 id="results-title">Quiz Complete!</h2>
+                <div class="score-circle">
+                    <span class="score-percentage" id="score-percentage">0%</span>
+                    <span class="score-label">Score</span>
+                </div>
+                <p class="score-details" id="score-details">You got 0 out of 10 questions correct</p>
+                <div class="score-message" id="score-message">Keep practicing!</div>
+                
+                <!-- Answer Review -->
+                <div class="answer-review" id="answer-review">
+                    <h3>📋 Answer Review</h3>
+                    <div class="review-list" id="review-list">
+                        <!-- Review items will be inserted here -->
+                    </div>
+                </div>
+
+                <div class="results-actions">
+                    <button class="btn-retry" onclick="retryQuiz()">🔄 Try Again</button>
+                    <button class="btn-topics" onclick="showTopics()">📚 Choose Another Topic</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">💻 CC3: Programming 2</span>
+                    <p>HCCCI - College of Computer Studies</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="index.html#lessons">Lessons</a>
+                    <a href="lab-exercises.html">Lab Exercises</a>
+                    <a href="code-playground.html">Playground</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 CC3 Learning Platform. For educational purposes.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/quiz.js"></script>
+</body>
+</html>
