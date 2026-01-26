@@ -1,0 +1,644 @@
+/* ================================================
+   CC3: Computer Programming 2 - Lesson Styles
+   University-style Professional Layout
+   ================================================ */
+
+:root {
+    --primary-color: #1a365d;
+    --secondary-color: #2c5282;
+    --accent-color: #3182ce;
+    --success-color: #38a169;
+    --warning-color: #d69e2e;
+    --error-color: #e53e3e;
+    --text-color: #2d3748;
+    --text-light: #718096;
+    --bg-color: #f7fafc;
+    --card-bg: #ffffff;
+    --border-color: #e2e8f0;
+    --code-bg: #1e1e1e;
+    --code-text: #d4d4d4;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.7;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+/* Header */
+.lesson-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 20px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.lesson-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lesson-header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.lesson-header nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 0.95rem;
+    transition: opacity 0.2s;
+}
+
+.lesson-header nav a:hover {
+    opacity: 0.8;
+}
+
+/* Container */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Lesson Hero */
+.lesson-hero {
+    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+    color: white;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.lesson-hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.lesson-hero p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.lesson-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+}
+
+/* Main Content */
+.lesson-content {
+    padding: 40px 0;
+}
+
+/* Section Cards */
+.section-card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 35px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border: 1px solid var(--border-color);
+}
+
+.section-card h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--accent-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-card h4 {
+    color: var(--secondary-color);
+    font-size: 1.15rem;
+    margin: 25px 0 12px 0;
+}
+
+.section-card p {
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+/* Learning Outcomes */
+.outcomes-list {
+    list-style: none;
+    padding: 0;
+}
+
+.outcomes-list li {
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    background: #ebf8ff;
+    border-left: 4px solid var(--accent-color);
+    border-radius: 0 6px 6px 0;
+}
+
+.outcomes-list li::before {
+    content: "✓";
+    color: var(--success-color);
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* Code Blocks */
+.code-example {
+    margin: 20px 0;
+}
+
+.code-example .code-label {
+    background: var(--primary-color);
+    color: white;
+    padding: 8px 15px;
+    font-size: 0.85rem;
+    border-radius: 6px 6px 0 0;
+    display: inline-block;
+}
+
+pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 20px;
+    border-radius: 0 6px 6px 6px;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Syntax Highlighting */
+.keyword { color: #569cd6; }
+.type { color: #4ec9b0; }
+.string { color: #ce9178; }
+.number { color: #b5cea8; }
+.comment { color: #6a9955; font-style: italic; }
+.method { color: #dcdcaa; }
+.operator { color: #d4d4d4; }
+.bracket { color: #ffd700; }
+
+/* Interactive Section */
+.interactive-section {
+    background: #f0fff4;
+    border: 2px solid var(--success-color);
+    border-radius: 10px;
+    padding: 25px;
+    margin: 25px 0;
+}
+
+.interactive-section h4 {
+    color: var(--success-color);
+    margin-top: 0;
+}
+
+.code-editor {
+    width: 100%;
+    min-height: 200px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 14px;
+    padding: 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--code-bg);
+    color: var(--code-text);
+    resize: vertical;
+}
+
+.code-editor:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: var(--accent-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--secondary-color);
+}
+
+.btn-success {
+    background: var(--success-color);
+    color: white;
+}
+
+.btn-success:hover {
+    background: #2f855a;
+}
+
+.btn-secondary {
+    background: var(--text-light);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: var(--text-color);
+}
+
+.output-area {
+    background: #1a1a1a;
+    color: #00ff00;
+    padding: 15px;
+    border-radius: 6px;
+    font-family: 'Consolas', monospace;
+    margin-top: 15px;
+    min-height: 60px;
+    white-space: pre-wrap;
+}
+
+/* Quiz Section */
+.quiz-container {
+    margin: 20px 0;
+}
+
+.quiz-question {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.quiz-question p {
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.quiz-options {
+    list-style: none;
+    padding: 0;
+}
+
+.quiz-options li {
+    margin-bottom: 10px;
+}
+
+.quiz-options label {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background: #f8fafc;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.quiz-options label:hover {
+    border-color: var(--accent-color);
+    background: #ebf8ff;
+}
+
+.quiz-options input[type="radio"] {
+    margin-right: 12px;
+    width: 18px;
+    height: 18px;
+}
+
+.quiz-options label.correct {
+    background: #c6f6d5;
+    border-color: var(--success-color);
+}
+
+.quiz-options label.incorrect {
+    background: #fed7d7;
+    border-color: var(--error-color);
+}
+
+.feedback {
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 15px;
+    display: none;
+}
+
+.feedback.correct {
+    background: #c6f6d5;
+    color: #22543d;
+    display: block;
+}
+
+.feedback.incorrect {
+    background: #fed7d7;
+    color: #742a2a;
+    display: block;
+}
+
+/* Tips & Mistakes */
+.tips-list, .mistakes-list {
+    list-style: none;
+    padding: 0;
+}
+
+.tips-list li {
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    background: #f0fff4;
+    border-left: 4px solid var(--success-color);
+    border-radius: 0 6px 6px 0;
+}
+
+.mistakes-list li {
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    background: #fff5f5;
+    border-left: 4px solid var(--error-color);
+    border-radius: 0 6px 6px 0;
+}
+
+/* Summary */
+.summary-list {
+    list-style: none;
+    padding: 0;
+}
+
+.summary-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.summary-list li:last-child {
+    border-bottom: none;
+}
+
+.summary-list li::before {
+    content: "▸";
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+/* Predict Output */
+.predict-output {
+    background: #fffbeb;
+    border: 2px solid var(--warning-color);
+    border-radius: 10px;
+    padding: 25px;
+    margin: 25px 0;
+}
+
+.predict-output h4 {
+    color: #744210;
+    margin-top: 0;
+}
+
+.predict-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    font-family: 'Consolas', monospace;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+/* Navigation */
+.lesson-nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 0;
+    border-top: 1px solid var(--border-color);
+    margin-top: 40px;
+}
+
+.lesson-nav a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 12px 20px;
+    border: 2px solid var(--accent-color);
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.lesson-nav a:hover {
+    background: var(--accent-color);
+    color: white;
+}
+
+/* Footer */
+.lesson-footer {
+    background: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+/* Syntax Table */
+.syntax-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.syntax-table th,
+.syntax-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid var(--border-color);
+}
+
+.syntax-table th {
+    background: var(--primary-color);
+    color: white;
+}
+
+.syntax-table tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+.syntax-table code {
+    background: #edf2f7;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Consolas', monospace;
+    color: var(--primary-color);
+}
+
+/* Info Box */
+.info-box {
+    background: #ebf8ff;
+    border-left: 4px solid var(--accent-color);
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 0 6px 6px 0;
+}
+
+.warning-box {
+    background: #fffbeb;
+    border-left: 4px solid var(--warning-color);
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 0 6px 6px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .lesson-header .container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .lesson-header nav {
+        margin-top: 15px;
+    }
+    
+    .lesson-header nav a {
+        margin: 0 10px;
+    }
+    
+    .lesson-hero h2 {
+        font-size: 1.8rem;
+    }
+    
+    .section-card {
+        padding: 20px;
+    }
+    
+    .lesson-nav {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .lesson-nav a {
+        justify-content: center;
+    }
+    
+    pre {
+        font-size: 12px;
+        padding: 15px;
+    }
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    padding: 12px 25px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--text-light);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+}
+
+.tab-btn:hover {
+    color: var(--accent-color);
+}
+
+.tab-btn.active {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+    font-weight: 600;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Progress Indicator */
+.progress-bar {
+    height: 4px;
+    background: var(--border-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.progress-bar .progress {
+    height: 100%;
+    background: var(--accent-color);
+    width: 0;
+    transition: width 0.3s;
+}
+
+/* Collapsible */
+.collapsible {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.collapsible-header {
+    padding: 15px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.collapsible-header:hover {
+    background: #f8fafc;
+}
+
+.collapsible-header::after {
+    content: "+";
+    font-size: 1.2rem;
+}
+
+.collapsible.active .collapsible-header::after {
+    content: "−";
+}
+
+.collapsible-content {
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s, padding 0.3s;
+}
+
+.collapsible.active .collapsible-content {
+    padding: 20px;
+    max-height: 2000px;
+}

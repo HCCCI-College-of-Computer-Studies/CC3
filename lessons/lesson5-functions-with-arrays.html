@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson V: Functions with Arrays - CC3 Computer Programming 2</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../lessons.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
+</head>
+<body>
+    <div class="progress-bar"><div class="progress"></div></div>
+    
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="university-logo">
+                    <span class="logo-icon">◈</span>
+                </div>
+                <div class="system-title">
+                    <h1>CC3 Learning Platform</h1>
+                    <span class="subtitle">Computer Programming Department</span>
+                </div>
+            </div>
+            <nav class="main-nav" role="navigation" aria-label="Main navigation">
+                <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#courses">Courses</a></li>
+                    <li><a href="../programming2-syllabus.html" class="active">Lessons</a></li>
+                    <li><a href="../lab-exercises.html">Activities</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="lesson-hero">
+        <div class="container">
+            <span class="lesson-badge">Lesson V</span>
+            <h2>Functions with Arrays</h2>
+            <p>Learn to pass arrays to functions and create reusable code for array processing and manipulation.</p>
+        </div>
+    </section>
+
+    <main class="lesson-content">
+        <div class="container">
+            
+            <!-- Overview -->
+            <div class="section-card">
+                <h3>Lesson Overview</h3>
+                <p>Combining functions with arrays creates powerful, reusable code for data processing. You can write functions that operate on arrays of any size, making your code more flexible and maintainable.</p>
+                
+                <div class="info-box">
+                    <strong>Real-World Context:</strong> Array functions are used everywhere: sorting student grades, filtering search results, calculating statistics from datasets, processing pixel data in images, and analyzing financial transactions.
+                </div>
+            </div>
+
+            <!-- Learning Outcomes -->
+            <div class="section-card">
+                <h3>Learning Outcomes</h3>
+                <ul class="outcomes-list">
+                    <li>Pass one-dimensional arrays as parameters to functions</li>
+                    <li>Return arrays from functions</li>
+                    <li>Pass two-dimensional arrays to functions</li>
+                    <li>Process and manipulate array data within functions</li>
+                </ul>
+            </div>
+
+            <!-- Topic 1: Functions with 1D Arrays -->
+            <div class="section-card">
+                <h3>1. Functions with 1D Arrays</h3>
+                <p>When you pass an array to a function in Java, you're passing a reference to the array. This means changes made inside the function affect the original array.</p>
+                
+                <h4>Passing Arrays to Functions</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">ArrayFunctions</span> {
+    
+    <span class="comment">// Function to print all array elements</span>
+    <span class="keyword">public static void</span> <span class="method">printArray</span>(<span class="keyword">int</span>[] arr) {
+        <span class="keyword">for</span> (<span class="keyword">int</span> element : arr) {
+            <span class="type">System</span>.out.<span class="method">print</span>(element + <span class="string">" "</span>);
+        }
+        <span class="type">System</span>.out.<span class="method">println</span>();
+    }
+    
+    <span class="comment">// Function to calculate sum</span>
+    <span class="keyword">public static int</span> <span class="method">calculateSum</span>(<span class="keyword">int</span>[] arr) {
+        <span class="keyword">int</span> sum = <span class="number">0</span>;
+        <span class="keyword">for</span> (<span class="keyword">int</span> num : arr) {
+            sum += num;
+        }
+        <span class="keyword">return</span> sum;
+    }
+    
+    <span class="comment">// Function to find maximum value</span>
+    <span class="keyword">public static int</span> <span class="method">findMax</span>(<span class="keyword">int</span>[] arr) {
+        <span class="keyword">int</span> max = arr[<span class="number">0</span>];
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i < arr.length; i++) {
+            <span class="keyword">if</span> (arr[i] > max) {
+                max = arr[i];
+            }
+        }
+        <span class="keyword">return</span> max;
+    }
+    
+    <span class="comment">// Function to calculate average</span>
+    <span class="keyword">public static double</span> <span class="method">calculateAverage</span>(<span class="keyword">int</span>[] arr) {
+        <span class="keyword">return</span> (<span class="keyword">double</span>) <span class="method">calculateSum</span>(arr) / arr.length;
+    }
+    
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">int</span>[] scores = {<span class="number">85</span>, <span class="number">92</span>, <span class="number">78</span>, <span class="number">95</span>, <span class="number">88</span>};
+        
+        <span class="type">System</span>.out.<span class="method">print</span>(<span class="string">"Scores: "</span>);
+        <span class="method">printArray</span>(scores);
+        
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Sum: "</span> + <span class="method">calculateSum</span>(scores));
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Max: "</span> + <span class="method">findMax</span>(scores));
+        <span class="type">System</span>.out.<span class="method">printf</span>(<span class="string">"Average: %.2f%n"</span>, <span class="method">calculateAverage</span>(scores));
+    }
+}
+</pre>
+                </div>
+
+                <h4>Modifying Arrays in Functions</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">ModifyArrays</span> {
+    
+    <span class="comment">// Double each element in the array</span>
+    <span class="keyword">public static void</span> <span class="method">doubleElements</span>(<span class="keyword">int</span>[] arr) {
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < arr.length; i++) {
+            arr[i] *= <span class="number">2</span>;  <span class="comment">// Modifies original array</span>
+        }
+    }
+    
+    <span class="comment">// Reverse array in place</span>
+    <span class="keyword">public static void</span> <span class="method">reverseArray</span>(<span class="keyword">int</span>[] arr) {
+        <span class="keyword">int</span> left = <span class="number">0</span>;
+        <span class="keyword">int</span> right = arr.length - <span class="number">1</span>;
+        
+        <span class="keyword">while</span> (left < right) {
+            <span class="comment">// Swap elements</span>
+            <span class="keyword">int</span> temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left++;
+            right--;
+        }
+    }
+    
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">int</span>[] numbers = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>};
+        
+        <span class="method">doubleElements</span>(numbers);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"After doubling: "</span> + java.util.<span class="type">Arrays</span>.<span class="method">toString</span>(numbers));
+        
+        <span class="method">reverseArray</span>(numbers);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"After reversing: "</span> + java.util.<span class="type">Arrays</span>.<span class="method">toString</span>(numbers));
+    }
+}
+</pre>
+                </div>
+
+                <h4>Returning Arrays from Functions</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">ReturnArrays</span> {
+    
+    <span class="comment">// Create and return a new array with squared values</span>
+    <span class="keyword">public static int</span>[] <span class="method">squareArray</span>(<span class="keyword">int</span>[] arr) {
+        <span class="keyword">int</span>[] result = <span class="keyword">new</span> <span class="keyword">int</span>[arr.length];
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < arr.length; i++) {
+            result[i] = arr[i] * arr[i];
+        }
+        <span class="keyword">return</span> result;
+    }
+    
+    <span class="comment">// Generate an array of first n even numbers</span>
+    <span class="keyword">public static int</span>[] <span class="method">generateEvenNumbers</span>(<span class="keyword">int</span> n) {
+        <span class="keyword">int</span>[] evens = <span class="keyword">new</span> <span class="keyword">int</span>[n];
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < n; i++) {
+            evens[i] = (i + <span class="number">1</span>) * <span class="number">2</span>;
+        }
+        <span class="keyword">return</span> evens;
+    }
+    
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">int</span>[] original = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>};
+        <span class="keyword">int</span>[] squared = <span class="method">squareArray</span>(original);
+        
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Original: "</span> + java.util.<span class="type">Arrays</span>.<span class="method">toString</span>(original));
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Squared: "</span> + java.util.<span class="type">Arrays</span>.<span class="method">toString</span>(squared));
+        
+        <span class="keyword">int</span>[] evens = <span class="method">generateEvenNumbers</span>(<span class="number">5</span>);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"First 5 evens: "</span> + java.util.<span class="type">Arrays</span>.<span class="method">toString</span>(evens));
+    }
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- Topic 2: Functions with 2D Arrays -->
+            <div class="section-card">
+                <h3>2. Functions with 2D Arrays</h3>
+                <p>Two-dimensional arrays can also be passed to and returned from functions, enabling operations on tabular data like matrices or grade books.</p>
+                
+                <h4>Processing 2D Arrays</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">Matrix2D</span> {
+    
+    <span class="comment">// Print 2D array in table format</span>
+    <span class="keyword">public static void</span> <span class="method">printMatrix</span>(<span class="keyword">int</span>[][] matrix) {
+        <span class="keyword">for</span> (<span class="keyword">int</span>[] row : matrix) {
+            <span class="keyword">for</span> (<span class="keyword">int</span> element : row) {
+                <span class="type">System</span>.out.<span class="method">printf</span>(<span class="string">"%4d"</span>, element);
+            }
+            <span class="type">System</span>.out.<span class="method">println</span>();
+        }
+    }
+    
+    <span class="comment">// Calculate sum of all elements</span>
+    <span class="keyword">public static int</span> <span class="method">sumMatrix</span>(<span class="keyword">int</span>[][] matrix) {
+        <span class="keyword">int</span> sum = <span class="number">0</span>;
+        <span class="keyword">for</span> (<span class="keyword">int</span>[] row : matrix) {
+            <span class="keyword">for</span> (<span class="keyword">int</span> element : row) {
+                sum += element;
+            }
+        }
+        <span class="keyword">return</span> sum;
+    }
+    
+    <span class="comment">// Calculate row sums</span>
+    <span class="keyword">public static int</span>[] <span class="method">rowSums</span>(<span class="keyword">int</span>[][] matrix) {
+        <span class="keyword">int</span>[] sums = <span class="keyword">new</span> <span class="keyword">int</span>[matrix.length];
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < matrix.length; i++) {
+            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j < matrix[i].length; j++) {
+                sums[i] += matrix[i][j];
+            }
+        }
+        <span class="keyword">return</span> sums;
+    }
+    
+    <span class="comment">// Add two matrices</span>
+    <span class="keyword">public static int</span>[][] <span class="method">addMatrices</span>(<span class="keyword">int</span>[][] a, <span class="keyword">int</span>[][] b) {
+        <span class="keyword">int</span> rows = a.length;
+        <span class="keyword">int</span> cols = a[<span class="number">0</span>].length;
+        <span class="keyword">int</span>[][] result = <span class="keyword">new</span> <span class="keyword">int</span>[rows][cols];
+        
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < rows; i++) {
+            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j < cols; j++) {
+                result[i][j] = a[i][j] + b[i][j];
+            }
+        }
+        <span class="keyword">return</span> result;
+    }
+    
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">int</span>[][] grades = {
+            {<span class="number">85</span>, <span class="number">90</span>, <span class="number">78</span>},
+            {<span class="number">92</span>, <span class="number">88</span>, <span class="number">95</span>},
+            {<span class="number">76</span>, <span class="number">84</span>, <span class="number">89</span|}
+        };
+        
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Grade Matrix:"</span>);
+        <span class="method">printMatrix</span>(grades);
+        
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"\nTotal sum: "</span> + <span class="method">sumMatrix</span>(grades));
+        
+        <span class="keyword">int</span>[] studentTotals = <span class="method">rowSums</span>(grades);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Student totals: "</span> + java.util.<span class="type">Arrays</span>.<span class="method">toString</span>(studentTotals));
+    }
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- Interactive Section -->
+            <div class="section-card">
+                <h3>Interactive: Try It Yourself</h3>
+                
+                <div class="interactive-section">
+                    <h4>Exercise: Count Occurrences</h4>
+                    <p>Write a function that counts how many times a given value appears in an array:</p>
+                    
+                    <textarea class="code-editor" id="codeEditor1">public class CountOccurrences {
+    
+    // TODO: Write a function countOccurrences that takes an 
+    // int array and a target value, and returns the count
+    
+    
+    public static void main(String[] args) {
+        int[] data = {1, 3, 5, 3, 7, 3, 9, 3};
+        int count = countOccurrences(data, 3);
+        System.out.println("3 appears " + count + " times");  // Should print: 4
+    }
+}</textarea>
+                    <br><br>
+                    <button class="btn btn-success" onclick="showAnswer('answer1')">Show Solution</button>
+                    
+                    <div id="answer1" style="display: none; margin-top: 20px;">
+                        <div class="code-example">
+                            <span class="code-label">Solution</span>
+<pre>
+<span class="keyword">public static int</span> <span class="method">countOccurrences</span>(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> target) {
+    <span class="keyword">int</span> count = <span class="number">0</span>;
+    <span class="keyword">for</span> (<span class="keyword">int</span> num : arr) {
+        <span class="keyword">if</span> (num == target) {
+            count++;
+        }
+    }
+    <span class="keyword">return</span> count;
+}
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="section-card">
+                <h3>Summary</h3>
+                <ul class="summary-list">
+                    <li>Arrays are passed by reference; changes in functions affect the original array.</li>
+                    <li>Functions can return newly created arrays.</li>
+                    <li>Use <code>array.length</code> to make functions work with arrays of any size.</li>
+                    <li>2D arrays can be processed using nested loops in functions.</li>
+                    <li>Breaking array operations into functions improves code reusability.</li>
+                </ul>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="lesson-nav">
+                <a href="lesson4-functions.html">← Previous: Functions</a>
+                <a href="lesson6-enumerations.html">Next: Enumerations →</a>
+            </nav>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-icon">◈</span>
+                        <span>CC3 Learning Platform</span>
+                    </div>
+                    <p>An interactive learning platform for Computer Programming courses, designed to support BSIT and ACT students in developing strong programming foundations.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Courses</h4>
+                        <ul>
+                            <li><a href="../oop-syllabus.html">Object-Oriented Programming</a></li>
+                            <li><a href="../programming2-syllabus.html">Programming 2</a></li>
+                            <li><a href="../lab-exercises.html">Lab Exercises</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Lecture Notes</a></li>
+                            <li><a href="#">Coding Standards</a></li>
+                            <li><a href="#">Reference Books</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contact Instructor</h4>
+                        <ul>
+                            <li><strong>Jastine M. Gatdula</strong></li>
+                            <li>College Instructor</li>
+                            <li>College Department</li>
+                            <li><a href="mailto:jgatdula@hccci.edu.ph">jgatdula@hccci.edu.ph</a></li>
+                            <li>Campus: Surallah</li>
+                            <li>Consultation: Friday 7AM-2:30PM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <p>&copy; 2026 Computer Programming Department. All rights reserved.</p>
+                    <p class="academic-notice">Academic Integrity: All submitted work must be original. Plagiarism and unauthorized collaboration are violations of the student code of conduct.</p>
+                </div>
+                <div class="footer-meta">
+                    <span>Academic Year 2025-2026 | Second Semester</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../main.js"></script>
+    <script src="../lessons.js"></script>
+</body>
+</html>

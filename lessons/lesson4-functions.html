@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson IV: Functions - CC3 Computer Programming 2</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../lessons.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
+</head>
+<body>
+    <div class="progress-bar"><div class="progress"></div></div>
+    
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="university-logo">
+                    <span class="logo-icon">◈</span>
+                </div>
+                <div class="system-title">
+                    <h1>CC3 Learning Platform</h1>
+                    <span class="subtitle">Computer Programming Department</span>
+                </div>
+            </div>
+            <nav class="main-nav" role="navigation" aria-label="Main navigation">
+                <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#courses">Courses</a></li>
+                    <li><a href="../programming2-syllabus.html" class="active">Lessons</a></li>
+                    <li><a href="../lab-exercises.html">Activities</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="lesson-hero">
+        <div class="container">
+            <span class="lesson-badge">Lesson IV</span>
+            <h2>Functions (Methods)</h2>
+            <p>Learn to write reusable, modular code by creating functions with various parameter and return value combinations.</p>
+        </div>
+    </section>
+
+    <main class="lesson-content">
+        <div class="container">
+            
+            <!-- Overview -->
+            <div class="section-card">
+                <h3>Lesson Overview</h3>
+                <p>Functions (called methods in Java) are reusable blocks of code that perform specific tasks. They help organize code, reduce repetition, and make programs easier to read, test, and maintain.</p>
+                
+                <div class="info-box">
+                    <strong>Real-World Context:</strong> Functions are like recipes in a cookbook. Instead of writing out all the steps every time you want to make a dish, you follow the recipe (call the function). Functions in software handle everything from calculating taxes to processing payments to displaying graphics.
+                </div>
+            </div>
+
+            <!-- Learning Outcomes -->
+            <div class="section-card">
+                <h3>Learning Outcomes</h3>
+                <p>By the end of this lesson, you will be able to:</p>
+                <ul class="outcomes-list">
+                    <li>Explain the purpose and benefits of using functions</li>
+                    <li>Create functions with no parameters and no return values</li>
+                    <li>Write functions with no parameters but with return values</li>
+                    <li>Implement functions with parameters and no return values</li>
+                    <li>Design functions with parameters and return values</li>
+                    <li>Apply recursive functions to solve problems</li>
+                </ul>
+            </div>
+
+            <!-- Topic 1: Introduction to Functions -->
+            <div class="section-card">
+                <h3>1. Introduction to Functions</h3>
+                <p>A function is a named block of code that performs a specific task. In Java, functions are called <strong>methods</strong> and are always defined inside a class.</p>
+                
+                <h4>Basic Method Syntax</h4>
+                <div class="code-example">
+                    <span class="code-label">Java Syntax</span>
+<pre>
+<span class="keyword">accessModifier returnType</span> <span class="method">methodName</span>(parameterList) {
+    <span class="comment">// Method body - code to execute</span>
+    <span class="keyword">return</span> value;  <span class="comment">// If return type is not void</span>
+}
+</pre>
+                </div>
+
+                <h4>Components Explained</h4>
+                <table class="syntax-table">
+                    <tr>
+                        <th>Component</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td>Access Modifier</td>
+                        <td>Controls visibility</td>
+                        <td><code>public</code>, <code>private</code></td>
+                    </tr>
+                    <tr>
+                        <td>Return Type</td>
+                        <td>Data type of returned value</td>
+                        <td><code>int</code>, <code>String</code>, <code>void</code></td>
+                    </tr>
+                    <tr>
+                        <td>Method Name</td>
+                        <td>Identifier to call the method</td>
+                        <td><code>calculateSum</code>, <code>printMessage</code></td>
+                    </tr>
+                    <tr>
+                        <td>Parameters</td>
+                        <td>Input values (optional)</td>
+                        <td><code>(int x, int y)</code></td>
+                    </tr>
+                </table>
+
+                <div class="info-box">
+                    <strong>Benefits of Functions:</strong>
+                    <ul>
+                        <li><strong>Reusability:</strong> Write once, use many times</li>
+                        <li><strong>Modularity:</strong> Break complex problems into smaller parts</li>
+                        <li><strong>Readability:</strong> Self-documenting code with descriptive names</li>
+                        <li><strong>Maintainability:</strong> Fix bugs in one place</li>
+                        <li><strong>Testing:</strong> Test individual components independently</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Topic 2: Functions with No Parameters and No Return Values -->
+            <div class="section-card">
+                <h3>2. Functions with No Parameters and No Return Values</h3>
+                <p>These are the simplest functions. They perform an action without needing any input and don't send any value back. The return type is <code>void</code>.</p>
+                
+                <h4>Example: Greeting Function</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">GreetingExample</span> {
+    
+    <span class="comment">// Method with no parameters and no return value</span>
+    <span class="keyword">public static void</span> <span class="method">displayGreeting</span>() {
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"================================"</span>);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"   Welcome to Our Application   "</span>);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"================================"</span>);
+    }
+    
+    <span class="keyword">public static void</span> <span class="method">printSeparator</span>() {
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"------------------------"</span>);
+    }
+    
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="method">displayGreeting</span>();  <span class="comment">// Call the greeting method</span>
+        <span class="method">printSeparator</span>();
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Main program content here..."</span>);
+        <span class="method">printSeparator</span>();
+    }
+}
+</pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>Output:</strong><br>
+<pre style="background: transparent; color: inherit; padding: 5px 0;">================================
+   Welcome to Our Application   
+================================
+------------------------
+Main program content here...
+------------------------</pre>
+                </div>
+
+                <h4>Example: Menu Display</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">MenuExample</span> {
+    
+    <span class="keyword">public static void</span> <span class="method">displayMenu</span>() {
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"\n===== Main Menu ====="</span>);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"1. Add New Record"</span>);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"2. View Records"</span>);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"3. Update Record"</span>);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"4. Delete Record"</span>);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"5. Exit"</span>);
+        <span class="type">System</span>.out.<span class="method">print</span>(<span class="string">"Enter your choice: "</span>);
+    }
+    
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="method">displayMenu</span>();  <span class="comment">// Reusable menu display</span>
+    }
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- Topic 3: Functions with No Parameters but with Return Values -->
+            <div class="section-card">
+                <h3>3. Functions with No Parameters but with Return Values</h3>
+                <p>These functions don't require input but compute and return a value. They're useful for getting system information or generating values.</p>
+                
+                <h4>Example: Generate Random Number</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">RandomGenerator</span> {
+    
+    <span class="comment">// Returns a random number between 1 and 100</span>
+    <span class="keyword">public static int</span> <span class="method">getRandomNumber</span>() {
+        <span class="keyword">return</span> (<span class="keyword">int</span>) (<span class="type">Math</span>.<span class="method">random</span>() * <span class="number">100</span>) + <span class="number">1</span>;
+    }
+    
+    <span class="comment">// Returns current system time as formatted string</span>
+    <span class="keyword">public static</span> <span class="type">String</span> <span class="method">getCurrentTime</span>() {
+        java.time.<span class="type">LocalTime</span> time = java.time.<span class="type">LocalTime</span>.<span class="method">now</span>();
+        <span class="keyword">return</span> time.<span class="method">toString</span>();
+    }
+    
+    <span class="comment">// Returns a greeting based on time of day</span>
+    <span class="keyword">public static</span> <span class="type">String</span> <span class="method">getGreeting</span>() {
+        <span class="keyword">int</span> hour = java.time.<span class="type">LocalTime</span>.<span class="method">now</span>().<span class="method">getHour</span>();
+        <span class="keyword">if</span> (hour < <span class="number">12</span>) {
+            <span class="keyword">return</span> <span class="string">"Good Morning!"</span>;
+        } <span class="keyword">else if</span> (hour < <span class="number">18</span>) {
+            <span class="keyword">return</span> <span class="string">"Good Afternoon!"</span>;
+        } <span class="keyword">else</span> {
+            <span class="keyword">return</span> <span class="string">"Good Evening!"</span>;
+        }
+    }
+    
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="comment">// Store returned values in variables</span>
+        <span class="keyword">int</span> randomNum = <span class="method">getRandomNumber</span>();
+        <span class="type">String</span> time = <span class="method">getCurrentTime</span>();
+        <span class="type">String</span> greeting = <span class="method">getGreeting</span>();
+        
+        <span class="type">System</span>.out.<span class="method">println</span>(greeting);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Current time: "</span> + time);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Lucky number: "</span> + randomNum);
+    }
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- Topic 4: Functions with Parameters and No Return Values -->
+            <div class="section-card">
+                <h3>4. Functions with Parameters and No Return Values</h3>
+                <p>These functions accept input (parameters) to customize their behavior but don't return a value. They perform actions based on the input provided.</p>
+                
+                <h4>Example: Personalized Greeting</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">ParameterExample</span> {
+    
+    <span class="comment">// Single parameter</span>
+    <span class="keyword">public static void</span> <span class="method">greetUser</span>(<span class="type">String</span> name) {
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Hello, "</span> + name + <span class="string">"! Welcome!"</span>);
+    }
+    
+    <span class="comment">// Multiple parameters</span>
+    <span class="keyword">public static void</span> <span class="method">printStudentInfo</span>(<span class="type">String</span> name, <span class="keyword">int</span> age, <span class="type">String</span> course) {
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Student Information"</span>);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Name: "</span> + name);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Age: "</span> + age);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Course: "</span> + course);
+    }
+    
+    <span class="comment">// Prints a character n times</span>
+    <span class="keyword">public static void</span> <span class="method">printLine</span>(<span class="keyword">char</span> symbol, <span class="keyword">int</span> count) {
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < count; i++) {
+            <span class="type">System</span>.out.<span class="method">print</span>(symbol);
+        }
+        <span class="type">System</span>.out.<span class="method">println</span>();
+    }
+    
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="method">greetUser</span>(<span class="string">"Maria"</span>);
+        <span class="method">printLine</span>(<span class="string">'='</span>, <span class="number">30</span>);
+        <span class="method">printStudentInfo</span>(<span class="string">"Juan Dela Cruz"</span>, <span class="number">19</span>, <span class="string">"BSIT"</span>);
+        <span class="method">printLine</span>(<span class="string">'-'</span>, <span class="number">30</span>);
+    }
+}
+</pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>Output:</strong><br>
+<pre style="background: transparent; color: inherit; padding: 5px 0;">Hello, Maria! Welcome!
+==============================
+Student Information
+Name: Juan Dela Cruz
+Age: 19
+Course: BSIT
+------------------------------</pre>
+                </div>
+            </div>
+
+            <!-- Topic 5: Functions with Parameters and Return Values -->
+            <div class="section-card">
+                <h3>5. Functions with Parameters and Return Values</h3>
+                <p>The most versatile type of function. They accept input, process it, and return a result. These are essential for calculations and data transformations.</p>
+                
+                <h4>Example: Mathematical Operations</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">Calculator</span> {
+    
+    <span class="comment">// Add two numbers</span>
+    <span class="keyword">public static int</span> <span class="method">add</span>(<span class="keyword">int</span> a, <span class="keyword">int</span> b) {
+        <span class="keyword">return</span> a + b;
+    }
+    
+    <span class="comment">// Calculate average of three numbers</span>
+    <span class="keyword">public static double</span> <span class="method">average</span>(<span class="keyword">double</span> x, <span class="keyword">double</span> y, <span class="keyword">double</span> z) {
+        <span class="keyword">return</span> (x + y + z) / <span class="number">3</span>;
+    }
+    
+    <span class="comment">// Find maximum of two numbers</span>
+    <span class="keyword">public static int</span> <span class="method">max</span>(<span class="keyword">int</span> a, <span class="keyword">int</span> b) {
+        <span class="keyword">if</span> (a > b) {
+            <span class="keyword">return</span> a;
+        } <span class="keyword">else</span> {
+            <span class="keyword">return</span> b;
+        }
+        <span class="comment">// Or simply: return (a > b) ? a : b;</span>
+    }
+    
+    <span class="comment">// Calculate power (base^exponent)</span>
+    <span class="keyword">public static long</span> <span class="method">power</span>(<span class="keyword">int</span> base, <span class="keyword">int</span> exponent) {
+        <span class="keyword">long</span> result = <span class="number">1</span>;
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < exponent; i++) {
+            result *= base;
+        }
+        <span class="keyword">return</span> result;
+    }
+    
+    <span class="comment">// Check if number is prime</span>
+    <span class="keyword">public static boolean</span> <span class="method">isPrime</span>(<span class="keyword">int</span> n) {
+        <span class="keyword">if</span> (n <= <span class="number">1</span>) <span class="keyword">return false</span>;
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i <= <span class="type">Math</span>.<span class="method">sqrt</span>(n); i++) {
+            <span class="keyword">if</span> (n % i == <span class="number">0</span>) <span class="keyword">return false</span>;
+        }
+        <span class="keyword">return true</span>;
+    }
+    
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="comment">// Using the functions</span>
+        <span class="keyword">int</span> sum = <span class="method">add</span>(<span class="number">15</span>, <span class="number">25</span>);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"15 + 25 = "</span> + sum);
+        
+        <span class="keyword">double</span> avg = <span class="method">average</span>(<span class="number">85.5</span>, <span class="number">90.0</span>, <span class="number">78.5</span>);
+        <span class="type">System</span>.out.<span class="method">printf</span>(<span class="string">"Average: %.2f%n"</span>, avg);
+        
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Max of 45 and 32: "</span> + <span class="method">max</span>(<span class="number">45</span>, <span class="number">32</span>));
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"2^10 = "</span> + <span class="method">power</span>(<span class="number">2</span>, <span class="number">10</span>));
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Is 17 prime? "</span> + <span class="method">isPrime</span>(<span class="number">17</span>));
+    }
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- Topic 6: Recursive Functions -->
+            <div class="section-card">
+                <h3>6. Recursive Functions</h3>
+                <p>A recursive function is a function that calls itself to solve smaller instances of the same problem. Every recursive function needs a <strong>base case</strong> to stop the recursion.</p>
+                
+                <h4>Structure of Recursion</h4>
+                <div class="code-example">
+                    <span class="code-label">Concept</span>
+<pre>
+<span class="keyword">public static</span> returnType <span class="method">recursiveMethod</span>(parameters) {
+    <span class="comment">// Base case: condition to stop recursion</span>
+    <span class="keyword">if</span> (baseCondition) {
+        <span class="keyword">return</span> baseValue;
+    }
+    
+    <span class="comment">// Recursive case: call itself with modified parameters</span>
+    <span class="keyword">return</span> <span class="method">recursiveMethod</span>(modifiedParameters);
+}
+</pre>
+                </div>
+
+                <h4>Example: Factorial</h4>
+                <p>The factorial of n (n!) = n × (n-1) × (n-2) × ... × 1</p>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">FactorialExample</span> {
+    
+    <span class="keyword">public static long</span> <span class="method">factorial</span>(<span class="keyword">int</span> n) {
+        <span class="comment">// Base case: factorial of 0 or 1 is 1</span>
+        <span class="keyword">if</span> (n <= <span class="number">1</span>) {
+            <span class="keyword">return</span> <span class="number">1</span>;
+        }
+        
+        <span class="comment">// Recursive case: n! = n * (n-1)!</span>
+        <span class="keyword">return</span> n * <span class="method">factorial</span>(n - <span class="number">1</span>);
+    }
+    
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"5! = "</span> + <span class="method">factorial</span>(<span class="number">5</span>));   <span class="comment">// 120</span>
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"7! = "</span> + <span class="method">factorial</span>(<span class="number">7</span>));   <span class="comment">// 5040</span>
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"10! = "</span> + <span class="method">factorial</span>(<span class="number">10</span>)); <span class="comment">// 3628800</span>
+    }
+}
+</pre>
+                </div>
+
+                <h4>Example: Fibonacci Sequence</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">FibonacciExample</span> {
+    
+    <span class="keyword">public static int</span> <span class="method">fibonacci</span>(<span class="keyword">int</span> n) {
+        <span class="comment">// Base cases</span>
+        <span class="keyword">if</span> (n <= <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;
+        <span class="keyword">if</span> (n == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;
+        
+        <span class="comment">// Recursive case: fib(n) = fib(n-1) + fib(n-2)</span>
+        <span class="keyword">return</span> <span class="method">fibonacci</span>(n - <span class="number">1</span>) + <span class="method">fibonacci</span>(n - <span class="number">2</span>);
+    }
+    
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="type">System</span>.out.<span class="method">print</span>(<span class="string">"Fibonacci sequence: "</span>);
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < <span class="number">10</span>; i++) {
+            <span class="type">System</span>.out.<span class="method">print</span>(<span class="method">fibonacci</span>(i) + <span class="string">" "</span>);
+        }
+        <span class="comment">// Output: 0 1 1 2 3 5 8 13 21 34</span>
+    }
+}
+</pre>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Recursion Pitfalls:</strong>
+                    <ul>
+                        <li><strong>Missing base case:</strong> Results in infinite recursion and stack overflow</li>
+                        <li><strong>Performance:</strong> Recursive solutions can be slower; consider iteration for performance-critical code</li>
+                        <li><strong>Stack overflow:</strong> Deep recursion may exceed the call stack limit</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Interactive Section -->
+            <div class="section-card">
+                <h3>Interactive: Try It Yourself</h3>
+                
+                <div class="interactive-section">
+                    <h4>Exercise: Create a Function</h4>
+                    <p>Write a function that calculates the area of a rectangle given its length and width:</p>
+                    
+                    <textarea class="code-editor" id="codeEditor1">public class AreaCalculator {
+    
+    // TODO: Write the calculateArea method here
+    // It should take length and width as parameters
+    // and return the area (length * width)
+    
+    
+    public static void main(String[] args) {
+        double area = calculateArea(5.0, 3.0);
+        System.out.println("Area: " + area);  // Should print: Area: 15.0
+    }
+}</textarea>
+                    <br><br>
+                    <button class="btn btn-success" onclick="showAnswer('answer1')">Show Solution</button>
+                    
+                    <div id="answer1" style="display: none; margin-top: 20px;">
+                        <div class="code-example">
+                            <span class="code-label">Solution</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">AreaCalculator</span> {
+    
+    <span class="keyword">public static double</span> <span class="method">calculateArea</span>(<span class="keyword">double</span> length, <span class="keyword">double</span> width) {
+        <span class="keyword">return</span> length * width;
+    }
+    
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">double</span> area = <span class="method">calculateArea</span>(<span class="number">5.0</span>, <span class="number">3.0</span>);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Area: "</span> + area);
+    }
+}
+</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="predict-output" style="margin-top: 20px;">
+                    <h4>Predict the Output</h4>
+                    <div class="code-example">
+<pre>
+<span class="keyword">public static int</span> <span class="method">mystery</span>(<span class="keyword">int</span> n) {
+    <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;
+    <span class="keyword">return</span> n + <span class="method">mystery</span>(n - <span class="number">1</span>);
+}
+
+<span class="type">System</span>.out.<span class="method">println</span>(<span class="method">mystery</span>(<span class="number">4</span>));
+</pre>
+                    </div>
+                    <input type="text" id="predict1" class="predict-input" placeholder="Enter the output...">
+                    <button class="btn btn-primary" onclick="checkPrediction('predict1', '10', 'feedback1')">Check Answer</button>
+                    <div id="feedback1" class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- Common Mistakes and Tips -->
+            <div class="section-card">
+                <h3>Common Mistakes and Best Practices</h3>
+                
+                <h4>Common Mistakes</h4>
+                <ul class="mistakes-list">
+                    <li><strong>Forgetting return statement:</strong> Non-void methods must return a value on all code paths.</li>
+                    <li><strong>Wrong return type:</strong> The returned value must match the declared return type.</li>
+                    <li><strong>Parameter order confusion:</strong> Pass arguments in the correct order matching parameter definitions.</li>
+                    <li><strong>Not using returned values:</strong> If a function returns a value, capture it in a variable or use it directly.</li>
+                    <li><strong>Infinite recursion:</strong> Always ensure recursive functions have a reachable base case.</li>
+                </ul>
+                
+                <h4>Best Practices</h4>
+                <ul class="tips-list">
+                    <li><strong>Single responsibility:</strong> Each function should do one thing well.</li>
+                    <li><strong>Descriptive names:</strong> Use verbs for function names: <code>calculateTotal()</code>, <code>isValid()</code>, <code>printReport()</code>.</li>
+                    <li><strong>Keep functions short:</strong> If a function is too long, consider breaking it into smaller functions.</li>
+                    <li><strong>Limit parameters:</strong> More than 3-4 parameters may indicate the function is doing too much.</li>
+                    <li><strong>Document your functions:</strong> Add comments explaining what the function does, its parameters, and return value.</li>
+                </ul>
+            </div>
+
+            <!-- Knowledge Check -->
+            <div class="section-card">
+                <h3>Knowledge Check</h3>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question" id="q1">
+                        <p>1. What keyword is used when a method doesn't return any value?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q1" value="a"> null</label></li>
+                            <li><label><input type="radio" name="q1" value="b"> void</label></li>
+                            <li><label><input type="radio" name="q1" value="c"> empty</label></li>
+                            <li><label><input type="radio" name="q1" value="d"> none</label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q1', 'b')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" id="q2">
+                        <p>2. What is a recursive function?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q2" value="a"> A function that calls other functions</label></li>
+                            <li><label><input type="radio" name="q2" value="b"> A function that calls itself</label></li>
+                            <li><label><input type="radio" name="q2" value="c"> A function with multiple parameters</label></li>
+                            <li><label><input type="radio" name="q2" value="d"> A function that returns multiple values</label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q2', 'b')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" id="q3">
+                        <p>3. What is the base case in recursion?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q3" value="a"> The first call to the function</label></li>
+                            <li><label><input type="radio" name="q3" value="b"> The condition that stops the recursion</label></li>
+                            <li><label><input type="radio" name="q3" value="c"> The recursive call itself</label></li>
+                            <li><label><input type="radio" name="q3" value="d"> The main method</label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q3', 'b')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" id="q4">
+                        <p>4. Which method signature has parameters but no return value?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q4" value="a"> <code>public static int calculate()</code></label></li>
+                            <li><label><input type="radio" name="q4" value="b"> <code>public static void display(String msg)</code></label></li>
+                            <li><label><input type="radio" name="q4" value="c"> <code>public static String getName()</code></label></li>
+                            <li><label><input type="radio" name="q4" value="d"> <code>public static int add(int a, int b)</code></label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q4', 'b')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="section-card">
+                <h3>Summary</h3>
+                <ul class="summary-list">
+                    <li>Functions (methods) are reusable blocks of code that perform specific tasks.</li>
+                    <li>Functions can have no parameters (void), parameters only, return values only, or both.</li>
+                    <li>The <code>void</code> keyword indicates a method doesn't return a value.</li>
+                    <li>Parameters allow functions to accept input; return statements send values back to the caller.</li>
+                    <li>Recursive functions call themselves and require a base case to stop.</li>
+                    <li>Good functions are short, focused, and have descriptive names.</li>
+                    <li>Functions improve code reusability, readability, and maintainability.</li>
+                </ul>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="lesson-nav">
+                <a href="lesson3-arrays.html">← Previous: Arrays</a>
+                <a href="lesson5-functions-with-arrays.html">Next: Functions with Arrays →</a>
+            </nav>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-icon">◈</span>
+                        <span>CC3 Learning Platform</span>
+                    </div>
+                    <p>An interactive learning platform for Computer Programming courses, designed to support BSIT and ACT students in developing strong programming foundations.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Courses</h4>
+                        <ul>
+                            <li><a href="../oop-syllabus.html">Object-Oriented Programming</a></li>
+                            <li><a href="../programming2-syllabus.html">Programming 2</a></li>
+                            <li><a href="../lab-exercises.html">Lab Exercises</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Lecture Notes</a></li>
+                            <li><a href="#">Coding Standards</a></li>
+                            <li><a href="#">Reference Books</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contact Instructor</h4>
+                        <ul>
+                            <li><strong>Jastine M. Gatdula</strong></li>
+                            <li>College Instructor</li>
+                            <li>College Department</li>
+                            <li><a href="mailto:jgatdula@hccci.edu.ph">jgatdula@hccci.edu.ph</a></li>
+                            <li>Campus: Surallah</li>
+                            <li>Consultation: Friday 7AM-2:30PM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <p>&copy; 2026 Computer Programming Department. All rights reserved.</p>
+                    <p class="academic-notice">Academic Integrity: All submitted work must be original. Plagiarism and unauthorized collaboration are violations of the student code of conduct.</p>
+                </div>
+                <div class="footer-meta">
+                    <span>Academic Year 2025-2026 | Second Semester</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../main.js"></script>
+    <script src="../lessons.js"></script>
+</body>
+</html>

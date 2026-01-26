@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson VIII: Regular Expressions - CC3 Computer Programming 2</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../lessons.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
+</head>
+<body>
+    <div class="progress-bar"><div class="progress"></div></div>
+    
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="university-logo">
+                    <span class="logo-icon">◈</span>
+                </div>
+                <div class="system-title">
+                    <h1>CC3 Learning Platform</h1>
+                    <span class="subtitle">Computer Programming Department</span>
+                </div>
+            </div>
+            <nav class="main-nav" role="navigation" aria-label="Main navigation">
+                <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#courses">Courses</a></li>
+                    <li><a href="../programming2-syllabus.html" class="active">Lessons</a></li>
+                    <li><a href="../lab-exercises.html">Activities</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="lesson-hero">
+        <div class="container">
+            <span class="lesson-badge">Lesson VIII</span>
+            <h2>Regular Expressions</h2>
+            <p>Master pattern matching and text manipulation using regular expressions for validation and parsing.</p>
+        </div>
+    </section>
+
+    <main class="lesson-content">
+        <div class="container">
+            
+            <!-- Overview -->
+            <div class="section-card">
+                <h3>Lesson Overview</h3>
+                <p>Regular expressions (regex) are patterns used to match character combinations in strings. They're powerful tools for searching, validating, and manipulating text data.</p>
+                
+                <div class="info-box">
+                    <strong>Real-World Context:</strong> Regex is used to validate email addresses, phone numbers, passwords, and credit card numbers. It's also used for parsing log files, extracting data from text, and search-and-replace operations.
+                </div>
+            </div>
+
+            <!-- Learning Outcomes -->
+            <div class="section-card">
+                <h3>Learning Outcomes</h3>
+                <ul class="outcomes-list">
+                    <li>Understand basic regex syntax and metacharacters</li>
+                    <li>Use Pattern and Matcher classes in Java</li>
+                    <li>Validate user input using regular expressions</li>
+                    <li>Search and replace text using regex patterns</li>
+                </ul>
+            </div>
+
+            <!-- Basic Regex -->
+            <div class="section-card">
+                <h3>1. Regular Expression Basics</h3>
+                
+                <h4>Common Metacharacters</h4>
+                <table class="syntax-table">
+                    <tr>
+                        <th>Pattern</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr><td><code>.</code></td><td>Any single character</td><td><code>a.c</code> matches "abc", "a1c"</td></tr>
+                    <tr><td><code>\d</code></td><td>Any digit (0-9)</td><td><code>\d\d</code> matches "42"</td></tr>
+                    <tr><td><code>\w</code></td><td>Word character (a-z, A-Z, 0-9, _)</td><td><code>\w+</code> matches "hello"</td></tr>
+                    <tr><td><code>\s</code></td><td>Whitespace</td><td><code>a\sb</code> matches "a b"</td></tr>
+                    <tr><td><code>*</code></td><td>Zero or more</td><td><code>ab*</code> matches "a", "ab", "abb"</td></tr>
+                    <tr><td><code>+</code></td><td>One or more</td><td><code>ab+</code> matches "ab", "abb"</td></tr>
+                    <tr><td><code>?</code></td><td>Zero or one</td><td><code>colou?r</code> matches "color", "colour"</td></tr>
+                    <tr><td><code>{n}</code></td><td>Exactly n times</td><td><code>\d{4}</code> matches "2024"</td></tr>
+                    <tr><td><code>[abc]</code></td><td>Character class</td><td><code>[aeiou]</code> matches any vowel</td></tr>
+                    <tr><td><code>^</code></td><td>Start of string</td><td><code>^Hello</code> matches "Hello world"</td></tr>
+                    <tr><td><code>$</code></td><td>End of string</td><td><code>world$</code> matches "Hello world"</td></tr>
+                </table>
+
+                <h4>Using Regex in Java</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">import</span> java.util.regex.*;
+
+<span class="keyword">public class</span> <span class="type">RegexBasics</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="comment">// Simple matching with String.matches()</span>
+        <span class="type">String</span> text = <span class="string">"Hello123"</span>;
+        
+        <span class="comment">// Check if contains only letters</span>
+        <span class="type">System</span>.out.<span class="method">println</span>(text.<span class="method">matches</span>(<span class="string">"[a-zA-Z]+"</span>));  <span class="comment">// false</span>
+        
+        <span class="comment">// Check if contains letters and digits</span>
+        <span class="type">System</span>.out.<span class="method">println</span>(text.<span class="method">matches</span>(<span class="string">"[a-zA-Z0-9]+"</span>));  <span class="comment">// true</span>
+        
+        <span class="comment">// Using Pattern and Matcher</span>
+        <span class="type">Pattern</span> pattern = <span class="type">Pattern</span>.<span class="method">compile</span>(<span class="string">"\\d+"</span>);  <span class="comment">// Find digits</span>
+        <span class="type">Matcher</span> matcher = pattern.<span class="method">matcher</span>(<span class="string">"Order 123 has 5 items"</span>);
+        
+        <span class="keyword">while</span> (matcher.<span class="method">find</span>()) {
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Found: "</span> + matcher.<span class="method">group</span>());
+        }
+        <span class="comment">// Output: Found: 123, Found: 5</span>
+    }
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- Validation Examples -->
+            <div class="section-card">
+                <h3>2. Validation Examples</h3>
+                
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">Validation</span> {
+    
+    <span class="comment">// Email validation</span>
+    <span class="keyword">public static boolean</span> <span class="method">isValidEmail</span>(<span class="type">String</span> email) {
+        <span class="type">String</span> regex = <span class="string">"^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$"</span>;
+        <span class="keyword">return</span> email.<span class="method">matches</span>(regex);
+    }
+    
+    <span class="comment">// Phone number (PH format: 09XX-XXX-XXXX)</span>
+    <span class="keyword">public static boolean</span> <span class="method">isValidPhone</span>(<span class="type">String</span> phone) {
+        <span class="type">String</span> regex = <span class="string">"^09\\d{2}-\\d{3}-\\d{4}$"</span>;
+        <span class="keyword">return</span> phone.<span class="method">matches</span>(regex);
+    }
+    
+    <span class="comment">// Password (min 8 chars, 1 upper, 1 lower, 1 digit)</span>
+    <span class="keyword">public static boolean</span> <span class="method">isStrongPassword</span>(<span class="type">String</span> password) {
+        <span class="keyword">if</span> (password.length() < <span class="number">8</span>) <span class="keyword">return false</span>;
+        <span class="keyword">boolean</span> hasUpper = password.<span class="method">matches</span>(<span class="string">".*[A-Z].*"</span>);
+        <span class="keyword">boolean</span> hasLower = password.<span class="method">matches</span>(<span class="string">".*[a-z].*"</span>);
+        <span class="keyword">boolean</span> hasDigit = password.<span class="method">matches</span>(<span class="string">".*\\d.*"</span>);
+        <span class="keyword">return</span> hasUpper && hasLower && hasDigit;
+    }
+    
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="method">isValidEmail</span>(<span class="string">"user@example.com"</span>));  <span class="comment">// true</span>
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="method">isValidPhone</span>(<span class="string">"0917-123-4567"</span>));   <span class="comment">// true</span>
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="method">isStrongPassword</span>(<span class="string">"Pass123!"</span>));    <span class="comment">// true</span>
+    }
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- Knowledge Check -->
+            <div class="section-card">
+                <h3>Knowledge Check</h3>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question" id="q1">
+                        <p>1. What does the regex pattern <code>\d+</code> match?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q1" value="a"> Exactly one digit</label></li>
+                            <li><label><input type="radio" name="q1" value="b"> One or more digits</label></li>
+                            <li><label><input type="radio" name="q1" value="c"> Zero or more digits</label></li>
+                            <li><label><input type="radio" name="q1" value="d"> The letter 'd'</label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q1', 'b')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" id="q2">
+                        <p>2. What does the metacharacter <code>^</code> represent in regex?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q2" value="a"> End of string</label></li>
+                            <li><label><input type="radio" name="q2" value="b"> Any character</label></li>
+                            <li><label><input type="radio" name="q2" value="c"> Start of string</label></li>
+                            <li><label><input type="radio" name="q2" value="d"> Escape character</label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q2', 'c')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="section-card">
+                <h3>Summary</h3>
+                <ul class="summary-list">
+                    <li>Regular expressions are patterns for matching text.</li>
+                    <li>Use <code>\d</code> for digits, <code>\w</code> for word characters, <code>\s</code> for whitespace.</li>
+                    <li>Quantifiers: <code>*</code> (0+), <code>+</code> (1+), <code>?</code> (0 or 1), <code>{n}</code> (exactly n).</li>
+                    <li>Java uses <code>String.matches()</code> for simple matching, <code>Pattern</code> and <code>Matcher</code> for complex operations.</li>
+                    <li>Escape backslashes in Java strings: <code>\\d</code> instead of <code>\d</code>.</li>
+                </ul>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="lesson-nav">
+                <a href="lesson7-file-handling.html">← Previous: Accessing Files</a>
+                <a href="lesson9-essential-java-classes.html">Next: Essential Java Classes →</a>
+            </nav>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-icon">◈</span>
+                        <span>CC3 Learning Platform</span>
+                    </div>
+                    <p>An interactive learning platform for Computer Programming courses, designed to support BSIT and ACT students in developing strong programming foundations.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Courses</h4>
+                        <ul>
+                            <li><a href="../oop-syllabus.html">Object-Oriented Programming</a></li>
+                            <li><a href="../programming2-syllabus.html">Programming 2</a></li>
+                            <li><a href="../lab-exercises.html">Lab Exercises</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Lecture Notes</a></li>
+                            <li><a href="#">Coding Standards</a></li>
+                            <li><a href="#">Reference Books</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">Contact Instructor</a></li>
+                            <li><a href="#">IT Helpdesk</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <p>&copy; 2026 Computer Programming Department. All rights reserved.</p>
+                    <p class="academic-notice">Academic Integrity: All submitted work must be original. Plagiarism and unauthorized collaboration are violations of the student code of conduct.</p>
+                </div>
+                <div class="footer-meta">
+                    <span>Academic Year 2025-2026 | Second Semester</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../main.js"></script>
+    <script src="../lessons.js"></script>
+</body>
+</html>

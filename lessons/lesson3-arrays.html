@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson III: Arrays - CC3 Computer Programming 2</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../lessons.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
+</head>
+<body>
+    <div class="progress-bar"><div class="progress"></div></div>
+    
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="university-logo">
+                    <span class="logo-icon">◈</span>
+                </div>
+                <div class="system-title">
+                    <h1>CC3 Learning Platform</h1>
+                    <span class="subtitle">Computer Programming Department</span>
+                </div>
+            </div>
+            <nav class="main-nav" role="navigation" aria-label="Main navigation">
+                <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#courses">Courses</a></li>
+                    <li><a href="../programming2-syllabus.html" class="active">Lessons</a></li>
+                    <li><a href="../lab-exercises.html">Activities</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="lesson-hero">
+        <div class="container">
+            <span class="lesson-badge">Lesson III</span>
+            <h2>Arrays</h2>
+            <p>Learn to store and manipulate collections of data efficiently using one-dimensional and multi-dimensional arrays.</p>
+        </div>
+    </section>
+
+    <main class="lesson-content">
+        <div class="container">
+            
+            <!-- Overview -->
+            <div class="section-card">
+                <h3>Lesson Overview</h3>
+                <p>Arrays are fundamental data structures that allow you to store multiple values of the same type in a single variable. Instead of declaring separate variables for each value, arrays let you organize related data in a structured, indexed collection.</p>
+                
+                <div class="info-box">
+                    <strong>Real-World Context:</strong> Arrays are everywhere: a student's grades throughout the semester, daily temperatures for a month, pixels in an image, or inventory items in a warehouse system. Any time you need to work with a collection of similar items, arrays are the solution.
+                </div>
+            </div>
+
+            <!-- Learning Outcomes -->
+            <div class="section-card">
+                <h3>Learning Outcomes</h3>
+                <p>By the end of this lesson, you will be able to:</p>
+                <ul class="outcomes-list">
+                    <li>Explain the concept and purpose of arrays in programming</li>
+                    <li>Declare, initialize, and access one-dimensional arrays</li>
+                    <li>Create and manipulate multi-dimensional arrays</li>
+                    <li>Traverse arrays using various loop structures</li>
+                    <li>Perform common array operations such as searching and sorting</li>
+                </ul>
+            </div>
+
+            <!-- Topic 1: Introduction to Arrays -->
+            <div class="section-card">
+                <h3>1. Introduction to Arrays</h3>
+                <p>An array is a container object that holds a fixed number of values of a single type. The length of an array is established when the array is created and cannot be changed after creation.</p>
+                
+                <h4>Key Characteristics</h4>
+                <ul>
+                    <li><strong>Fixed size:</strong> Once created, the array size cannot change</li>
+                    <li><strong>Homogeneous:</strong> All elements must be of the same data type</li>
+                    <li><strong>Zero-indexed:</strong> The first element is at index 0</li>
+                    <li><strong>Contiguous memory:</strong> Elements are stored in consecutive memory locations</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>Why Use Arrays?</strong>
+                    <ul>
+                        <li>Efficient storage of multiple related values</li>
+                        <li>Easy access using index numbers</li>
+                        <li>Simplifies code when working with collections</li>
+                        <li>Enables use of loops for batch processing</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Topic 2: One-Dimensional Arrays -->
+            <div class="section-card">
+                <h3>2. One-Dimensional Arrays</h3>
+                <p>A one-dimensional array is a linear list of elements, like a row of boxes where each box can hold one value.</p>
+                
+                <h4>Declaration Syntax</h4>
+                <div class="code-example">
+                    <span class="code-label">Java Syntax</span>
+<pre>
+<span class="comment">// Declaration only</span>
+<span class="type">dataType</span>[] arrayName;
+
+<span class="comment">// Declaration with size</span>
+<span class="type">dataType</span>[] arrayName = <span class="keyword">new</span> <span class="type">dataType</span>[size];
+
+<span class="comment">// Declaration with initialization</span>
+<span class="type">dataType</span>[] arrayName = {value1, value2, value3};
+</pre>
+                </div>
+
+                <h4>Example: Creating Arrays</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">ArrayBasics</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="comment">// Method 1: Declare and allocate separately</span>
+        <span class="keyword">int</span>[] numbers;
+        numbers = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];  <span class="comment">// Creates array of 5 integers (default: 0)</span>
+        
+        <span class="comment">// Method 2: Declare and allocate together</span>
+        <span class="keyword">double</span>[] prices = <span class="keyword">new</span> <span class="keyword">double</span>[<span class="number">3</span>];
+        
+        <span class="comment">// Method 3: Declare and initialize with values</span>
+        <span class="type">String</span>[] days = {<span class="string">"Mon"</span>, <span class="string">"Tue"</span>, <span class="string">"Wed"</span>, <span class="string">"Thu"</span>, <span class="string">"Fri"</span>};
+        
+        <span class="comment">// Accessing elements</span>
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"First day: "</span> + days[<span class="number">0</span>]);  <span class="comment">// Mon</span>
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Third day: "</span> + days[<span class="number">2</span>]);  <span class="comment">// Wed</span>
+        
+        <span class="comment">// Modifying elements</span>
+        numbers[<span class="number">0</span>] = <span class="number">10</span>;
+        numbers[<span class="number">1</span>] = <span class="number">20</span>;
+        numbers[<span class="number">2</span>] = <span class="number">30</span>;
+        
+        <span class="comment">// Array length property</span>
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Days array length: "</span> + days.length);  <span class="comment">// 5</span>
+    }
+}
+</pre>
+                </div>
+
+                <h4>Example: Student Grades</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">StudentGrades</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="comment">// Array of quiz scores</span>
+        <span class="keyword">int</span>[] quizScores = {<span class="number">85</span>, <span class="number">92</span>, <span class="number">78</span>, <span class="number">95</span>, <span class="number">88</span>};
+        
+        <span class="comment">// Calculate total and average</span>
+        <span class="keyword">int</span> total = <span class="number">0</span>;
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < quizScores.length; i++) {
+            total += quizScores[i];
+        }
+        
+        <span class="keyword">double</span> average = (<span class="keyword">double</span>) total / quizScores.length;
+        
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Total score: "</span> + total);
+        <span class="type">System</span>.out.<span class="method">printf</span>(<span class="string">"Average score: %.2f%n"</span>, average);
+    }
+}
+</pre>
+                </div>
+
+                <div class="warning-box">
+                    <strong>ArrayIndexOutOfBoundsException:</strong> Accessing an index outside the valid range (0 to length-1) throws this runtime exception. Always ensure index values are within bounds.
+                </div>
+            </div>
+
+            <!-- Topic 3: Multi-Dimensional Arrays -->
+            <div class="section-card">
+                <h3>3. Multi-Dimensional Arrays</h3>
+                <p>Multi-dimensional arrays are arrays of arrays. The most common is the two-dimensional (2D) array, which can be visualized as a table with rows and columns.</p>
+                
+                <h4>2D Array Syntax</h4>
+                <div class="code-example">
+                    <span class="code-label">Java Syntax</span>
+<pre>
+<span class="comment">// Declaration and allocation</span>
+<span class="type">dataType</span>[][] arrayName = <span class="keyword">new</span> <span class="type">dataType</span>[rows][columns];
+
+<span class="comment">// Declaration with initialization</span>
+<span class="type">dataType</span>[][] arrayName = {
+    {row0col0, row0col1, row0col2},
+    {row1col0, row1col1, row1col2},
+    {row2col0, row2col1, row2col2}
+};
+</pre>
+                </div>
+
+                <h4>Example: Grade Book</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">GradeBook</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="comment">// 2D array: 3 students, 4 subjects</span>
+        <span class="keyword">int</span>[][] grades = {
+            {<span class="number">85</span>, <span class="number">90</span>, <span class="number">78</span>, <span class="number">92</span>},  <span class="comment">// Student 1</span>
+            {<span class="number">88</span>, <span class="number">76</span>, <span class="number">95</span>, <span class="number">89</span>},  <span class="comment">// Student 2</span>
+            {<span class="number">92</span>, <span class="number">88</span>, <span class="number">84</span>, <span class="number">96</span|}   <span class="comment">// Student 3</span>
+        };
+        
+        <span class="type">String</span>[] subjects = {<span class="string">"Math"</span>, <span class="string">"Science"</span>, <span class="string">"English"</span>, <span class="string">"History"</span>};
+        
+        <span class="comment">// Access specific element: Student 2, Subject 3 (English)</span>
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Student 2 English grade: "</span> + grades[<span class="number">1</span>][<span class="number">2</span>]);
+        
+        <span class="comment">// Print all grades in table format</span>
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"\n         Math  Sci   Eng   Hist"</span>);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"--------------------------------"</span>);
+        
+        <span class="keyword">for</span> (<span class="keyword">int</span> student = <span class="number">0</span>; student < grades.length; student++) {
+            <span class="type">System</span>.out.<span class="method">print</span>(<span class="string">"Student "</span> + (student + <span class="number">1</span>) + <span class="string">": "</span>);
+            <span class="keyword">for</span> (<span class="keyword">int</span> subject = <span class="number">0</span>; subject < grades[student].length; subject++) {
+                <span class="type">System</span>.out.<span class="method">printf</span>(<span class="string">"%5d "</span>, grades[student][subject]);
+            }
+            <span class="type">System</span>.out.<span class="method">println</span>();
+        }
+    }
+}
+</pre>
+                </div>
+
+                <h4>Example: Matrix Operations</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">MatrixAddition</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="comment">// Two 2x3 matrices</span>
+        <span class="keyword">int</span>[][] matrixA = {
+            {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>},
+            {<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>}
+        };
+        
+        <span class="keyword">int</span>[][] matrixB = {
+            {<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>},
+            {<span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>}
+        };
+        
+        <span class="comment">// Result matrix</span>
+        <span class="keyword">int</span>[][] result = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>][<span class="number">3</span>];
+        
+        <span class="comment">// Add matrices</span>
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < <span class="number">2</span>; i++) {
+            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j < <span class="number">3</span>; j++) {
+                result[i][j] = matrixA[i][j] + matrixB[i][j];
+            }
+        }
+        
+        <span class="comment">// Print result</span>
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Matrix A + Matrix B:"</span>);
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < <span class="number">2</span>; i++) {
+            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j < <span class="number">3</span>; j++) {
+                <span class="type">System</span>.out.<span class="method">print</span>(result[i][j] + <span class="string">" "</span>);
+            }
+            <span class="type">System</span>.out.<span class="method">println</span>();
+        }
+    }
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- Topic 4: Array Traversal -->
+            <div class="section-card">
+                <h3>4. Array Traversal</h3>
+                <p>Array traversal means visiting each element in an array. There are several ways to traverse arrays in Java.</p>
+                
+                <h4>Method 1: Traditional For Loop</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">int</span>[] numbers = {<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>};
+
+<span class="comment">// Forward traversal</span>
+<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < numbers.length; i++) {
+    <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Element at index "</span> + i + <span class="string">": "</span> + numbers[i]);
+}
+
+<span class="comment">// Backward traversal</span>
+<span class="keyword">for</span> (<span class="keyword">int</span> i = numbers.length - <span class="number">1</span>; i >= <span class="number">0</span>; i--) {
+    <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Element at index "</span> + i + <span class="string">": "</span> + numbers[i]);
+}
+</pre>
+                </div>
+
+                <h4>Method 2: Enhanced For Loop (For-Each)</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">int</span>[] numbers = {<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>};
+
+<span class="comment">// Enhanced for loop - simpler syntax when index not needed</span>
+<span class="keyword">for</span> (<span class="keyword">int</span> num : numbers) {
+    <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Value: "</span> + num);
+}
+</pre>
+                </div>
+
+                <h4>Method 3: While Loop</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">int</span>[] numbers = {<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>};
+<span class="keyword">int</span> i = <span class="number">0</span>;
+
+<span class="keyword">while</span> (i < numbers.length) {
+    <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Element: "</span> + numbers[i]);
+    i++;
+}
+</pre>
+                </div>
+
+                <h4>Common Array Operations</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">ArrayOperations</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">int</span>[] numbers = {<span class="number">45</span>, <span class="number">12</span>, <span class="number">78</span>, <span class="number">34</span>, <span class="number">56</span>, <span class="number">89</span>, <span class="number">23</span>};
+        
+        <span class="comment">// Find maximum value</span>
+        <span class="keyword">int</span> max = numbers[<span class="number">0</span>];
+        <span class="keyword">for</span> (<span class="keyword">int</span> num : numbers) {
+            <span class="keyword">if</span> (num > max) {
+                max = num;
+            }
+        }
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Maximum: "</span> + max);
+        
+        <span class="comment">// Find minimum value</span>
+        <span class="keyword">int</span> min = numbers[<span class="number">0</span>];
+        <span class="keyword">for</span> (<span class="keyword">int</span> num : numbers) {
+            <span class="keyword">if</span> (num < min) {
+                min = num;
+            }
+        }
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Minimum: "</span> + min);
+        
+        <span class="comment">// Calculate sum</span>
+        <span class="keyword">int</span> sum = <span class="number">0</span>;
+        <span class="keyword">for</span> (<span class="keyword">int</span> num : numbers) {
+            sum += num;
+        }
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Sum: "</span> + sum);
+        
+        <span class="comment">// Linear search</span>
+        <span class="keyword">int</span> target = <span class="number">34</span>;
+        <span class="keyword">int</span> index = -<span class="number">1</span>;
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < numbers.length; i++) {
+            <span class="keyword">if</span> (numbers[i] == target) {
+                index = i;
+                <span class="keyword">break</span>;
+            }
+        }
+        <span class="type">System</span>.out.<span class="method">println</span>(target + <span class="string">" found at index: "</span> + index);
+    }
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- Interactive Section -->
+            <div class="section-card">
+                <h3>Interactive: Try It Yourself</h3>
+                
+                <div class="interactive-section">
+                    <h4>Exercise: Array Sum Calculator</h4>
+                    <p>Complete the code to calculate the sum of all elements in the array:</p>
+                    
+                    <textarea class="code-editor" id="codeEditor1">public class ArraySum {
+    public static void main(String[] args) {
+        int[] values = {5, 10, 15, 20, 25};
+        int sum = 0;
+        
+        // TODO: Write a loop to add all elements to sum
+        
+        
+        System.out.println("Sum: " + sum);
+    }
+}</textarea>
+                    <br><br>
+                    <button class="btn btn-success" onclick="showAnswer('answer1')">Show Solution</button>
+                    
+                    <div id="answer1" style="display: none; margin-top: 20px;">
+                        <div class="code-example">
+                            <span class="code-label">Solution</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">ArraySum</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">int</span>[] values = {<span class="number">5</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">25</span>};
+        <span class="keyword">int</span> sum = <span class="number">0</span>;
+        
+        <span class="comment">// Using enhanced for loop</span>
+        <span class="keyword">for</span> (<span class="keyword">int</span> value : values) {
+            sum += value;
+        }
+        
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Sum: "</span> + sum);  <span class="comment">// Output: Sum: 75</span>
+    }
+}
+</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="predict-output" style="margin-top: 20px;">
+                    <h4>Predict the Output</h4>
+                    <div class="code-example">
+<pre>
+<span class="keyword">int</span>[] arr = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>};
+<span class="type">System</span>.out.<span class="method">println</span>(arr[<span class="number">2</span>] + arr[<span class="number">4</span>]);
+</pre>
+                    </div>
+                    <input type="text" id="predict1" class="predict-input" placeholder="Enter the output...">
+                    <button class="btn btn-primary" onclick="checkPrediction('predict1', '8', 'feedback1')">Check Answer</button>
+                    <div id="feedback1" class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- Common Mistakes and Tips -->
+            <div class="section-card">
+                <h3>Common Mistakes and Best Practices</h3>
+                
+                <h4>Common Mistakes</h4>
+                <ul class="mistakes-list">
+                    <li><strong>Off-by-one errors:</strong> Remember arrays are zero-indexed. An array of length 5 has valid indices 0-4, not 1-5.</li>
+                    <li><strong>ArrayIndexOutOfBoundsException:</strong> Accessing <code>arr[arr.length]</code> is always wrong; the last valid index is <code>arr.length - 1</code>.</li>
+                    <li><strong>Not initializing arrays:</strong> Array elements have default values (0 for numbers, null for objects), but forgetting to set values leads to bugs.</li>
+                    <li><strong>Confusing length vs size:</strong> For arrays, use <code>.length</code> (property), not <code>.length()</code> (method for Strings).</li>
+                    <li><strong>Using == for array comparison:</strong> This compares references, not contents. Use <code>Arrays.equals()</code> instead.</li>
+                </ul>
+                
+                <h4>Best Practices</h4>
+                <ul class="tips-list">
+                    <li><strong>Use meaningful names:</strong> <code>studentGrades</code> is better than <code>arr</code> or <code>data</code>.</li>
+                    <li><strong>Use enhanced for loop when possible:</strong> It's cleaner and less error-prone when you don't need the index.</li>
+                    <li><strong>Check bounds before accessing:</strong> Validate indices before using them, especially with user input.</li>
+                    <li><strong>Use Arrays utility class:</strong> <code>Arrays.toString()</code>, <code>Arrays.sort()</code>, and <code>Arrays.copyOf()</code> are helpful methods.</li>
+                    <li><strong>Consider ArrayList for dynamic sizing:</strong> If you need to add/remove elements, use ArrayList instead of arrays.</li>
+                </ul>
+            </div>
+
+            <!-- Knowledge Check -->
+            <div class="section-card">
+                <h3>Knowledge Check</h3>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question" id="q1">
+                        <p>1. What is the index of the first element in a Java array?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q1" value="a"> 1</label></li>
+                            <li><label><input type="radio" name="q1" value="b"> 0</label></li>
+                            <li><label><input type="radio" name="q1" value="c"> -1</label></li>
+                            <li><label><input type="radio" name="q1" value="d"> It depends on the array</label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q1', 'b')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" id="q2">
+                        <p>2. Given <code>int[] arr = new int[5];</code>, what is the default value of <code>arr[2]</code>?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q2" value="a"> null</label></li>
+                            <li><label><input type="radio" name="q2" value="b"> 0</label></li>
+                            <li><label><input type="radio" name="q2" value="c"> undefined</label></li>
+                            <li><label><input type="radio" name="q2" value="d"> 2</label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q2', 'b')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" id="q3">
+                        <p>3. How do you get the length of an array named <code>data</code>?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q3" value="a"> <code>data.length()</code></label></li>
+                            <li><label><input type="radio" name="q3" value="b"> <code>data.size()</code></label></li>
+                            <li><label><input type="radio" name="q3" value="c"> <code>data.length</code></label></li>
+                            <li><label><input type="radio" name="q3" value="d"> <code>length(data)</code></label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q3', 'c')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" id="q4">
+                        <p>4. In a 2D array <code>int[][] matrix = new int[3][4];</code>, how many total elements can it store?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q4" value="a"> 3</label></li>
+                            <li><label><input type="radio" name="q4" value="b"> 4</label></li>
+                            <li><label><input type="radio" name="q4" value="c"> 7</label></li>
+                            <li><label><input type="radio" name="q4" value="d"> 12</label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q4', 'd')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="section-card">
+                <h3>Summary</h3>
+                <ul class="summary-list">
+                    <li>Arrays store multiple values of the same type in contiguous memory locations.</li>
+                    <li>Arrays are zero-indexed; the first element is at index 0, the last at <code>length - 1</code>.</li>
+                    <li>Array size is fixed after creation and accessed via the <code>length</code> property.</li>
+                    <li>Multi-dimensional arrays are arrays of arrays, useful for tables and matrices.</li>
+                    <li>Use traditional for loops when you need the index; use enhanced for loops for simpler iteration.</li>
+                    <li>Common operations include finding min/max, calculating sums, and searching.</li>
+                    <li>Always validate indices to avoid <code>ArrayIndexOutOfBoundsException</code>.</li>
+                </ul>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="lesson-nav">
+                <a href="lesson2-iterative-structures.html">← Previous: Iterative Structures</a>
+                <a href="lesson4-functions.html">Next: Functions →</a>
+            </nav>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-icon">◈</span>
+                        <span>CC3 Learning Platform</span>
+                    </div>
+                    <p>An interactive learning platform for Computer Programming courses, designed to support BSIT and ACT students in developing strong programming foundations.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Courses</h4>
+                        <ul>
+                            <li><a href="../oop-syllabus.html">Object-Oriented Programming</a></li>
+                            <li><a href="../programming2-syllabus.html">Programming 2</a></li>
+                            <li><a href="../lab-exercises.html">Lab Exercises</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Lecture Notes</a></li>
+                            <li><a href="#">Coding Standards</a></li>
+                            <li><a href="#">Reference Books</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contact Instructor</h4>
+                        <ul>
+                            <li><strong>Jastine M. Gatdula</strong></li>
+                            <li>College Instructor</li>
+                            <li>College Department</li>
+                            <li><a href="mailto:jgatdula@hccci.edu.ph">jgatdula@hccci.edu.ph</a></li>
+                            <li>Campus: Surallah</li>
+                            <li>Consultation: Friday 7AM-2:30PM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <p>&copy; 2026 Computer Programming Department. All rights reserved.</p>
+                    <p class="academic-notice">Academic Integrity: All submitted work must be original. Plagiarism and unauthorized collaboration are violations of the student code of conduct.</p>
+                </div>
+                <div class="footer-meta">
+                    <span>Academic Year 2025-2026 | Second Semester</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../main.js"></script>
+    <script src="../lessons.js"></script>
+</body>
+</html>

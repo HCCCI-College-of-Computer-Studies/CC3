@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson I: Selection Structures - CC3 Computer Programming 2</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../lessons.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
+</head>
+<body>
+    <div class="progress-bar"><div class="progress"></div></div>
+    
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="university-logo">
+                    <span class="logo-icon">◈</span>
+                </div>
+                <div class="system-title">
+                    <h1>CC3 Learning Platform</h1>
+                    <span class="subtitle">Computer Programming Department</span>
+                </div>
+            </div>
+            <nav class="main-nav" role="navigation" aria-label="Main navigation">
+                <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#courses">Courses</a></li>
+                    <li><a href="../programming2-syllabus.html" class="active">Lessons</a></li>
+                    <li><a href="../lab-exercises.html">Activities</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="lesson-hero">
+        <div class="container">
+            <span class="lesson-badge">Lesson I</span>
+            <h2>Selection Structures</h2>
+            <p>Learn how to control program flow using conditional statements to make decisions based on specific conditions.</p>
+        </div>
+    </section>
+
+    <main class="lesson-content">
+        <div class="container">
+            
+            <!-- Overview Section -->
+            <div class="section-card">
+                <h3>Lesson Overview</h3>
+                <p>Selection structures, also known as decision-making statements, allow your programs to choose different paths of execution based on conditions. Just as we make decisions in everyday life—"If it's raining, I'll take an umbrella"—programs use selection structures to respond dynamically to different situations.</p>
+                
+                <div class="info-box">
+                    <strong>Real-World Context:</strong> Every application you use relies on selection structures. When you log into a website, the system checks <em>if</em> your password is correct. ATMs verify <em>if</em> you have sufficient funds before allowing withdrawals. Games check <em>if</em> a player's health reaches zero to trigger a game-over screen.
+                </div>
+            </div>
+
+            <!-- Learning Outcomes -->
+            <div class="section-card">
+                <h3>Learning Outcomes</h3>
+                <p>By the end of this lesson, you will be able to:</p>
+                <ul class="outcomes-list">
+                    <li>Write programs using the <code>if</code> statement to execute code conditionally</li>
+                    <li>Implement <code>if...else</code> statements to handle two alternative paths</li>
+                    <li>Construct <code>if...else if...else</code> chains for multiple conditions</li>
+                    <li>Apply <code>switch</code> statements for multi-way branching based on discrete values</li>
+                    <li>Design nested decision structures for complex conditional logic</li>
+                </ul>
+            </div>
+
+            <!-- Topic 1: if Statement -->
+            <div class="section-card">
+                <h3>1. The if Statement</h3>
+                <p>The <code>if</code> statement is the simplest form of selection structure. It executes a block of code only when a specified condition evaluates to <code>true</code>.</p>
+                
+                <h4>Syntax</h4>
+                <div class="code-example">
+                    <span class="code-label">Java Syntax</span>
+<pre>
+<span class="keyword">if</span> (condition) {
+    <span class="comment">// Code to execute if condition is true</span>
+}
+</pre>
+                </div>
+
+                <p>The condition must be a boolean expression—an expression that evaluates to either <code>true</code> or <code>false</code>. Common comparison operators include:</p>
+                
+                <table class="syntax-table">
+                    <tr>
+                        <th>Operator</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td><code>==</code></td>
+                        <td>Equal to</td>
+                        <td><code>x == 5</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>!=</code></td>
+                        <td>Not equal to</td>
+                        <td><code>x != 5</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>&gt;</code></td>
+                        <td>Greater than</td>
+                        <td><code>x &gt; 5</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;</code></td>
+                        <td>Less than</td>
+                        <td><code>x &lt; 5</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>&gt;=</code></td>
+                        <td>Greater than or equal to</td>
+                        <td><code>x &gt;= 5</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;=</code></td>
+                        <td>Less than or equal to</td>
+                        <td><code>x &lt;= 5</code></td>
+                    </tr>
+                </table>
+
+                <h4>Example: Checking Voting Eligibility</h4>
+                <p>The following program checks if a person is eligible to vote based on their age:</p>
+                
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">VotingEligibility</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">int</span> age = <span class="number">18</span>;  <span class="comment">// Variable to store the person's age</span>
+        
+        <span class="comment">// Check if age meets the voting requirement</span>
+        <span class="keyword">if</span> (age >= <span class="number">18</span>) {
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"You are eligible to vote."</span>);
+        }
+        
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Program completed."</span>);
+    }
+}
+</pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>Output:</strong><br>
+                    <code>You are eligible to vote.</code><br>
+                    <code>Program completed.</code>
+                </div>
+
+                <!-- Interactive: Predict the Output -->
+                <div class="predict-output">
+                    <h4>Predict the Output</h4>
+                    <p>What will be printed if <code>age = 16</code>?</p>
+                    <div class="code-example">
+                        <span class="code-label">Java</span>
+<pre>
+<span class="keyword">int</span> age = <span class="number">16</span>;
+
+<span class="keyword">if</span> (age >= <span class="number">18</span>) {
+    <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"You are eligible to vote."</span>);
+}
+
+<span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Program completed."</span>);
+</pre>
+                    </div>
+                    <input type="text" id="predict1" class="predict-input" placeholder="Enter the expected output...">
+                    <button class="btn btn-primary" onclick="checkPrediction('predict1', 'Program completed.', 'feedback1')">Check Answer</button>
+                    <div id="feedback1" class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- Topic 2: if...else Statement -->
+            <div class="section-card">
+                <h3>2. The if...else Statement</h3>
+                <p>The <code>if...else</code> statement provides an alternative path when the condition is <code>false</code>. This ensures that one of two code blocks will always execute.</p>
+                
+                <h4>Syntax</h4>
+                <div class="code-example">
+                    <span class="code-label">Java Syntax</span>
+<pre>
+<span class="keyword">if</span> (condition) {
+    <span class="comment">// Code to execute if condition is true</span>
+} <span class="keyword">else</span> {
+    <span class="comment">// Code to execute if condition is false</span>
+}
+</pre>
+                </div>
+
+                <h4>Example: Pass or Fail</h4>
+                <p>This program determines whether a student passed or failed based on their score:</p>
+                
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">GradeChecker</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">int</span> score = <span class="number">72</span>;  <span class="comment">// Student's exam score</span>
+        <span class="keyword">int</span> passingScore = <span class="number">60</span>;  <span class="comment">// Minimum passing score</span>
+        
+        <span class="comment">// Determine if student passed or failed</span>
+        <span class="keyword">if</span> (score >= passingScore) {
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Congratulations! You passed."</span>);
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Your score: "</span> + score);
+        } <span class="keyword">else</span> {
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Sorry, you failed."</span>);
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"You need "</span> + (passingScore - score) + <span class="string">" more points."</span>);
+        }
+    }
+}
+</pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>Output:</strong><br>
+                    <code>Congratulations! You passed.</code><br>
+                    <code>Your score: 72</code>
+                </div>
+
+                <h4>Example: Even or Odd Number</h4>
+                <p>Using the modulo operator to determine if a number is even or odd:</p>
+                
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">EvenOddChecker</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">int</span> number = <span class="number">7</span>;  <span class="comment">// Number to check</span>
+        
+        <span class="comment">// Check if number is divisible by 2 with no remainder</span>
+        <span class="keyword">if</span> (number % <span class="number">2</span> == <span class="number">0</span>) {
+            <span class="type">System</span>.out.<span class="method">println</span>(number + <span class="string">" is even."</span>);
+        } <span class="keyword">else</span> {
+            <span class="type">System</span>.out.<span class="method">println</span>(number + <span class="string">" is odd."</span>);
+        }
+    }
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- Topic 3: if...else if...else Statement -->
+            <div class="section-card">
+                <h3>3. The if...else if...else Statement</h3>
+                <p>When you need to test multiple conditions sequentially, use the <code>if...else if...else</code> chain. The program evaluates each condition in order and executes the first block whose condition is true.</p>
+                
+                <h4>Syntax</h4>
+                <div class="code-example">
+                    <span class="code-label">Java Syntax</span>
+<pre>
+<span class="keyword">if</span> (condition1) {
+    <span class="comment">// Code for condition1</span>
+} <span class="keyword">else if</span> (condition2) {
+    <span class="comment">// Code for condition2</span>
+} <span class="keyword">else if</span> (condition3) {
+    <span class="comment">// Code for condition3</span>
+} <span class="keyword">else</span> {
+    <span class="comment">// Code if no condition is true</span>
+}
+</pre>
+                </div>
+
+                <h4>Example: Letter Grade Assignment</h4>
+                <p>This program converts a numeric score to a letter grade:</p>
+                
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">GradeConverter</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">int</span> score = <span class="number">85</span>;  <span class="comment">// Student's score</span>
+        <span class="keyword">char</span> grade;  <span class="comment">// Variable to store the letter grade</span>
+        
+        <span class="comment">// Determine letter grade based on score range</span>
+        <span class="keyword">if</span> (score >= <span class="number">90</span>) {
+            grade = <span class="string">'A'</span>;  <span class="comment">// 90-100: Excellent</span>
+        } <span class="keyword">else if</span> (score >= <span class="number">80</span>) {
+            grade = <span class="string">'B'</span>;  <span class="comment">// 80-89: Good</span>
+        } <span class="keyword">else if</span> (score >= <span class="number">70</span>) {
+            grade = <span class="string">'C'</span>;  <span class="comment">// 70-79: Satisfactory</span>
+        } <span class="keyword">else if</span> (score >= <span class="number">60</span>) {
+            grade = <span class="string">'D'</span>;  <span class="comment">// 60-69: Passing</span>
+        } <span class="keyword">else</span> {
+            grade = <span class="string">'F'</span>;  <span class="comment">// Below 60: Failing</span>
+        }
+        
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Score: "</span> + score);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Grade: "</span> + grade);
+    }
+}
+</pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>Output:</strong><br>
+                    <code>Score: 85</code><br>
+                    <code>Grade: B</code>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Important:</strong> The order of conditions matters. Conditions are evaluated from top to bottom, and only the first true condition's block is executed. Always order your conditions from most specific to least specific.
+                </div>
+            </div>
+
+            <!-- Topic 4: switch Statement -->
+            <div class="section-card">
+                <h3>4. The switch Statement</h3>
+                <p>The <code>switch</code> statement provides a cleaner alternative to long <code>if...else if</code> chains when testing a single variable against multiple discrete values. It's particularly useful for menu systems and categorical data.</p>
+                
+                <h4>Syntax</h4>
+                <div class="code-example">
+                    <span class="code-label">Java Syntax</span>
+<pre>
+<span class="keyword">switch</span> (expression) {
+    <span class="keyword">case</span> value1:
+        <span class="comment">// Code for value1</span>
+        <span class="keyword">break</span>;
+    <span class="keyword">case</span> value2:
+        <span class="comment">// Code for value2</span>
+        <span class="keyword">break</span>;
+    <span class="keyword">case</span> value3:
+        <span class="comment">// Code for value3</span>
+        <span class="keyword">break</span>;
+    <span class="keyword">default</span>:
+        <span class="comment">// Code if no case matches</span>
+}
+</pre>
+                </div>
+
+                <h4>Example: Day of the Week</h4>
+                <p>This program displays the day name based on a numeric value:</p>
+                
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">DayOfWeek</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">int</span> day = <span class="number">3</span>;  <span class="comment">// Day number (1-7)</span>
+        <span class="type">String</span> dayName;  <span class="comment">// Variable to store day name</span>
+        
+        <span class="comment">// Match day number to day name</span>
+        <span class="keyword">switch</span> (day) {
+            <span class="keyword">case</span> <span class="number">1</span>:
+                dayName = <span class="string">"Monday"</span>;
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="number">2</span>:
+                dayName = <span class="string">"Tuesday"</span>;
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="number">3</span>:
+                dayName = <span class="string">"Wednesday"</span>;
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="number">4</span>:
+                dayName = <span class="string">"Thursday"</span>;
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="number">5</span>:
+                dayName = <span class="string">"Friday"</span>;
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="number">6</span>:
+                dayName = <span class="string">"Saturday"</span>;
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="number">7</span>:
+                dayName = <span class="string">"Sunday"</span>;
+                <span class="keyword">break</span>;
+            <span class="keyword">default</span>:
+                dayName = <span class="string">"Invalid day"</span>;
+        }
+        
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Day "</span> + day + <span class="string">": "</span> + dayName);
+    }
+}
+</pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>Output:</strong> <code>Day 3: Wednesday</code>
+                </div>
+
+                <h4>Switch with String (Java 7+)</h4>
+                <p>Since Java 7, you can use <code>String</code> values in switch statements:</p>
+                
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">MenuSelector</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="type">String</span> command = <span class="string">"save"</span>;  <span class="comment">// User command</span>
+        
+        <span class="keyword">switch</span> (command.<span class="method">toLowerCase</span>()) {
+            <span class="keyword">case</span> <span class="string">"new"</span>:
+                <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Creating new file..."</span>);
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">"open"</span>:
+                <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Opening file..."</span>);
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">"save"</span>:
+                <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Saving file..."</span>);
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> <span class="string">"exit"</span>:
+                <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Exiting program..."</span>);
+                <span class="keyword">break</span>;
+            <span class="keyword">default</span>:
+                <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Unknown command."</span>);
+        }
+    }
+}
+</pre>
+                </div>
+
+                <div class="warning-box">
+                    <strong>The <code>break</code> Statement:</strong> Each <code>case</code> should end with <code>break</code> to prevent "fall-through" to the next case. Without <code>break</code>, execution continues to subsequent cases until a <code>break</code> is encountered or the switch ends.
+                </div>
+            </div>
+
+            <!-- Topic 5: Nested Decision -->
+            <div class="section-card">
+                <h3>5. Nested Decision Structures</h3>
+                <p>Nested decisions occur when one selection structure is placed inside another. This allows for complex multi-level decision making where subsequent conditions depend on previous ones.</p>
+                
+                <h4>Example: Loan Eligibility</h4>
+                <p>A bank checks multiple criteria to determine loan eligibility:</p>
+                
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">LoanEligibility</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">int</span> age = <span class="number">25</span>;           <span class="comment">// Applicant's age</span>
+        <span class="keyword">double</span> income = <span class="number">50000</span>;  <span class="comment">// Annual income</span>
+        <span class="keyword">int</span> creditScore = <span class="number">720</span>;  <span class="comment">// Credit score</span>
+        
+        <span class="comment">// First check: Age requirement</span>
+        <span class="keyword">if</span> (age >= <span class="number">21</span> && age <= <span class="number">65</span>) {
+            <span class="comment">// Second check: Income requirement</span>
+            <span class="keyword">if</span> (income >= <span class="number">30000</span>) {
+                <span class="comment">// Third check: Credit score</span>
+                <span class="keyword">if</span> (creditScore >= <span class="number">700</span>) {
+                    <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Congratulations! You qualify for a premium loan."</span>);
+                } <span class="keyword">else if</span> (creditScore >= <span class="number">600</span>) {
+                    <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"You qualify for a standard loan."</span>);
+                } <span class="keyword">else</span> {
+                    <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Sorry, your credit score is too low."</span>);
+                }
+            } <span class="keyword">else</span> {
+                <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Sorry, income requirement not met."</span>);
+                <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Minimum income: $30,000"</span>);
+            }
+        } <span class="keyword">else</span> {
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Sorry, age must be between 21 and 65."</span>);
+        }
+    }
+}
+</pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>Output:</strong> <code>Congratulations! You qualify for a premium loan.</code>
+                </div>
+
+                <h4>Using Logical Operators to Reduce Nesting</h4>
+                <p>Sometimes nested conditions can be simplified using logical operators (<code>&&</code>, <code>||</code>):</p>
+                
+                <div class="code-example">
+                    <span class="code-label">Java - Simplified Version</span>
+<pre>
+<span class="comment">// Instead of deeply nested if statements</span>
+<span class="keyword">if</span> (age >= <span class="number">21</span> && age <= <span class="number">65</span> && income >= <span class="number">30000</span> && creditScore >= <span class="number">700</span>) {
+    <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"You qualify for a premium loan."</span>);
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- Interactive Section: Try It Yourself -->
+            <div class="section-card">
+                <h3>Interactive: Try It Yourself</h3>
+                
+                <div class="interactive-section">
+                    <h4>Exercise: Grade Calculator</h4>
+                    <p>Complete the code below to assign letter grades based on the score. The grading scale is: A (90-100), B (80-89), C (70-79), D (60-69), F (below 60).</p>
+                    
+                    <textarea class="code-editor" id="codeEditor1">public class GradeCalculator {
+    public static void main(String[] args) {
+        int score = 78;
+        String grade;
+        
+        // TODO: Add your if-else if-else statements here
+        // to assign the correct grade based on score
+        
+        
+        System.out.println("Score: " + score);
+        System.out.println("Grade: " + grade);
+    }
+}</textarea>
+                    <br><br>
+                    <button class="btn btn-success" onclick="showAnswer('answer1')">Show Solution</button>
+                    
+                    <div id="answer1" style="display: none; margin-top: 20px;">
+                        <div class="code-example">
+                            <span class="code-label">Solution</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">GradeCalculator</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">int</span> score = <span class="number">78</span>;
+        <span class="type">String</span> grade;
+        
+        <span class="keyword">if</span> (score >= <span class="number">90</span>) {
+            grade = <span class="string">"A"</span>;
+        } <span class="keyword">else if</span> (score >= <span class="number">80</span>) {
+            grade = <span class="string">"B"</span>;
+        } <span class="keyword">else if</span> (score >= <span class="number">70</span>) {
+            grade = <span class="string">"C"</span>;
+        } <span class="keyword">else if</span> (score >= <span class="number">60</span>) {
+            grade = <span class="string">"D"</span>;
+        } <span class="keyword">else</span> {
+            grade = <span class="string">"F"</span>;
+        }
+        
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Score: "</span> + score);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Grade: "</span> + grade);
+    }
+}
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Common Mistakes and Tips -->
+            <div class="section-card">
+                <h3>Common Mistakes and Best Practices</h3>
+                
+                <h4>Common Mistakes</h4>
+                <ul class="mistakes-list">
+                    <li><strong>Using <code>=</code> instead of <code>==</code>:</strong> The single <code>=</code> is assignment, not comparison. <code>if (x = 5)</code> is wrong; use <code>if (x == 5)</code>.</li>
+                    <li><strong>Forgetting curly braces:</strong> Without braces, only the first statement is part of the if block. Always use braces for clarity.</li>
+                    <li><strong>Missing <code>break</code> in switch:</strong> Forgetting <code>break</code> causes fall-through to subsequent cases.</li>
+                    <li><strong>Comparing strings with <code>==</code>:</strong> Use <code>.equals()</code> to compare String values: <code>if (str.equals("hello"))</code></li>
+                    <li><strong>Incorrect condition order:</strong> In <code>if...else if</code> chains, more specific conditions should come first.</li>
+                </ul>
+                
+                <h4>Best Practices</h4>
+                <ul class="tips-list">
+                    <li><strong>Use meaningful variable names:</strong> <code>isEligible</code> is clearer than <code>x</code> for boolean conditions.</li>
+                    <li><strong>Keep conditions simple:</strong> Complex conditions should be broken into smaller parts or stored in variables.</li>
+                    <li><strong>Always include a default case:</strong> In switch statements, include <code>default</code> to handle unexpected values.</li>
+                    <li><strong>Limit nesting depth:</strong> If you have more than 3 levels of nesting, consider refactoring using methods or early returns.</li>
+                    <li><strong>Use switch for discrete values:</strong> When testing one variable against multiple constant values, prefer switch over long if-else chains.</li>
+                </ul>
+            </div>
+
+            <!-- Knowledge Check -->
+            <div class="section-card">
+                <h3>Knowledge Check</h3>
+                
+                <div class="quiz-container" id="quizForm">
+                    <!-- Question 1 -->
+                    <div class="quiz-question" id="q1" data-correct="b">
+                        <p>1. What is the output of this code?</p>
+                        <div class="code-example">
+<pre>
+<span class="keyword">int</span> x = <span class="number">10</span>;
+<span class="keyword">if</span> (x > <span class="number">5</span>)
+    <span class="type">System</span>.out.<span class="method">print</span>(<span class="string">"A"</span>);
+    <span class="type">System</span>.out.<span class="method">print</span>(<span class="string">"B"</span>);
+</pre>
+                        </div>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q1" value="a"> A</label></li>
+                            <li><label><input type="radio" name="q1" value="b"> AB</label></li>
+                            <li><label><input type="radio" name="q1" value="c"> B</label></li>
+                            <li><label><input type="radio" name="q1" value="d"> Compilation error</label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q1', 'b')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="quiz-question" id="q2" data-correct="c">
+                        <p>2. Which statement is used to test a single variable against multiple constant values?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q2" value="a"> if statement</label></li>
+                            <li><label><input type="radio" name="q2" value="b"> if-else statement</label></li>
+                            <li><label><input type="radio" name="q2" value="c"> switch statement</label></li>
+                            <li><label><input type="radio" name="q2" value="d"> nested if statement</label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q2', 'c')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="quiz-question" id="q3" data-correct="a">
+                        <p>3. What keyword is used to specify code that runs when no case matches in a switch statement?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q3" value="a"> default</label></li>
+                            <li><label><input type="radio" name="q3" value="b"> else</label></li>
+                            <li><label><input type="radio" name="q3" value="c"> otherwise</label></li>
+                            <li><label><input type="radio" name="q3" value="d"> none</label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q3', 'a')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="quiz-question" id="q4" data-correct="d">
+                        <p>4. What is the correct way to compare two String values in Java?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q4" value="a"> <code>str1 == str2</code></label></li>
+                            <li><label><input type="radio" name="q4" value="b"> <code>str1 = str2</code></label></li>
+                            <li><label><input type="radio" name="q4" value="c"> <code>str1.compare(str2)</code></label></li>
+                            <li><label><input type="radio" name="q4" value="d"> <code>str1.equals(str2)</code></label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q4', 'd')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="quiz-question" id="q5" data-correct="b">
+                        <p>5. What happens if you omit the <code>break</code> statement in a switch case?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q5" value="a"> Compilation error</label></li>
+                            <li><label><input type="radio" name="q5" value="b"> Fall-through to the next case</label></li>
+                            <li><label><input type="radio" name="q5" value="c"> Runtime error</label></li>
+                            <li><label><input type="radio" name="q5" value="d"> The switch statement exits immediately</label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q5', 'b')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="section-card">
+                <h3>Summary</h3>
+                <ul class="summary-list">
+                    <li>The <code>if</code> statement executes code only when a condition is <code>true</code>.</li>
+                    <li>The <code>if...else</code> statement provides an alternative path when the condition is <code>false</code>.</li>
+                    <li>The <code>if...else if...else</code> chain tests multiple conditions sequentially.</li>
+                    <li>The <code>switch</code> statement is ideal for testing one variable against multiple discrete values.</li>
+                    <li>Always use <code>break</code> in switch cases to prevent fall-through behavior.</li>
+                    <li>Nested decisions allow for complex multi-level conditional logic.</li>
+                    <li>Use logical operators (<code>&&</code>, <code>||</code>) to combine conditions and reduce nesting.</li>
+                    <li>Always use <code>.equals()</code> to compare String values, not <code>==</code>.</li>
+                </ul>
+            </div>
+
+            <!-- Lesson Navigation -->
+            <nav class="lesson-nav">
+                <a href="../programming2-syllabus.html">← Back to Syllabus</a>
+                <a href="lesson2-iterative-structures.html">Next: Iterative Structures →</a>
+            </nav>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-icon">◈</span>
+                        <span>CC3 Learning Platform</span>
+                    </div>
+                    <p>An interactive learning platform for Computer Programming courses, designed to support BSIT and ACT students in developing strong programming foundations.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Courses</h4>
+                        <ul>
+                            <li><a href="../oop-syllabus.html">Object-Oriented Programming</a></li>
+                            <li><a href="../programming2-syllabus.html">Programming 2</a></li>
+                            <li><a href="../lab-exercises.html">Lab Exercises</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Lecture Notes</a></li>
+                            <li><a href="#">Coding Standards</a></li>
+                            <li><a href="#">Reference Books</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contact Instructor</h4>
+                        <ul>
+                            <li><strong>Jastine M. Gatdula</strong></li>
+                            <li>College Instructor</li>
+                            <li>College Department</li>
+                            <li><a href="mailto:jgatdula@hccci.edu.ph">jgatdula@hccci.edu.ph</a></li>
+                            <li>Campus: Surallah</li>
+                            <li>Consultation: Friday 7AM-2:30PM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <p>&copy; 2026 Computer Programming Department. All rights reserved.</p>
+                    <p class="academic-notice">Academic Integrity: All submitted work must be original. Plagiarism and unauthorized collaboration are violations of the student code of conduct.</p>
+                </div>
+                <div class="footer-meta">
+                    <span>Academic Year 2025-2026 | Second Semester</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../main.js"></script>
+    <script src="../lessons.js"></script>
+</body>
+</html>

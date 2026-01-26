@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson II: Iterative Structures - CC3 Computer Programming 2</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../lessons.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
+</head>
+<body>
+    <div class="progress-bar"><div class="progress"></div></div>
+    
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="university-logo">
+                    <span class="logo-icon">◈</span>
+                </div>
+                <div class="system-title">
+                    <h1>CC3 Learning Platform</h1>
+                    <span class="subtitle">Computer Programming Department</span>
+                </div>
+            </div>
+            <nav class="main-nav" role="navigation" aria-label="Main navigation">
+                <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#courses">Courses</a></li>
+                    <li><a href="../programming2-syllabus.html" class="active">Lessons</a></li>
+                    <li><a href="../lab-exercises.html">Activities</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="lesson-hero">
+        <div class="container">
+            <span class="lesson-badge">Lesson II</span>
+            <h2>Iterative Structures</h2>
+            <p>Master the art of loops to execute code repeatedly, process collections, and automate repetitive tasks efficiently.</p>
+        </div>
+    </section>
+
+    <main class="lesson-content">
+        <div class="container">
+            
+            <!-- Overview Section -->
+            <div class="section-card">
+                <h3>Lesson Overview</h3>
+                <p>Iterative structures, commonly known as loops, allow you to execute a block of code multiple times. Instead of writing the same code over and over, loops automate repetition based on conditions or a predetermined count.</p>
+                
+                <div class="info-box">
+                    <strong>Real-World Context:</strong> Loops are everywhere in programming. A music player uses loops to repeat songs. Games use loops to update the screen 60 times per second. Search engines loop through millions of web pages to find results. E-commerce sites loop through product lists to display items.
+                </div>
+            </div>
+
+            <!-- Learning Outcomes -->
+            <div class="section-card">
+                <h3>Learning Outcomes</h3>
+                <p>By the end of this lesson, you will be able to:</p>
+                <ul class="outcomes-list">
+                    <li>Implement <code>while</code> loops for condition-based iteration</li>
+                    <li>Apply <code>do-while</code> loops when at least one execution is required</li>
+                    <li>Construct <code>for</code> loops for counter-controlled iteration</li>
+                    <li>Design nested loops for multi-dimensional processing</li>
+                    <li>Control loop execution using <code>break</code> and <code>continue</code> statements</li>
+                </ul>
+            </div>
+
+            <!-- Topic 1: While Loop -->
+            <div class="section-card">
+                <h3>1. The While Loop</h3>
+                <p>The <code>while</code> loop repeatedly executes a block of code as long as a specified condition remains <code>true</code>. The condition is checked <strong>before</strong> each iteration.</p>
+                
+                <h4>Syntax</h4>
+                <div class="code-example">
+                    <span class="code-label">Java Syntax</span>
+<pre>
+<span class="keyword">while</span> (condition) {
+    <span class="comment">// Code to execute while condition is true</span>
+}
+</pre>
+                </div>
+
+                <h4>Example: Counting from 1 to 5</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">WhileExample</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">int</span> count = <span class="number">1</span>;  <span class="comment">// Initialize counter</span>
+        
+        <span class="comment">// Loop while count is less than or equal to 5</span>
+        <span class="keyword">while</span> (count <= <span class="number">5</span>) {
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Count: "</span> + count);
+            count++;  <span class="comment">// Increment counter to avoid infinite loop</span>
+        }
+        
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Loop finished!"</span>);
+    }
+}
+</pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>Output:</strong><br>
+                    <code>Count: 1</code><br>
+                    <code>Count: 2</code><br>
+                    <code>Count: 3</code><br>
+                    <code>Count: 4</code><br>
+                    <code>Count: 5</code><br>
+                    <code>Loop finished!</code>
+                </div>
+
+                <h4>Example: Sum of Numbers</h4>
+                <p>Calculate the sum of numbers from 1 to 10:</p>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">SumCalculator</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">int</span> number = <span class="number">1</span>;   <span class="comment">// Starting number</span>
+        <span class="keyword">int</span> sum = <span class="number">0</span>;      <span class="comment">// Accumulator for sum</span>
+        
+        <span class="keyword">while</span> (number <= <span class="number">10</span>) {
+            sum += number;  <span class="comment">// Add current number to sum</span>
+            number++;       <span class="comment">// Move to next number</span>
+        }
+        
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Sum of 1 to 10: "</span> + sum);
+    }
+}
+</pre>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Infinite Loop Warning:</strong> If the condition never becomes <code>false</code>, the loop runs forever. Always ensure your loop has a way to terminate (e.g., incrementing a counter or changing a condition variable).
+                </div>
+            </div>
+
+            <!-- Topic 2: Do-While Loop -->
+            <div class="section-card">
+                <h3>2. The Do-While Loop</h3>
+                <p>The <code>do-while</code> loop is similar to the <code>while</code> loop, but it checks the condition <strong>after</strong> executing the code block. This guarantees at least one execution.</p>
+                
+                <h4>Syntax</h4>
+                <div class="code-example">
+                    <span class="code-label">Java Syntax</span>
+<pre>
+<span class="keyword">do</span> {
+    <span class="comment">// Code to execute at least once</span>
+} <span class="keyword">while</span> (condition);
+</pre>
+                </div>
+
+                <h4>Example: Menu System</h4>
+                <p>A menu that displays at least once and repeats until the user chooses to exit:</p>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">import</span> java.util.Scanner;
+
+<span class="keyword">public class</span> <span class="type">MenuSystem</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="type">Scanner</span> scanner = <span class="keyword">new</span> <span class="type">Scanner</span>(<span class="type">System</span>.in);
+        <span class="keyword">int</span> choice;
+        
+        <span class="keyword">do</span> {
+            <span class="comment">// Display menu options</span>
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"\n=== Main Menu ==="</span>);
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"1. Start Game"</span>);
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"2. Load Game"</span>);
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"3. Settings"</span>);
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"4. Exit"</span>);
+            <span class="type">System</span>.out.<span class="method">print</span>(<span class="string">"Enter your choice: "</span>);
+            
+            choice = scanner.<span class="method">nextInt</span>();
+            
+            <span class="comment">// Process user choice</span>
+            <span class="keyword">switch</span> (choice) {
+                <span class="keyword">case</span> <span class="number">1</span>:
+                    <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Starting new game..."</span>);
+                    <span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="number">2</span>:
+                    <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Loading saved game..."</span>);
+                    <span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="number">3</span>:
+                    <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Opening settings..."</span>);
+                    <span class="keyword">break</span>;
+                <span class="keyword">case</span> <span class="number">4</span>:
+                    <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Goodbye!"</span>);
+                    <span class="keyword">break</span>;
+                <span class="keyword">default</span>:
+                    <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Invalid choice. Try again."</span>);
+            }
+        } <span class="keyword">while</span> (choice != <span class="number">4</span>);  <span class="comment">// Continue until user chooses exit</span>
+        
+        scanner.<span class="method">close</span>();
+    }
+}
+</pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>When to Use:</strong> Use <code>do-while</code> when you need the code to run at least once before checking the condition, such as input validation, menu systems, or game loops.
+                </div>
+
+                <!-- Comparison Table -->
+                <h4>While vs Do-While Comparison</h4>
+                <table class="syntax-table">
+                    <tr>
+                        <th>Feature</th>
+                        <th>while</th>
+                        <th>do-while</th>
+                    </tr>
+                    <tr>
+                        <td>Condition check</td>
+                        <td>Before loop body</td>
+                        <td>After loop body</td>
+                    </tr>
+                    <tr>
+                        <td>Minimum executions</td>
+                        <td>0 (may never run)</td>
+                        <td>1 (always runs at least once)</td>
+                    </tr>
+                    <tr>
+                        <td>Semicolon after condition</td>
+                        <td>No</td>
+                        <td>Yes (required)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Topic 3: For Loop -->
+            <div class="section-card">
+                <h3>3. The For Loop</h3>
+                <p>The <code>for</code> loop is ideal when you know exactly how many times you need to iterate. It combines initialization, condition, and increment/decrement into a single line.</p>
+                
+                <h4>Syntax</h4>
+                <div class="code-example">
+                    <span class="code-label">Java Syntax</span>
+<pre>
+<span class="keyword">for</span> (initialization; condition; update) {
+    <span class="comment">// Code to execute</span>
+}
+</pre>
+                </div>
+
+                <p><strong>Components:</strong></p>
+                <ul>
+                    <li><strong>Initialization:</strong> Executed once before the loop starts (e.g., <code>int i = 0</code>)</li>
+                    <li><strong>Condition:</strong> Checked before each iteration; loop continues while true</li>
+                    <li><strong>Update:</strong> Executed after each iteration (e.g., <code>i++</code>)</li>
+                </ul>
+
+                <h4>Example: Basic For Loop</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">ForLoopExample</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="comment">// Print numbers 1 through 5</span>
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i <= <span class="number">5</span>; i++) {
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Count: "</span> + i);
+        }
+    }
+}
+</pre>
+                </div>
+
+                <h4>Example: Countdown</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">Countdown</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Countdown started!"</span>);
+        
+        <span class="comment">// Count down from 10 to 1</span>
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">10</span>; i >= <span class="number">1</span>; i--) {
+            <span class="type">System</span>.out.<span class="method">println</span>(i);
+        }
+        
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Liftoff!"</span>);
+    }
+}
+</pre>
+                </div>
+
+                <h4>Example: Multiplication Table</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">MultiplicationTable</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">int</span> number = <span class="number">7</span>;  <span class="comment">// Number for multiplication table</span>
+        
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Multiplication Table for "</span> + number);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"========================"</span>);
+        
+        <span class="comment">// Generate multiplication table from 1 to 10</span>
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i <= <span class="number">10</span>; i++) {
+            <span class="keyword">int</span> result = number * i;
+            <span class="type">System</span>.out.<span class="method">println</span>(number + <span class="string">" x "</span> + i + <span class="string">" = "</span> + result);
+        }
+    }
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- Topic 4: Nested Loops -->
+            <div class="section-card">
+                <h3>4. Nested Loops</h3>
+                <p>A nested loop is a loop inside another loop. The inner loop completes all its iterations for each iteration of the outer loop. This is useful for working with multi-dimensional data or creating patterns.</p>
+                
+                <h4>Example: Rectangle Pattern</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">RectanglePattern</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">int</span> rows = <span class="number">4</span>;     <span class="comment">// Number of rows</span>
+        <span class="keyword">int</span> cols = <span class="number">6</span>;     <span class="comment">// Number of columns</span>
+        
+        <span class="comment">// Outer loop controls rows</span>
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i <= rows; i++) {
+            <span class="comment">// Inner loop controls columns</span>
+            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j <= cols; j++) {
+                <span class="type">System</span>.out.<span class="method">print</span>(<span class="string">"* "</span>);
+            }
+            <span class="type">System</span>.out.<span class="method">println</span>();  <span class="comment">// Move to next line</span>
+        }
+    }
+}
+</pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>Output:</strong><br>
+<pre style="background: transparent; color: inherit; padding: 10px 0;">* * * * * *
+* * * * * *
+* * * * * *
+* * * * * *</pre>
+                </div>
+
+                <h4>Example: Right Triangle Pattern</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">TrianglePattern</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">int</span> height = <span class="number">5</span>;  <span class="comment">// Triangle height</span>
+        
+        <span class="comment">// Outer loop: each row</span>
+        <span class="keyword">for</span> (<span class="keyword">int</span> row = <span class="number">1</span>; row <= height; row++) {
+            <span class="comment">// Inner loop: print stars equal to current row number</span>
+            <span class="keyword">for</span> (<span class="keyword">int</span> star = <span class="number">1</span>; star <= row; star++) {
+                <span class="type">System</span>.out.<span class="method">print</span>(<span class="string">"*"</span>);
+            }
+            <span class="type">System</span>.out.<span class="method">println</span>();  <span class="comment">// New line after each row</span>
+        }
+    }
+}
+</pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>Output:</strong><br>
+<pre style="background: transparent; color: inherit; padding: 10px 0;">*
+**
+***
+****
+*****</pre>
+                </div>
+
+                <h4>Example: Multiplication Table Grid</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">MultiplicationGrid</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">int</span> size = <span class="number">5</span>;
+        
+        <span class="comment">// Print header row</span>
+        <span class="type">System</span>.out.<span class="method">print</span>(<span class="string">"  |"</span>);
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i <= size; i++) {
+            <span class="type">System</span>.out.<span class="method">printf</span>(<span class="string">"%4d"</span>, i);
+        }
+        <span class="type">System</span>.out.<span class="method">println</span>();
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"--+--------------------"</span>);
+        
+        <span class="comment">// Print multiplication table</span>
+        <span class="keyword">for</span> (<span class="keyword">int</span> row = <span class="number">1</span>; row <= size; row++) {
+            <span class="type">System</span>.out.<span class="method">printf</span>(<span class="string">"%2d|"</span>, row);  <span class="comment">// Row header</span>
+            <span class="keyword">for</span> (<span class="keyword">int</span> col = <span class="number">1</span>; col <= size; col++) {
+                <span class="type">System</span>.out.<span class="method">printf</span>(<span class="string">"%4d"</span>, row * col);
+            }
+            <span class="type">System</span>.out.<span class="method">println</span>();
+        }
+    }
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- Topic 5: Break Statement -->
+            <div class="section-card">
+                <h3>5. The Break Statement</h3>
+                <p>The <code>break</code> statement immediately terminates the current loop and transfers control to the statement following the loop. It's useful for exiting a loop when a specific condition is met.</p>
+                
+                <h4>Example: Finding a Number</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">FindNumber</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">int</span>[] numbers = {<span class="number">10</span>, <span class="number">25</span>, <span class="number">33</span>, <span class="number">47</span>, <span class="number">52</span>, <span class="number">68</span>, <span class="number">71</span>};
+        <span class="keyword">int</span> target = <span class="number">47</span>;
+        <span class="keyword">boolean</span> found = <span class="keyword">false</span>;
+        
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < numbers.length; i++) {
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Checking index "</span> + i + <span class="string">": "</span> + numbers[i]);
+            
+            <span class="keyword">if</span> (numbers[i] == target) {
+                <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Found "</span> + target + <span class="string">" at index "</span> + i);
+                found = <span class="keyword">true</span>;
+                <span class="keyword">break</span>;  <span class="comment">// Exit loop immediately</span>
+            }
+        }
+        
+        <span class="keyword">if</span> (!found) {
+            <span class="type">System</span>.out.<span class="method">println</span>(target + <span class="string">" not found in the array."</span>);
+        }
+    }
+}
+</pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>Output:</strong><br>
+                    <code>Checking index 0: 10</code><br>
+                    <code>Checking index 1: 25</code><br>
+                    <code>Checking index 2: 33</code><br>
+                    <code>Checking index 3: 47</code><br>
+                    <code>Found 47 at index 3</code>
+                </div>
+            </div>
+
+            <!-- Topic 6: Continue Statement -->
+            <div class="section-card">
+                <h3>6. The Continue Statement</h3>
+                <p>The <code>continue</code> statement skips the rest of the current iteration and moves to the next iteration of the loop. It's useful for skipping specific values while processing.</p>
+                
+                <h4>Example: Skip Odd Numbers</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">SkipOddNumbers</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Even numbers from 1 to 10:"</span>);
+        
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i <= <span class="number">10</span>; i++) {
+            <span class="comment">// Skip odd numbers</span>
+            <span class="keyword">if</span> (i % <span class="number">2</span> != <span class="number">0</span>) {
+                <span class="keyword">continue</span>;  <span class="comment">// Skip to next iteration</span>
+            }
+            <span class="type">System</span>.out.<span class="method">println</span>(i);
+        }
+    }
+}
+</pre>
+                </div>
+
+                <div class="info-box">
+                    <strong>Output:</strong><br>
+                    <code>Even numbers from 1 to 10:</code><br>
+                    <code>2</code><br>
+                    <code>4</code><br>
+                    <code>6</code><br>
+                    <code>8</code><br>
+                    <code>10</code>
+                </div>
+
+                <h4>Break vs Continue Comparison</h4>
+                <table class="syntax-table">
+                    <tr>
+                        <th>Statement</th>
+                        <th>Effect</th>
+                        <th>Use Case</th>
+                    </tr>
+                    <tr>
+                        <td><code>break</code></td>
+                        <td>Exits the entire loop</td>
+                        <td>Stop searching when target found</td>
+                    </tr>
+                    <tr>
+                        <td><code>continue</code></td>
+                        <td>Skips to next iteration</td>
+                        <td>Skip invalid or unwanted values</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Interactive Section -->
+            <div class="section-card">
+                <h3>Interactive: Predict the Output</h3>
+                
+                <div class="predict-output">
+                    <h4>Exercise 1</h4>
+                    <p>What will be the output of this code?</p>
+                    <div class="code-example">
+<pre>
+<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i <= <span class="number">5</span>; i++) {
+    <span class="keyword">if</span> (i == <span class="number">3</span>) {
+        <span class="keyword">continue</span>;
+    }
+    <span class="type">System</span>.out.<span class="method">print</span>(i + <span class="string">" "</span>);
+}
+</pre>
+                    </div>
+                    <input type="text" id="predict2" class="predict-input" placeholder="Enter the output (e.g., 1 2 3)...">
+                    <button class="btn btn-primary" onclick="checkPrediction('predict2', '1 2 4 5', 'feedback2')">Check Answer</button>
+                    <div id="feedback2" class="feedback"></div>
+                </div>
+
+                <div class="predict-output" style="margin-top: 20px;">
+                    <h4>Exercise 2</h4>
+                    <p>What will be the output of this code?</p>
+                    <div class="code-example">
+<pre>
+<span class="keyword">int</span> x = <span class="number">0</span>;
+<span class="keyword">while</span> (x < <span class="number">5</span>) {
+    x++;
+    <span class="keyword">if</span> (x == <span class="number">3</span>) {
+        <span class="keyword">break</span>;
+    }
+    <span class="type">System</span>.out.<span class="method">print</span>(x + <span class="string">" "</span>);
+}
+</pre>
+                    </div>
+                    <input type="text" id="predict3" class="predict-input" placeholder="Enter the output...">
+                    <button class="btn btn-primary" onclick="checkPrediction('predict3', '1 2', 'feedback3')">Check Answer</button>
+                    <div id="feedback3" class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- Common Mistakes and Tips -->
+            <div class="section-card">
+                <h3>Common Mistakes and Best Practices</h3>
+                
+                <h4>Common Mistakes</h4>
+                <ul class="mistakes-list">
+                    <li><strong>Infinite loops:</strong> Forgetting to update the loop variable causes the loop to run forever.</li>
+                    <li><strong>Off-by-one errors:</strong> Using <code>&lt;</code> instead of <code>&lt;=</code> (or vice versa) can cause loops to iterate one too many or too few times.</li>
+                    <li><strong>Wrong loop type:</strong> Using <code>while</code> when <code>for</code> is clearer, or <code>do-while</code> when minimum execution isn't needed.</li>
+                    <li><strong>Modifying loop variable inside loop:</strong> Changing the loop counter inside the loop body can cause unexpected behavior.</li>
+                    <li><strong>Missing semicolon in do-while:</strong> The <code>do-while</code> loop requires a semicolon after the condition.</li>
+                </ul>
+                
+                <h4>Best Practices</h4>
+                <ul class="tips-list">
+                    <li><strong>Use descriptive counter names:</strong> Use <code>row</code>, <code>col</code>, <code>student</code> instead of just <code>i</code>, <code>j</code>, <code>k</code> when appropriate.</li>
+                    <li><strong>Keep loops simple:</strong> Each loop should do one thing well. Complex logic should be moved to methods.</li>
+                    <li><strong>Use for-each for collections:</strong> When iterating through arrays or collections without needing the index, use the enhanced for loop.</li>
+                    <li><strong>Limit nesting depth:</strong> Deeply nested loops are hard to read. Consider refactoring if you have more than 3 levels.</li>
+                    <li><strong>Use break sparingly:</strong> Overuse of break can make code harder to follow. Consider restructuring the loop condition.</li>
+                </ul>
+            </div>
+
+            <!-- Knowledge Check -->
+            <div class="section-card">
+                <h3>Knowledge Check</h3>
+                
+                <div class="quiz-container" id="quizForm">
+                    <div class="quiz-question" id="q1" data-correct="b">
+                        <p>1. Which loop guarantees at least one execution?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q1" value="a"> while</label></li>
+                            <li><label><input type="radio" name="q1" value="b"> do-while</label></li>
+                            <li><label><input type="radio" name="q1" value="c"> for</label></li>
+                            <li><label><input type="radio" name="q1" value="d"> None of the above</label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q1', 'b')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" id="q2" data-correct="c">
+                        <p>2. How many times will this loop execute?</p>
+                        <div class="code-example">
+<pre><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i < <span class="number">5</span>; i++) { }</pre>
+                        </div>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q2" value="a"> 4 times</label></li>
+                            <li><label><input type="radio" name="q2" value="b"> 6 times</label></li>
+                            <li><label><input type="radio" name="q2" value="c"> 5 times</label></li>
+                            <li><label><input type="radio" name="q2" value="d"> Infinite loop</label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q2', 'c')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" id="q3" data-correct="a">
+                        <p>3. What does the <code>continue</code> statement do?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q3" value="a"> Skips to the next iteration</label></li>
+                            <li><label><input type="radio" name="q3" value="b"> Exits the loop entirely</label></li>
+                            <li><label><input type="radio" name="q3" value="c"> Restarts the loop from the beginning</label></li>
+                            <li><label><input type="radio" name="q3" value="d"> Pauses the loop</label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q3', 'a')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" id="q4" data-correct="d">
+                        <p>4. In a nested loop, how many total iterations occur if the outer loop runs 3 times and the inner loop runs 4 times?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q4" value="a"> 3</label></li>
+                            <li><label><input type="radio" name="q4" value="b"> 4</label></li>
+                            <li><label><input type="radio" name="q4" value="c"> 7</label></li>
+                            <li><label><input type="radio" name="q4" value="d"> 12</label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q4', 'd')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="section-card">
+                <h3>Summary</h3>
+                <ul class="summary-list">
+                    <li>The <code>while</code> loop checks the condition before each iteration and may not execute at all.</li>
+                    <li>The <code>do-while</code> loop checks the condition after each iteration, guaranteeing at least one execution.</li>
+                    <li>The <code>for</code> loop combines initialization, condition, and update in one line—ideal for counter-controlled loops.</li>
+                    <li>Nested loops allow processing of multi-dimensional data; the inner loop completes fully for each outer iteration.</li>
+                    <li>The <code>break</code> statement exits the loop immediately.</li>
+                    <li>The <code>continue</code> statement skips the current iteration and moves to the next.</li>
+                    <li>Always ensure loops have a termination condition to avoid infinite loops.</li>
+                </ul>
+            </div>
+
+            <!-- Lesson Navigation -->
+            <nav class="lesson-nav">
+                <a href="lesson1-selection-structures.html">← Previous: Selection Structures</a>
+                <a href="lesson3-arrays.html">Next: Arrays →</a>
+            </nav>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-icon">◈</span>
+                        <span>CC3 Learning Platform</span>
+                    </div>
+                    <p>An interactive learning platform for Computer Programming courses, designed to support BSIT and ACT students in developing strong programming foundations.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Courses</h4>
+                        <ul>
+                            <li><a href="../oop-syllabus.html">Object-Oriented Programming</a></li>
+                            <li><a href="../programming2-syllabus.html">Programming 2</a></li>
+                            <li><a href="../lab-exercises.html">Lab Exercises</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Lecture Notes</a></li>
+                            <li><a href="#">Coding Standards</a></li>
+                            <li><a href="#">Reference Books</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contact Instructor</h4>
+                        <ul>
+                            <li><strong>Jastine M. Gatdula</strong></li>
+                            <li>College Instructor</li>
+                            <li>College Department</li>
+                            <li><a href="mailto:jgatdula@hccci.edu.ph">jgatdula@hccci.edu.ph</a></li>
+                            <li>Campus: Surallah</li>
+                            <li>Consultation: Friday 7AM-2:30PM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <p>&copy; 2026 Computer Programming Department. All rights reserved.</p>
+                    <p class="academic-notice">Academic Integrity: All submitted work must be original. Plagiarism and unauthorized collaboration are violations of the student code of conduct.</p>
+                </div>
+                <div class="footer-meta">
+                    <span>Academic Year 2025-2026 | Second Semester</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../main.js"></script>
+    <script src="../lessons.js"></script>
+</body>
+</html>

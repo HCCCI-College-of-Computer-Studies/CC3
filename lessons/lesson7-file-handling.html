@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson VII: Accessing Files - CC3 Computer Programming 2</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../lessons.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
+</head>
+<body>
+    <div class="progress-bar"><div class="progress"></div></div>
+    
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="university-logo">
+                    <span class="logo-icon">◈</span>
+                </div>
+                <div class="system-title">
+                    <h1>CC3 Learning Platform</h1>
+                    <span class="subtitle">Computer Programming Department</span>
+                </div>
+            </div>
+            <nav class="main-nav" role="navigation" aria-label="Main navigation">
+                <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#courses">Courses</a></li>
+                    <li><a href="../programming2-syllabus.html" class="active">Lessons</a></li>
+                    <li><a href="../lab-exercises.html">Activities</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="lesson-hero">
+        <div class="container">
+            <span class="lesson-badge">Lesson VII</span>
+            <h2>Accessing Files</h2>
+            <p>Learn to read from and write to files, implementing CRUD operations and processing CSV data.</p>
+        </div>
+    </section>
+
+    <main class="lesson-content">
+        <div class="container">
+            
+            <!-- Overview -->
+            <div class="section-card">
+                <h3>Lesson Overview</h3>
+                <p>File handling allows programs to persist data beyond the program's execution. This lesson covers reading, writing, updating, and deleting file data, including working with CSV files commonly used for data exchange.</p>
+                
+                <div class="info-box">
+                    <strong>Real-World Context:</strong> Applications use files to store configurations, user preferences, logs, reports, and data exports. CSV files are widely used for spreadsheet data, database exports, and data exchange between systems.
+                </div>
+            </div>
+
+            <!-- Learning Outcomes -->
+            <div class="section-card">
+                <h3>Learning Outcomes</h3>
+                <ul class="outcomes-list">
+                    <li>Read data from text files using various Java I/O classes</li>
+                    <li>Write and append data to files</li>
+                    <li>Implement CRUD (Create, Read, Update, Delete) operations on file data</li>
+                    <li>Parse and generate CSV files</li>
+                </ul>
+            </div>
+
+            <!-- File Handling CRUD -->
+            <div class="section-card">
+                <h3>1. File Handling C.R.U.D. Operations</h3>
+                
+                <h4>Creating and Writing to Files</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">import</span> java.io.*;
+
+<span class="keyword">public class</span> <span class="type">FileCreate</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="comment">// Using FileWriter (overwrites existing file)</span>
+        <span class="keyword">try</span> (<span class="type">FileWriter</span> writer = <span class="keyword">new</span> <span class="type">FileWriter</span>(<span class="string">"output.txt"</span>)) {
+            writer.<span class="method">write</span>(<span class="string">"Hello, World!\n"</span>);
+            writer.<span class="method">write</span>(<span class="string">"This is line 2.\n"</span>);
+            writer.<span class="method">write</span>(<span class="string">"File created successfully!"</span>);
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"File written successfully."</span>);
+        } <span class="keyword">catch</span> (<span class="type">IOException</span> e) {
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Error: "</span> + e.<span class="method">getMessage</span>());
+        }
+        
+        <span class="comment">// Using PrintWriter for formatted output</span>
+        <span class="keyword">try</span> (<span class="type">PrintWriter</span> pw = <span class="keyword">new</span> <span class="type">PrintWriter</span>(<span class="string">"data.txt"</span>)) {
+            pw.<span class="method">println</span>(<span class="string">"Student Records"</span>);
+            pw.<span class="method">printf</span>(<span class="string">"Name: %s, Score: %d%n"</span>, <span class="string">"Juan"</span>, <span class="number">95</span>);
+            pw.<span class="method">printf</span>(<span class="string">"Name: %s, Score: %d%n"</span>, <span class="string">"Maria"</span>, <span class="number">88</span>);
+        } <span class="keyword">catch</span> (<span class="type">FileNotFoundException</span> e) {
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Error: "</span> + e.<span class="method">getMessage</span>());
+        }
+    }
+}
+</pre>
+                </div>
+
+                <h4>Reading from Files</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">import</span> java.io.*;
+<span class="keyword">import</span> java.util.Scanner;
+
+<span class="keyword">public class</span> <span class="type">FileRead</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="comment">// Method 1: Using Scanner</span>
+        <span class="keyword">try</span> (<span class="type">Scanner</span> scanner = <span class="keyword">new</span> <span class="type">Scanner</span>(<span class="keyword">new</span> <span class="type">File</span>(<span class="string">"data.txt"</span>))) {
+            <span class="keyword">while</span> (scanner.<span class="method">hasNextLine</span>()) {
+                <span class="type">String</span> line = scanner.<span class="method">nextLine</span>();
+                <span class="type">System</span>.out.<span class="method">println</span>(line);
+            }
+        } <span class="keyword">catch</span> (<span class="type">FileNotFoundException</span> e) {
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"File not found!"</span>);
+        }
+        
+        <span class="comment">// Method 2: Using BufferedReader</span>
+        <span class="keyword">try</span> (<span class="type">BufferedReader</span> br = <span class="keyword">new</span> <span class="type">BufferedReader</span>(
+                <span class="keyword">new</span> <span class="type">FileReader</span>(<span class="string">"data.txt"</span>))) {
+            <span class="type">String</span> line;
+            <span class="keyword">while</span> ((line = br.<span class="method">readLine</span>()) != <span class="keyword">null</span>) {
+                <span class="type">System</span>.out.<span class="method">println</span>(line);
+            }
+        } <span class="keyword">catch</span> (<span class="type">IOException</span> e) {
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Error reading file!"</span>);
+        }
+    }
+}
+</pre>
+                </div>
+
+                <h4>Appending to Files</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">import</span> java.io.*;
+
+<span class="keyword">public class</span> <span class="type">FileAppend</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="comment">// true = append mode (doesn't overwrite)</span>
+        <span class="keyword">try</span> (<span class="type">FileWriter</span> fw = <span class="keyword">new</span> <span class="type">FileWriter</span>(<span class="string">"log.txt"</span>, <span class="keyword">true</span>);
+             <span class="type">PrintWriter</span> pw = <span class="keyword">new</span> <span class="type">PrintWriter</span>(fw)) {
+            
+            pw.<span class="method">println</span>(<span class="string">"New log entry: "</span> + java.time.<span class="type">LocalDateTime</span>.<span class="method">now</span>());
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Entry appended to log."</span>);
+            
+        } <span class="keyword">catch</span> (<span class="type">IOException</span> e) {
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Error: "</span> + e.<span class="method">getMessage</span>());
+        }
+    }
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- CSV Files -->
+            <div class="section-card">
+                <h3>2. Accessing CSV Files</h3>
+                <p>CSV (Comma-Separated Values) files store tabular data as plain text, with values separated by commas and rows separated by newlines.</p>
+                
+                <h4>Reading CSV Files</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">import</span> java.io.*;
+
+<span class="keyword">public class</span> <span class="type">ReadCSV</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="type">String</span> filename = <span class="string">"students.csv"</span>;
+        
+        <span class="keyword">try</span> (<span class="type">BufferedReader</span> br = <span class="keyword">new</span> <span class="type">BufferedReader</span>(
+                <span class="keyword">new</span> <span class="type">FileReader</span>(filename))) {
+            
+            <span class="type">String</span> line;
+            <span class="keyword">boolean</span> isHeader = <span class="keyword">true</span>;
+            
+            <span class="keyword">while</span> ((line = br.<span class="method">readLine</span>()) != <span class="keyword">null</span>) {
+                <span class="comment">// Split line by comma</span>
+                <span class="type">String</span>[] values = line.<span class="method">split</span>(<span class="string">","</span>);
+                
+                <span class="keyword">if</span> (isHeader) {
+                    <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"=== Header ==="</span>);
+                    isHeader = <span class="keyword">false</span>;
+                }
+                
+                <span class="comment">// Process each column</span>
+                <span class="keyword">for</span> (<span class="type">String</span> value : values) {
+                    <span class="type">System</span>.out.<span class="method">print</span>(value.<span class="method">trim</span>() + <span class="string">"\t"</span>);
+                }
+                <span class="type">System</span>.out.<span class="method">println</span>();
+            }
+        } <span class="keyword">catch</span> (<span class="type">IOException</span> e) {
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Error reading CSV: "</span> + e.<span class="method">getMessage</span>());
+        }
+    }
+}
+</pre>
+                </div>
+
+                <h4>Writing CSV Files</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">import</span> java.io.*;
+
+<span class="keyword">public class</span> <span class="type">WriteCSV</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="type">String</span>[][] students = {
+            {<span class="string">"ID"</span>, <span class="string">"Name"</span>, <span class="string">"Course"</span>, <span class="string">"GPA"</span>},
+            {<span class="string">"001"</span>, <span class="string">"Juan Dela Cruz"</span>, <span class="string">"BSIT"</span>, <span class="string">"3.5"</span>},
+            {<span class="string">"002"</span>, <span class="string">"Maria Santos"</span>, <span class="string">"BSCS"</span>, <span class="string">"3.8"</span>},
+            {<span class="string">"003"</span>, <span class="string">"Pedro Garcia"</span>, <span class="string">"BSIT"</span>, <span class="string">"3.2"</span|}
+        };
+        
+        <span class="keyword">try</span> (<span class="type">PrintWriter</span> pw = <span class="keyword">new</span> <span class="type">PrintWriter</span>(<span class="string">"students.csv"</span>)) {
+            <span class="keyword">for</span> (<span class="type">String</span>[] row : students) {
+                pw.<span class="method">println</span>(<span class="type">String</span>.<span class="method">join</span>(<span class="string">","</span>, row));
+            }
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"CSV file created successfully!"</span>);
+        } <span class="keyword">catch</span> (<span class="type">FileNotFoundException</span> e) {
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Error: "</span> + e.<span class="method">getMessage</span>());
+        }
+    }
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- Knowledge Check -->
+            <div class="section-card">
+                <h3>Knowledge Check</h3>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question" id="q1">
+                        <p>1. What does CRUD stand for?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q1" value="a"> Copy, Read, Update, Delete</label></li>
+                            <li><label><input type="radio" name="q1" value="b"> Create, Read, Update, Delete</label></li>
+                            <li><label><input type="radio" name="q1" value="c"> Create, Rename, Update, Delete</label></li>
+                            <li><label><input type="radio" name="q1" value="d"> Copy, Rename, Update, Download</label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q1', 'b')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" id="q2">
+                        <p>2. Which parameter in FileWriter enables append mode?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q2" value="a"> <code>FileWriter(filename, false)</code></label></li>
+                            <li><label><input type="radio" name="q2" value="b"> <code>FileWriter(filename, true)</code></label></li>
+                            <li><label><input type="radio" name="q2" value="c"> <code>FileWriter(filename, "append")</code></label></li>
+                            <li><label><input type="radio" name="q2" value="d"> <code>FileWriter(filename).append()</code></label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q2', 'b')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="section-card">
+                <h3>Summary</h3>
+                <ul class="summary-list">
+                    <li>Use <code>FileWriter</code> and <code>PrintWriter</code> to write text to files.</li>
+                    <li>Use <code>BufferedReader</code> or <code>Scanner</code> to read files line by line.</li>
+                    <li>Pass <code>true</code> as second argument to FileWriter for append mode.</li>
+                    <li>CSV files use commas to separate values; use <code>split(",")</code> to parse.</li>
+                    <li>Always use try-with-resources to ensure files are properly closed.</li>
+                </ul>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="lesson-nav">
+                <a href="lesson6-enumerations.html">← Previous: Enumerations</a>
+                <a href="lesson8-regular-expressions.html">Next: Regular Expressions →</a>
+            </nav>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-icon">◈</span>
+                        <span>CC3 Learning Platform</span>
+                    </div>
+                    <p>An interactive learning platform for Computer Programming courses, designed to support BSIT and ACT students in developing strong programming foundations.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Courses</h4>
+                        <ul>
+                            <li><a href="../oop-syllabus.html">Object-Oriented Programming</a></li>
+                            <li><a href="../programming2-syllabus.html">Programming 2</a></li>
+                            <li><a href="../lab-exercises.html">Lab Exercises</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Lecture Notes</a></li>
+                            <li><a href="#">Coding Standards</a></li>
+                            <li><a href="#">Reference Books</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">Contact Instructor</a></li>
+                            <li><a href="#">IT Helpdesk</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <p>&copy; 2026 Computer Programming Department. All rights reserved.</p>
+                    <p class="academic-notice">Academic Integrity: All submitted work must be original. Plagiarism and unauthorized collaboration are violations of the student code of conduct.</p>
+                </div>
+                <div class="footer-meta">
+                    <span>Academic Year 2025-2026 | Second Semester</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../main.js"></script>
+    <script src="../lessons.js"></script>
+</body>
+</html>

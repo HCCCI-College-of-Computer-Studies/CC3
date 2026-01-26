@@ -3,138 +3,487 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CC3: Computer Programming Course</title>
+    <title>CC3: Computer Programming | Interactive Learning Platform</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>CC3: Computer Programming</h1>
-            <nav>
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#syllabus">Syllabus</a></li>
-                    <li><a href="#resources">Resources</a></li>
-                    <li><a href="#contact">Contact</a></li>
+    <!-- Header / Navigation -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="university-logo">
+                    <span class="logo-icon">◈</span>
+                </div>
+                <div class="system-title">
+                    <h1>CC3 Learning Platform</h1>
+                    <span class="subtitle">Computer Programming Department</span>
+                </div>
+            </div>
+            <nav class="main-nav" role="navigation" aria-label="Main navigation">
+                <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#lessons">Lessons</a></li>
+                    <li><a href="lab-exercises.html">Activities</a></li>
+                    <li><a href="#assessments">Assessments</a></li>
+                    <li><a href="#profile" class="profile-link">Profile</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <section id="hero">
-        <div class="container">
-            <h2>Welcome to Computer Programming</h2>
-            <p>Master the art of coding and problem solving.</p>
-            <a href="#syllabus" class="btn">View Syllabus</a>
-        </div>
-    </section>
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <span class="hero-badge">Academic Year 2025-2026</span>
+                    <h2>Interactive Learning for Computer Programming</h2>
+                    <p class="hero-tagline">Build strong programming foundations through structured lessons, live code examples, and comprehensive assessments designed for BSIT and ACT students.</p>
+                    <div class="hero-actions">
+                        <a href="#courses" class="btn btn-primary">Start Learning</a>
+                        <a href="#features" class="btn btn-secondary">Explore Features</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">9</span>
+                            <span class="stat-label">Comprehensive Lessons</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Code Examples</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">100+</span>
+                            <span class="stat-label">Practice Exercises</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="code-preview">
+                        <div class="code-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="filename">Main.java</span>
+                        </div>
+                        <pre class="code-content"><code><span class="kw">public class</span> <span class="type">Main</span> {
+    <span class="kw">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="str">"Welcome to CC3!"</span>);
+        
+        <span class="comment">// Interactive learning starts here</span>
+        <span class="method">startLearning</span>();
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <section id="about" class="container">
-        <h2>About the Course</h2>
-        <p>This course is designed to provide students with a solid foundation in computer programming. We will cover fundamental concepts, algorithms, and data structures using modern programming languages.</p>
-    </section>
+        <!-- Course Overview Section -->
+        <section id="courses" class="courses-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2>Available Courses</h2>
+                    <p>Select a course track to begin your programming journey</p>
+                </div>
+                <div class="courses-grid">
+                    <!-- OOP Course Card -->
+                    <article class="course-card">
+                        <div class="course-header">
+                            <span class="course-code">CC3-OOP</span>
+                            <span class="course-status">Available</span>
+                        </div>
+                        <h3>Object-Oriented Programming</h3>
+                        <p>Learn the principles of OOP including classes, objects, inheritance, polymorphism, interfaces, and software design patterns.</p>
+                        <div class="course-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">Units</span>
+                                <span class="meta-value">3.0</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Weeks</span>
+                                <span class="meta-value">18</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Level</span>
+                                <span class="meta-value">Intermediate</span>
+                            </div>
+                        </div>
+                        <ul class="course-topics-list">
+                            <li>Classes, Objects, and Methods</li>
+                            <li>Constructors and Encapsulation</li>
+                            <li>Inheritance and Polymorphism</li>
+                            <li>Exception Handling</li>
+                            <li>GUI Development with Swing</li>
+                        </ul>
+                        <div class="course-progress">
+                            <div class="progress-info">
+                                <span>Course Progress</span>
+                                <span class="progress-percent">0%</span>
+                            </div>
+                            <div class="progress-bar-track">
+                                <div class="progress-bar-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <a href="oop-syllabus.html" class="btn btn-course">View Course Syllabus</a>
+                    </article>
 
-    <section id="syllabus" class="container">
-        <h2>Course Syllabus</h2>
-        <div class="week">
-            <h3><a href="week1.html">Week 1: Class Orientation</a></h3>
-        </div>
-        <div class="week">
-            <h3><a href="week2.html">Week 2: Object Oriented Programming</a></h3>
-            <p>Demonstrate proficiency in applying object-oriented programming principles in Java, including understanding, defining, analyzing, evaluating, and creating objects, classes, inheritance, interfaces, and packages, to design and develop robust, scalable, and maintainable software solutions.</p>
-            <ul>
-                <li>Object</li>
-                <li>Class</li>
-                <li>Inheritance</li>
-                <li>Interface</li>
-                <li>Package</li>
-            </ul>
-        </div>
-        <div class="week">
-            <h3><a href="week3-4.html">Week 3-4: Classes and Methods</a></h3>
-            <p>Exhibit comprehensive mastery of classes and methods in Java, encompassing the ability to recall, comprehend, apply, analyze, synthesize, and evaluate their functionalities, while effectively designing, implementing, and refining object-oriented software solutions.</p>
-            <ul>
-                <li>Class and Method Definition</li>
-                <li>Information Hiding</li>
-                <li>Encapsulation</li>
-            </ul>
-        </div>
-        <div class="week">
-            <h3><a href="week5-6.html">Week 5-6: Objects and Methods</a></h3>
-            <p>Demonstrate a thorough understanding of objects and methods in Java, including the ability to recall, comprehend, apply, analyze, synthesize, and evaluate concepts such as constructors, static variables, and static methods, while effectively utilizing them to design, implement, and optimize object-oriented software solutions.</p>
-            <ul>
-                <li>Constructors</li>
-                <li>Static Variables and Static Methods</li>
-            </ul>
-        </div>
-        <div class="week">
-            <h3><a href="week7-8.html">Week 7-8: OOP Concepts</a></h3>
-            <p>Exhibit comprehensive mastery of Object-Oriented Programming (OOP) concepts in Java, including recalling, understanding, applying, analyzing, evaluating, and creating principles such as encapsulation, inheritance, polymorphism, abstraction, and composition, to design, develop, and optimize sophisticated software solutions.</p>
-            <ul>
-                <li>Inheritance</li>
-                <li>Polymorphism</li>
-                <li>Interface</li>
-                <li>Abstract Classes</li>
-            </ul>
-        </div>
-        <div class="week">
-            <h3><a href="week9-10.html">Week 9-10: Exception Handling</a></h3>
-            <p>Demonstrate a thorough understanding of exception handling in Java, including recalling, comprehending, applying, analyzing, synthesizing, and evaluating techniques to effectively manage and handle errors, ensuring robustness and reliability in software solutions.</p>
-            <ul>
-                <li>Basic Exception Handling</li>
-                <li>Try, Catch, and Finally</li>
-                <li>User-Defined Exception</li>
-            </ul>
-        </div>
-        <div class="week">
-            <h3><a href="week11-12.html">Week 11-12: File Input and Output</a></h3>
-            <p>Exhibit comprehensive mastery of file input and output operations in Java, encompassing the ability to recall, understand, apply, analyze, synthesize, and evaluate various techniques for reading from and writing to files, facilitating the development of efficient and reliable file-handling functionalities within software solutions.</p>
-            <ul>
-                <li>The Computer Files</li>
-                <li>The path and file Classes</li>
-                <li>File Organization</li>
-                <li>Streams</li>
-                <li>Buffer</li>
-                <li>The I/O classes</li>
-                <li>Sequential Data Files</li>
-            </ul>
-        </div>
-        <div class="week">
-            <h3><a href="week13-14.html">Week 13-14: User Interface 01</a></h3>
-            <p>Demonstrate comprehensive mastery of user interface design in Java, including recalling, understanding, applying, analyzing, synthesizing, and evaluating Swing components and layout managers to create visually appealing and interactive graphical user interfaces within software applications.</p>
-            <ul>
-                <li>Swing Components</li>
-                <li>Layout Manager</li>
-            </ul>
-        </div>
-        <div class="week">
-            <h3><a href="week15-16.html">Week 15-16: User Interface 02</a></h3>
-            <p>Exhibit comprehensive mastery of user interface design principles in Java, including recalling, understanding, applying, analyzing, synthesizing, and evaluating concepts such as content panes, layout manager classes, and AWT event class methods to develop intuitive and responsive graphical user interfaces within software applications.</p>
-            <ul>
-                <li>Content Pane</li>
-                <li>Layout Manager Classes</li>
-                <li>AWT Event Class Methods</li>
-            </ul>
-        </div>
-        <div class="week">
-            <h3><a href="week17-18.html">Week 17-18: Project Presentation</a></h3>
-        </div>
-    </section>
+                    <!-- Programming 2 Course Card -->
+                    <article class="course-card featured">
+                        <div class="course-header">
+                            <span class="course-code">CC3-P2</span>
+                            <span class="course-status active">Active</span>
+                        </div>
+                        <h3>Programming 2: Fundamentals</h3>
+                        <p>Master programming fundamentals including control structures, arrays, functions, file handling, and essential Java classes.</p>
+                        <div class="course-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">Units</span>
+                                <span class="meta-value">3.0</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Lessons</span>
+                                <span class="meta-value">9</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Level</span>
+                                <span class="meta-value">Foundational</span>
+                            </div>
+                        </div>
+                        <ul class="course-topics-list">
+                            <li>Selection and Iterative Structures</li>
+                            <li>Arrays and Array Operations</li>
+                            <li>Functions and Recursion</li>
+                            <li>File Handling and CSV Processing</li>
+                            <li>Regular Expressions</li>
+                        </ul>
+                        <div class="course-progress">
+                            <div class="progress-info">
+                                <span>Course Progress</span>
+                                <span class="progress-percent">0%</span>
+                            </div>
+                            <div class="progress-bar-track">
+                                <div class="progress-bar-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <a href="programming2-syllabus.html" class="btn btn-course btn-primary">Access Lessons</a>
+                    </article>
+                </div>
+            </div>
+        </section>
 
-    <section id="resources" class="container">
-        <h2>Student Resources</h2>
-        <ul>
-            <li><a href="#">Lecture Notes</a></li>
-            <li><a href="lab-exercises.html">Lab Exercises</a></li>
-            <li><a href="#">Coding Guidelines</a></li>
-            <li><a href="#">Reference Books</a></li>
-        </ul>
-    </section>
+        <!-- Interactive Learning Features -->
+        <section id="features" class="features-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2>Interactive Learning Features</h2>
+                    <p>Our platform provides comprehensive tools to support your programming education</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
+                        <h3>Structured Lessons</h3>
+                        <p>Each lesson follows a clear learning progression with defined outcomes, concept explanations, and practical examples.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                        </div>
+                        <h3>Live Code Examples</h3>
+                        <p>Syntax-highlighted Java code examples with detailed explanations help you understand implementation patterns.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 11l3 3L22 4"></path>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                            </svg>
+                        </div>
+                        <h3>Self-Check Quizzes</h3>
+                        <p>Test your understanding with knowledge check questions at the end of each topic with instant feedback.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg>
+                        </div>
+                        <h3>Predict Output Exercises</h3>
+                        <p>Challenge yourself by predicting code output before revealing answers to reinforce learning.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 20h9"></path>
+                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                            </svg>
+                        </div>
+                        <h3>Lab Exercises</h3>
+                        <p>Apply concepts through guided programming exercises with specifications and sample outputs.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                            </svg>
+                        </div>
+                        <h3>Comprehensive Resources</h3>
+                        <p>Access lecture notes, coding guidelines, reference materials, and additional learning resources.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <footer id="contact">
-        <div class="container">
-            <p>&copy; 2024 CC3 Computer Programming. All rights reserved.</p>
+        <!-- Student Progress Section -->
+        <section id="progress" class="progress-section">
+            <div class="section-container">
+                <div class="progress-grid">
+                    <div class="progress-card main-progress">
+                        <h3>Your Learning Progress</h3>
+                        <div class="current-course">
+                            <span class="label">Current Course</span>
+                            <span class="value">Programming 2: Fundamentals</span>
+                        </div>
+                        <div class="progress-overview">
+                            <div class="progress-circle">
+                                <svg viewBox="0 0 100 100">
+                                    <circle class="progress-bg" cx="50" cy="50" r="45"></circle>
+                                    <circle class="progress-fill" cx="50" cy="50" r="45" stroke-dasharray="283" stroke-dashoffset="283"></circle>
+                                </svg>
+                                <div class="progress-text">
+                                    <span class="percent">0%</span>
+                                    <span class="label">Complete</span>
+                                </div>
+                            </div>
+                            <div class="progress-details">
+                                <div class="detail-item">
+                                    <span class="detail-value">0 / 9</span>
+                                    <span class="detail-label">Lessons Completed</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-value">0 / 45</span>
+                                    <span class="detail-label">Quizzes Passed</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-value">0 / 20</span>
+                                    <span class="detail-label">Lab Exercises</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="programming2-syllabus.html" class="btn btn-outline">Continue Learning</a>
+                    </div>
+                    
+                    <div class="progress-card upcoming">
+                        <h3>Upcoming Activities</h3>
+                        <ul class="activity-list">
+                            <li class="activity-item">
+                                <span class="activity-type lesson">Lesson</span>
+                                <div class="activity-info">
+                                    <span class="activity-title">Selection Structures</span>
+                                    <span class="activity-meta">Lesson I • Estimated: 45 mins</span>
+                                </div>
+                            </li>
+                            <li class="activity-item">
+                                <span class="activity-type quiz">Quiz</span>
+                                <div class="activity-info">
+                                    <span class="activity-title">Selection Structures Quiz</span>
+                                    <span class="activity-meta">5 Questions • 10 mins</span>
+                                </div>
+                            </li>
+                            <li class="activity-item">
+                                <span class="activity-type lab">Lab</span>
+                                <div class="activity-info">
+                                    <span class="activity-title">Lab Exercise 1: Conditionals</span>
+                                    <span class="activity-meta">Due: Week 2</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Announcements Section -->
+        <section id="announcements" class="announcements-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2>Academic Announcements</h2>
+                    <p>Important notices and updates from your instructors</p>
+                </div>
+                <div class="announcements-grid">
+                    <article class="announcement-card priority-high">
+                        <div class="announcement-header">
+                            <span class="announcement-date">January 26, 2026</span>
+                            <span class="priority-badge">Important</span>
+                        </div>
+                        <h3>Welcome to Second Semester</h3>
+                        <p>Welcome to CC3: Computer Programming 2. Please review the course syllabus and begin with Lesson I: Selection Structures. All interactive lessons are now available on the platform.</p>
+                        <span class="announcement-author">— Course Instructor</span>
+                    </article>
+                    <article class="announcement-card">
+                        <div class="announcement-header">
+                            <span class="announcement-date">January 24, 2026</span>
+                        </div>
+                        <h3>Lab Exercise Submission Guidelines</h3>
+                        <p>All lab exercises must be submitted through the designated platform. Ensure your code follows the coding standards outlined in the resources section.</p>
+                        <span class="announcement-author">— Course Instructor</span>
+                    </article>
+                    <article class="announcement-card">
+                        <div class="announcement-header">
+                            <span class="announcement-date">January 20, 2026</span>
+                        </div>
+                        <h3>Office Hours Schedule</h3>
+                        <p>Consultation hours are available Monday to Friday, 2:00 PM - 4:00 PM. For technical issues with the learning platform, contact the IT helpdesk.</p>
+                        <span class="announcement-author">— Department Office</span>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Links Section -->
+        <section id="resources" class="resources-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2>Student Resources</h2>
+                    <p>Quick access to essential learning materials</p>
+                </div>
+                <div class="resources-grid">
+                    <a href="programming2-syllabus.html" class="resource-link">
+                        <span class="resource-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                            </svg>
+                        </span>
+                        <span class="resource-title">Course Syllabus</span>
+                    </a>
+                    <a href="lab-exercises.html" class="resource-link">
+                        <span class="resource-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </span>
+                        <span class="resource-title">Lab Exercises</span>
+                    </a>
+                    <a href="#" class="resource-link">
+                        <span class="resource-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                            </svg>
+                        </span>
+                        <span class="resource-title">Lecture Notes</span>
+                    </a>
+                    <a href="#" class="resource-link">
+                        <span class="resource-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                        </span>
+                        <span class="resource-title">Coding Guidelines</span>
+                    </a>
+                    <a href="#" class="resource-link">
+                        <span class="resource-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg>
+                        </span>
+                        <span class="resource-title">Help Center</span>
+                    </a>
+                    <a href="#" class="resource-link">
+                        <span class="resource-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </span>
+                        <span class="resource-title">Discussion Forum</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-icon">◈</span>
+                        <span>CC3 Learning Platform</span>
+                    </div>
+                    <p>An interactive learning platform for Computer Programming courses, designed to support BSIT and ACT students in developing strong programming foundations.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Courses</h4>
+                        <ul>
+                            <li><a href="oop-syllabus.html">Object-Oriented Programming</a></li>
+                            <li><a href="programming2-syllabus.html">Programming 2</a></li>
+                            <li><a href="lab-exercises.html">Lab Exercises</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Lecture Notes</a></li>
+                            <li><a href="#">Coding Standards</a></li>
+                            <li><a href="#">Reference Books</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contact Instructor</h4>
+                        <ul>
+                            <li><strong>Jastine M. Gatdula</strong></li>
+                            <li>College Instructor</li>
+                            <li>College Department</li>
+                            <li><a href="mailto:jgatdula@hccci.edu.ph">jgatdula@hccci.edu.ph</a></li>
+                            <li>Campus: Surallah</li>
+                            <li>Consultation: Friday 7AM-2:30PM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <p>&copy; 2026 Computer Programming Department. All rights reserved.</p>
+                    <p class="academic-notice">Academic Integrity: All submitted work must be original. Plagiarism and unauthorized collaboration are violations of the student code of conduct.</p>
+                </div>
+                <div class="footer-meta">
+                    <span>Academic Year 2025-2026 | Second Semester</span>
+                </div>
+            </div>
         </div>
     </footer>
+
+    <script src="main.js"></script>
 </body>
 </html>

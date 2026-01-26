@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson IX: Essential Java Classes - CC3 Computer Programming 2</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../lessons.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
+</head>
+<body>
+    <div class="progress-bar"><div class="progress"></div></div>
+    
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="university-logo">
+                    <span class="logo-icon">◈</span>
+                </div>
+                <div class="system-title">
+                    <h1>CC3 Learning Platform</h1>
+                    <span class="subtitle">Computer Programming Department</span>
+                </div>
+            </div>
+            <nav class="main-nav" role="navigation" aria-label="Main navigation">
+                <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#courses">Courses</a></li>
+                    <li><a href="../programming2-syllabus.html" class="active">Lessons</a></li>
+                    <li><a href="../lab-exercises.html">Activities</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="lesson-hero">
+        <div class="container">
+            <span class="lesson-badge">Lesson IX</span>
+            <h2>Essential Java Classes</h2>
+            <p>Explore wrapper classes and essential utility classes that enhance Java programming capabilities.</p>
+        </div>
+    </section>
+
+    <main class="lesson-content">
+        <div class="container">
+            
+            <!-- Overview -->
+            <div class="section-card">
+                <h3>Lesson Overview</h3>
+                <p>Java provides essential classes that wrap primitive types into objects and offer utility methods. Understanding these classes is crucial for working with collections, parsing, and object-oriented programming.</p>
+                
+                <div class="info-box">
+                    <strong>Real-World Context:</strong> Wrapper classes are used when you need to store primitives in collections (ArrayList), work with null values, or use utility methods for parsing and conversion. They bridge the gap between primitive types and object-oriented Java.
+                </div>
+            </div>
+
+            <!-- Learning Outcomes -->
+            <div class="section-card">
+                <h3>Learning Outcomes</h3>
+                <ul class="outcomes-list">
+                    <li>Understand the purpose of wrapper classes</li>
+                    <li>Convert between primitive types and wrapper objects</li>
+                    <li>Use wrapper class utility methods for parsing and conversion</li>
+                    <li>Apply autoboxing and unboxing concepts</li>
+                </ul>
+            </div>
+
+            <!-- Wrapper Classes -->
+            <div class="section-card">
+                <h3>1. Types of Wrapper Classes</h3>
+                
+                <table class="syntax-table">
+                    <tr>
+                        <th>Primitive Type</th>
+                        <th>Wrapper Class</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr><td><code>byte</code></td><td><code>Byte</code></td><td><code>Byte b = 10;</code></td></tr>
+                    <tr><td><code>short</code></td><td><code>Short</code></td><td><code>Short s = 100;</code></td></tr>
+                    <tr><td><code>int</code></td><td><code>Integer</code></td><td><code>Integer i = 42;</code></td></tr>
+                    <tr><td><code>long</code></td><td><code>Long</code></td><td><code>Long l = 1000L;</code></td></tr>
+                    <tr><td><code>float</code></td><td><code>Float</code></td><td><code>Float f = 3.14f;</code></td></tr>
+                    <tr><td><code>double</code></td><td><code>Double</code></td><td><code>Double d = 3.14159;</code></td></tr>
+                    <tr><td><code>char</code></td><td><code>Character</code></td><td><code>Character c = 'A';</code></td></tr>
+                    <tr><td><code>boolean</code></td><td><code>Boolean</code></td><td><code>Boolean bool = true;</code></td></tr>
+                </table>
+
+                <h4>Autoboxing and Unboxing</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">AutoboxingDemo</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="comment">// Autoboxing: primitive to wrapper (automatic)</span>
+        <span class="type">Integer</span> num1 = <span class="number">100</span>;  <span class="comment">// int -> Integer</span>
+        <span class="type">Double</span> num2 = <span class="number">3.14</span>;   <span class="comment">// double -> Double</span>
+        
+        <span class="comment">// Unboxing: wrapper to primitive (automatic)</span>
+        <span class="keyword">int</span> value1 = num1;    <span class="comment">// Integer -> int</span>
+        <span class="keyword">double</span> value2 = num2; <span class="comment">// Double -> double</span>
+        
+        <span class="comment">// Works in expressions too</span>
+        <span class="type">Integer</span> a = <span class="number">10</span>;
+        <span class="type">Integer</span> b = <span class="number">20</span>;
+        <span class="keyword">int</span> sum = a + b;  <span class="comment">// Auto-unboxed for arithmetic</span>
+        
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Sum: "</span> + sum);
+    }
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- Utility Methods -->
+            <div class="section-card">
+                <h3>2. Wrapper Class Utility Methods</h3>
+                
+                <h4>Parsing Strings to Numbers</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">ParsingDemo</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="comment">// Parse String to primitive</span>
+        <span class="keyword">int</span> num1 = <span class="type">Integer</span>.<span class="method">parseInt</span>(<span class="string">"42"</span>);
+        <span class="keyword">double</span> num2 = <span class="type">Double</span>.<span class="method">parseDouble</span>(<span class="string">"3.14159"</span>);
+        <span class="keyword">boolean</span> flag = <span class="type">Boolean</span>.<span class="method">parseBoolean</span>(<span class="string">"true"</span>);
+        
+        <span class="comment">// Parse String to wrapper object</span>
+        <span class="type">Integer</span> obj1 = <span class="type">Integer</span>.<span class="method">valueOf</span>(<span class="string">"100"</span>);
+        <span class="type">Double</span> obj2 = <span class="type">Double</span>.<span class="method">valueOf</span>(<span class="string">"2.718"</span>);
+        
+        <span class="comment">// Convert number to String</span>
+        <span class="type">String</span> str1 = <span class="type">Integer</span>.<span class="method">toString</span>(<span class="number">42</span>);
+        <span class="type">String</span> str2 = <span class="type">String</span>.<span class="method">valueOf</span>(<span class="number">3.14</span>);
+        
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Parsed int: "</span> + num1);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Parsed double: "</span> + num2);
+    }
+}
+</pre>
+                </div>
+
+                <h4>Useful Constants and Methods</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">public class</span> <span class="type">WrapperMethods</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="comment">// Integer constants</span>
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Max int: "</span> + <span class="type">Integer</span>.MAX_VALUE);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Min int: "</span> + <span class="type">Integer</span>.MIN_VALUE);
+        
+        <span class="comment">// Comparison methods</span>
+        <span class="keyword">int</span> result = <span class="type">Integer</span>.<span class="method">compare</span>(<span class="number">10</span>, <span class="number">20</span>);  <span class="comment">// -1 (10 < 20)</span>
+        <span class="keyword">int</span> max = <span class="type">Integer</span>.<span class="method">max</span>(<span class="number">15</span>, <span class="number">25</span>);       <span class="comment">// 25</span>
+        <span class="keyword">int</span> min = <span class="type">Integer</span>.<span class="method">min</span>(<span class="number">15</span>, <span class="number">25</span>);       <span class="comment">// 15</span>
+        
+        <span class="comment">// Character methods</span>
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="type">Character</span>.<span class="method">isDigit</span>(<span class="string">'5'</span>));     <span class="comment">// true</span>
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="type">Character</span>.<span class="method">isLetter</span>(<span class="string">'A'</span>));    <span class="comment">// true</span>
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="type">Character</span>.<span class="method">toUpperCase</span>(<span class="string">'a'</span>)); <span class="comment">// A</span>
+        
+        <span class="comment">// Number base conversion</span>
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="type">Integer</span>.<span class="method">toBinaryString</span>(<span class="number">10</span>)); <span class="comment">// 1010</span>
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="type">Integer</span>.<span class="method">toHexString</span>(<span class="number">255</span>));   <span class="comment">// ff</span>
+    }
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- Knowledge Check -->
+            <div class="section-card">
+                <h3>Knowledge Check</h3>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question" id="q1">
+                        <p>1. What is the wrapper class for the primitive type <code>int</code>?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q1" value="a"> Int</label></li>
+                            <li><label><input type="radio" name="q1" value="b"> Integer</label></li>
+                            <li><label><input type="radio" name="q1" value="c"> Number</label></li>
+                            <li><label><input type="radio" name="q1" value="d"> IntWrapper</label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q1', 'b')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" id="q2">
+                        <p>2. What is autoboxing?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q2" value="a"> Converting wrapper to primitive</label></li>
+                            <li><label><input type="radio" name="q2" value="b"> Converting primitive to wrapper automatically</label></li>
+                            <li><label><input type="radio" name="q2" value="c"> Creating a new box object</label></li>
+                            <li><label><input type="radio" name="q2" value="d"> Parsing a String to number</label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q2', 'b')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="section-card">
+                <h3>Summary</h3>
+                <ul class="summary-list">
+                    <li>Wrapper classes provide object representations of primitive types.</li>
+                    <li>Autoboxing automatically converts primitives to wrappers; unboxing does the reverse.</li>
+                    <li>Use <code>parseInt()</code>, <code>parseDouble()</code> etc. to convert Strings to primitives.</li>
+                    <li>Wrapper classes provide useful constants like <code>MAX_VALUE</code> and <code>MIN_VALUE</code>.</li>
+                    <li>Character class offers methods for character classification and conversion.</li>
+                </ul>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="lesson-nav">
+                <a href="lesson8-regular-expressions.html">← Previous: Regular Expressions</a>
+                <a href="../programming2-syllabus.html">Back to Syllabus →</a>
+            </nav>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-icon">◈</span>
+                        <span>CC3 Learning Platform</span>
+                    </div>
+                    <p>An interactive learning platform for Computer Programming courses, designed to support BSIT and ACT students in developing strong programming foundations.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Courses</h4>
+                        <ul>
+                            <li><a href="../oop-syllabus.html">Object-Oriented Programming</a></li>
+                            <li><a href="../programming2-syllabus.html">Programming 2</a></li>
+                            <li><a href="../lab-exercises.html">Lab Exercises</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Lecture Notes</a></li>
+                            <li><a href="#">Coding Standards</a></li>
+                            <li><a href="#">Reference Books</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">Contact Instructor</a></li>
+                            <li><a href="#">IT Helpdesk</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <p>&copy; 2026 Computer Programming Department. All rights reserved.</p>
+                    <p class="academic-notice">Academic Integrity: All submitted work must be original. Plagiarism and unauthorized collaboration are violations of the student code of conduct.</p>
+                </div>
+                <div class="footer-meta">
+                    <span>Academic Year 2025-2026 | Second Semester</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../main.js"></script>
+    <script src="../lessons.js"></script>
+</body>
+</html>

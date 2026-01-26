@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson VI: Enumerations - CC3 Computer Programming 2</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../lessons.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
+</head>
+<body>
+    <div class="progress-bar"><div class="progress"></div></div>
+    
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="university-logo">
+                    <span class="logo-icon">◈</span>
+                </div>
+                <div class="system-title">
+                    <h1>CC3 Learning Platform</h1>
+                    <span class="subtitle">Computer Programming Department</span>
+                </div>
+            </div>
+            <nav class="main-nav" role="navigation" aria-label="Main navigation">
+                <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#courses">Courses</a></li>
+                    <li><a href="../programming2-syllabus.html" class="active">Lessons</a></li>
+                    <li><a href="../lab-exercises.html">Activities</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="lesson-hero">
+        <div class="container">
+            <span class="lesson-badge">Lesson VI</span>
+            <h2>Enumerations (Enums)</h2>
+            <p>Learn to define your own data types with a fixed set of named constants for type-safe programming.</p>
+        </div>
+    </section>
+
+    <main class="lesson-content">
+        <div class="container">
+            
+            <!-- Overview -->
+            <div class="section-card">
+                <h3>Lesson Overview</h3>
+                <p>An enumeration (enum) is a special data type that allows you to define a collection of named constants. Enums make your code more readable, maintainable, and less prone to errors by restricting variables to a predefined set of values.</p>
+                
+                <div class="info-box">
+                    <strong>Real-World Context:</strong> Enums are perfect for representing fixed categories: days of the week, months, compass directions, playing card suits, order statuses (pending, shipped, delivered), user roles (admin, user, guest), or traffic light colors.
+                </div>
+            </div>
+
+            <!-- Learning Outcomes -->
+            <div class="section-card">
+                <h3>Learning Outcomes</h3>
+                <ul class="outcomes-list">
+                    <li>Define and declare enumeration types in Java</li>
+                    <li>Use enums in switch statements and comparisons</li>
+                    <li>Access enum values and iterate over them</li>
+                    <li>Add methods and constructors to enums</li>
+                </ul>
+            </div>
+
+            <!-- Basic Enums -->
+            <div class="section-card">
+                <h3>1. Defining Enums</h3>
+                
+                <h4>Basic Syntax</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="comment">// Define an enum for days of the week</span>
+<span class="keyword">enum</span> <span class="type">Day</span> {
+    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+}
+
+<span class="comment">// Define an enum for traffic light colors</span>
+<span class="keyword">enum</span> <span class="type">TrafficLight</span> {
+    RED, YELLOW, GREEN
+}
+
+<span class="keyword">public class</span> <span class="type">EnumBasics</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="comment">// Declare and initialize enum variables</span>
+        <span class="type">Day</span> today = <span class="type">Day</span>.WEDNESDAY;
+        <span class="type">TrafficLight</span> light = <span class="type">TrafficLight</span>.GREEN;
+        
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Today is: "</span> + today);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Light is: "</span> + light);
+        
+        <span class="comment">// Compare enums</span>
+        <span class="keyword">if</span> (today == <span class="type">Day</span>.WEDNESDAY) {
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"It's midweek!"</span>);
+        }
+    }
+}
+</pre>
+                </div>
+
+                <h4>Using Enums in Switch Statements</h4>
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">enum</span> <span class="type">Season</span> {
+    SPRING, SUMMER, FALL, WINTER
+}
+
+<span class="keyword">public class</span> <span class="type">SeasonExample</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="type">Season</span> current = <span class="type">Season</span>.SUMMER;
+        
+        <span class="keyword">switch</span> (current) {
+            <span class="keyword">case</span> SPRING:
+                <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Flowers are blooming!"</span>);
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> SUMMER:
+                <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Time for the beach!"</span>);
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> FALL:
+                <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Leaves are falling!"</span>);
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> WINTER:
+                <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Bundle up, it's cold!"</span>);
+                <span class="keyword">break</span>;
+        }
+    }
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- Enum Methods -->
+            <div class="section-card">
+                <h3>2. Enum Methods and Properties</h3>
+                
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">enum</span> <span class="type">Priority</span> {
+    LOW, MEDIUM, HIGH, CRITICAL
+}
+
+<span class="keyword">public class</span> <span class="type">EnumMethods</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="comment">// values() - returns array of all enum constants</span>
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"All priorities:"</span>);
+        <span class="keyword">for</span> (<span class="type">Priority</span> p : <span class="type">Priority</span>.<span class="method">values</span>()) {
+            <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"  "</span> + p);
+        }
+        
+        <span class="comment">// ordinal() - returns position (0-based index)</span>
+        <span class="type">Priority</span> task = <span class="type">Priority</span>.HIGH;
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"\nHIGH ordinal: "</span> + task.<span class="method">ordinal</span>());  <span class="comment">// 2</span>
+        
+        <span class="comment">// name() - returns the constant name as String</span>
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"Name: "</span> + task.<span class="method">name</span>());  <span class="comment">// HIGH</span>
+        
+        <span class="comment">// valueOf() - convert String to enum</span>
+        <span class="type">Priority</span> fromString = <span class="type">Priority</span>.<span class="method">valueOf</span>(<span class="string">"CRITICAL"</span>);
+        <span class="type">System</span>.out.<span class="method">println</span>(<span class="string">"From string: "</span> + fromString);
+    }
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- Advanced Enums -->
+            <div class="section-card">
+                <h3>3. Enums with Constructors and Fields</h3>
+                
+                <div class="code-example">
+                    <span class="code-label">Java</span>
+<pre>
+<span class="keyword">enum</span> <span class="type">Planet</span> {
+    <span class="comment">// Constants with values</span>
+    MERCURY(<span class="number">3.303e+23</span>, <span class="number">2.4397e6</span>),
+    VENUS(<span class="number">4.869e+24</span>, <span class="number">6.0518e6</span>),
+    EARTH(<span class="number">5.976e+24</span>, <span class="number">6.37814e6</span>),
+    MARS(<span class="number">6.421e+23</span>, <span class="number">3.3972e6</span>);
+    
+    <span class="comment">// Fields</span>
+    <span class="keyword">private final double</span> mass;    <span class="comment">// in kilograms</span>
+    <span class="keyword">private final double</span> radius;  <span class="comment">// in meters</span>
+    
+    <span class="comment">// Constructor</span>
+    <span class="type">Planet</span>(<span class="keyword">double</span> mass, <span class="keyword">double</span> radius) {
+        <span class="keyword">this</span>.mass = mass;
+        <span class="keyword">this</span>.radius = radius;
+    }
+    
+    <span class="comment">// Getter methods</span>
+    <span class="keyword">public double</span> <span class="method">getMass</span>() { <span class="keyword">return</span> mass; }
+    <span class="keyword">public double</span> <span class="method">getRadius</span>() { <span class="keyword">return</span> radius; }
+    
+    <span class="comment">// Calculate surface gravity</span>
+    <span class="keyword">public double</span> <span class="method">surfaceGravity</span>() {
+        <span class="keyword">double</span> G = <span class="number">6.67300E-11</span>;
+        <span class="keyword">return</span> G * mass / (radius * radius);
+    }
+}
+
+<span class="keyword">public class</span> <span class="type">PlanetDemo</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="keyword">for</span> (<span class="type">Planet</span> p : <span class="type">Planet</span>.<span class="method">values</span>()) {
+            <span class="type">System</span>.out.<span class="method">printf</span>(<span class="string">"%s: gravity = %.2f m/s²%n"</span>, 
+                p, p.<span class="method">surfaceGravity</span>());
+        }
+    }
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- Knowledge Check -->
+            <div class="section-card">
+                <h3>Knowledge Check</h3>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question" id="q1">
+                        <p>1. What is the ordinal value of the first constant in an enum?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q1" value="a"> 1</label></li>
+                            <li><label><input type="radio" name="q1" value="b"> 0</label></li>
+                            <li><label><input type="radio" name="q1" value="c"> -1</label></li>
+                            <li><label><input type="radio" name="q1" value="d"> null</label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q1', 'b')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+
+                    <div class="quiz-question" id="q2">
+                        <p>2. Which method returns all constants of an enum?</p>
+                        <ul class="quiz-options">
+                            <li><label><input type="radio" name="q2" value="a"> <code>getAll()</code></label></li>
+                            <li><label><input type="radio" name="q2" value="b"> <code>values()</code></label></li>
+                            <li><label><input type="radio" name="q2" value="c"> <code>constants()</code></label></li>
+                            <li><label><input type="radio" name="q2" value="d"> <code>list()</code></label></li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="checkAnswer('q2', 'b')">Check Answer</button>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="section-card">
+                <h3>Summary</h3>
+                <ul class="summary-list">
+                    <li>Enums define a fixed set of named constants, improving type safety.</li>
+                    <li>Use <code>values()</code> to get all constants, <code>ordinal()</code> for position, <code>name()</code> for String representation.</li>
+                    <li>Enums work well with switch statements.</li>
+                    <li>Enums can have fields, constructors, and methods like regular classes.</li>
+                </ul>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="lesson-nav">
+                <a href="lesson5-functions-with-arrays.html">← Previous: Functions with Arrays</a>
+                <a href="lesson7-file-handling.html">Next: Accessing Files →</a>
+            </nav>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-icon">◈</span>
+                        <span>CC3 Learning Platform</span>
+                    </div>
+                    <p>An interactive learning platform for Computer Programming courses, designed to support BSIT and ACT students in developing strong programming foundations.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Courses</h4>
+                        <ul>
+                            <li><a href="../oop-syllabus.html">Object-Oriented Programming</a></li>
+                            <li><a href="../programming2-syllabus.html">Programming 2</a></li>
+                            <li><a href="../lab-exercises.html">Lab Exercises</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Lecture Notes</a></li>
+                            <li><a href="#">Coding Standards</a></li>
+                            <li><a href="#">Reference Books</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">Contact Instructor</a></li>
+                            <li><a href="#">IT Helpdesk</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <p>&copy; 2026 Computer Programming Department. All rights reserved.</p>
+                    <p class="academic-notice">Academic Integrity: All submitted work must be original. Plagiarism and unauthorized collaboration are violations of the student code of conduct.</p>
+                </div>
+                <div class="footer-meta">
+                    <span>Academic Year 2025-2026 | Second Semester</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../main.js"></script>
+    <script src="../lessons.js"></script>
+</body>
+</html>

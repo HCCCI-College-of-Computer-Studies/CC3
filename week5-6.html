@@ -5,17 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Week 5-6: Objects and Methods - CC3</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>CC3: Computer Programming</h1>
-            <nav>
-                <ul>
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="university-logo">
+                    <span class="logo-icon">◈</span>
+                </div>
+                <div class="system-title">
+                    <h1>CC3 Learning Platform</h1>
+                    <span class="subtitle">Computer Programming Department</span>
+                </div>
+            </div>
+            <nav class="main-nav" role="navigation" aria-label="Main navigation">
+                <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                </button>
+                <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#syllabus">Syllabus</a></li>
-                    <li><a href="index.html#resources">Resources</a></li>
-                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="index.html#courses">Courses</a></li>
+                    <li><a href="oop-syllabus.html" class="active">Lessons</a></li>
+                    <li><a href="lab-exercises.html">Activities</a></li>
                 </ul>
             </nav>
         </div>
@@ -1058,10 +1072,55 @@ public class StaticMethodsDemo {
         <a href="week7-8.html" class="btn">Next: Week 7-8 →</a>
     </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 CC3 Computer Programming. All rights reserved.</p>
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-icon">◈</span>
+                        <span>CC3 Learning Platform</span>
+                    </div>
+                    <p>An interactive learning platform for Computer Programming courses, designed to support BSIT and ACT students in developing strong programming foundations.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Courses</h4>
+                        <ul>
+                            <li><a href="oop-syllabus.html">Object-Oriented Programming</a></li>
+                            <li><a href="programming2-syllabus.html">Programming 2</a></li>
+                            <li><a href="lab-exercises.html">Lab Exercises</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Lecture Notes</a></li>
+                            <li><a href="#">Coding Standards</a></li>
+                            <li><a href="#">Reference Books</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">Contact Instructor</a></li>
+                            <li><a href="#">IT Helpdesk</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <p>&copy; 2026 Computer Programming Department. All rights reserved.</p>
+                    <p class="academic-notice">Academic Integrity: All submitted work must be original. Plagiarism and unauthorized collaboration are violations of the student code of conduct.</p>
+                </div>
+                <div class="footer-meta">
+                    <span>Academic Year 2025-2026 | Second Semester</span>
+                </div>
+            </div>
         </div>
     </footer>
+
+    <script src="main.js"></script>
 </body>
 </html>
