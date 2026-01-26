@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete the Code - CC3 Learning Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/fill-blanks.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="university-logo">PUP</div>
+                <div class="system-title">
+                    <h1>CC3 Learning Platform</h1>
+                    <p>Programming 2 - Intermediate Programming</p>
+                </div>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#topics">Lessons</a></li>
+                    <li><a href="code-playground.html">Code Playground</a></li>
+                    <li><a href="quiz.html">Quiz</a></li>
+                    <li><a href="complete-code.html" class="active">Complete Code</a></li>
+                    <li><a href="lab-exercises.html">Lab Exercises</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="complete-code-page">
+        <div class="container">
+            <!-- Page Header -->
+            <section class="page-header">
+                <h1>Complete the Code</h1>
+                <p>Test your Java knowledge by filling in the missing code. Select a topic to practice.</p>
+            </section>
+
+            <!-- Topic Selection -->
+            <section class="topic-selection">
+                <div class="topic-grid">
+                    <button class="topic-btn active" data-topic="basics">
+                        <span class="topic-icon">01</span>
+                        <span class="topic-name">Java Basics</span>
+                        <span class="topic-count">5 exercises</span>
+                    </button>
+                    <button class="topic-btn" data-topic="selection">
+                        <span class="topic-icon">02</span>
+                        <span class="topic-name">Selection</span>
+                        <span class="topic-count">4 exercises</span>
+                    </button>
+                    <button class="topic-btn" data-topic="loops">
+                        <span class="topic-icon">03</span>
+                        <span class="topic-name">Loops</span>
+                        <span class="topic-count">5 exercises</span>
+                    </button>
+                    <button class="topic-btn" data-topic="arrays">
+                        <span class="topic-icon">04</span>
+                        <span class="topic-name">Arrays</span>
+                        <span class="topic-count">4 exercises</span>
+                    </button>
+                    <button class="topic-btn" data-topic="methods">
+                        <span class="topic-icon">05</span>
+                        <span class="topic-name">Methods</span>
+                        <span class="topic-count">4 exercises</span>
+                    </button>
+                    <button class="topic-btn" data-topic="all">
+                        <span class="topic-icon">*</span>
+                        <span class="topic-name">All Topics</span>
+                        <span class="topic-count">22 exercises</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Exercises Container -->
+            <section class="exercises-container" id="exercisesContainer">
+                <!-- Exercises will be loaded here -->
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-column">
+                    <h4>Courses</h4>
+                    <ul>
+                        <li><a href="index.html">CC3 - Programming 2</a></li>
+                        <li><a href="index.html#topics">Course Topics</a></li>
+                        <li><a href="lab-exercises.html">Lab Exercises</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="code-playground.html">Code Playground</a></li>
+                        <li><a href="quiz.html">Practice Quiz</a></li>
+                        <li><a href="complete-code.html">Complete the Code</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Instructor</h4>
+                    <ul>
+                        <li>Jastine M. Gatdula</li>
+                        <li>jmgatdula@pup.edu.ph</li>
+                        <li><a href="https://teams.microsoft.com" target="_blank">MS Teams</a></li>
+                        <li>Consultation: Mon-Fri, 1-5 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-legal">
+                <p>&copy; 2026 PUP - Polytechnic University of the Philippines. All rights reserved.</p>
+                <p>This platform is for educational purposes. Academic integrity policies apply to all activities.</p>
+            </div>
+            <div class="footer-meta">
+                <p>Academic Year 2025-2026 | Second Semester</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/fill-blanks.js"></script>
+    <script>
+        // Extended exercise data
+        const allExercises = {
+            basics: [
+                {
+                    id: 'hello-world',
+                    title: 'Hello World Program',
+                    hint: 'Every Java program starts with a class and a main method.',
+                    code: `<span class="kw">public class</span> <span class="type">___BLANK___</span> {
+    <span class="kw">public static void</span> ___BLANK___(<span class="type">String</span>[] args) {
+        System.out.___BLANK___(<span class="str">"Hello, World!"</span>);
+    }
+}`,
+                    blanks: [
+                        { answer: 'HelloWorld', placeholder: 'class name' },
+                        { answer: 'main', placeholder: 'method name' },
+                        { answer: 'println', placeholder: 'print method' }
+                    ]
+                },
+                {
+                    id: 'variables',
+                    title: 'Variable Declaration',
+                    hint: 'Remember the syntax: type variableName = value;',
+                    code: `<span class="comment">// Declare an integer variable</span>
+___BLANK___ age = <span class="num">25</span>;
+
+<span class="comment">// Declare a string variable</span>
+___BLANK___ name = <span class="str">"John"</span>;
+
+<span class="comment">// Declare a decimal number</span>
+___BLANK___ price = <span class="num">19.99</span>;`,
+                    blanks: [
+                        { answer: 'int', placeholder: 'data type' },
+                        { answer: 'String', placeholder: 'data type' },
+                        { answer: 'double', placeholder: 'data type' }
+                    ]
+                },
+                {
+                    id: 'operators',
+                    title: 'Arithmetic Operators',
+                    hint: 'Basic arithmetic: +, -, *, /, %',
+                    code: `<span class="type">int</span> a = <span class="num">10</span>, b = <span class="num">3</span>;
+
+<span class="type">int</span> sum = a ___BLANK___ b;       <span class="comment">// Result: 13</span>
+<span class="type">int</span> diff = a ___BLANK___ b;      <span class="comment">// Result: 7</span>
+<span class="type">int</span> product = a ___BLANK___ b;   <span class="comment">// Result: 30</span>
+<span class="type">int</span> quotient = a ___BLANK___ b;  <span class="comment">// Result: 3</span>
+<span class="type">int</span> remainder = a ___BLANK___ b; <span class="comment">// Result: 1</span>`,
+                    blanks: [
+                        { answer: '+', placeholder: 'operator' },
+                        { answer: '-', placeholder: 'operator' },
+                        { answer: '*', placeholder: 'operator' },
+                        { answer: '/', placeholder: 'operator' },
+                        { answer: '%', placeholder: 'operator' }
+                    ]
+                },
+                {
+                    id: 'scanner-input',
+                    title: 'User Input with Scanner',
+                    hint: 'Scanner class is used to read input from the user.',
+                    code: `<span class="kw">import</span> java.util.___BLANK___;
+
+<span class="kw">public class</span> <span class="type">InputDemo</span> {
+    <span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
+        Scanner input = ___BLANK___ Scanner(System.___BLANK___);
+        
+        System.out.print(<span class="str">"Enter your name: "</span>);
+        <span class="type">String</span> name = input.___BLANK___();
+        
+        System.out.println(<span class="str">"Hello, "</span> + name);
+    }
+}`,
+                    blanks: [
+                        { answer: 'Scanner', placeholder: 'class name' },
+                        { answer: 'new', placeholder: 'keyword' },
+                        { answer: 'in', placeholder: 'input stream' },
+                        { answer: 'nextLine', placeholder: 'method' }
+                    ]
+                },
+                {
+                    id: 'string-methods',
+                    title: 'String Methods',
+                    hint: 'Common string methods: length(), charAt(), toUpperCase(), toLowerCase()',
+                    code: `<span class="type">String</span> text = <span class="str">"Hello Java"</span>;
+
+<span class="comment">// Get the length</span>
+<span class="type">int</span> len = text.___BLANK___();      <span class="comment">// Result: 10</span>
+
+<span class="comment">// Get character at index 0</span>
+<span class="type">char</span> first = text.___BLANK___(<span class="num">0</span>);   <span class="comment">// Result: 'H'</span>
+
+<span class="comment">// Convert to uppercase</span>
+<span class="type">String</span> upper = text.___BLANK___();  <span class="comment">// Result: "HELLO JAVA"</span>`,
+                    blanks: [
+                        { answer: 'length', placeholder: 'method' },
+                        { answer: 'charAt', placeholder: 'method' },
+                        { answer: 'toUpperCase', placeholder: 'method' }
+                    ]
+                }
+            ],
+            selection: [
+                {
+                    id: 'if-else',
+                    title: 'If-Else Statement',
+                    hint: 'Use comparison operators: ==, >, <, >=, <=, !=',
+                    code: `<span class="type">int</span> score = <span class="num">85</span>;
+
+___BLANK___ (score ___BLANK___ <span class="num">60</span>) {
+    System.out.println(<span class="str">"Passed!"</span>);
+} ___BLANK___ {
+    System.out.println(<span class="str">"Failed!"</span>);
+}`,
+                    blanks: [
+                        { answer: 'if', placeholder: 'keyword' },
+                        { answer: ['>=', '>'], placeholder: 'operator' },
+                        { answer: 'else', placeholder: 'keyword' }
+                    ]
+                },
+                {
+                    id: 'else-if',
+                    title: 'Else-If Ladder',
+                    hint: 'Use else if to check multiple conditions.',
+                    code: `<span class="type">int</span> grade = <span class="num">85</span>;
+
+<span class="kw">if</span> (grade >= <span class="num">90</span>) {
+    System.out.println(<span class="str">"A"</span>);
+} ___BLANK___ ___BLANK___ (grade >= <span class="num">80</span>) {
+    System.out.println(<span class="str">"B"</span>);
+} ___BLANK___ ___BLANK___ (grade >= <span class="num">70</span>) {
+    System.out.println(<span class="str">"C"</span>);
+} <span class="kw">else</span> {
+    System.out.println(<span class="str">"F"</span>);
+}`,
+                    blanks: [
+                        { answer: 'else', placeholder: 'keyword' },
+                        { answer: 'if', placeholder: 'keyword' },
+                        { answer: 'else', placeholder: 'keyword' },
+                        { answer: 'if', placeholder: 'keyword' }
+                    ]
+                },
+                {
+                    id: 'switch',
+                    title: 'Switch Statement',
+                    hint: 'Remember to use break after each case!',
+                    code: `<span class="type">int</span> day = <span class="num">3</span>;
+
+___BLANK___ (day) {
+    ___BLANK___ <span class="num">1</span>:
+        System.out.println(<span class="str">"Monday"</span>);
+        ___BLANK___;
+    <span class="kw">case</span> <span class="num">2</span>:
+        System.out.println(<span class="str">"Tuesday"</span>);
+        <span class="kw">break</span>;
+    ___BLANK___:
+        System.out.println(<span class="str">"Invalid day"</span>);
+}`,
+                    blanks: [
+                        { answer: 'switch', placeholder: 'keyword' },
+                        { answer: 'case', placeholder: 'keyword' },
+                        { answer: 'break', placeholder: 'keyword' },
+                        { answer: 'default', placeholder: 'keyword' }
+                    ]
+                },
+                {
+                    id: 'ternary',
+                    title: 'Ternary Operator',
+                    hint: 'Syntax: condition ? valueIfTrue : valueIfFalse',
+                    code: `<span class="type">int</span> age = <span class="num">20</span>;
+
+<span class="comment">// Using ternary operator</span>
+<span class="type">String</span> status = (age ___BLANK___ <span class="num">18</span>) ___BLANK___ <span class="str">"Adult"</span> ___BLANK___ <span class="str">"Minor"</span>;
+
+System.out.println(status);  <span class="comment">// Output: Adult</span>`,
+                    blanks: [
+                        { answer: '>=', placeholder: 'operator' },
+                        { answer: '?', placeholder: 'symbol' },
+                        { answer: ':', placeholder: 'symbol' }
+                    ]
+                }
+            ],
+            loops: [
+                {
+                    id: 'for-loop',
+                    title: 'For Loop',
+                    hint: 'For loop has 3 parts: initialization; condition; increment',
+                    code: `<span class="comment">// Print numbers 1 to 5</span>
+___BLANK___ (<span class="type">int</span> i = ___BLANK___; i ___BLANK___ <span class="num">5</span>; i___BLANK___) {
+    System.out.println(i);
+}`,
+                    blanks: [
+                        { answer: 'for', placeholder: 'keyword' },
+                        { answer: '1', placeholder: 'start value' },
+                        { answer: '<=', placeholder: 'operator' },
+                        { answer: '++', placeholder: 'increment' }
+                    ]
+                },
+                {
+                    id: 'while-loop',
+                    title: 'While Loop',
+                    hint: 'While loop continues as long as the condition is true.',
+                    code: `<span class="type">int</span> count = <span class="num">0</span>;
+
+___BLANK___ (count ___BLANK___ <span class="num">3</span>) {
+    System.out.println(<span class="str">"Count: "</span> + count);
+    count___BLANK___;
+}`,
+                    blanks: [
+                        { answer: 'while', placeholder: 'keyword' },
+                        { answer: '<', placeholder: 'operator' },
+                        { answer: '++', placeholder: 'increment' }
+                    ]
+                },
+                {
+                    id: 'do-while',
+                    title: 'Do-While Loop',
+                    hint: 'Do-while executes at least once before checking condition.',
+                    code: `<span class="type">int</span> num = <span class="num">1</span>;
+
+___BLANK___ {
+    System.out.println(<span class="str">"Number: "</span> + num);
+    num++;
+} ___BLANK___ (num ___BLANK___ <span class="num">5</span>);`,
+                    blanks: [
+                        { answer: 'do', placeholder: 'keyword' },
+                        { answer: 'while', placeholder: 'keyword' },
+                        { answer: '<=', placeholder: 'operator' }
+                    ]
+                },
+                {
+                    id: 'nested-loops',
+                    title: 'Nested Loops',
+                    hint: 'Inner loop completes all iterations for each iteration of outer loop.',
+                    code: `<span class="comment">// Print a 3x3 pattern</span>
+<span class="kw">for</span> (<span class="type">int</span> i = <span class="num">1</span>; i <= <span class="num">3</span>; i___BLANK___) {
+    ___BLANK___ (<span class="type">int</span> j = <span class="num">1</span>; j <= <span class="num">3</span>; j++) {
+        System.out.___BLANK___(<span class="str">"* "</span>);
+    }
+    System.out.___BLANK___();  <span class="comment">// New line</span>
+}`,
+                    blanks: [
+                        { answer: '++', placeholder: 'increment' },
+                        { answer: 'for', placeholder: 'keyword' },
+                        { answer: 'print', placeholder: 'method' },
+                        { answer: 'println', placeholder: 'method' }
+                    ]
+                },
+                {
+                    id: 'break-continue',
+                    title: 'Break and Continue',
+                    hint: 'break exits the loop, continue skips to next iteration.',
+                    code: `<span class="kw">for</span> (<span class="type">int</span> i = <span class="num">1</span>; i <= <span class="num">10</span>; i++) {
+    <span class="kw">if</span> (i == <span class="num">5</span>) {
+        ___BLANK___;  <span class="comment">// Skip 5</span>
+    }
+    <span class="kw">if</span> (i == <span class="num">8</span>) {
+        ___BLANK___;  <span class="comment">// Stop at 8</span>
+    }
+    System.out.println(i);
+}`,
+                    blanks: [
+                        { answer: 'continue', placeholder: 'keyword' },
+                        { answer: 'break', placeholder: 'keyword' }
+                    ]
+                }
+            ],
+            arrays: [
+                {
+                    id: 'array-declaration',
+                    title: 'Array Declaration',
+                    hint: 'Arrays can be declared with type[] name = new type[size] or with values directly.',
+                    code: `<span class="comment">// Declare an array of integers</span>
+<span class="type">int</span>___BLANK___ numbers = ___BLANK___ <span class="type">int</span>[<span class="num">5</span>];
+
+<span class="comment">// Declare and initialize an array</span>
+<span class="type">String</span>[] names = ___BLANK___<span class="str">"Alice"</span>, <span class="str">"Bob"</span>, <span class="str">"Charlie"</span>___BLANK___;`,
+                    blanks: [
+                        { answer: '[]', placeholder: 'array syntax' },
+                        { answer: 'new', placeholder: 'keyword' },
+                        { answer: '{', placeholder: 'opening' },
+                        { answer: '}', placeholder: 'closing' }
+                    ]
+                },
+                {
+                    id: 'array-access',
+                    title: 'Array Access',
+                    hint: 'Array indices start at 0. Use array[index] to access elements.',
+                    code: `<span class="type">int</span>[] nums = {<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>, <span class="num">40</span>, <span class="num">50</span>};
+
+<span class="comment">// Access first element (index 0)</span>
+<span class="type">int</span> first = nums___BLANK___;   <span class="comment">// Result: 10</span>
+
+<span class="comment">// Access third element (index 2)</span>
+<span class="type">int</span> third = nums___BLANK___;   <span class="comment">// Result: 30</span>
+
+<span class="comment">// Modify last element</span>
+nums___BLANK___ = <span class="num">100</span>;`,
+                    blanks: [
+                        { answer: '[0]', placeholder: 'index' },
+                        { answer: '[2]', placeholder: 'index' },
+                        { answer: '[4]', placeholder: 'index' }
+                    ]
+                },
+                {
+                    id: 'array-loop',
+                    title: 'Array Iteration',
+                    hint: 'Use .length to get the size of an array.',
+                    code: `<span class="type">int</span>[] scores = {<span class="num">90</span>, <span class="num">85</span>, <span class="num">88</span>, <span class="num">92</span>};
+
+<span class="comment">// Using traditional for loop</span>
+<span class="kw">for</span> (<span class="type">int</span> i = <span class="num">0</span>; i < scores.___BLANK___; i++) {
+    System.out.println(scores___BLANK___);
+}
+
+<span class="comment">// Using enhanced for loop</span>
+<span class="kw">for</span> (<span class="type">int</span> score ___BLANK___ scores) {
+    System.out.println(score);
+}`,
+                    blanks: [
+                        { answer: 'length', placeholder: 'property' },
+                        { answer: '[i]', placeholder: 'index access' },
+                        { answer: ':', placeholder: 'separator' }
+                    ]
+                },
+                {
+                    id: '2d-array',
+                    title: '2D Array',
+                    hint: '2D arrays use two indices: [row][column]',
+                    code: `<span class="comment">// Declare a 2D array</span>
+<span class="type">int</span>___BLANK______BLANK___ matrix = {
+    {<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>},
+    {<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>}
+};
+
+<span class="comment">// Access element at row 1, column 2</span>
+<span class="type">int</span> value = matrix___BLANK______BLANK___;  <span class="comment">// Result: 6</span>`,
+                    blanks: [
+                        { answer: '[]', placeholder: 'bracket' },
+                        { answer: '[]', placeholder: 'bracket' },
+                        { answer: '[1]', placeholder: 'row' },
+                        { answer: '[2]', placeholder: 'column' }
+                    ]
+                }
+            ],
+            methods: [
+                {
+                    id: 'method-definition',
+                    title: 'Method Definition',
+                    hint: 'Methods have: access modifier, return type, name, and parameters.',
+                    code: `<span class="comment">// Method that returns the sum of two numbers</span>
+<span class="kw">public static</span> ___BLANK___ add(<span class="type">int</span> a, <span class="type">int</span> b) {
+    ___BLANK___ a + b;
+}
+
+<span class="comment">// Method that prints a message (no return value)</span>
+<span class="kw">public static</span> ___BLANK___ greet(<span class="type">String</span> name) {
+    System.out.println(<span class="str">"Hello, "</span> + name);
+}`,
+                    blanks: [
+                        { answer: 'int', placeholder: 'return type' },
+                        { answer: 'return', placeholder: 'keyword' },
+                        { answer: 'void', placeholder: 'return type' }
+                    ]
+                },
+                {
+                    id: 'method-call',
+                    title: 'Method Invocation',
+                    hint: 'Call methods by their name followed by parentheses with arguments.',
+                    code: `<span class="kw">public static void</span> main(<span class="type">String</span>[] args) {
+    <span class="comment">// Call the add method</span>
+    <span class="type">int</span> result = ___BLANK___(<span class="num">5</span>, <span class="num">3</span>);
+    
+    <span class="comment">// Print the result</span>
+    System.out.___BLANK___(result);
+    
+    <span class="comment">// Call the greet method</span>
+    ___BLANK___(<span class="str">"World"</span>);
+}`,
+                    blanks: [
+                        { answer: 'add', placeholder: 'method name' },
+                        { answer: 'println', placeholder: 'print method' },
+                        { answer: 'greet', placeholder: 'method name' }
+                    ]
+                },
+                {
+                    id: 'method-overloading',
+                    title: 'Method Overloading',
+                    hint: 'Overloaded methods have the same name but different parameters.',
+                    code: `<span class="comment">// Method with two int parameters</span>
+<span class="kw">public static</span> <span class="type">int</span> multiply(<span class="type">int</span> a, <span class="type">int</span> b) {
+    ___BLANK___ a * b;
+}
+
+<span class="comment">// Overloaded method with three int parameters</span>
+<span class="kw">public static</span> ___BLANK___ multiply(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">int</span> c) {
+    <span class="kw">return</span> a * b * c;
+}
+
+<span class="comment">// Overloaded method with double parameters</span>
+<span class="kw">public static</span> ___BLANK___ multiply(<span class="type">double</span> a, <span class="type">double</span> b) {
+    <span class="kw">return</span> a * b;
+}`,
+                    blanks: [
+                        { answer: 'return', placeholder: 'keyword' },
+                        { answer: 'int', placeholder: 'return type' },
+                        { answer: 'double', placeholder: 'return type' }
+                    ]
+                },
+                {
+                    id: 'recursive-method',
+                    title: 'Recursive Method',
+                    hint: 'Recursive methods call themselves with a base case to stop.',
+                    code: `<span class="comment">// Calculate factorial recursively</span>
+<span class="kw">public static</span> <span class="type">int</span> factorial(<span class="type">int</span> n) {
+    <span class="comment">// Base case</span>
+    ___BLANK___ (n <= <span class="num">1</span>) {
+        ___BLANK___ <span class="num">1</span>;
+    }
+    <span class="comment">// Recursive case</span>
+    <span class="kw">return</span> n * ___BLANK___(n - <span class="num">1</span>);
+}`,
+                    blanks: [
+                        { answer: 'if', placeholder: 'keyword' },
+                        { answer: 'return', placeholder: 'keyword' },
+                        { answer: 'factorial', placeholder: 'method name' }
+                    ]
+                }
+            ]
+        };
+
+        // Current topic
+        let currentTopic = 'basics';
+
+        // Render exercises for a topic
+        function renderExercises(topic) {
+            const container = document.getElementById('exercisesContainer');
+            container.innerHTML = '';
+            
+            let exercises;
+            if (topic === 'all') {
+                exercises = [];
+                Object.values(allExercises).forEach(topicExercises => {
+                    exercises = exercises.concat(topicExercises);
+                });
+            } else {
+                exercises = allExercises[topic] || [];
+            }
+            
+            exercises.forEach(exercise => {
+                const html = createExerciseHTML(exercise);
+                container.innerHTML += html;
+            });
+            
+            // Reinitialize the fill blanks system
+            FillBlanksQuiz.exercises = [];
+            FillBlanksQuiz.init();
+        }
+
+        // Create HTML for an exercise
+        function createExerciseHTML(exercise) {
+            const { id, title, hint, code, blanks } = exercise;
+            const blanksJson = JSON.stringify(blanks).replace(/"/g, '&quot;');
+            
+            return `
+            <div class="fill-blanks-section">
+                <h4>Complete the Code: ${title}</h4>
+                <p>Fill in the blanks to complete the Java code.</p>
+                
+                <div class="fill-blanks-exercise" data-exercise-id="${id}" data-blanks="${blanksJson}">
+                    <div class="code-fill-container">
+                        <div class="code-fill-header">
+                            <div class="code-fill-title">
+                                <span class="code-fill-lang">JAVA</span>
+                                <span class="code-fill-label">${title}</span>
+                            </div>
+                            <div class="code-fill-actions">
+                                <button class="btn-check-code">Check Answers</button>
+                                <button class="btn-reset-blanks">Reset</button>
+                                <button class="btn-show-answer">Show Answer</button>
+                            </div>
+                        </div>
+                        <div class="code-fill-content">
+                            <pre>${code}</pre>
+                        </div>
+                    </div>
+                    
+                    ${hint ? `
+                    <div class="hint-box show">
+                        <h5>Hint:</h5>
+                        <p>${hint}</p>
+                    </div>
+                    ` : ''}
+                    
+                    <div class="fill-feedback"></div>
+                </div>
+            </div>
+            `;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Topic button handlers
+            document.querySelectorAll('.topic-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active state
+                    document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Load exercises
+                    currentTopic = btn.dataset.topic;
+                    renderExercises(currentTopic);
+                });
+            });
+            
+            // Load initial topic
+            renderExercises(currentTopic);
+        });
+    </script>
+
+    <style>
+        /* Page specific styles */
+        .complete-code-page {
+            padding: 40px 0;
+            min-height: calc(100vh - 200px);
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            color: #1a365d;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #4a5568;
+            font-size: 1.1rem;
+        }
+
+        .topic-selection {
+            margin-bottom: 40px;
+        }
+
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .topic-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 15px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .topic-btn:hover {
+            border-color: #6366f1;
+            transform: translateY(-2px);
+        }
+
+        .topic-btn.active {
+            border-color: #6366f1;
+            background: #eef2ff;
+        }
+
+        .topic-icon {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #6366f1;
+            margin-bottom: 8px;
+        }
+
+        .topic-name {
+            font-weight: 600;
+            color: #1a365d;
+            margin-bottom: 4px;
+        }
+
+        .topic-count {
+            font-size: 0.8rem;
+            color: #718096;
+        }
+
+        .exercises-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* Mobile menu (from main site) */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: #1a365d;
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .topic-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .topic-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

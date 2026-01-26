@@ -11,20 +11,31 @@
 <body>
     <!-- Header -->
     <header class="main-header">
-        <div class="container">
-            <div class="logo">
-                <span class="logo-icon">💻</span>
-                <div class="logo-text">
-                    <span class="logo-title">CC3: Programming 2</span>
-                    <span class="logo-subtitle">Java Programming</span>
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="university-logo">
+                    <span class="logo-icon">◈</span>
+                </div>
+                <div class="system-title">
+                    <h1>CC3 Learning Platform</h1>
+                    <span class="subtitle">HCCCI - College of Computer Studies</span>
                 </div>
             </div>
-            <nav class="main-nav">
-                <a href="index.html">Home</a>
-                <a href="index.html#lessons">Lessons</a>
-                <a href="lab-exercises.html">Lab Exercises</a>
-                <a href="code-playground.html">Code Playground</a>
-                <a href="quiz.html" class="active">Quiz</a>
+            <nav class="main-nav" role="navigation" aria-label="Main navigation">
+                <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#courses">Courses</a></li>
+                    <li><a href="index.html#lessons">Lessons</a></li>
+                    <li><a href="lab-exercises.html">Activities</a></li>
+                    <li><a href="quiz.html" class="active">Quiz</a></li>
+                    <li><a href="complete-code.html">Complete Code</a></li>
+                    <li><a href="index.html#profile" class="profile-link">Profile</a></li>
+                </ul>
             </nav>
         </div>
     </header>
@@ -32,7 +43,7 @@
     <!-- Quiz Hero -->
     <section class="quiz-hero">
         <div class="container">
-            <h1>☕ Java Programming Quiz</h1>
+            <h1>Java Programming Quiz</h1>
             <p>Test your knowledge of Java programming concepts</p>
         </div>
     </section>
@@ -43,37 +54,37 @@
             <h2>Choose a Topic</h2>
             <div class="topics-grid">
                 <div class="topic-card" onclick="startQuiz('basics')">
-                    <span class="topic-icon">📚</span>
+                    <span class="topic-icon">01</span>
                     <h3>Java Basics</h3>
                     <p>Variables, data types, operators</p>
                     <span class="question-count">10 Questions</span>
                 </div>
                 <div class="topic-card" onclick="startQuiz('selection')">
-                    <span class="topic-icon">🔀</span>
+                    <span class="topic-icon">02</span>
                     <h3>Selection Structures</h3>
                     <p>If-else, switch statements</p>
                     <span class="question-count">10 Questions</span>
                 </div>
                 <div class="topic-card" onclick="startQuiz('loops')">
-                    <span class="topic-icon">🔄</span>
+                    <span class="topic-icon">03</span>
                     <h3>Loops</h3>
                     <p>For, while, do-while loops</p>
                     <span class="question-count">10 Questions</span>
                 </div>
                 <div class="topic-card" onclick="startQuiz('arrays')">
-                    <span class="topic-icon">📊</span>
+                    <span class="topic-icon">04</span>
                     <h3>Arrays</h3>
                     <p>1D and 2D arrays</p>
                     <span class="question-count">10 Questions</span>
                 </div>
                 <div class="topic-card" onclick="startQuiz('methods')">
-                    <span class="topic-icon">⚙️</span>
+                    <span class="topic-icon">05</span>
                     <h3>Methods</h3>
                     <p>Functions, parameters, return</p>
                     <span class="question-count">10 Questions</span>
                 </div>
                 <div class="topic-card" onclick="startQuiz('mixed')">
-                    <span class="topic-icon">🎯</span>
+                    <span class="topic-icon">06</span>
                     <h3>Mixed Quiz</h3>
                     <p>All topics combined</p>
                     <span class="question-count">15 Questions</span>
@@ -122,7 +133,8 @@
                 <!-- Navigation -->
                 <div class="quiz-navigation">
                     <button class="btn-quit" onclick="quitQuiz()">Quit Quiz</button>
-                    <button class="btn-next" id="btn-next" onclick="nextQuestion()" disabled>Next Question →</button>
+                    <button class="btn-submit" id="btn-submit" onclick="submitAnswer()" disabled>Submit Answer</button>
+                    <button class="btn-next" id="btn-next" onclick="nextQuestion()" style="display: none;">Next Question</button>
                 </div>
             </div>
         </div>
@@ -132,7 +144,7 @@
     <section class="quiz-results" id="quiz-results" style="display: none;">
         <div class="container">
             <div class="results-card">
-                <div class="results-icon" id="results-icon">🏆</div>
+                <div class="results-icon" id="results-icon">A+</div>
                 <h2 id="results-title">Quiz Complete!</h2>
                 <div class="score-circle">
                     <span class="score-percentage" id="score-percentage">0%</span>
@@ -143,15 +155,15 @@
                 
                 <!-- Answer Review -->
                 <div class="answer-review" id="answer-review">
-                    <h3>📋 Answer Review</h3>
+                    <h3>Answer Review</h3>
                     <div class="review-list" id="review-list">
                         <!-- Review items will be inserted here -->
                     </div>
                 </div>
 
                 <div class="results-actions">
-                    <button class="btn-retry" onclick="retryQuiz()">🔄 Try Again</button>
-                    <button class="btn-topics" onclick="showTopics()">📚 Choose Another Topic</button>
+                    <button class="btn-retry" onclick="retryQuiz()">Try Again</button>
+                    <button class="btn-topics" onclick="showTopics()">Choose Another Topic</button>
                 </div>
             </div>
         </div>
@@ -159,21 +171,54 @@
 
     <!-- Footer -->
     <footer class="main-footer">
-        <div class="container">
-            <div class="footer-content">
+        <div class="footer-container">
+            <div class="footer-main">
                 <div class="footer-brand">
-                    <span class="footer-logo">💻 CC3: Programming 2</span>
-                    <p>HCCCI - College of Computer Studies</p>
+                    <div class="footer-logo">
+                        <span class="logo-icon">◈</span>
+                        <span>CC3 Learning Platform</span>
+                    </div>
+                    <p>An interactive learning platform for Computer Programming courses, designed to support BSIT and ACT students in developing strong programming foundations.</p>
                 </div>
                 <div class="footer-links">
-                    <a href="index.html">Home</a>
-                    <a href="index.html#lessons">Lessons</a>
-                    <a href="lab-exercises.html">Lab Exercises</a>
-                    <a href="code-playground.html">Playground</a>
+                    <div class="footer-column">
+                        <h4>Courses</h4>
+                        <ul>
+                            <li><a href="oop-syllabus.html">Object-Oriented Programming</a></li>
+                            <li><a href="programming2-syllabus.html">Programming 2</a></li>
+                            <li><a href="lab-exercises.html">Lab Exercises</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Lecture Notes</a></li>
+                            <li><a href="#">Coding Standards</a></li>
+                            <li><a href="#">Reference Books</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contact Instructor</h4>
+                        <ul>
+                            <li><strong>Jastine M. Gatdula</strong></li>
+                            <li>College Instructor</li>
+                            <li>College Department</li>
+                            <li><a href="mailto:jgatdula@hccci.edu.ph">jgatdula@hccci.edu.ph</a></li>
+                            <li><a href="https://teams.microsoft.com/l/chat/48:notes/conversations?context=%7B%22contextType%22%3A%22chat%22%7D" target="_blank">Chat on MS Teams</a></li>
+                            <li>Campus: Surallah</li>
+                            <li>Consultation: Friday 7AM-2:30PM</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 CC3 Learning Platform. For educational purposes.</p>
+                <div class="footer-legal">
+                    <p>&copy; 2026 HCCCI - College of Computer Studies. All rights reserved.</p>
+                    <p class="academic-notice">Academic Integrity: All submitted work must be original. Plagiarism and unauthorized collaboration are violations of the student code of conduct.</p>
+                </div>
+                <div class="footer-meta">
+                    <span>Academic Year 2025-2026 | Second Semester</span>
+                </div>
             </div>
         </div>
     </footer>

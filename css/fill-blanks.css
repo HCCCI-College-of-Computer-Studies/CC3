@@ -1,0 +1,360 @@
+/**
+ * Fill in the Blanks Quiz Styles
+ * Code Completion Exercises
+ */
+
+/* Fill Blanks Section */
+.fill-blanks-section {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 25px;
+    margin: 25px 0;
+    border: 1px solid #e2e8f0;
+}
+
+.fill-blanks-section h4 {
+    color: #1a365d;
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+}
+
+.fill-blanks-section > p {
+    color: #4a5568;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+/* Code Fill Container */
+.code-fill-container {
+    background: #1e1e2e;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.code-fill-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: #181825;
+    border-bottom: 1px solid #313244;
+}
+
+.code-fill-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.code-fill-lang {
+    background: #89b4fa;
+    color: #1e1e2e;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.code-fill-label {
+    color: #a6adc8;
+    font-size: 0.85rem;
+}
+
+.code-fill-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-check-code {
+    background: #38a169;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-check-code:hover {
+    background: #2f855a;
+}
+
+.btn-reset-blanks {
+    background: #313244;
+    color: #cdd6f4;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-reset-blanks:hover {
+    background: #45475a;
+}
+
+.btn-show-answer {
+    background: #6366f1;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-show-answer:hover {
+    background: #4f46e5;
+}
+
+/* Code Content */
+.code-fill-content {
+    padding: 20px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: #cdd6f4;
+    overflow-x: auto;
+}
+
+.code-fill-content pre {
+    margin: 0;
+    background: transparent;
+    padding: 0;
+}
+
+/* Code Lines */
+.code-line {
+    display: flex;
+    align-items: center;
+    min-height: 28px;
+}
+
+.line-number {
+    color: #6c7086;
+    min-width: 35px;
+    text-align: right;
+    padding-right: 15px;
+    user-select: none;
+    font-size: 0.85rem;
+}
+
+.line-content {
+    flex: 1;
+    white-space: pre;
+}
+
+/* Blank Input */
+.blank-input {
+    background: #313244;
+    border: 2px solid #6366f1;
+    border-radius: 4px;
+    color: #f9fafb;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 2px 8px;
+    min-width: 80px;
+    max-width: 200px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.blank-input:focus {
+    border-color: #818cf8;
+    background: #3f3f5a;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.blank-input.correct {
+    border-color: #38a169;
+    background: rgba(56, 161, 105, 0.2);
+    color: #9ae6b4;
+}
+
+.blank-input.incorrect {
+    border-color: #e53e3e;
+    background: rgba(229, 62, 62, 0.2);
+    color: #feb2b2;
+}
+
+.blank-input::placeholder {
+    color: #6c7086;
+    font-style: italic;
+}
+
+/* Syntax Highlighting in Fill Blanks */
+.code-fill-content .kw { color: #c678dd; }
+.code-fill-content .type { color: #e5c07b; }
+.code-fill-content .str { color: #98c379; }
+.code-fill-content .num { color: #d19a66; }
+.code-fill-content .comment { color: #5c6370; font-style: italic; }
+.code-fill-content .method { color: #61afef; }
+.code-fill-content .op { color: #abb2bf; }
+
+/* Feedback Box */
+.fill-feedback {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-top: 15px;
+    display: none;
+}
+
+.fill-feedback.show {
+    display: block;
+    animation: slideIn 0.3s ease;
+}
+
+.fill-feedback.success {
+    background: #c6f6d5;
+    border-left: 4px solid #38a169;
+    color: #276749;
+}
+
+.fill-feedback.partial {
+    background: #fefcbf;
+    border-left: 4px solid #d69e2e;
+    color: #975a16;
+}
+
+.fill-feedback.error {
+    background: #fed7d7;
+    border-left: 4px solid #e53e3e;
+    color: #c53030;
+}
+
+.fill-feedback h5 {
+    margin: 0 0 5px 0;
+    font-size: 1rem;
+}
+
+.fill-feedback p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Hint Box */
+.hint-box {
+    background: #ebf8ff;
+    border: 1px solid #90cdf4;
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-top: 10px;
+    display: none;
+}
+
+.hint-box.show {
+    display: block;
+}
+
+.hint-box h5 {
+    color: #2c5282;
+    margin: 0 0 5px 0;
+    font-size: 0.9rem;
+}
+
+.hint-box p {
+    color: #2a4365;
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+/* Progress Indicator */
+.blanks-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: #4a5568;
+}
+
+.progress-dots {
+    display: flex;
+    gap: 5px;
+}
+
+.progress-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    transition: all 0.2s ease;
+}
+
+.progress-dot.filled {
+    background: #38a169;
+}
+
+.progress-dot.wrong {
+    background: #e53e3e;
+}
+
+/* Answer Reveal */
+.answer-reveal {
+    background: #f0fff4;
+    border: 1px solid #9ae6b4;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+    display: none;
+}
+
+.answer-reveal.show {
+    display: block;
+}
+
+.answer-reveal h5 {
+    color: #276749;
+    margin: 0 0 10px 0;
+}
+
+.answer-reveal code {
+    display: block;
+    background: #1e1e2e;
+    color: #cdd6f4;
+    padding: 15px;
+    border-radius: 6px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.9rem;
+    white-space: pre;
+    overflow-x: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .fill-blanks-section {
+        padding: 15px;
+    }
+    
+    .code-fill-content {
+        padding: 15px;
+        font-size: 0.8rem;
+    }
+    
+    .blank-input {
+        min-width: 60px;
+        padding: 2px 5px;
+    }
+    
+    .code-fill-actions {
+        flex-wrap: wrap;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
