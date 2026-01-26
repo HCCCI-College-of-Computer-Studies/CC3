@@ -75,6 +75,78 @@ const quizData = {
             correct: 1,
             difficulty: "medium",
             explanation: "The 'final' keyword makes a variable constant - its value cannot be changed after initialization."
+        },
+        // True/False questions for Basics
+        {
+            type: "truefalse",
+            question: "In Java, variable names can start with a number.",
+            correct: false,
+            difficulty: "easy",
+            explanation: "Variable names in Java cannot start with a number. They must start with a letter, underscore (_), or dollar sign ($)."
+        },
+        {
+            type: "truefalse",
+            question: "The 'double' data type can store decimal numbers.",
+            correct: true,
+            difficulty: "easy",
+            explanation: "The 'double' data type is used to store floating-point numbers (decimals) with double precision."
+        },
+        {
+            type: "truefalse",
+            question: "Java is case-sensitive, so 'myVar' and 'myvar' are the same variable.",
+            correct: false,
+            difficulty: "easy",
+            explanation: "Java is case-sensitive. 'myVar' and 'myvar' are treated as two different variables."
+        },
+        // Fill in the Blanks for Basics
+        {
+            type: "fillblank",
+            question: "Complete the code to print 'Hello World':",
+            code: "System.out._____('Hello World');",
+            correct: ["println", "print"],
+            difficulty: "easy",
+            explanation: "Use System.out.println() or System.out.print() to output text in Java."
+        },
+        {
+            type: "fillblank",
+            question: "Complete the code to declare an integer variable:",
+            code: "_____ age = 25;",
+            correct: ["int"],
+            difficulty: "easy",
+            explanation: "Use 'int' to declare an integer variable in Java."
+        },
+        {
+            type: "fillblank",
+            question: "Complete the code to make a variable constant:",
+            code: "_____ int MAX = 100;",
+            correct: ["final"],
+            difficulty: "medium",
+            explanation: "Use 'final' keyword to declare a constant that cannot be changed."
+        },
+        // Output questions for Basics
+        {
+            type: "output",
+            question: "What is the output of this code?",
+            code: "int x = 5;\nint y = 3;\nSystem.out.println(x + y);",
+            correct: ["8"],
+            difficulty: "easy",
+            explanation: "5 + 3 = 8. The println outputs the sum of x and y."
+        },
+        {
+            type: "output",
+            question: "What is the output of this code?",
+            code: "System.out.println(\"Java\" + 2 + 3);",
+            correct: ["Java23"],
+            difficulty: "medium",
+            explanation: "Left to right: 'Java' + 2 = 'Java2', then 'Java2' + 3 = 'Java23'. String concatenation."
+        },
+        {
+            type: "output",
+            question: "What is the output of this code?",
+            code: "System.out.println(2 + 3 + \"Java\");",
+            correct: ["5Java"],
+            difficulty: "medium",
+            explanation: "Left to right: 2 + 3 = 5, then 5 + 'Java' = '5Java'."
         }
     ],
     selection: [
@@ -151,6 +223,55 @@ const quizData = {
             correct: 2,
             difficulty: "medium",
             explanation: "If no case matches and there's no default block, the switch statement does nothing and execution continues."
+        },
+        // True/False questions for Selection
+        {
+            type: "truefalse",
+            question: "The '==' operator can be used to compare String contents in Java.",
+            correct: false,
+            difficulty: "medium",
+            explanation: "The '==' operator compares object references, not contents. Use .equals() method to compare String contents."
+        },
+        {
+            type: "truefalse",
+            question: "You can have multiple 'else if' statements after an 'if' statement.",
+            correct: true,
+            difficulty: "easy",
+            explanation: "You can chain multiple 'else if' statements to check different conditions sequentially."
+        },
+        // Fill in the Blanks for Selection
+        {
+            type: "fillblank",
+            question: "Complete the if statement:",
+            code: "_____ (score >= 60) { System.out.println(\"Pass\"); }",
+            correct: ["if"],
+            difficulty: "easy",
+            explanation: "Use 'if' keyword to start a conditional statement."
+        },
+        {
+            type: "fillblank",
+            question: "Complete the switch statement default case:",
+            code: "_____: System.out.println(\"Invalid\");",
+            correct: ["default"],
+            difficulty: "easy",
+            explanation: "Use 'default' for the fallback case in a switch statement."
+        },
+        // Output questions for Selection
+        {
+            type: "output",
+            question: "What is the output of this code?",
+            code: "int x = 10;\nif (x > 5) {\n    System.out.println(\"A\");\n} else {\n    System.out.println(\"B\");\n}",
+            correct: ["A"],
+            difficulty: "easy",
+            explanation: "10 > 5 is true, so 'A' is printed."
+        },
+        {
+            type: "output",
+            question: "What is the output of this code?",
+            code: "boolean a = true;\nboolean b = false;\nSystem.out.println(a && b);",
+            correct: ["false"],
+            difficulty: "easy",
+            explanation: "true AND false = false. Both must be true for && to return true."
         }
     ],
     loops: [
@@ -229,6 +350,63 @@ const quizData = {
             correct: 0,
             difficulty: "medium",
             explanation: "Prints 0, 1, 2. When i=3, break exits the loop before printing."
+        },
+        // True/False questions for Loops
+        {
+            type: "truefalse",
+            question: "A 'while' loop always executes at least once.",
+            correct: false,
+            difficulty: "easy",
+            explanation: "A 'while' loop checks the condition first, so it may never execute. A 'do-while' loop always executes at least once."
+        },
+        {
+            type: "truefalse",
+            question: "The 'break' statement can be used to exit a loop.",
+            correct: true,
+            difficulty: "easy",
+            explanation: "The 'break' statement immediately exits the current loop or switch statement."
+        },
+        // Fill in the Blanks for Loops
+        {
+            type: "fillblank",
+            question: "Complete the for loop to iterate from 0 to 4:",
+            code: "for (int i = 0; i _____ 5; i++)",
+            correct: ["<"],
+            difficulty: "easy",
+            explanation: "Use '<' to iterate while i is less than 5 (0,1,2,3,4)."
+        },
+        {
+            type: "fillblank",
+            question: "Complete the code to exit a loop early:",
+            code: "if (x == 10) _____;",
+            correct: ["break"],
+            difficulty: "easy",
+            explanation: "Use 'break' to exit a loop immediately."
+        },
+        {
+            type: "fillblank",
+            question: "Complete the code to skip to the next iteration:",
+            code: "if (x < 0) _____;",
+            correct: ["continue"],
+            difficulty: "medium",
+            explanation: "Use 'continue' to skip the current iteration and move to the next one."
+        },
+        // Output questions for Loops
+        {
+            type: "output",
+            question: "What is the output of this code?",
+            code: "for (int i = 0; i < 3; i++) {\n    System.out.print(i);\n}",
+            correct: ["012"],
+            difficulty: "easy",
+            explanation: "The loop prints 0, 1, 2 without newlines, resulting in '012'."
+        },
+        {
+            type: "output",
+            question: "What is the output of this code?",
+            code: "int count = 0;\nwhile (count < 3) {\n    count++;\n}\nSystem.out.println(count);",
+            correct: ["3"],
+            difficulty: "medium",
+            explanation: "The loop increments count until it's 3. After the loop, count is 3."
         }
     ],
     arrays: [
@@ -304,6 +482,63 @@ const quizData = {
             correct: 1,
             difficulty: "easy",
             explanation: "Numeric array elements default to 0, boolean to false, objects to null."
+        },
+        // True/False questions for Arrays
+        {
+            type: "truefalse",
+            question: "Arrays in Java have a fixed size once created.",
+            correct: true,
+            difficulty: "easy",
+            explanation: "Once an array is created in Java, its size cannot be changed. Use ArrayList for dynamic sizing."
+        },
+        {
+            type: "truefalse",
+            question: "The first index of an array in Java is 1.",
+            correct: false,
+            difficulty: "easy",
+            explanation: "Array indices in Java start at 0, not 1. The first element is at index 0."
+        },
+        // Fill in the Blanks for Arrays
+        {
+            type: "fillblank",
+            question: "Complete the code to create a new array of 5 integers:",
+            code: "int[] numbers = _____ int[5];",
+            correct: ["new"],
+            difficulty: "easy",
+            explanation: "Use 'new' keyword to create a new array instance."
+        },
+        {
+            type: "fillblank",
+            question: "Complete the code to get the length of an array:",
+            code: "int size = myArray._____;",
+            correct: ["length"],
+            difficulty: "easy",
+            explanation: "Use the 'length' property to get the size of an array."
+        },
+        {
+            type: "fillblank",
+            question: "Complete the enhanced for loop:",
+            code: "for (int num _____ numbers) { }",
+            correct: [":"],
+            difficulty: "medium",
+            explanation: "Use ':' (colon) in enhanced for loops to iterate over arrays/collections."
+        },
+        // Output questions for Arrays
+        {
+            type: "output",
+            question: "What is the output of this code?",
+            code: "int[] arr = {10, 20, 30};\nSystem.out.println(arr[1]);",
+            correct: ["20"],
+            difficulty: "easy",
+            explanation: "Array index starts at 0. arr[1] is the second element, which is 20."
+        },
+        {
+            type: "output",
+            question: "What is the output of this code?",
+            code: "String s = \"Hello\";\nSystem.out.println(s.length());",
+            correct: ["5"],
+            difficulty: "easy",
+            explanation: "'Hello' has 5 characters, so length() returns 5."
         }
     ],
     methods: [
@@ -379,6 +614,55 @@ const quizData = {
             correct: 2,
             difficulty: "hard",
             explanation: "Overloading requires different parameter types or count. Only option C has different parameters."
+        },
+        // True/False questions for Methods
+        {
+            type: "truefalse",
+            question: "A method declared as 'void' must return a value.",
+            correct: false,
+            difficulty: "easy",
+            explanation: "A 'void' method does not return any value. The 'void' keyword means 'no return type'."
+        },
+        {
+            type: "truefalse",
+            question: "Method overloading allows methods with the same name but different parameters.",
+            correct: true,
+            difficulty: "medium",
+            explanation: "Overloading means having multiple methods with the same name but different parameter types or counts."
+        },
+        // Fill in the Blanks for Methods
+        {
+            type: "fillblank",
+            question: "Complete the method signature that returns nothing:",
+            code: "public static _____ greet() { }",
+            correct: ["void"],
+            difficulty: "easy",
+            explanation: "Use 'void' for methods that don't return a value."
+        },
+        {
+            type: "fillblank",
+            question: "Complete the code to return a value from a method:",
+            code: "public static int add(int a, int b) {\n    _____ a + b;\n}",
+            correct: ["return"],
+            difficulty: "easy",
+            explanation: "Use 'return' keyword to send a value back from a method."
+        },
+        // Output questions for Methods
+        {
+            type: "output",
+            question: "What is the output of this code?",
+            code: "public static int multiply(int x, int y) {\n    return x * y;\n}\n// In main:\nSystem.out.println(multiply(4, 5));",
+            correct: ["20"],
+            difficulty: "easy",
+            explanation: "4 * 5 = 20. The method returns the product."
+        },
+        {
+            type: "output",
+            question: "What is the output of this code?",
+            code: "public static int square(int n) {\n    return n * n;\n}\n// In main:\nSystem.out.println(square(7));",
+            correct: ["49"],
+            difficulty: "easy",
+            explanation: "7 * 7 = 49. The method returns the square of the number."
         }
     ],
     mixed: []
@@ -435,6 +719,7 @@ function startQuiz(topic) {
 function loadQuestion() {
     const question = currentQuiz[currentQuestionIndex];
     const totalQuestions = currentQuiz.length;
+    const questionType = question.type || 'multiple'; // default to multiple choice
     
     // Update progress
     document.getElementById('question-number').textContent = 
@@ -460,22 +745,68 @@ function loadQuestion() {
         codeBlock.style.display = 'none';
     }
     
-    // Generate answer options
+    // Generate answer area based on question type
     const optionsContainer = document.getElementById('answer-options');
     optionsContainer.innerHTML = '';
     
-    const letters = ['A', 'B', 'C', 'D'];
-    question.options.forEach((option, index) => {
-        const optionDiv = document.createElement('div');
-        optionDiv.className = 'answer-option';
-        optionDiv.onclick = () => selectAnswer(index);
-        optionDiv.innerHTML = `
-            <span class="option-letter">${letters[index]}</span>
-            <span class="option-text">${option}</span>
-            <span class="option-icon"></span>
+    if (questionType === 'truefalse') {
+        // True/False options
+        const tfOptions = [
+            { label: 'True', value: true },
+            { label: 'False', value: false }
+        ];
+        tfOptions.forEach((opt, index) => {
+            const optionDiv = document.createElement('div');
+            optionDiv.className = 'answer-option tf-option';
+            optionDiv.onclick = () => selectAnswer(index);
+            optionDiv.innerHTML = `
+                <span class="option-letter">${opt.label.charAt(0)}</span>
+                <span class="option-text">${opt.label}</span>
+                <span class="option-icon"></span>
+            `;
+            optionsContainer.appendChild(optionDiv);
+        });
+    } else if (questionType === 'fillblank' || questionType === 'output') {
+        // Text input for fill-in-blank and output questions
+        const inputWrapper = document.createElement('div');
+        inputWrapper.className = 'text-input-wrapper';
+        inputWrapper.innerHTML = `
+            <input type="text" 
+                   id="text-answer-input" 
+                   class="text-answer-input" 
+                   placeholder="${questionType === 'output' ? 'Type the output here...' : 'Type your answer here...'}"
+                   autocomplete="off"
+                   spellcheck="false">
+            <span class="input-hint">${questionType === 'output' ? 'Enter exactly what the code outputs' : 'Fill in the missing code'}</span>
         `;
-        optionsContainer.appendChild(optionDiv);
-    });
+        optionsContainer.appendChild(inputWrapper);
+        
+        // Add event listener for text input
+        const textInput = document.getElementById('text-answer-input');
+        textInput.addEventListener('input', () => {
+            selectedAnswer = textInput.value.trim();
+            document.getElementById('btn-submit').disabled = selectedAnswer === '';
+        });
+        textInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && selectedAnswer) {
+                submitAnswer();
+            }
+        });
+    } else {
+        // Multiple choice options (default)
+        const letters = ['A', 'B', 'C', 'D'];
+        question.options.forEach((option, index) => {
+            const optionDiv = document.createElement('div');
+            optionDiv.className = 'answer-option';
+            optionDiv.onclick = () => selectAnswer(index);
+            optionDiv.innerHTML = `
+                <span class="option-letter">${letters[index]}</span>
+                <span class="option-text">${option}</span>
+                <span class="option-icon"></span>
+            `;
+            optionsContainer.appendChild(optionDiv);
+        });
+    }
     
     // Reset state for new question
     selectedAnswer = null;
@@ -517,29 +848,99 @@ function submitAnswer() {
     isAnswerSubmitted = true;
     
     const question = currentQuiz[currentQuestionIndex];
-    const options = document.querySelectorAll('.answer-option');
-    const isCorrect = selectedAnswer === question.correct;
+    const questionType = question.type || 'multiple';
+    let isCorrect = false;
+    let userAnswerText = '';
+    let correctAnswerText = '';
     
-    // Disable all options
-    options.forEach(opt => opt.classList.add('disabled'));
-    
-    if (isCorrect) {
-        options[selectedAnswer].classList.add('correct');
-        options[selectedAnswer].querySelector('.option-icon').textContent = '✓';
-        score++;
+    if (questionType === 'truefalse') {
+        // True/False evaluation
+        const options = document.querySelectorAll('.answer-option');
+        const userBool = selectedAnswer === 0; // 0 = True, 1 = False
+        isCorrect = userBool === question.correct;
+        userAnswerText = userBool ? 'True' : 'False';
+        correctAnswerText = question.correct ? 'True' : 'False';
+        
+        // Disable all options
+        options.forEach(opt => opt.classList.add('disabled'));
+        
+        if (isCorrect) {
+            options[selectedAnswer].classList.add('correct');
+            options[selectedAnswer].querySelector('.option-icon').textContent = '✓';
+            score++;
+        } else {
+            options[selectedAnswer].classList.add('incorrect');
+            options[selectedAnswer].querySelector('.option-icon').textContent = '✗';
+            // Show correct answer
+            const correctIndex = question.correct ? 0 : 1;
+            options[correctIndex].classList.add('show-correct');
+            options[correctIndex].querySelector('.option-icon').textContent = '✓';
+        }
+    } else if (questionType === 'fillblank' || questionType === 'output') {
+        // Text input evaluation
+        const textInput = document.getElementById('text-answer-input');
+        const userAnswer = selectedAnswer.trim();
+        userAnswerText = userAnswer;
+        correctAnswerText = Array.isArray(question.correct) ? question.correct[0] : question.correct;
+        
+        // Check if answer matches any correct answer (case-insensitive for most)
+        const correctAnswers = Array.isArray(question.correct) ? question.correct : [question.correct];
+        isCorrect = correctAnswers.some(ans => {
+            if (questionType === 'output') {
+                // Output questions are case-sensitive and exact
+                return userAnswer === ans;
+            } else {
+                // Fill-in-blank can be case-insensitive
+                return userAnswer.toLowerCase() === ans.toLowerCase();
+            }
+        });
+        
+        // Style the input
+        textInput.disabled = true;
+        if (isCorrect) {
+            textInput.classList.add('correct');
+            score++;
+        } else {
+            textInput.classList.add('incorrect');
+        }
+        
+        // Show correct answer below input
+        const wrapper = document.querySelector('.text-input-wrapper');
+        const correctDisplay = document.createElement('div');
+        correctDisplay.className = `correct-answer-display ${isCorrect ? 'is-correct' : 'is-incorrect'}`;
+        correctDisplay.innerHTML = isCorrect 
+            ? '<span class="check-icon">✓</span> Correct!' 
+            : `<span class="x-icon">✗</span> Correct answer: <code>${correctAnswerText}</code>`;
+        wrapper.appendChild(correctDisplay);
+        
     } else {
-        options[selectedAnswer].classList.add('incorrect');
-        options[selectedAnswer].querySelector('.option-icon').textContent = '✗';
-        // Show correct answer
-        options[question.correct].classList.add('show-correct');
-        options[question.correct].querySelector('.option-icon').textContent = '✓';
+        // Multiple choice evaluation (default)
+        const options = document.querySelectorAll('.answer-option');
+        isCorrect = selectedAnswer === question.correct;
+        userAnswerText = question.options[selectedAnswer];
+        correctAnswerText = question.options[question.correct];
+        
+        // Disable all options
+        options.forEach(opt => opt.classList.add('disabled'));
+        
+        if (isCorrect) {
+            options[selectedAnswer].classList.add('correct');
+            options[selectedAnswer].querySelector('.option-icon').textContent = '✓';
+            score++;
+        } else {
+            options[selectedAnswer].classList.add('incorrect');
+            options[selectedAnswer].querySelector('.option-icon').textContent = '✗';
+            // Show correct answer
+            options[question.correct].classList.add('show-correct');
+            options[question.correct].querySelector('.option-icon').textContent = '✓';
+        }
     }
     
     // Store user answer
     userAnswers.push({
         question: question.question,
-        userAnswer: question.options[selectedAnswer],
-        correctAnswer: question.options[question.correct],
+        userAnswer: userAnswerText,
+        correctAnswer: correctAnswerText,
         isCorrect: isCorrect
     });
     
