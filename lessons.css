@@ -679,3 +679,368 @@ pre {
     padding: 20px;
     max-height: 2000px;
 }
+
+/* ================================================
+   Print Styles for PDF Generation
+   ================================================ */
+@media print {
+    /* Reduce margins and spacing for PDF */
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+    
+    /* Prevent text overflow */
+    p, div, span, td, th, li, h1, h2, h3, h4, h5, h6 {
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        word-break: break-word !important;
+    }
+    
+    .lesson-content .container {
+        width: 100% !important;
+        max-width: none !important;
+        padding: 0 !important;
+        margin: 0 !important; /* Ensure left alignment */
+        overflow: visible !important;
+    }
+    
+    .section-card {
+        margin: 15px 0 !important;
+        padding: 20px !important;
+        page-break-inside: avoid;
+        box-shadow: none !important;
+        width: 100% !important;
+    }
+    
+    .quiz-question {
+        margin: 12px 0 !important;
+        padding: 15px !important;
+        page-break-inside: avoid;
+    }
+    
+    .code-example {
+        margin: 10px 0 !important;
+        page-break-inside: avoid;
+    }
+    
+    .info-box,
+    .warning-box {
+        margin: 12px 0 !important;
+        padding: 12px 15px !important;
+        page-break-inside: avoid;
+    }
+    
+    .predict-output,
+    .interactive-section {
+        margin: 12px 0 !important;
+        page-break-inside: avoid;
+    }
+    
+    /* Reduce heading spacing */
+    h3 {
+        margin-top: 15px !important;
+        margin-bottom: 10px !important;
+        page-break-after: avoid;
+    }
+    
+    h4 {
+        margin-top: 12px !important;
+        margin-bottom: 8px !important;
+        page-break-after: avoid;
+    }
+    
+    /* Prevent page breaks inside these elements */
+    table,
+    .syntax-table,
+    .outcomes-list li,
+    .tips-list li,
+    .mistakes-list li,
+    .summary-list li {
+        page-break-inside: avoid;
+    }
+    
+    /* Reduce table spacing */
+    .syntax-table {
+        margin: 10px 0 !important;
+    }
+    
+    .syntax-table th,
+    .syntax-table td {
+        padding: 8px 12px !important;
+    }
+    
+    /* Optimize list spacing */
+    .outcomes-list li,
+    .tips-list li,
+    .mistakes-list li {
+        margin-bottom: 8px !important;
+        padding: 10px 12px !important;
+    }
+    
+    /* Remove interactive elements */
+    .try-it-section,
+    .predict-output,
+    .code-editor,
+    button,
+    .btn,
+    input[type="text"],
+    textarea,
+    header,
+    footer,
+    .lesson-hero,
+    .progress-bar,
+    .code-copy-btn {
+        display: none !important;
+    }
+    
+    /* Optimize pre/code blocks */
+    pre {
+        margin: 0 !important;
+        padding: 10px !important;
+        font-size: 9px !important;
+        line-height: 1.3 !important;
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+        word-break: break-word !important;
+        overflow: hidden !important;
+        max-width: 100% !important;
+    }
+    
+    code {
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+        word-break: break-word !important;
+        font-size: 9px !important;
+    }
+    
+    .code-example {
+        max-width: 100% !important;
+        overflow: hidden !important;
+    }
+    
+    /* Ensure tables fit */
+    table {
+        width: 100% !important;
+        table-layout: fixed !important;
+    }
+    
+    table td,
+    table th {
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    /* Remove shadows and transitions */
+    * {
+        box-shadow: none !important;
+        transition: none !important;
+    }
+}
+
+/* ============================================================
+   PDF EXPORT SPECIFIC STYLES
+   Used when generating programmatic PDFs via html2pdf.js
+   ============================================================ */
+
+/* PDF Export Container - Overrides for html2canvas capture */
+#pdf-export-container {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 11pt !important;
+    line-height: 1.6 !important;
+    color: #000000 !important;
+    background: #ffffff !important;
+}
+
+#pdf-export-container * {
+    box-sizing: border-box;
+}
+
+/* PDF Cover Page Styles */
+#pdf-export-container .pdf-cover-page {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* PDF Section Cards */
+#pdf-export-container .section-card {
+    background: #ffffff !important;
+    border: 1px solid #ddd !important;
+    border-left: 4px solid #1a365d !important;
+    border-radius: 0 !important;
+    padding: 15px 20px !important;
+    margin-bottom: 20px !important;
+    page-break-inside: avoid !important;
+    box-shadow: none !important;
+}
+
+/* PDF Headings */
+#pdf-export-container h3 {
+    font-size: 14pt !important;
+    font-weight: bold !important;
+    color: #1a365d !important;
+    margin: 0 0 12px 0 !important;
+    padding-bottom: 8px !important;
+    border-bottom: 1px solid #ccc !important;
+    page-break-after: avoid !important;
+}
+
+#pdf-export-container h4 {
+    font-size: 12pt !important;
+    font-weight: bold !important;
+    color: #333333 !important;
+    margin: 15px 0 8px 0 !important;
+    page-break-after: avoid !important;
+}
+
+/* PDF Paragraphs */
+#pdf-export-container p {
+    font-size: 11pt !important;
+    line-height: 1.6 !important;
+    margin-bottom: 10px !important;
+    text-align: justify !important;
+    color: #000000 !important;
+    page-break-inside: avoid !important;
+}
+
+/* PDF Code Blocks */
+#pdf-export-container .code-example {
+    background: #f5f5f5 !important;
+    border: 1px solid #ccc !important;
+    border-left: 3px solid #1a365d !important;
+    border-radius: 0 !important;
+    padding: 12px !important;
+    margin: 12px 0 !important;
+    page-break-inside: avoid !important;
+    overflow: visible !important;
+}
+
+#pdf-export-container pre {
+    font-family: 'Courier New', Consolas, monospace !important;
+    font-size: 9pt !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    color: #000000 !important;
+    background: transparent !important;
+}
+
+#pdf-export-container .code-label {
+    font-size: 9pt !important;
+    font-weight: bold !important;
+    color: #1a365d !important;
+    display: block !important;
+    margin-bottom: 8px !important;
+    text-transform: uppercase !important;
+}
+
+/* PDF Inline Code */
+#pdf-export-container code:not(pre code) {
+    font-family: 'Courier New', Consolas, monospace !important;
+    font-size: 10pt !important;
+    background: #f0f0f0 !important;
+    padding: 1px 4px !important;
+    border-radius: 2px !important;
+    color: #c7254e !important;
+}
+
+/* PDF Tables */
+#pdf-export-container table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 12px 0 !important;
+    font-size: 10pt !important;
+    page-break-inside: avoid !important;
+}
+
+#pdf-export-container th,
+#pdf-export-container td {
+    border: 1px solid #999 !important;
+    padding: 8px 10px !important;
+    text-align: left !important;
+    background: #ffffff !important;
+}
+
+#pdf-export-container th {
+    background: #e6f0ff !important;
+    font-weight: bold !important;
+    color: #1a365d !important;
+}
+
+/* PDF Info/Warning Boxes */
+#pdf-export-container .info-box {
+    background: #f0f7ff !important;
+    border-left: 4px solid #3182ce !important;
+    padding: 12px 15px !important;
+    margin: 12px 0 !important;
+    page-break-inside: avoid !important;
+    font-size: 10pt !important;
+}
+
+#pdf-export-container .warning-box {
+    background: #fff5f5 !important;
+    border-left: 4px solid #e53e3e !important;
+    padding: 12px 15px !important;
+    margin: 12px 0 !important;
+    page-break-inside: avoid !important;
+    font-size: 10pt !important;
+}
+
+/* PDF Lists */
+#pdf-export-container .outcomes-list,
+#pdf-export-container .summary-list {
+    padding-left: 25px !important;
+    margin: 10px 0 !important;
+}
+
+#pdf-export-container .outcomes-list li,
+#pdf-export-container .summary-list li {
+    margin-bottom: 8px !important;
+    line-height: 1.5 !important;
+    font-size: 11pt !important;
+    page-break-inside: avoid !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+}
+
+/* PDF References Section */
+#pdf-export-container .pdf-references {
+    page-break-before: always !important;
+    padding: 20px 0 !important;
+    background: #ffffff !important;
+}
+
+#pdf-export-container .pdf-references h3 {
+    font-size: 14pt !important;
+    font-weight: bold !important;
+    color: #1a365d !important;
+    border-bottom: 2px solid #1a365d !important;
+    padding-bottom: 8px !important;
+    margin-bottom: 20px !important;
+}
+
+#pdf-export-container .pdf-references ol {
+    font-size: 10pt !important;
+    line-height: 1.8 !important;
+    padding-left: 25px !important;
+    color: #333333 !important;
+}
+
+#pdf-export-container .pdf-references li {
+    margin-bottom: 10px !important;
+}
+
+/* Hide syntax highlighting colors in PDF - use black text */
+#pdf-export-container .keyword,
+#pdf-export-container .type,
+#pdf-export-container .method,
+#pdf-export-container .string,
+#pdf-export-container .number,
+#pdf-export-container .comment {
+    color: #000000 !important;
+}
+

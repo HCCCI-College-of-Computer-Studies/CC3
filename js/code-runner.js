@@ -74,12 +74,29 @@ class CodeRunner {
                 <div class="code-runner-line-numbers"></div>
                 <textarea class="code-runner-editor" spellcheck="false">${this.escapeHtml(originalCode)}</textarea>
             </div>
+            <div class="code-runner-input-wrapper">
+                <label class="code-runner-input-label">Program Input:</label>
+                <textarea class="code-runner-input" placeholder="Enter input for the program (one item per line for Scanner)..." spellcheck="false"></textarea>
+            </div>
             <div class="code-runner-output-wrapper" style="display: none;">
                 <div class="code-runner-output-header">
-                    <span>Output</span>
-                    <button class="btn-clear-output" title="Clear output">Clear</button>
+                    <div class="terminal-controls">
+                        <span class="terminal-btn close" title="Close output"></span>
+                        <span class="terminal-btn minimize" title="Minimize"></span>
+                        <span class="terminal-btn maximize" title="Maximize"></span>
+                    </div>
+                    <div class="terminal-title">
+                        <i>⌘</i>
+                        <span>Terminal — Output</span>
+                    </div>
+                    <button class="btn-clear-output" title="Clear output">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14"/>
+                        </svg>
+                        Clear
+                    </button>
                 </div>
-                <pre class="code-runner-output"></pre>
+                <pre class="code-runner-output"><span class="terminal-prompt">$</span> Waiting for execution...</pre>
             </div>
             <div class="code-runner-status">
                 <span class="status-text">Ready to run</span>
@@ -150,6 +167,9 @@ class CodeRunner {
         runBtn.addEventListener('click', async () => {
             const code = editor.value;
             const language = runner.dataset.language || 'java';
+            const inputField = runner.querySelector('.code-runner-input');
+            const inputWrapper = runner.querySelector('.code-runner-input-wrapper');
+            const stdin = inputField ? inputField.value : '';
 
             runBtn.disabled = true;
             runBtn.innerHTML = `
@@ -162,8 +182,8 @@ class CodeRunner {
             status.className = 'status-text running';
 
             try {
-                const result = await this.executeCode(code, language);
-                outputWrapper.style.display = 'block';
+                const result = await this.executeCode(code, language, stdin);
+                this.showOutputModal(runner);
                 
                 if (result.success) {
                     output.textContent = result.output || '(No output)';
@@ -177,7 +197,7 @@ class CodeRunner {
                     status.className = 'status-text error';
                 }
             } catch (err) {
-                outputWrapper.style.display = 'block';
+                this.showOutputModal(runner);
                 output.textContent = 'Error: Could not connect to execution server. Please try again.';
                 output.className = 'code-runner-output error';
                 status.textContent = 'Connection error';
@@ -226,16 +246,124 @@ class CodeRunner {
 
         // Clear output button
         clearBtn.addEventListener('click', () => {
-            outputWrapper.style.display = 'none';
-            output.textContent = '';
-            status.textContent = 'Ready to run';
-            status.className = 'status-text';
+            this.closeOutputModal(runner);
         });
+
+        // Terminal close button (red button)
+        const closeBtn = runner.querySelector('.terminal-btn.close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                this.closeOutputModal(runner);
+            });
+        }
+
+        // Make output modal draggable
+        this.makeModalDraggable(outputWrapper);
 
         runner.classList.add('initialized');
     }
 
-    async executeCode(code, language) {
+    // Close output modal and remove backdrop
+    closeOutputModal(runner) {
+        const outputWrapper = runner.querySelector('.code-runner-output-wrapper');
+        const backdrop = runner.querySelector('.code-runner-modal-backdrop');
+        const status = runner.querySelector('.status-text');
+        const output = runner.querySelector('.code-runner-output');
+        
+        if (outputWrapper) {
+            outputWrapper.style.display = 'none';
+            outputWrapper.classList.remove('dragged');
+            outputWrapper.style.top = '50%';
+            outputWrapper.style.left = '50%';
+        }
+        if (backdrop) backdrop.remove();
+        if (output) output.textContent = '';
+        if (status) {
+            status.textContent = 'Ready to run';
+            status.className = 'status-text';
+        }
+    }
+
+    // Show output modal with backdrop
+    showOutputModal(runner) {
+        const outputWrapper = runner.querySelector('.code-runner-output-wrapper');
+        
+        // Create backdrop if it doesn't exist
+        let backdrop = runner.querySelector('.code-runner-modal-backdrop');
+        if (!backdrop) {
+            backdrop = document.createElement('div');
+            backdrop.className = 'code-runner-modal-backdrop';
+            backdrop.addEventListener('click', () => this.closeOutputModal(runner));
+            runner.appendChild(backdrop);
+        }
+        
+        // Reset position for centering
+        outputWrapper.classList.remove('dragged');
+        outputWrapper.style.top = '50%';
+        outputWrapper.style.left = '50%';
+        outputWrapper.style.display = 'block';
+    }
+
+    // Make modal draggable
+    makeModalDraggable(modal) {
+        const header = modal.querySelector('.code-runner-output-header');
+        if (!header) return;
+
+        let isDragging = false;
+        let startX, startY, initialX, initialY;
+
+        header.addEventListener('mousedown', (e) => {
+            if (e.target.closest('.terminal-btn') || e.target.closest('.btn-clear-output')) return;
+            
+            isDragging = true;
+            modal.classList.add('dragging');
+            
+            // If first drag, convert from centered position to absolute
+            if (!modal.classList.contains('dragged')) {
+                const rect = modal.getBoundingClientRect();
+                modal.style.top = rect.top + 'px';
+                modal.style.left = rect.left + 'px';
+                modal.classList.add('dragged');
+            }
+            
+            startX = e.clientX;
+            startY = e.clientY;
+            initialX = modal.offsetLeft;
+            initialY = modal.offsetTop;
+            
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            
+            let newX = initialX + dx;
+            let newY = initialY + dy;
+            
+            // Keep modal within viewport bounds
+            const rect = modal.getBoundingClientRect();
+            const maxX = window.innerWidth - rect.width;
+            const maxY = window.innerHeight - rect.height;
+            
+            newX = Math.max(0, Math.min(newX, maxX));
+            newY = Math.max(0, Math.min(newY, maxY));
+            
+            modal.style.left = newX + 'px';
+            modal.style.top = newY + 'px';
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                modal.classList.remove('dragging');
+            }
+        });
+    }
+
+    async executeCode(code, language, stdin = '') {
         const langConfig = this.languageVersions[language.toLowerCase()] || this.languageVersions['java'];
 
         // For Java, we need to handle the class name
@@ -251,18 +379,25 @@ class CodeRunner {
             }
         }
 
+        const requestBody = {
+            language: langConfig.language,
+            version: langConfig.version,
+            files: [{
+                content: processedCode
+            }]
+        };
+
+        // Add stdin if provided
+        if (stdin.trim()) {
+            requestBody.stdin = stdin;
+        }
+
         const response = await fetch(this.pistonAPI, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                language: langConfig.language,
-                version: langConfig.version,
-                files: [{
-                    content: processedCode
-                }]
-            })
+            body: JSON.stringify(requestBody)
         });
 
         const data = await response.json();
@@ -355,12 +490,29 @@ function createCodeRunner(containerId, code, language = 'java') {
                 <div class="code-runner-line-numbers"></div>
                 <textarea class="code-runner-editor" spellcheck="false">${code}</textarea>
             </div>
+            <div class="code-runner-input-wrapper">
+                <label class="code-runner-input-label">Program Input:</label>
+                <textarea class="code-runner-input" placeholder="Enter input for the program (one item per line for Scanner)..." spellcheck="false"></textarea>
+            </div>
             <div class="code-runner-output-wrapper" style="display: none;">
                 <div class="code-runner-output-header">
-                    <span>Output</span>
-                    <button class="btn-clear-output" title="Clear output">Clear</button>
+                    <div class="terminal-controls">
+                        <span class="terminal-btn close" title="Close output"></span>
+                        <span class="terminal-btn minimize" title="Minimize"></span>
+                        <span class="terminal-btn maximize" title="Maximize"></span>
+                    </div>
+                    <div class="terminal-title">
+                        <i>⌘</i>
+                        <span>Terminal — Output</span>
+                    </div>
+                    <button class="btn-clear-output" title="Clear output">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14"/>
+                        </svg>
+                        Clear
+                    </button>
                 </div>
-                <pre class="code-runner-output"></pre>
+                <pre class="code-runner-output"><span class="terminal-prompt">$</span> Waiting for execution...</pre>
             </div>
             <div class="code-runner-status">
                 <span class="status-text">Ready to run</span>
