@@ -26,6 +26,7 @@
             .predict-output,
             .interactive-section,
             .lesson-nav,
+            .lesson-top-nav,
             button,
             .mobile-menu-toggle,
             textarea,
@@ -334,7 +335,17 @@
 
     <main class="lesson-content">
         <div class="container">
-            
+
+            <!-- Top Navigation -->
+            <div class="lesson-top-nav">
+                <div class="nav-group">
+                    <a href="lesson1-selection-structures.html">← Previous: Selection Structures</a>
+                </div>
+                <div class="nav-group">
+                    <a href="lesson3-arrays.html">Next: Arrays →</a>
+                </div>
+            </div>
+
             <!-- Overview Section -->
             <div class="section-card">
                 <h3>Lesson Overview</h3>
@@ -350,10 +361,9 @@
                 <h3>Learning Outcomes</h3>
                 <p>At the end of this lesson, the student should be able to:</p>
                 <ul class="outcomes-list">
-                    <li>Differentiate the iterative structures in Java (<code>while</code>, <code>do-while</code>, and <code>for</code>) in terms of their syntax, flow of control, and appropriate use in a given problem.</li>
-                    <li>Construct Java programs that correctly use loops (including nested loops) to solve repetition-based problems such as summations, counting, and table generation based on given specifications.</li>
-                    <li>Trace and predict the behavior of Java programs with loops by identifying the number of iterations and the values of key variables for a set of given inputs.</li>
-                    <li>Debug and revise loop-based Java code (including use of <code>break</code> and <code>continue</code>) so that it terminates correctly and produces the intended output.</li>
+                    <li>Distinguish between pre-test (<code>while</code>/<code>for</code>) and post-test (<code>do-while</code>) loops.</li>
+                    <li>Analyze the behavior of <code>break</code> and <code>continue</code> statements within nested loop iterations.</li>
+                    <li>Create an algorithmic solution that utilizes nested loops to process complex repeating patterns.</li>
                 </ul>
             </div>
 
@@ -1011,6 +1021,12 @@
             </div>
         </div>
     </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+        Back to Top
+    </button>
 
     <script src="../main.js"></script>
     <script src="../lessons.js"></script>

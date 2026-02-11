@@ -27,6 +27,7 @@
             .predict-output,
             .interactive-section,
             .lesson-nav,
+            .lesson-top-nav,
             button,
             .mobile-menu-toggle,
             textarea,
@@ -335,7 +336,17 @@
 
     <main class="lesson-content">
         <div class="container">
-            
+
+            <!-- Top Navigation -->
+            <div class="lesson-top-nav">
+                <div class="nav-group">
+                    <a href="../programming2-syllabus.html">← Back to Syllabus</a>
+                </div>
+                <div class="nav-group">
+                    <a href="lesson2-iterative-structures.html">Next: Iterative Structures →</a>
+                </div>
+            </div>
+
             <!-- Overview Section -->
             <div class="section-card">
                 <h3>Lesson Overview</h3>
@@ -351,10 +362,9 @@
                 <h3>Learning Outcomes</h3>
                 <p>At the end of this lesson, the student should be able to:</p>
                 <ul class="outcomes-list">
-                    <li>Differentiate the selection structures in Java (<code>if</code>, <code>if...else</code>, <code>if...else if...else</code>, and <code>switch</code>) in terms of their syntax and appropriate use in a given problem.</li>
-                    <li>Construct Java programs that correctly use selection structures to solve simple decision-making problems (for example: grading, minimum/maximum, and eligibility checks) based on given specifications.</li>
-                    <li>Trace and predict the output of Java programs that use selection structures by identifying the path of execution for a set of given input values.</li>
-                    <li>Debug and revise Java code with selection structures so that it meets stated functional requirements and handles common input scenarios correctly.</li>
+                    <li>Identify the appropriate selection structure (<code>if</code>, <code>else if</code>, <code>switch</code>) based on the number of conditions in a problem.</li>
+                    <li>Analyze the logic flow of nested decision structures to predict program output.</li>
+                    <li>Create a multi-path decision program that solves real-world conditional scenarios efficiently.</li>
                 </ul>
             </div>
 
@@ -1023,6 +1033,12 @@
             </div>
         </div>
     </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+        Back to Top
+    </button>
 
     <script src="../main.js"></script>
     <script src="../lessons.js"></script>

@@ -26,6 +26,7 @@
             .predict-output,
             .interactive-section,
             .lesson-nav,
+            .lesson-top-nav,
             button,
             .mobile-menu-toggle,
             textarea,
@@ -334,7 +335,17 @@
 
     <main class="lesson-content">
         <div class="container">
-            
+
+            <!-- Top Navigation -->
+            <div class="lesson-top-nav">
+                <div class="nav-group">
+                    <a href="lesson8-regular-expressions.html">← Previous: Regular Expressions</a>
+                </div>
+                <div class="nav-group">
+                    <a href="../programming2-syllabus.html">Back to Syllabus →</a>
+                </div>
+            </div>
+
             <!-- Overview -->
             <div class="section-card">
                 <h3>Lesson Overview</h3>
@@ -350,10 +361,9 @@
                 <h3>Learning Outcomes</h3>
                 <p>At the end of this lesson, the student should be able to:</p>
                 <ul class="outcomes-list">
-                    <li>Explain the purpose of Java wrapper classes and their relationship to primitive data types.</li>
-                    <li>Convert between primitive values and their corresponding wrapper objects using constructors, factory methods, and parsing utilities.</li>
-                    <li>Use wrapper class methods to parse string input into numeric and boolean values in simple Java applications.</li>
-                    <li>Apply autoboxing and unboxing concepts when working with collections and method calls that require object types.</li>
+                    <li>Explain the purpose of Wrapper classes and their relationship with primitive data types.</li>
+                    <li>Analyze the process of autoboxing and unboxing in Java expressions.</li>
+                    <li>Create a utility program that utilizes Wrapper class methods to perform advanced data conversions.</li>
                 </ul>
             </div>
 
@@ -579,6 +589,12 @@
             </div>
         </div>
     </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+        Back to Top
+    </button>
 
     <script src="../main.js"></script>
     <script src="../lessons.js"></script>

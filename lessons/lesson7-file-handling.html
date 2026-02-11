@@ -26,6 +26,7 @@
             .predict-output,
             .interactive-section,
             .lesson-nav,
+            .lesson-top-nav,
             button,
             .mobile-menu-toggle,
             textarea,
@@ -334,7 +335,17 @@
 
     <main class="lesson-content">
         <div class="container">
-            
+
+            <!-- Top Navigation -->
+            <div class="lesson-top-nav">
+                <div class="nav-group">
+                    <a href="lesson6-enumerations.html">← Previous: Enumerations</a>
+                </div>
+                <div class="nav-group">
+                    <a href="lesson8-regular-expressions.html">Next: Regular Expressions →</a>
+                </div>
+            </div>
+
             <!-- Overview -->
             <div class="section-card">
                 <h3>Lesson Overview</h3>
@@ -350,10 +361,9 @@
                 <h3>Learning Outcomes</h3>
                 <p>At the end of this lesson, the student should be able to:</p>
                 <ul class="outcomes-list">
-                    <li>Explain the role of file handling in persisting and exchanging data in Java applications, including the use of text and CSV files.</li>
-                    <li>Read, write, and append data to text files using appropriate Java I/O classes, following given file format specifications.</li>
-                    <li>Implement basic CRUD (Create, Read, Update, Delete) operations on file-based datasets to maintain simple records.</li>
-                    <li>Parse and generate CSV files in Java to support import/export of tabular data for use with spreadsheets or other systems.</li>
+                    <li>Recall the classes and methods within the <code>java.io</code> package required for file manipulation.</li>
+                    <li>Analyze the structure of <code>.csv</code> files to determine the necessary delimiters for data parsing.</li>
+                    <li>Create a persistent information system that performs full C.R.U.D. operations on external files.</li>
                 </ul>
             </div>
 
@@ -640,6 +650,12 @@
             </div>
         </div>
     </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+        Back to Top
+    </button>
 
     <script src="../main.js"></script>
     <script src="../lessons.js"></script>

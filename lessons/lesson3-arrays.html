@@ -26,6 +26,7 @@
             .predict-output,
             .interactive-section,
             .lesson-nav,
+            .lesson-top-nav,
             button,
             .mobile-menu-toggle,
             textarea,
@@ -334,7 +335,17 @@
 
     <main class="lesson-content">
         <div class="container">
-            
+
+            <!-- Top Navigation -->
+            <div class="lesson-top-nav">
+                <div class="nav-group">
+                    <a href="lesson2-iterative-structures.html">← Previous: Iterative Structures</a>
+                </div>
+                <div class="nav-group">
+                    <a href="lesson4-functions.html">Next: Functions →</a>
+                </div>
+            </div>
+
             <!-- Overview -->
             <div class="section-card">
                 <h3>Lesson Overview</h3>
@@ -350,10 +361,9 @@
                 <h3>Learning Outcomes</h3>
                 <p>At the end of this lesson, the student should be able to:</p>
                 <ul class="outcomes-list">
-                    <li>Explain the role of one-dimensional and multi-dimensional arrays in solving data-processing problems, including their advantages and limitations.</li>
-                    <li>Declare, initialize, and access elements of one-dimensional and multi-dimensional arrays in Java according to a given problem specification.</li>
-                    <li>Traverse arrays using appropriate loop constructs in order to compute aggregates (such as totals, minimum/maximum, and averages) and perform basic transformations.</li>
-                    <li>Apply basic searching and sorting techniques on arrays to produce correct and organized output for sample datasets.</li>
+                    <li>Illustrate the memory allocation and indexing of one-dimensional and multi-dimensional arrays.</li>
+                    <li>Analyze different array traversal techniques to locate or modify specific data elements.</li>
+                    <li>Design and Implement a data-management program that organizes and summarizes multi-dimensional datasets.</li>
                 </ul>
             </div>
 
@@ -888,6 +898,12 @@
             </div>
         </div>
     </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+        Back to Top
+    </button>
 
     <script src="../main.js"></script>
     <script src="../lessons.js"></script>

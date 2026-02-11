@@ -26,6 +26,7 @@
             .predict-output,
             .interactive-section,
             .lesson-nav,
+            .lesson-top-nav,
             button,
             .mobile-menu-toggle,
             textarea,
@@ -334,7 +335,17 @@
 
     <main class="lesson-content">
         <div class="container">
-            
+
+            <!-- Top Navigation -->
+            <div class="lesson-top-nav">
+                <div class="nav-group">
+                    <a href="lesson5-functions-with-arrays.html">← Previous: Functions with Arrays</a>
+                </div>
+                <div class="nav-group">
+                    <a href="lesson7-file-handling.html">Next: Accessing Files →</a>
+                </div>
+            </div>
+
             <!-- Overview -->
             <div class="section-card">
                 <h3>Lesson Overview</h3>
@@ -350,10 +361,9 @@
                 <h3>Learning Outcomes</h3>
                 <p>At the end of this lesson, the student should be able to:</p>
                 <ul class="outcomes-list">
-                    <li>Define and declare enumeration types in Java that model fixed sets of related constants for a given problem domain.</li>
-                    <li>Use enum values in Java code (including <code>switch</code> statements and comparisons) to control program behavior in a type-safe way.</li>
-                    <li>Access, iterate over, and display enum constants in order to implement menu options, status indicators, or other categorical data in applications.</li>
-                    <li>Design enums with fields, constructors, and methods to encapsulate additional behavior or data associated with each constant.</li>
+                    <li>Define custom Enumerations to represent a fixed set of constants in a program.</li>
+                    <li>Analyze the benefits of using Enums over standard integer constants for code readability.</li>
+                    <li>Construct a state-driven application that uses Enums to control program behavior and logic flow.</li>
                 </ul>
             </div>
 
@@ -623,6 +633,12 @@
             </div>
         </div>
     </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+        Back to Top
+    </button>
 
     <script src="../main.js"></script>
     <script src="../lessons.js"></script>

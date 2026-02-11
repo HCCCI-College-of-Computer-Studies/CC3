@@ -231,3 +231,25 @@ function calculateScore(formId) {
         resultDiv.innerHTML = `<div class="feedback incorrect">You scored ${correct}/${total} (${percentage}%). Consider reviewing this lesson before moving on.</div>`;
     }
 }
+
+// ================================================
+// Back to Top Button
+// ================================================
+document.addEventListener('DOMContentLoaded', () => {
+    const backToTopBtn = document.getElementById('backToTop');
+    if (!backToTopBtn) return;
+
+    const scrollThreshold = 400;
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > scrollThreshold) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+    }, { passive: true });
+
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+});
