@@ -161,45 +161,61 @@ async function downloadLessonAsPDF() {
         // ============================================================
         // PAGE 1: COVER PAGE
         // ============================================================
+
+        // Load and add logo
+        try {
+            const logoImg = new Image();
+            logoImg.crossOrigin = 'anonymous';
+            await new Promise((resolve, reject) => {
+                logoImg.onload = resolve;
+                logoImg.onerror = reject;
+                logoImg.src = '../assets/logo/HCCCI-Logo.png';
+            });
+            const logoSize = 30; // mm
+            pdf.addImage(logoImg, 'PNG', (pageWidth - logoSize) / 2, 15, logoSize, logoSize);
+        } catch (e) {
+            console.warn('Logo could not be loaded:', e);
+        }
+
         pdf.setFont('times', 'bold');
         pdf.setFontSize(18);
-        pdf.text('HOLY CHILD CENTRAL COLLEGES, INC.', pageWidth / 2, 50, { align: 'center' });
+        pdf.text('HOLY CHILD CENTRAL COLLEGES, INC.', pageWidth / 2, 55, { align: 'center' });
         
         pdf.setFont('times', 'normal');
         pdf.setFontSize(14);
-        pdf.text('College of Computer Studies', pageWidth / 2, 60, { align: 'center' });
+        pdf.text('College of Computer Studies', pageWidth / 2, 65, { align: 'center' });
         
         pdf.setFontSize(11);
-        pdf.text('Surallah, South Cotabato', pageWidth / 2, 68, { align: 'center' });
+        pdf.text('Surallah, South Cotabato', pageWidth / 2, 73, { align: 'center' });
         
         pdf.setLineWidth(0.5);
-        pdf.line(50, 80, pageWidth - 50, 80);
+        pdf.line(50, 85, pageWidth - 50, 85);
         
         pdf.setFontSize(12);
-        pdf.text('Course: CC3 - Computer Programming 2', pageWidth / 2, 110, { align: 'center' });
+        pdf.text('Course: CC3 - Computer Programming 2', pageWidth / 2, 115, { align: 'center' });
         
         pdf.setFont('times', 'bold');
         pdf.setFontSize(14);
         pdf.setTextColor(26, 54, 93);
-        pdf.text('LESSON ' + lessonData.number, pageWidth / 2, 125, { align: 'center' });
+        pdf.text('LESSON ' + lessonData.number, pageWidth / 2, 130, { align: 'center' });
         
         pdf.setFontSize(22);
         pdf.setTextColor(0, 0, 0);
-        pdf.text(lessonData.title, pageWidth / 2, 145, { align: 'center' });
+        pdf.text(lessonData.title, pageWidth / 2, 150, { align: 'center' });
         
         pdf.setFont('times', 'italic');
         pdf.setFontSize(11);
         pdf.setTextColor(100, 100, 100);
         // Wrap subtitle if too long
         const subtitleLines = pdf.splitTextToSize(lessonData.subtitle, 140);
-        let subtitleY = 158;
+        let subtitleY = 163;
         subtitleLines.forEach(line => {
             pdf.text(line, pageWidth / 2, subtitleY, { align: 'center' });
             subtitleY += 5;
         });
         
         pdf.setTextColor(0, 0, 0);
-        pdf.line(50, 175, pageWidth - 50, 175);
+        pdf.line(50, 180, pageWidth - 50, 180);
         
         pdf.setFont('times', 'normal');
         pdf.setFontSize(11);
