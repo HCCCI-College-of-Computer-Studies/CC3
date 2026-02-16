@@ -1,12 +1,21 @@
 /**
  * Interactive Code Runner for CC3 Learning Platform
  * Allows students to edit and run code snippets directly in the browser
- * Uses Piston API for code execution (free, no API key required)
+ * Uses multiple code execution APIs with automatic fallback
+ *
+ * To self-host Piston: https://github.com/engineer-man/piston
+ *   docker pull ghcr.io/engineer-man/piston
+ *   Then add your instance URL to apiEndpoints below.
  */
 
 class CodeRunner {
     constructor() {
-        this.pistonAPI = 'https://emkc.org/api/v2/piston/execute';
+        // Piston-compatible API endpoints — tried in order.
+        // Add your own self-hosted Piston URL at the TOP of this list.
+        this.apiEndpoints = [
+            // 'https://your-self-hosted-piston:2000/api/v2/execute',
+            'https://emkc.org/api/v2/piston/execute'
+        ];
         this.languageVersions = {
             'java': { language: 'java', version: '15.0.2' },
             'python': { language: 'python', version: '3.10.0' },
@@ -14,6 +23,27 @@ class CodeRunner {
             'c': { language: 'c', version: '10.2.0' },
             'cpp': { language: 'cpp', version: '10.2.0' }
         };
+        // Online compiler fallback links shown when all APIs fail
+        this.onlineCompilers = {
+            'java':       'https://www.onlinegdb.com/online_java_compiler',
+            'python':     'https://www.onlinegdb.com/online_python_compiler',
+            'javascript': 'https://www.programiz.com/javascript/online-compiler/',
+            'c':          'https://www.onlinegdb.com/online_c_compiler',
+            'cpp':        'https://www.onlinegdb.com/online_c++_compiler'
+        };
+        // Wandbox compiler IDs — used as secondary backend when Piston fails
+        this.wandboxCompilers = {
+            'java':       'openjdk-jdk-21+35',
+            'python':     'cpython-3.12.7',
+            'c':          'gcc-12.3.0-c',
+            'cpp':        'gcc-12.3.0',
+            'javascript': 'nodejs-18.20.4'
+        };
+        // Wandbox endpoints: direct first, then CORS-proxied fallback
+        this.wandboxURLs = [
+            'https://wandbox.org/api/compile.json',
+            'https://corsproxy.io/?url=https%3A%2F%2Fwandbox.org%2Fapi%2Fcompile.json'
+        ];
         this.init();
     }
 
@@ -198,9 +228,13 @@ class CodeRunner {
                 }
             } catch (err) {
                 this.showOutputModal(runner);
-                output.textContent = 'Error: Could not connect to execution server. Please try again.';
+                const lang = (runner.dataset.language || 'java').toLowerCase();
+                const compilerUrl = this.onlineCompilers[lang] || this.onlineCompilers['java'];
+                output.textContent = `⚠️ Could not connect to execution server.\n\n` +
+                    `Run your code online at: ${compilerUrl}\n` +
+                    `Or self-host Piston: https://github.com/engineer-man/piston`;
                 output.className = 'code-runner-output error';
-                status.textContent = 'Connection error';
+                status.textContent = 'Service unavailable';
                 status.className = 'status-text error';
             }
 
@@ -364,16 +398,20 @@ class CodeRunner {
     }
 
     async executeCode(code, language, stdin = '') {
-        const langConfig = this.languageVersions[language.toLowerCase()] || this.languageVersions['java'];
+        const lang = language.toLowerCase();
 
-        // For Java, we need to handle the class name
+        // — Client-side execution for JavaScript (no API needed) —
+        if (lang === 'javascript') {
+            return this.executeJavaScriptLocally(code);
+        }
+
+        // — Remote execution via Piston-compatible API (try each endpoint) —
+        const langConfig = this.languageVersions[lang] || this.languageVersions['java'];
+
+        // For Java, handle the class name
         let processedCode = code;
-        if (language.toLowerCase() === 'java') {
-            // Extract or default to Main class
+        if (lang === 'java') {
             const classMatch = code.match(/public\s+class\s+(\w+)/);
-            const className = classMatch ? classMatch[1] : 'Main';
-            
-            // If no public class, wrap in Main class
             if (!classMatch && !code.includes('class ')) {
                 processedCode = `public class Main {\n    public static void main(String[] args) {\n${code}\n    }\n}`;
             }
@@ -382,50 +420,212 @@ class CodeRunner {
         const requestBody = {
             language: langConfig.language,
             version: langConfig.version,
-            files: [{
-                content: processedCode
-            }]
+            files: [{ content: processedCode }]
         };
-
-        // Add stdin if provided
         if (stdin.trim()) {
             requestBody.stdin = stdin;
         }
 
-        const response = await fetch(this.pistonAPI, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestBody)
-        });
+        let lastError = null;
 
-        const data = await response.json();
+        for (const endpoint of this.apiEndpoints) {
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-        if (data.run) {
-            const output = data.run.stdout || '';
-            const stderr = data.run.stderr || '';
-            const exitCode = data.run.code;
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestBody),
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
 
-            if (exitCode !== 0 || stderr) {
-                return {
-                    success: false,
-                    error: stderr || `Process exited with code ${exitCode}`,
-                    output: output
-                };
+                if (!response.ok) {
+                    lastError = `Server responded with ${response.status}`;
+                    continue;           // try next endpoint
+                }
+
+                const data = await response.json();
+
+                if (data.run) {
+                    const output = data.run.stdout || '';
+                    const stderr = data.run.stderr || '';
+                    const exitCode = data.run.code;
+
+                    if (exitCode !== 0 || stderr) {
+                        return {
+                            success: false,
+                            error: stderr || `Process exited with code ${exitCode}`,
+                            output: output
+                        };
+                    }
+                    return {
+                        success: true,
+                        output: output,
+                        time: data.run.time ? `${data.run.time}ms` : null
+                    };
+                }
+
+                lastError = data.message || 'Unexpected API response';
+            } catch (err) {
+                lastError = err.name === 'AbortError' ? 'Request timed out' : err.message;
+                // continue to next endpoint
             }
-
-            return {
-                success: true,
-                output: output,
-                time: data.run.time ? `${data.run.time}ms` : null
-            };
         }
 
+        // — Piston endpoints exhausted — try Wandbox as fallback —
+        try {
+            const wandboxResult = await this.executeViaWandbox(processedCode, lang, stdin);
+            if (wandboxResult) return wandboxResult;
+        } catch (err) {
+            lastError = lastError || err.message;
+        }
+
+        // — All backends failed —
+        const compilerUrl = this.onlineCompilers[lang] || this.onlineCompilers['java'];
         return {
             success: false,
-            error: data.message || 'Unknown error occurred'
+            error: `⚠️ Code execution service is currently unavailable.\n\n` +
+                   `Reason: ${lastError || 'All API endpoints failed'}\n\n` +
+                   `▸ You can run this code at: ${compilerUrl}\n` +
+                   `▸ Or self-host Piston: https://github.com/engineer-man/piston\n\n` +
+                   `Copy your code and paste it into the online compiler above.`
         };
+    }
+
+    /**
+     * Execute JavaScript code locally in the browser (sandboxed via iframe).
+     */
+    executeJavaScriptLocally(code) {
+        return new Promise((resolve) => {
+            const outputs = [];
+            const errors = [];
+            const startTime = performance.now();
+
+            try {
+                // Create a sandboxed iframe for execution
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.sandbox = 'allow-scripts';
+                document.body.appendChild(iframe);
+
+                const iframeWindow = iframe.contentWindow;
+
+                // Capture console methods
+                const fakeConsole = {
+                    log:   (...args) => outputs.push(args.map(String).join(' ')),
+                    error: (...args) => errors.push(args.map(String).join(' ')),
+                    warn:  (...args) => outputs.push('[warn] ' + args.map(String).join(' ')),
+                    info:  (...args) => outputs.push(args.map(String).join(' '))
+                };
+                iframeWindow.console = fakeConsole;
+
+                // Execute
+                iframeWindow.eval(code);
+
+                // Cleanup
+                document.body.removeChild(iframe);
+
+                const elapsed = (performance.now() - startTime).toFixed(1);
+
+                if (errors.length > 0) {
+                    resolve({
+                        success: false,
+                        error: errors.join('\n'),
+                        output: outputs.join('\n')
+                    });
+                } else {
+                    resolve({
+                        success: true,
+                        output: outputs.join('\n') || '(No output)',
+                        time: `${elapsed}ms (local)`
+                    });
+                }
+            } catch (err) {
+                const elapsed = (performance.now() - startTime).toFixed(1);
+                resolve({
+                    success: false,
+                    error: err.toString(),
+                    output: outputs.join('\n')
+                });
+            }
+        });
+    }
+
+    /**
+     * Execute code via the Wandbox API (free, no auth required).
+     * Tries direct URL first, then CORS-proxied URL as fallback.
+     * https://github.com/melpon/wandbox
+     */
+    async executeViaWandbox(code, language, stdin = '') {
+        const compiler = this.wandboxCompilers[language];
+        if (!compiler) return null;
+
+        // Wandbox names the Java source file "prog.java", so the public class
+        // must be called "prog" — or we simply drop the `public` keyword.
+        let processedCode = code;
+        if (language === 'java') {
+            processedCode = code.replace(/public\s+class\s+/g, 'class ');
+        }
+
+        const body = JSON.stringify({
+            code: processedCode,
+            compiler: compiler,
+            stdin: stdin || '',
+            'save': false
+        });
+
+        for (const url of this.wandboxURLs) {
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 20000);
+
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: body,
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+
+                if (!response.ok) continue;
+
+                const data = await response.json();
+
+                const stdout = data.program_output || '';
+                const compilerMsg = data.compiler_message || data.compiler_error || '';
+                const stderr = data.program_error || '';
+                const status = String(data.status || '0');
+
+                if (status !== '0' || stderr) {
+                    return {
+                        success: false,
+                        error: stderr || compilerMsg || `Process exited with code ${status}`,
+                        output: stdout
+                    };
+                }
+
+                // Compilation errors
+                if (compilerMsg && compilerMsg.toLowerCase().includes('error')) {
+                    return {
+                        success: false,
+                        error: compilerMsg,
+                        output: stdout
+                    };
+                }
+
+                return {
+                    success: true,
+                    output: stdout || '(No output)',
+                    time: null
+                };
+            } catch (_) {
+                // try next URL
+                continue;
+            }
+        }
+        return null;
     }
 
     detectLanguage(element) {
