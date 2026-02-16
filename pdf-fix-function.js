@@ -22,23 +22,36 @@ function downloadLessonAsPDF() {
     button.disabled = true;
 
     // ============================================================
-    // LESSON METADATA - Customize these values per lesson
+    // LESSON METADATA - Auto-detected from page
     // ============================================================
-    const lessonData = {
-        number: 'I',
-        title: 'Selection Structures',
-        subtitle: 'Control Program Flow Using Conditional Statements',
-        filename: 'CC3_Lesson1_Selection-Structures.pdf'
-    };
 
-    // Auto-detect lesson info from page if available
+    // Roman numeral to Arabic number converter
+    function romanToArabic(roman) {
+        const romanMap = { 'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000 };
+        let result = 0;
+        const str = roman.trim().toUpperCase();
+        for (let i = 0; i < str.length; i++) {
+            const current = romanMap[str[i]] || 0;
+            const next = romanMap[str[i + 1]] || 0;
+            result += (current < next) ? -current : current;
+        }
+        return result;
+    }
+
     const heroTitle = document.querySelector('.lesson-hero h2');
     const heroBadge = document.querySelector('.lesson-badge');
     const heroSubtitle = document.querySelector('.lesson-hero p');
-    
-    if (heroTitle) lessonData.title = heroTitle.textContent.trim();
-    if (heroBadge) lessonData.number = heroBadge.textContent.replace('Lesson', '').trim();
-    if (heroSubtitle) lessonData.subtitle = heroSubtitle.textContent.trim();
+
+    const romanNum = heroBadge ? heroBadge.textContent.replace('Lesson', '').trim() : 'I';
+    const arabicNum = romanToArabic(romanNum);
+    const titleText = heroTitle ? heroTitle.textContent.trim() : 'Selection Structures';
+
+    const lessonData = {
+        number: romanNum,
+        title: titleText,
+        subtitle: heroSubtitle ? heroSubtitle.textContent.trim() : 'Control Program Flow Using Conditional Statements',
+        filename: 'Lesson ' + arabicNum + ' - ' + titleText + '.pdf'
+    };
 
     // ============================================================
     // CREATE PDF CONTAINER

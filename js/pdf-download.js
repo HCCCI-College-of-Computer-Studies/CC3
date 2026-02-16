@@ -14,11 +14,28 @@ async function downloadLessonAsPDF() {
     const lessonTitle = document.querySelector('.lesson-hero h2');
     const lessonDesc = document.querySelector('.lesson-hero p');
     
+    // Roman numeral to Arabic number converter
+    function romanToArabic(roman) {
+        const romanMap = { 'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000 };
+        let result = 0;
+        const str = roman.trim().toUpperCase();
+        for (let i = 0; i < str.length; i++) {
+            const current = romanMap[str[i]] || 0;
+            const next = romanMap[str[i + 1]] || 0;
+            result += (current < next) ? -current : current;
+        }
+        return result;
+    }
+
+    const romanNum = lessonBadge ? lessonBadge.textContent.replace('Lesson', '').trim() : 'I';
+    const arabicNum = romanToArabic(romanNum);
+    const titleText = lessonTitle ? lessonTitle.textContent.trim() : 'Lesson';
+
     const lessonData = {
-        number: lessonBadge ? lessonBadge.textContent.replace('Lesson ', '') : 'I',
-        title: lessonTitle ? lessonTitle.textContent.trim() : 'Lesson',
+        number: romanNum,
+        title: titleText,
         subtitle: lessonDesc ? lessonDesc.textContent.trim() : '',
-        filename: 'CC3_Lesson_' + (lessonTitle ? lessonTitle.textContent.trim().replace(/[^a-zA-Z0-9]/g, '-') : 'Lesson') + '.pdf'
+        filename: 'Lesson ' + arabicNum + ' - ' + titleText + '.pdf'
     };
 
     try {
