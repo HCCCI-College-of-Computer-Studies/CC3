@@ -100,6 +100,24 @@ body {
     margin-bottom: 15px;
 }
 
+/* Lesson Hero Header Layout (Title + PDF Button) */
+.lesson-hero .container > div {
+    position: relative;
+    display: block !important;
+}
+
+.lesson-hero .container > div > div {
+    margin: 0 auto;
+    max-width: 760px;
+}
+
+.lesson-hero button[onclick="downloadLessonAsPDF()"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 0 !important;
+}
+
 /* Main Content */
 .lesson-content {
     padding: 40px 0;
@@ -642,6 +660,16 @@ pre {
     
     .lesson-hero h2 {
         font-size: 1.8rem;
+    }
+
+    .lesson-hero .container > div > div {
+        max-width: 100%;
+    }
+
+    .lesson-hero button[onclick="downloadLessonAsPDF()"] {
+        position: static;
+        margin: 18px auto 0 !important;
+        display: inline-flex;
     }
     
     .section-card {
