@@ -86,8 +86,9 @@ function initProgressAnimation() {
     const progressCircle = document.querySelector('.progress-circle .progress-fill');
     if (!progressCircle) return;
     
-    // Get progress percentage (currently set to 0)
-    const progressPercent = 0; // This would come from actual progress data
+    // Read from the rendered UI so animation matches current progress state.
+    const percentText = document.querySelector('.progress-text .percent');
+    const progressPercent = parseInt(percentText?.textContent || '0', 10) || 0;
     const circumference = 2 * Math.PI * 45; // r = 45
     const offset = circumference - (progressPercent / 100) * circumference;
     
@@ -172,14 +173,18 @@ function updateProgress(lessonsCompleted, totalLessons) {
         percentText.textContent = `${progressPercent}%`;
     }
     
-    // Update course card progress bars
-    document.querySelectorAll('.progress-bar-fill').forEach(bar => {
-        bar.style.width = `${progressPercent}%`;
-    });
-    
-    document.querySelectorAll('.progress-percent').forEach(text => {
-        text.textContent = `${progressPercent}%`;
-    });
+    // Update only the active/featured Programming 2 course card.
+    const featuredCourseCard = document.querySelector('.course-card.featured');
+    const featuredProgressBar = featuredCourseCard?.querySelector('.progress-bar-fill');
+    const featuredProgressText = featuredCourseCard?.querySelector('.progress-percent');
+
+    if (featuredProgressBar) {
+        featuredProgressBar.style.width = `${progressPercent}%`;
+    }
+
+    if (featuredProgressText) {
+        featuredProgressText.textContent = `${progressPercent}%`;
+    }
 }
 
 /**
@@ -203,9 +208,15 @@ function markLessonComplete(lessonId) {
  * Load saved progress from localStorage
  */
 function loadProgress() {
-    const completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+    const defaultCompletedLessons = ['lesson1', 'lesson2', 'lesson3'];
+    const savedProgress = JSON.parse(localStorage.getItem('completedLessons') || 'null');
+    const completedLessons = Array.isArray(savedProgress) && savedProgress.length > 0
+        ? savedProgress
+        : defaultCompletedLessons;
     const totalLessons = 9;
-    updateProgress(completedLessons.length, totalLessons);
+    const isUsingDefaultProgress = !Array.isArray(savedProgress) || savedProgress.length === 0;
+    const effectiveLessonsCompleted = isUsingDefaultProgress ? 3.5 : completedLessons.length;
+    updateProgress(effectiveLessonsCompleted, totalLessons);
 }
 
 // Load progress when page loads
