@@ -293,27 +293,44 @@ async function downloadLessonAsPDF() {
                     const rows = el.querySelectorAll('tr');
                     if (rows.length === 0) return;
                     
-                    checkPageBreak(rows.length * 7 + 5);
-                    
                     const headers = el.querySelectorAll('th');
                     const cols = headers.length || el.querySelector('tr')?.querySelectorAll('td').length || 3;
                     const colWidth = contentWidth / cols;
+                    const cellPadding = 2;
+                    const lineH = 3.5;
                     
                     let tableY = currentY;
                     
                     // Header row
                     if (headers.length > 0) {
-                        pdf.setFillColor(230, 240, 255);
-                        pdf.rect(margin, tableY - 3, contentWidth, 7, 'F');
                         pdf.setFont('helvetica', 'bold');
                         pdf.setFontSize(9);
+                        
+                        // Calculate wrapped lines for each header cell
+                        const headerWrapped = [];
+                        let maxHeaderLines = 1;
+                        headers.forEach(th => {
+                            const lines = pdf.splitTextToSize(th.textContent.trim(), colWidth - 4);
+                            headerWrapped.push(lines);
+                            if (lines.length > maxHeaderLines) maxHeaderLines = lines.length;
+                        });
+                        
+                        const headerRowH = maxHeaderLines * lineH + cellPadding * 2;
+                        checkPageBreak(headerRowH + 5);
+                        tableY = currentY;
+                        
+                        pdf.setFillColor(230, 240, 255);
+                        pdf.rect(margin, tableY - 3, contentWidth, headerRowH, 'F');
                         pdf.setTextColor(0, 0, 0);
                         
-                        headers.forEach((th, i) => {
-                            const text = th.textContent.trim().substring(0, 25);
-                            pdf.text(text, margin + (i * colWidth) + 2, tableY + 1);
+                        headerWrapped.forEach((lines, i) => {
+                            let ly = tableY - 3 + cellPadding + lineH * 0.7;
+                            lines.forEach(line => {
+                                pdf.text(line, margin + (i * colWidth) + 2, ly);
+                                ly += lineH;
+                            });
                         });
-                        tableY += 7;
+                        tableY += headerRowH;
                     }
                     
                     // Data rows
@@ -323,11 +340,32 @@ async function downloadLessonAsPDF() {
                     dataRows.forEach(row => {
                         if (row.querySelector('th')) return;
                         const cells = row.querySelectorAll('td');
-                        cells.forEach((td, i) => {
-                            const text = td.textContent.trim().substring(0, 30);
-                            pdf.text(text, margin + (i * colWidth) + 2, tableY + 1);
+                        
+                        // Calculate wrapped lines for each cell
+                        const cellWrapped = [];
+                        let maxLines = 1;
+                        cells.forEach(td => {
+                            const lines = pdf.splitTextToSize(td.textContent.trim(), colWidth - 4);
+                            cellWrapped.push(lines);
+                            if (lines.length > maxLines) maxLines = lines.length;
                         });
-                        tableY += 6;
+                        
+                        const rowH = maxLines * lineH + cellPadding * 2;
+                        checkPageBreak(rowH);
+                        
+                        cellWrapped.forEach((lines, i) => {
+                            let ly = tableY + cellPadding + lineH * 0.7;
+                            lines.forEach(line => {
+                                pdf.text(line, margin + (i * colWidth) + 2, ly);
+                                ly += lineH;
+                            });
+                        });
+                        
+                        // Row separator line
+                        pdf.setDrawColor(210, 210, 210);
+                        pdf.line(margin, tableY + rowH, margin + contentWidth, tableY + rowH);
+                        
+                        tableY += rowH;
                     });
                     
                     // Table border
